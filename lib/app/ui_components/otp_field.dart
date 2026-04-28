@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/gradient_border_side.dart'
     as s;
+import 'package:jar/app/extensions/theme_extensions.dart';
 
 class OtpField extends StatefulWidget {
   final int length;
@@ -84,21 +84,27 @@ class _OtpFieldState extends State<OtpField> {
     super.dispose();
   }
 
-  void _distributeCode(String digits, int startIndex) {
-    final String code = digits.substring(
+  Future<void> _handlePaste() async {
+    final ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
+    if (data?.text == null) return;
+
+    // Extract only digits and limit to remaining fields
+    final String digits = data!.text!.replaceAll(RegExp(r'\D'), '');
+    if (digits.isEmpty) return;
+
+    final String pasteText = digits.substring(
       0,
-      math.min(digits.length, widget.length - startIndex),
+      math.min(digits.length, widget.length),
     );
-    if (code.isEmpty) return;
 
     setState(() {
-      for (int j = 0; j < code.length; j++) {
-        final int idx = startIndex + j;
-        otp[idx] = code[j];
-        textEditingControllers[idx].text = code[j];
+      for (int i = 0; i < pasteText.length; i++) {
+        otp[i] = pasteText[i];
+        textEditingControllers[i].text = pasteText[i];
       }
 
-      int nextIndex = startIndex + code.length;
+      // Move focus to the next empty field or the last field
+      int nextIndex = pasteText.length;
       if (nextIndex >= widget.length) {
         nextIndex = widget.length - 1;
       }
@@ -109,20 +115,9 @@ class _OtpFieldState extends State<OtpField> {
     String otpString = otp.where((element) => element != null).join('');
     if (otpString.length == widget.length) {
       widget.onComplete?.call(otpString);
-      FocusScope.of(context).unfocus();
     } else {
       widget.onChanged?.call(otpString);
     }
-  }
-
-  Future<void> _handlePaste() async {
-    final ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
-    if (data?.text == null) return;
-
-    final String digits = data!.text!.replaceAll(RegExp(r'\D'), '');
-    if (digits.isEmpty) return;
-
-    _distributeCode(digits, 0);
   }
 
   void _showPasteMenu(Offset globalPosition, BuildContext context) async {
@@ -163,126 +158,114 @@ class _OtpFieldState extends State<OtpField> {
 
   @override
   Widget build(BuildContext context) {
-    return AutofillGroup(
-      child: Row(
-        spacing: widget.spacing,
-        mainAxisAlignment: widget.mainAxisAlignment,
-        crossAxisAlignment: widget.crossAxisAlignment,
-        mainAxisSize: widget.mainAxisSize,
-        children: [
-          for (int i = 0; i < widget.length; i++)
-            Stack(
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 50),
-                  curve: Curves.fastEaseInToSlowEaseOut,
-                  width: widget.fieldWidth,
-                  height: widget.fieldHeight,
-                  decoration: selectedIndex == i
-                      ? widget.selectedFieldDecoration
-                      : widget.unselectedFieldDecoration,
-                  alignment: Alignment.center,
-                  child: TextFormField(
-                    controller: textEditingControllers[i],
-                    cursorColor: widget.cursorColor,
-                    enableInteractiveSelection: false,
-                    contextMenuBuilder: null,
-                    keyboardType: TextInputType.number,
-                    autofillHints: i == 0
-                        ? const [AutofillHints.oneTimeCode]
-                        : null,
-                    key: Key(i.toString()),
-                    autofocus: widget.autofocus && i == 0,
-                    textAlign: TextAlign.center,
-                    focusNode: focusNodes[i]
-                      ..onKeyEvent = (FocusNode node, KeyEvent event) {
-                        if (event.logicalKey == LogicalKeyboardKey.backspace &&
-                            event is KeyDownEvent) {
-                          if (otp[i] == null) {
-                            if (i != 0) FocusScope.of(context).previousFocus();
-                            otp[i] = null;
-                          }
-                        }
-                        return KeyEventResult.ignored;
-                      }
-                      ..addListener(() {
-                        if (focusNodes[i].hasFocus) {
-                          setState(() {
-                            selectedIndex = i;
-                          });
-                          textEditingControllers[i].selection =
-                              TextSelection.fromPosition(
-                                TextPosition(
-                                  offset: textEditingControllers[i].text.length,
-                                ),
-                              );
-                        } else if (!focusNodes[i].hasFocus &&
-                            i == selectedIndex) {
-                          setState(() {
-                            selectedIndex = -1;
-                          });
-                        }
-                      }),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      CustomizedLengthLimitingTextInputFormatter(
-                        1,
-                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                      ),
-                    ],
-                    onChanged: (value) {
-                      if (value.length > 1) {
-                        textEditingControllers[i].text = value[0];
-                        _distributeCode(value, i);
-                        return;
-                      }
-
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                        otp[i] = value;
-
-                        String otpString = otp
-                            .where((element) => element != null)
-                            .join('');
-                        if (otpString.length == widget.length &&
-                            int.tryParse(otpString) != null) {
-                          widget.onComplete?.call(otpString);
-                          FocusScope.of(context).unfocus();
-                        }
-                      } else {
-                        otp[i] = null;
-                        if (i != 0) {
-                          focusNodes[i - 1].requestFocus();
+    return Row(
+      spacing: widget.spacing,
+      mainAxisAlignment: widget.mainAxisAlignment,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      mainAxisSize: widget.mainAxisSize,
+      children: [
+        for (int i = 0; i < widget.length; i++)
+          Stack(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 50),
+                curve: Curves.fastEaseInToSlowEaseOut,
+                width: widget.fieldWidth,
+                height: widget.fieldHeight,
+                decoration: selectedIndex == i
+                    ? widget.selectedFieldDecoration
+                    : widget.unselectedFieldDecoration,
+                alignment: Alignment.center,
+                child: TextFormField(
+                  controller: textEditingControllers[i],
+                  cursorColor: widget.cursorColor,
+                  enableInteractiveSelection: false,
+                  contextMenuBuilder: null,
+                  keyboardType: TextInputType.number,
+                  key: Key(i.toString()),
+                  autofocus: widget.autofocus && i == 0,
+                  textAlign: TextAlign.center,
+                  focusNode: focusNodes[i]
+                    ..onKeyEvent = (FocusNode node, KeyEvent event) {
+                      if (event.logicalKey == LogicalKeyboardKey.backspace &&
+                          event is KeyDownEvent) {
+                        if (otp[i] == null) {
+                          if (i != 0) FocusScope.of(context).previousFocus();
+                          otp[i] = null;
                         }
                       }
-
-                      widget.onChanged?.call(
-                        otp.where((element) => element != null).join(''),
-                      );
-                    },
-                    style: widget.textStyle,
-                    decoration: InputDecoration.collapsed(
-                      border: InputBorder.none,
-                      hintText: widget.hintText,
-                      hintStyle: widget.hintStyle,
+                      return KeyEventResult.ignored;
+                    }
+                    ..addListener(() {
+                      if (focusNodes[i].hasFocus) {
+                        setState(() {
+                          selectedIndex = i;
+                        });
+                        textEditingControllers[i].selection =
+                            TextSelection.fromPosition(
+                              TextPosition(
+                                offset: textEditingControllers[i].text.length,
+                              ),
+                            );
+                      } else if (!focusNodes[i].hasFocus &&
+                          i == selectedIndex) {
+                        setState(() {
+                          selectedIndex = -1;
+                        });
+                      }
+                    }),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CustomizedLengthLimitingTextInputFormatter(
+                      1,
+                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     ),
+                  ],
+                  onChanged: (value) {
+                    if (value.length == 1) {
+                      FocusScope.of(context).nextFocus();
+                      otp[i] = value;
+
+                      // handle on complete
+                      String otpString = otp
+                          .where((element) => element != null)
+                          .join('');
+                      if (otpString.length == widget.length &&
+                          int.tryParse(otpString) != null) {
+                        widget.onComplete?.call(otpString);
+                        FocusScope.of(context).unfocus();
+                      }
+                      //
+                    } else {
+                      otp[i] = null;
+                    }
+
+                    widget.onChanged?.call(
+                      otp.where((element) => element != null).join(''),
+                    );
+                  },
+                  style: widget.textStyle,
+                  decoration: InputDecoration.collapsed(
+                    border: InputBorder.none,
+                    hintText: widget.hintText,
+                    hintStyle: widget.hintStyle,
                   ),
                 ),
-                Positioned.fill(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      focusNodes[i].requestFocus();
-                    },
-                    onLongPressStart: (details) {
-                      _showPasteMenu(details.globalPosition, context);
-                    },
-                  ),
+              ),
+              Positioned.fill(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    focusNodes[i].requestFocus();
+                  },
+                  onLongPressStart: (details) {
+                    _showPasteMenu(details.globalPosition, context);
+                  },
                 ),
-              ],
-            ),
-        ],
-      ),
+              ),
+            ],
+          ),
+      ],
     );
   }
 }
@@ -351,11 +334,6 @@ class CustomizedLengthLimitingTextInputFormatter extends TextInputFormatter {
     if (maxLength == null ||
         maxLength == -1 ||
         newValue.text.characters.length <= maxLength) {
-      return newValue;
-    }
-
-    // Allow autofill/paste through so onChanged can distribute across fields
-    if (oldValue.text.isEmpty && newValue.text.length > maxLength) {
       return newValue;
     }
 

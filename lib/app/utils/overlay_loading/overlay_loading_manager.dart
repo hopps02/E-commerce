@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/utils/overlay_loading/overlay_loading.dart';
+import 'package:lottie/lottie.dart';
 
 abstract class LoadingManager {
   void show({
@@ -22,7 +24,7 @@ class OverlayLoadingManager implements LoadingManager {
   final OverlayLoading _overlayLoading;
 
   OverlayLoadingManager({OverlayLoading? overlayLoading})
-      : _overlayLoading = overlayLoading ?? OverlayLoading.instance;
+    : _overlayLoading = overlayLoading ?? OverlayLoading.instance;
 
   @override
   void show({
@@ -47,7 +49,16 @@ class OverlayLoadingManager implements LoadingManager {
       showMessage: showMessage,
       allowBackButton: allowBackButton,
       animationDuration: animationDuration,
-      customWidget: customWidget,
+      customWidget:
+          customWidget ??
+          Lottie.asset(
+            'assets/lottie_animations/sandy-loading.json',
+            key: Key("loading-lottie"),
+            width: 100.w,
+            height: 100.w,
+            repeat: true,
+            fit: BoxFit.contain,
+          ),
     );
   }
 

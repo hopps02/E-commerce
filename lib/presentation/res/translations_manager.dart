@@ -34,10 +34,12 @@ enum Translation {
   account_created_success,
   confirm_mobile_number,
   send_verification_code,
-  verification_code_sent,
+  verification_code_sent_part1,
+  verification_code_sent_part2,
   start_shopping,
   onboarding_grocery_desc,
-  resend_code,
+  resend_code_question,
+  resend_code_action,
   confirm,
   next,
 
@@ -93,6 +95,7 @@ enum Translation {
   shipping_cost,
   discount,
   total_amount,
+  seconds
 }
 
 extension Tra on Translation {

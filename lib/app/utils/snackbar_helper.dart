@@ -21,7 +21,7 @@ enum ErrorMessage {
 }
 
 class SnackbarHelper {
-  static void showMessage(
+  void showMessage(
     String message,
     ErrorMessage type, {
     int snackbarSeconds = 4,
@@ -52,8 +52,7 @@ class SnackbarHelper {
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.w),
                 width: double.infinity,
                 decoration: ShapeDecoration(
-                  color:
-                      NAVIGATOR_KEY.currentState!.context.colorScheme.secondary,
+                  color: ColorM.white,
                   shape: gred.SmoothRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     smoothness: 1,

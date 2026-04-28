@@ -30,10 +30,12 @@
   "account_created_success": "تم إنشاء حسابك بنجاح، خلّنا نبدأ ونوصّل لك كل اللي تحتاجه.",
   "confirm_mobile_number": "تأكيد رقم الجوال",
   "send_verification_code": "إرسال رمز التحقق",
-  "verification_code_sent": "أرسلنا رمز التحقق إلى جوالك {phone}. فضلاً أدخل الرمز أدناه للمتابعة",
+  "verification_code_sent_part1": "أرسلنا رمز التحقق إلى جوالك",
+  "verification_code_sent_part2": "فضلاً أدخل الرمز أدناه للمتابعة",
   "start_shopping": "ابدأ التسوق",
   "onboarding_grocery_desc": "كل احتياجاتك من السوبر ماركت في مكان واحد — اطلب بسهولة ويوصلك لحد باب البيت بسرعة.",
-  "resend_code": "لم يصلك الرمز؟ أعد الإرسال",
+  "resend_code_question": "لم يصلك الرمز؟",
+  "resend_code_action": "أعد الإرسال",
   "confirm": "تأكيد",
   "next": "التالي",
 
@@ -88,5 +90,6 @@
   "total_products": "إجمالي المنتجات",
   "shipping_cost": "تكلفة الشحن",
   "discount": "الخصم",
-  "total_amount": "المبلغ الإجمالي"
+  "total_amount": "المبلغ الإجمالي",
+  "seconds": "{count} ثانية"
 }

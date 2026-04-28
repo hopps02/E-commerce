@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 abstract class ColorM {
   static const Color primary      = Color(0xFF5130EC);
   static const Color primary200   = Color(0xFFC2B8FF);
+  static const Color primary500   = Color(0xFF5130EC);
   static const Color primary700   = Color(0xFF371DA3);
   static const Color primary800   = Color(0xFF2A157D);
   static const Color primary900   = Color(0xFF1E0F57);
   static const Color lightPurple  = Color(0xFFF3F0FF);
+  static const Color secondary    = Color(0xFF5F5CA4);
   
   static const Color gray50       = Color(0xFFF4F4F4);
   static const Color gray100      = Color(0xFFF9FAFB);

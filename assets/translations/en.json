@@ -30,10 +30,12 @@
   "account_created_success": "Your account has been created successfully, let's start and deliver everything you need.",
   "confirm_mobile_number": "Confirm mobile number",
   "send_verification_code": "Send verification code",
-  "verification_code_sent": "We sent the verification code to your mobile {phone}. Please enter the code below to continue",
+  "verification_code_sent_part1": "We sent the verification code to your mobile",
+  "verification_code_sent_part2": "Please enter the code below to continue",
   "start_shopping": "Start Shopping",
   "onboarding_grocery_desc": "All your supermarket needs in one place — order easily and it will be delivered to your door quickly.",
-  "resend_code": "Didn't receive the code? Resend",
+  "resend_code_question": "Didn't receive the code?",
+  "resend_code_action": "Resend",
   "confirm": "Confirm",
   "next": "Next",
 
@@ -88,5 +90,6 @@
   "total_products": "Total Products",
   "shipping_cost": "Shipping Cost",
   "discount": "Discount",
-  "total_amount": "Total Amount"
+  "total_amount": "Total Amount",
+  "seconds": "{count}s"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jar/app/extensions/extensions.dart';
 import 'gradient_border_side.dart' as gradient_border_side;
 
 class CustomInkButton extends StatelessWidget {
@@ -27,33 +28,33 @@ class CustomInkButton extends StatelessWidget {
   final Gradient? gradient;
   final List<BoxShadow>? boxShadow;
   final bool enableHapticFeedback;
-  const CustomInkButton(
-      {Key? key,
-      required this.child,
-      this.onTap,
-      this.onLongPress,
-      this.backgroundColor,
-      this.splashColor,
-      this.highlightColor,
-      this.borderRadius,
-      this.customBorderRadius,
-      this.padding,
-      this.margin,
-      this.elevation = 0,
-      this.shadowColor,
-      this.width,
-      this.height,
-      this.maxWidth,
-      this.maxHeight,
-      this.enabled = true,
-      this.animationDuration,
-      this.alignment,
-      this.side = gradient_border_side.BorderSide.none,
-      this.smoothness = 0,
-      this.gradient,
-      this.boxShadow,
-      this.enableHapticFeedback = true})
-      : super(key: key);
+  const CustomInkButton({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.onLongPress,
+    this.backgroundColor,
+    this.splashColor,
+    this.highlightColor,
+    this.borderRadius,
+    this.customBorderRadius,
+    this.padding,
+    this.margin,
+    this.elevation = 0,
+    this.shadowColor,
+    this.width,
+    this.height,
+    this.maxWidth,
+    this.maxHeight,
+    this.enabled = true,
+    this.animationDuration,
+    this.alignment,
+    this.side = gradient_border_side.BorderSide.none,
+    this.smoothness = 0,
+    this.gradient,
+    this.boxShadow,
+    this.enableHapticFeedback = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,13 @@ class CustomInkButton extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       margin: margin,
       decoration: ShapeDecoration(
-        color: backgroundColor ?? (gradient == null ? Colors.transparent : null),
+        color:
+            backgroundColor ??
+            (gradient == null
+                ? context.theme.textButtonTheme.style?.backgroundColor?.resolve(
+                    {},
+                  )
+                : null),
         gradient: gradient,
         shadows: boxShadow,
         shape: gradient_border_side.SmoothRectangleBorder(
@@ -69,7 +76,6 @@ class CustomInkButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 6),
           side: side,
         ),
-
       ),
       child: Material(
         color: Colors.transparent,

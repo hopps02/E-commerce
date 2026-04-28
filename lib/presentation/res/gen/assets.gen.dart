@@ -29,6 +29,16 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [appIcon, onBoardingImage];
 }
 
+class $AssetsLottieAnimationsGen {
+  const $AssetsLottieAnimationsGen();
+
+  /// File path: assets/lottie_animations/succesfull.json
+  String get succesfull => 'assets/lottie_animations/succesfull.json';
+
+  /// List of all assets
+  List<String> get values => [succesfull];
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
@@ -120,6 +130,8 @@ class Assets {
   const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieAnimationsGen lottieAnimations =
+      $AssetsLottieAnimationsGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }

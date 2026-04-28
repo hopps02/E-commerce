@@ -53,6 +53,7 @@ dependencies:
   firebase_core: ^4.4.0
   firebase_messaging: ^16.1.1
   async: ^2.13.1
+  lottie: ^3.1.2
 
   nice_text_form:
       git: https://github.com/ahmedjihad2024/nice_text_form.git
@@ -95,6 +96,7 @@ flutter:
     - assets/svg/
     - assets/images/
     - assets/fonts/
+    - assets/lottie_animations/
 
   fonts:
     - family: ibmp_plex_sans_arabic
