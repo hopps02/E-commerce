@@ -1,0 +1,23 @@
+concurrent = 1
+check_interval = 0
+connection_max_age = "15m0s"
+shutdown_timeout = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "Ahmed-Jihad"
+  url = "https://gitlab.com/"
+  id = 52912015
+  token = "glrt-W2jTG-6h1vPoM8SYZl2q1mM6MQpvOjEKcDoxY25mcGMKdDozCnU6bG9lM3Mc.01.1o1nhvqte"
+  token_obtained_at = 2026-04-28T13:23:49Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "shell"
+  shell = "powershell"
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
+    [runners.cache.s3]
+      AssumeRoleMaxConcurrency = 0
+    [runners.cache.gcs]
+    [runners.cache.azure]
