@@ -16,7 +16,7 @@ test_flutter:
     - flutter pub get
     - flutter test
   only:
-    - development
+    - master
 
 build_dev:
   stage: build
@@ -30,7 +30,7 @@ build_dev:
       - build/app/outputs/flutter-apk/app-release.apk
     expire_in: 1 month
   only:
-    - development
+    - master
 
 
 
