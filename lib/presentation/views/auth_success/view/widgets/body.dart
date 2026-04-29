@@ -5,7 +5,7 @@ import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/a_common/general_padding.dart';
+import 'package:jar/presentation/common/general_padding.dart';
 
 class Body extends StatelessWidget {
   const Body({

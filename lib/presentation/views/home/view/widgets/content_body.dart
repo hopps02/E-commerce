@@ -1,0 +1,97 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:jar/presentation/views/home/view/widgets/categories_section.dart';
+import 'package:jar/presentation/views/home/view/widgets/new_arrivals_banner.dart';
+import 'package:jar/presentation/views/home/view/widgets/offer_banner.dart';
+import 'package:jar/presentation/views/home/view/widgets/products_section.dart';
+import 'package:jar/presentation/views/home/view/widgets/top_category.dart';
+
+class ContentBody extends StatelessWidget {
+  final double bottomSafeAreaPadding;
+  const ContentBody({super.key, required this.bottomSafeAreaPadding});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
+      children: [
+        10.verticalSpace,
+        TopCategory(),
+        18.verticalSpace,
+        const OfferBanner(),
+        18.verticalSpace,
+        const CategoriesSection(),
+        18.verticalSpace,
+        ProductsSection(
+          title: "تسوّق حسب الأقسام",
+          subtitle: "تسوّق فواكه وخضار طازجة، ومنتجات الألبان… بسهولة",
+          onViewAllTap: () {},
+          products: [
+            {
+              "id": 1,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 1,
+            },
+            {
+              "id": 1,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 1,
+            },
+            {
+              "id": 1,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 1,
+            },
+          ],
+        ),
+        18.verticalSpace,
+        // New Arrivals Banner
+        NewArrivalsBanner(onShopNowTap: () {}),
+        18.verticalSpace,
+        // Snacks & Packaged Section
+        ProductsSection(
+          title: Translation.snacks_and_packaged.tr,
+          subtitle: Translation.quick_choices.tr,
+          onViewAllTap: () {},
+          products: [
+            {
+              "id": 2,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 0,
+            },
+            {
+              "id": 3,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 0,
+            },
+            {
+              "id": 4,
+              "name": "الكرنب الأخضر",
+              "image": "",
+              "price": 12.0,
+              "oldPrice": 18.0,
+              "quantity": 0,
+            },
+          ],
+        ),
+        18.verticalSpace,
+      ],
+    );
+  }
+}

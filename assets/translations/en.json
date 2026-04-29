@@ -33,6 +33,8 @@
   "verification_code_sent_part1": "We sent the verification code to your mobile",
   "verification_code_sent_part2": "Please enter the code below to continue",
   "start_shopping": "Start Shopping",
+  "start_shopping_now": "Start Shopping Now",
+
   "onboarding_grocery_desc": "All your supermarket needs in one place — order easily and it will be delivered to your door quickly.",
   "resend_code_question": "Didn't receive the code?",
   "resend_code_action": "Resend",
@@ -79,6 +81,7 @@
   "view_cart": "View Cart",
   "my_orders": "My Orders",
   "cart": "Cart",
+  "profile": "Profile",
   "previous_orders": "Previous",
   "ongoing_orders": "Ongoing",
   "delivered": "Delivered",

@@ -95,6 +95,7 @@ flutter:
     - assets/translations/
     - assets/svg/
     - assets/images/
+    - assets/temp_images/
     - assets/fonts/
     - assets/lottie_animations/
 

@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/extensions.dart';
+import 'package:jar/app/ui_components/custom_ink_button.dart';
+import 'package:jar/presentation/res/color_manager.dart';
+
+class CategoryCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String imagePath;
+  final Function() onTap;
+
+  const CategoryCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.imagePath,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomInkButton(
+      onTap: onTap,
+      width: 109.w,
+      height: 112.h,
+      backgroundColor: ColorM.lightPurple,
+      borderRadius: 12.r,
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.r),
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  title,
+                  maxLines: 2,
+                  style: context.labelMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: ColorM.gray900,
+                    fontSize: 13.sp,
+                  ),
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                4.verticalSpace,
+                Text(
+                  subtitle,
+                  style: context.labelSmall.copyWith(
+                    color: ColorM.gray600,
+                    fontSize: 10.sp,
+                  ),
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          PositionedDirectional(
+            bottom: 0.h,
+            start: 0,
+            end: -30.w,
+            child: Image.asset(
+              imagePath,
+              height: 55.h,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

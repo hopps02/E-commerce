@@ -19,7 +19,7 @@ class CustomCachedImage extends StatelessWidget {
   final BorderSide side;
 
   const CustomCachedImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.width,
     this.height,
@@ -30,7 +30,7 @@ class CustomCachedImage extends StatelessWidget {
     this.borderRadius,
     this.isCircle = false,
     this.side = BorderSide.none,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,8 @@ class CustomCachedImage extends StatelessWidget {
               height: finalHeight,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color:errorBackgroundColor ??
+                color:
+                    errorBackgroundColor ??
                     context.colorScheme.surface.withValues(alpha: 0.1),
               ),
               child: SvgPicture.asset(
@@ -59,7 +60,7 @@ class CustomCachedImage extends StatelessWidget {
                 height: finalHeight * 0.8,
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  context.colorScheme.surface.withValues(alpha: 0.5),
+                  Colors.black.withValues(alpha: .1),
                   BlendMode.srcIn,
                 ),
               ),

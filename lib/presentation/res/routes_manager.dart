@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
+import 'package:jar/presentation/views/home/view/screens/home_view.dart';
+import 'package:jar/presentation/views/search/view/screens/search_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
+
 enum RoutesManager {
   splash('splash/'),
   onboarding('onboarding/'),
   auth('auth/'),
-  authSuccess('authSuccess/'),;
+  authSuccess('authSuccess/'),
+  home('home/'),
+  search('search/'),;
+
   final String route;
 
   const RoutesManager(this.route);
@@ -27,6 +33,9 @@ class RoutesGeneratorManager {
       RoutesManager.onboarding => const OnboardingView(),
       RoutesManager.auth => const AuthView(),
       RoutesManager.authSuccess => const AuthSuccessView(),
+      RoutesManager.home => const HomeView(),
+      RoutesManager.search => const SearchView(),
+
     };
   }
 

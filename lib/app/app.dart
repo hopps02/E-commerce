@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:jar/app/di/dependency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:jar/app/utils/global_keyboard_dismissal.dart';
 
@@ -25,9 +24,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Key key = UniqueKey();
-  late ThemeMode _themeMode;
-
   @override
   void initState() {
     SCAFFOLD_MESSENGER_KEY = GlobalKey<ScaffoldMessengerState>();
@@ -37,9 +33,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    _themeMode = DI().storageService.themeMode == ThemeMode.dark
-        ? ThemeMode.dark
-        : ThemeMode.light;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, details) {
@@ -47,10 +40,9 @@ class MyAppState extends State<MyApp> {
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
           navigatorKey: NAVIGATOR_KEY,
           debugShowCheckedModeBanner: false,
-          initialRoute: RoutesManager.splash.route,
+          initialRoute: RoutesManager.home.route,
           theme: ThemeManager.lightTheme(context),
-          // darkTheme: ThemeManager.darkTheme,
-          themeMode: _themeMode,
+          themeMode: ThemeMode.light,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
@@ -63,5 +55,5 @@ class MyAppState extends State<MyApp> {
     );
   }
 
-  ThemeMode get themeMode => _themeMode;
+  ThemeMode get themeMode => ThemeMode.light;
 }

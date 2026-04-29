@@ -33,6 +33,8 @@
   "verification_code_sent_part1": "أرسلنا رمز التحقق إلى جوالك",
   "verification_code_sent_part2": "فضلاً أدخل الرمز أدناه للمتابعة",
   "start_shopping": "ابدأ التسوق",
+  "start_shopping_now": "ابدأ التسوق الآن",
+
   "onboarding_grocery_desc": "كل احتياجاتك من السوبر ماركت في مكان واحد — اطلب بسهولة ويوصلك لحد باب البيت بسرعة.",
   "resend_code_question": "لم يصلك الرمز؟",
   "resend_code_action": "أعد الإرسال",
@@ -79,6 +81,7 @@
   "view_cart": "عرض السلة",
   "my_orders": "طلباتي",
   "cart": "السلة",
+  "profile": "حسابي",
   "previous_orders": "السابقة",
   "ongoing_orders": "الجارية",
   "delivered": "تم التوصيل",

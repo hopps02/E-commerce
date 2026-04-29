@@ -6,7 +6,7 @@ import 'package:jar/app/di/dependency_injection.dart';
 import 'package:jar/app/utils/snackbar_helper.dart';
 import 'package:jar/app/utils/validator.dart';
 import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/a_common/general_padding.dart';
+import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/presentation/views/auth/riverpod/sign_up_controller.dart';
 import 'package:jar/presentation/views/auth/view/widgets/content.dart';
 import 'package:jar/presentation/views/auth/view/widgets/logo.dart';

@@ -5,6 +5,7 @@ import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
+import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border_side;
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
@@ -44,21 +45,17 @@ class DefaultAppBar extends StatelessWidget {
     return CustomInkButton(
       onTap: backFunction ?? () => Navigator.of(context).maybePop(),
       padding: EdgeInsets.zero,
-      width: 40.w,
-      height: 40.w,
+      width: 38.w,
+      height: 38.w,
+      smoothness: 0,
       backgroundColor: backgroundColor,
-      borderRadius: SizeM.commonBorderRadius.r,
+      borderRadius:12.r,
       alignment: Alignment.center,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
-          border: Border.all(color: ColorM.gray200),
-        ),
-        child: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: arrowColor,
-          size: 20.sp,
-        ),
+      side: gradient_border_side.BorderSide(color: ColorM.gray300, width: 1.w),
+      child: Icon(
+        Icons.arrow_back_ios_new_rounded,
+        color: arrowColor,
+        size: 20.sp,
       ),
     );
   }

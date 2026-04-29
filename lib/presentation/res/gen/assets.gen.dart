@@ -21,26 +21,36 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app-icon.png');
 
+  /// File path: assets/images/new-arrivals.png
+  AssetGenImage get newArrivals =>
+      const AssetGenImage('assets/images/new-arrivals.png');
+
   /// File path: assets/images/on-boarding-image.png
   AssetGenImage get onBoardingImage =>
       const AssetGenImage('assets/images/on-boarding-image.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [appIcon, onBoardingImage];
+  List<AssetGenImage> get values => [appIcon, newArrivals, onBoardingImage];
 }
 
 class $AssetsLottieAnimationsGen {
   const $AssetsLottieAnimationsGen();
 
+  /// File path: assets/lottie_animations/sandy-loading.json
+  String get sandyLoading => 'assets/lottie_animations/sandy-loading.json';
+
   /// File path: assets/lottie_animations/succesfull.json
   String get succesfull => 'assets/lottie_animations/succesfull.json';
 
   /// List of all assets
-  List<String> get values => [succesfull];
+  List<String> get values => [sandyLoading, succesfull];
 }
 
 class $AssetsSvgGen {
   const $AssetsSvgGen();
+
+  /// File path: assets/svg/add-square.svg
+  SvgGenImage get addSquare => const SvgGenImage('assets/svg/add-square.svg');
 
   /// File path: assets/svg/app-logo.svg
   SvgGenImage get appLogo => const SvgGenImage('assets/svg/app-logo.svg');
@@ -61,6 +71,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/border-heart.svg
   SvgGenImage get borderHeart =>
       const SvgGenImage('assets/svg/border-heart.svg');
+
+  /// File path: assets/svg/border-home.svg
+  SvgGenImage get borderHome => const SvgGenImage('assets/svg/border-home.svg');
 
   /// File path: assets/svg/border-receipt.svg
   SvgGenImage get borderReceipt =>
@@ -83,8 +96,16 @@ class $AssetsSvgGen {
   /// File path: assets/svg/fill-home.svg
   SvgGenImage get fillHome => const SvgGenImage('assets/svg/fill-home.svg');
 
+  /// File path: assets/svg/fill-receipt.svg
+  SvgGenImage get fillReceipt =>
+      const SvgGenImage('assets/svg/fill-receipt.svg');
+
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
+
+  /// File path: assets/svg/minus-square.svg
+  SvgGenImage get minusSquare =>
+      const SvgGenImage('assets/svg/minus-square.svg');
 
   /// File path: assets/svg/saudi-riyal-symbol.svg
   SvgGenImage get saudiRiyalSymbol =>
@@ -95,22 +116,49 @@ class $AssetsSvgGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+    addSquare,
     appLogo,
     arrowLeftLong,
     bagPlus,
     bin,
     borderBag,
     borderHeart,
+    borderHome,
     borderReceipt,
     borderUser,
     bubbleCheck,
     circleCheck,
     fillHeart,
     fillHome,
+    fillReceipt,
     location,
+    minusSquare,
     saudiRiyalSymbol,
     search,
   ];
+}
+
+class $AssetsTempImagesGen {
+  const $AssetsTempImagesGen();
+
+  /// File path: assets/temp_images/image1.png
+  AssetGenImage get image1 =>
+      const AssetGenImage('assets/temp_images/image1.png');
+
+  /// File path: assets/temp_images/image2.png
+  AssetGenImage get image2 =>
+      const AssetGenImage('assets/temp_images/image2.png');
+
+  /// File path: assets/temp_images/image3.png
+  AssetGenImage get image3 =>
+      const AssetGenImage('assets/temp_images/image3.png');
+
+  /// File path: assets/temp_images/offer-girl.png
+  AssetGenImage get offerGirl =>
+      const AssetGenImage('assets/temp_images/offer-girl.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [image1, image2, image3, offerGirl];
 }
 
 class $AssetsTranslationsGen {
@@ -133,6 +181,7 @@ class Assets {
   static const $AssetsLottieAnimationsGen lottieAnimations =
       $AssetsLottieAnimationsGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
+  static const $AssetsTempImagesGen tempImages = $AssetsTempImagesGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }
 
