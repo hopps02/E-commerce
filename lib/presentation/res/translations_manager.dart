@@ -66,6 +66,7 @@ enum Translation {
   frozen_items,
   cleaners,
   available,
+  unavailable,
   save_up_to_40_on_fresh,
   package_size,
   shop_now,

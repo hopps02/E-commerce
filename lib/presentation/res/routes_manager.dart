@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
 import 'package:jar/presentation/views/home/view/screens/home_view.dart';
+import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
 import 'package:jar/presentation/views/search/view/screens/search_view.dart';
 import 'package:jar/presentation/views/sections/view/screens/sections_view.dart';
@@ -18,7 +19,8 @@ enum RoutesManager {
   home('home/'),
   search('search/'),
   sections('sections/'),
-  products('products/');
+  products('products/'),
+  productDetails('productDetails/');
 
   final String route;
 
@@ -43,6 +45,7 @@ class RoutesGeneratorManager {
       RoutesManager.search => const SearchView(),
       RoutesManager.sections => const SectionsView(),
       RoutesManager.products => _productsView(settings.arguments),
+      RoutesManager.productDetails => _productDetailsView(settings.arguments),
     };
   }
 
@@ -75,6 +78,16 @@ class RoutesGeneratorManager {
   static ProductsView _productsView(Object? arguments) {
     return ProductsView(
       args: arguments as ProductsViewArgs? ?? ProductsViewArgs(title: "NONE"),
+    );
+  }
+
+  static ProductDetailsView _productDetailsView(Object? arguments) {
+    return ProductDetailsView(
+      args: arguments is ProductDetailsViewArgs
+          ? arguments
+          : const ProductDetailsViewArgs(
+              productId: ''
+            ),
     );
   }
 }

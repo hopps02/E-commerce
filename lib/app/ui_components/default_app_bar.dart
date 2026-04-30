@@ -5,7 +5,8 @@ import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border_side;
+import 'package:jar/app/ui_components/gradient_border_side.dart'
+    as gradient_border_side;
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
@@ -39,8 +40,8 @@ class DefaultAppBar extends StatelessWidget {
     if (customBackButton != null) return customBackButton;
 
     // Determine arrow color based on background
-    Color arrowColor =  ColorM.gray700;
-    Color backgroundColor =  Colors.transparent;
+    Color arrowColor = ColorM.gray700;
+    Color backgroundColor = Colors.transparent;
 
     return CustomInkButton(
       onTap: backFunction ?? () => Navigator.of(context).maybePop(),
@@ -49,7 +50,7 @@ class DefaultAppBar extends StatelessWidget {
       height: 38.w,
       smoothness: 0,
       backgroundColor: backgroundColor,
-      borderRadius:12.r,
+      borderRadius: 12.r,
       alignment: Alignment.center,
       side: gradient_border_side.BorderSide(color: ColorM.gray300, width: 1.w),
       child: Icon(
@@ -88,27 +89,36 @@ class DefaultAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final leading = _buildLeading(context);
-    final title = _buildTitle(context);
+    final titleW = _buildTitle(context);
     final actions = actionButtons ?? const [];
 
     return Padding(
       padding: padding ?? _defaultPadding,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          SizedBox(width: 40.w, child: leading),
+          // ── Leading + Actions: overlaid as a spaceBetween row ─────────────
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Back button sits on the right (= start in RTL)
+              SizedBox(width: 40.w, child: leading),
 
-          if (title != null) Expanded(child: title),
-
-          if(actions.isNotEmpty) Expanded(
-            child: SizedBox(
-              child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: actions.map((action) => action).toList(),
-                    ),
-            ),
+              // Actions sit on the left (= end in RTL)
+              if (actions.isNotEmpty)
+                Row(mainAxisSize: MainAxisSize.min, children: actions)
+              else
+                SizedBox(width: 40.w), // placeholder to keep title centered
+            ],
           ),
+
+          // ── Title: always truly centered over the full bar width ──────────
+          if (titleW != null)
+            Padding(
+              // Keep the title text from running under the buttons
+              padding: EdgeInsets.symmetric(horizontal: 48.w),
+              child: titleW,
+            ),
         ],
       ),
     );

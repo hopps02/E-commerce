@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/app/ui_components/customized_smart_refresh.dart';
 import 'package:jar/app/utils/state_render.dart';
 import 'package:jar/presentation/common/fast_state_render.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
+import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
 import 'package:jar/presentation/views/products/riverpod/products_controller.dart';
 
 class ProductsData extends ConsumerWidget {
@@ -52,16 +55,26 @@ class ProductsData extends ConsumerWidget {
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return ProductCard(
-                fitForGridList: true,
-                title: "الكرنب الأخضر",
-                imageUrl: "",
-                price: 10.0,
-                oldPrice: 12.0,
-                quantity: 1,
-                isFavorite: false,
-                onFavTap: () {},
-                onQuantityChanged: (_) {},
+              return GestureDetector(
+                onTap: () {
+                  context.pushNamed(
+                    RoutesManager.productDetails.route,
+                    arguments: ProductDetailsViewArgs(
+                      productId: '',
+                    ),
+                  );
+                },
+                child: ProductCard(
+                  fitForGridList: true,
+                  title: 'الكرنب الأخضر',
+                  imageUrl: '',
+                  price: 10.0,
+                  oldPrice: 12.0,
+                  quantity: 1,
+                  isFavorite: false,
+                  onFavTap: () {},
+                  onQuantityChanged: (_) {},
+                ),
               );
             },
           ),

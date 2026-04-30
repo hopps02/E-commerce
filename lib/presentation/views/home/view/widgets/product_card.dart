@@ -8,6 +8,9 @@ import 'package:jar/app/ui_components/flex_text.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
+import 'package:jar/presentation/views/products/view/screens/products_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 
 class ProductCard extends StatefulWidget {
@@ -66,7 +69,8 @@ class _ProductCardState extends State<ProductCard> {
   void didUpdateWidget(covariant ProductCard oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.quantity != oldWidget.quantity || _currentQuantity != widget.quantity) {
+    if (widget.quantity != oldWidget.quantity ||
+        _currentQuantity != widget.quantity) {
       _currentQuantity = widget.quantity ?? 0;
     }
   }
@@ -81,189 +85,196 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
-    return SizedBox(
-      width: widget.fitForGridList ? 9999999 : 156.w,
-      child: Column(
-        crossAxisAlignment: .end,
-        children: [
-          // Top Area with Image and Custom Curve
-          Stack(
-            children: [
-              // Background with Curve
-              CustomPaint(
-                size: Size(widget.fitForGridList ? 9999999 : 156.w, 147.h),
-                painter: CardTopPainter(
-                  isRtl: !isRtl,
-                  innerBorderRadius: 10.r,
-                  backgroundBorderRadius: 12.r,
-                  padding: 4.w,
-                  notchRadius: 55.w,
-                ),
-              ),
-              // Product Image
-              Positioned.fill(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 25.h,
-                  ),
-                  child: CustomCachedImage(
-                    imageUrl: widget.imageUrl,
-                    fit: BoxFit.contain,
+    return InkWell(
+      onTap: () {
+        context.pushNamed(
+          RoutesManager.productDetails.route,
+          arguments: ProductDetailsViewArgs(productId: ""),
+        );
+      },
+      hoverColor: ColorM.transparent,
+      splashColor: ColorM.transparent,
+      child: SizedBox(
+        width: widget.fitForGridList ? 9999999 : 156.w,
+        child: Column(
+          crossAxisAlignment: .end,
+          children: [
+            Stack(
+              children: [
+                // Background with Curve
+                CustomPaint(
+                  size: Size(widget.fitForGridList ? 9999999 : 156.w, 147.h),
+                  painter: CardTopPainter(
+                    isRtl: !isRtl,
+                    innerBorderRadius: 10.r,
+                    backgroundBorderRadius: 12.r,
+                    padding: 4.w,
+                    notchRadius: 55.w,
                   ),
                 ),
-              ),
-              // Favorite Button - Positioned on the LEFT visually (End in RTL, Start in LTR)
-              PositionedDirectional(
-                top: 4.w,
-                end: 4.w,
-
-                child: CustomInkButton(
-                  onTap: widget.onFavTap,
-                  width: 32.w,
-                  height: 32.w,
-                  backgroundColor: ColorM.white,
-                  borderRadius: 99999,
-                  child: Center(
-                    child: widget.isFavorite
-                        ? Assets.svg.fillHeart.svg(
-                            width: 14.w,
-                            color: Colors.red,
-                          )
-                        : Assets.svg.borderHeart.svg(
-                            width: 14.w,
-                            color: ColorM.gray900,
-                          ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          8.verticalSpace,
-          // Bottom Area
-          Row(
-            mainAxisAlignment: .spaceBetween,
-            children: [
-              // Info Section
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Text(
-                      widget.title,
-                      style: context.labelMedium.copyWith(
-                        color: ColorM.gray900,
-                        fontWeight: FontWeightM.medium,
-                      ),
-                      maxLines: 1,
-                      overflow: .ellipsis,
+                // Product Image
+                Positioned.fill(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 25.h,
                     ),
-                    Row(
-                      mainAxisAlignment: .start,
-                      children: [
-                        FlexText(
-                          child: Text(
-                            "${widget.price}",
-                            style: context.labelMedium.copyWith(
-                              color: ColorM.primary550,
-                              fontWeight: FontWeightM.semiBold,
+                    child: CustomCachedImage(
+                      imageUrl: widget.imageUrl,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                // Favorite Button - Positioned on the LEFT visually (End in RTL, Start in LTR)
+                PositionedDirectional(
+                  top: 4.w,
+                  end: 4.w,
+
+                  child: CustomInkButton(
+                    onTap: widget.onFavTap,
+                    width: 32.w,
+                    height: 32.w,
+                    backgroundColor: ColorM.white,
+                    borderRadius: 99999,
+                    child: Center(
+                      child: widget.isFavorite
+                          ? Assets.svg.fillHeart.svg(
+                              width: 14.w,
+                              color: Colors.red,
+                            )
+                          : Assets.svg.borderHeart.svg(
+                              width: 14.w,
+                              color: ColorM.gray900,
                             ),
-                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            8.verticalSpace,
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: context.labelMedium.copyWith(
+                          color: ColorM.gray900,
+                          fontWeight: FontWeightM.medium,
                         ),
-                        2.horizontalSpace,
-                        Assets.svg.saudiRiyalSymbol.svg(
-                          width: 9.w,
-                          color: ColorM.primary550,
-                        ),
-                        if (widget.oldPrice != null) ...[
-                          8.horizontalSpace,
+                        maxLines: 1,
+                        overflow: .ellipsis,
+                      ),
+                      Row(
+                        mainAxisAlignment: .start,
+                        children: [
                           FlexText(
                             child: Text(
-                              "${widget.oldPrice}",
-                              style: context.labelSmall.copyWith(
-                                color: ColorM.gray500,
-                                decoration: .lineThrough,
-                                fontSize: 10.sp,
+                              "${widget.price}",
+                              style: context.labelMedium.copyWith(
+                                color: ColorM.primary550,
+                                fontWeight: FontWeightM.semiBold,
                               ),
                             ),
                           ),
-                          4.horizontalSpace,
+                          2.horizontalSpace,
                           Assets.svg.saudiRiyalSymbol.svg(
-                            width: 7.w,
-                            color: ColorM.gray500,
+                            width: 9.w,
+                            color: ColorM.primary550,
                           ),
-                        ],
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // Add/Quantity Section
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: _currentQuantity > 0
-                    ? Container(
-                        key: const ValueKey("counter"),
-                        width: 58.w,
-                        height: 22.h,
-                        padding: EdgeInsets.symmetric(horizontal: 2.w),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF3F0FF),
-                          borderRadius: BorderRadius.circular(5.r),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              onTap: () => _handleQuantityChange(1),
-                              child: SvgPicture.asset(
-                                Assets.svg.addSquare.path,
-                                width: 14.w,
-                              ),
-                            ),
+                          if (widget.oldPrice != null) ...[
+                            8.horizontalSpace,
                             FlexText(
                               child: Text(
-                                "$_currentQuantity",
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeightM.medium,
-                                  color: const Color(0xFF433F41),
+                                "${widget.oldPrice}",
+                                style: context.labelSmall.copyWith(
+                                  color: ColorM.gray500,
+                                  decoration: .lineThrough,
+                                  fontSize: 10.sp,
                                 ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () => _handleQuantityChange(-1),
-                              child: SvgPicture.asset(
-                                Assets.svg.minusSquare.path,
-                                width: 14.w,
-                              ),
+                            4.horizontalSpace,
+                            Assets.svg.saudiRiyalSymbol.svg(
+                              width: 7.w,
+                              color: ColorM.gray500,
                             ),
                           ],
-                        ),
-                      )
-                    : GestureDetector(
-                        key: const ValueKey("add"),
-                        onTap: () => _handleQuantityChange(1),
-                        child: Container(
-                          width: 28.w,
-                          height: 28.w,
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Add/Quantity Section
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: _currentQuantity > 0
+                      ? Container(
+                          key: const ValueKey("counter"),
+                          width: 58.w,
+                          height: 22.h,
+                          padding: EdgeInsets.symmetric(horizontal: 2.w),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF3F0FF),
-                            borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(5.r),
                           ),
-                          child: Center(
-                            child: Assets.svg.bagPlus.svg(
-                              width: 16.w,
-                              color: ColorM.primary,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () => _handleQuantityChange(1),
+                                child: SvgPicture.asset(
+                                  Assets.svg.addSquare.path,
+                                  width: 14.w,
+                                ),
+                              ),
+                              FlexText(
+                                child: Text(
+                                  "$_currentQuantity",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeightM.medium,
+                                    color: const Color(0xFF433F41),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => _handleQuantityChange(-1),
+                                child: SvgPicture.asset(
+                                  Assets.svg.minusSquare.path,
+                                  width: 14.w,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : GestureDetector(
+                          key: const ValueKey("add"),
+                          onTap: () => _handleQuantityChange(1),
+                          child: Container(
+                            width: 28.w,
+                            height: 28.w,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF3F0FF),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Center(
+                              child: Assets.svg.bagPlus.svg(
+                                width: 16.w,
+                                color: ColorM.primary,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-              ),
-            ],
-          ),
-        ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
