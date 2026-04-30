@@ -106,7 +106,13 @@ class DefaultAppBar extends StatelessWidget {
 
               // Actions sit on the left (= end in RTL)
               if (actions.isNotEmpty)
-                Row(mainAxisSize: MainAxisSize.min, children: actions)
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: actions,
+                  ),
+                )
               else
                 SizedBox(width: 40.w), // placeholder to keep title centered
             ],
