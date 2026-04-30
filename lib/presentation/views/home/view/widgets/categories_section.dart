@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/extensions.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
+import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/section_header.dart';
 import 'package:jar/presentation/views/home/view/widgets/category_grid_item.dart';
 
@@ -25,8 +28,10 @@ class CategoriesSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
           child: SectionHeader(
-            title: "الأقسام",
-            onViewAllTap: () {},
+            title: Translation.categories.tr,
+            onViewAllTap: () {
+              context.pushNamed(RoutesManager.sections.route);
+            },
           ),
         ),
         16.verticalSpace,
@@ -34,7 +39,7 @@ class CategoriesSection extends StatelessWidget {
         Wrap(
           spacing: 15.w,
           runSpacing: 16.h,
-          alignment: WrapAlignment.center,
+          alignment: WrapAlignment.start,
           children: categories.map((cat) {
             return CategoryGridItem(
               title: cat['title']!,

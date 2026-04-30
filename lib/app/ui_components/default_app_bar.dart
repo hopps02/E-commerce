@@ -98,13 +98,11 @@ class DefaultAppBar extends StatelessWidget {
         children: [
           SizedBox(width: 40.w, child: leading),
 
-          if (title != null) title,
+          if (title != null) Expanded(child: title),
 
-          Expanded(
+          if(actions.isNotEmpty) Expanded(
             child: SizedBox(
-              child: actions.isEmpty
-                  ? null
-                  : Row(
+              child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: actions.map((action) => action).toList(),

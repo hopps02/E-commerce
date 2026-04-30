@@ -4,6 +4,7 @@ import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
 import 'package:jar/presentation/views/home/view/screens/home_view.dart';
 import 'package:jar/presentation/views/search/view/screens/search_view.dart';
+import 'package:jar/presentation/views/sections/view/screens/sections_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
@@ -14,7 +15,8 @@ enum RoutesManager {
   auth('auth/'),
   authSuccess('authSuccess/'),
   home('home/'),
-  search('search/'),;
+  search('search/'),
+  sections('sections/');
 
   final String route;
 
@@ -35,7 +37,7 @@ class RoutesGeneratorManager {
       RoutesManager.authSuccess => const AuthSuccessView(),
       RoutesManager.home => const HomeView(),
       RoutesManager.search => const SearchView(),
-
+      RoutesManager.sections => const SectionsView(),
     };
   }
 
