@@ -95,5 +95,7 @@
   "shipping_cost": "تكلفة الشحن",
   "discount": "الخصم",
   "total_amount": "المبلغ الإجمالي",
-  "seconds": "{count} ثانية"
+  "seconds": "{count} ثانية",
+  "checkout": "الدفع",
+  "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي."
 }

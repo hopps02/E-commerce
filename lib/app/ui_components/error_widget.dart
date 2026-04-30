@@ -6,7 +6,9 @@ import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
+import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:lottie/lottie.dart';
 
 enum ErrorType { noInternet, noResults, noNotification, notFound, noEsim, none }
 
@@ -60,7 +62,15 @@ class MyErrorWidget extends StatelessWidget {
             width: svgSize ?? 270.w,
           ),
           14.verticalSpace,
-        ],
+        ] else
+          Lottie.asset(
+            Assets.lottieAnimations.error.path,
+            key: const Key("empty-lottie-error-render"),
+            width: 200.w,
+            height: 200.w,
+            repeat: true,
+            fit: BoxFit.contain,
+          ),
         Text(
           titleMessage,
           textAlign: TextAlign.center,
@@ -84,8 +94,16 @@ class MyErrorWidget extends StatelessWidget {
           CustomInkButton(
             onTap: onRetry,
             backgroundColor: ColorM.primary,
-            borderRadius: 999999,
+            borderRadius: 10.r,
             padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
+            smoothness: 1,
+            boxShadow: [
+              BoxShadow(
+                color: ColorM.primary.withValues(alpha: 0.2),
+                blurRadius: 0,
+                offset: Offset(9.w, 9.w),
+              ),
+            ],
             child: Text(
               retryText ?? Translation.retry_button.tr,
               style: context.labelMedium.copyWith(

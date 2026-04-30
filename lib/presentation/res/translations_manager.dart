@@ -98,7 +98,7 @@ enum Translation {
   shipping_cost,
   discount,
   total_amount,
-  seconds, profile
+  seconds, profile, checkout, no_data_found
 }
 
 extension Tra on Translation {

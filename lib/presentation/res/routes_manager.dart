@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
+import 'package:jar/presentation/views/cart/view/screens/cart_view.dart';
 import 'package:jar/presentation/views/home/view/screens/home_view.dart';
 import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
@@ -20,7 +21,8 @@ enum RoutesManager {
   search('search/'),
   sections('sections/'),
   products('products/'),
-  productDetails('productDetails/');
+  productDetails('productDetails/'),
+  cart('cart/');
 
   final String route;
 
@@ -46,6 +48,7 @@ class RoutesGeneratorManager {
       RoutesManager.sections => const SectionsView(),
       RoutesManager.products => _productsView(settings.arguments),
       RoutesManager.productDetails => _productDetailsView(settings.arguments),
+      RoutesManager.cart => const CartView(),
     };
   }
 

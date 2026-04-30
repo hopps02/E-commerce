@@ -95,5 +95,7 @@
   "shipping_cost": "Shipping Cost",
   "discount": "Discount",
   "total_amount": "Total Amount",
-  "seconds": "{count}s"
+  "seconds": "{count}s",
+  "checkout": "Checkout",
+  "no_data_found": "Oops, there's no data to show right now."
 }

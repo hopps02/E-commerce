@@ -26,7 +26,7 @@ class ContentBody extends ConsumerWidget {
 
     return FastStateRender(
       reqState: ReqState.success /* tapHomeState.reqState */,
-      loadingAlignment: Alignment(0, -0.2),
+      alignment: Alignment(0, -0.2),
       errorMessage: tapHomeState.errorMessage,
       child: Body(bottomSafeAreaPadding: bottomSafeAreaPadding),
     );
@@ -54,7 +54,10 @@ class Body extends StatelessWidget {
           title: "الخضار",
           subtitle: "تسوّق فواكه وخضار طازجة، ومنتجات الألبان… بسهولة",
           onViewAllTap: () {
-            context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: "الخضار"));
+            context.pushNamed(
+              RoutesManager.products.route,
+              arguments: ProductsViewArgs(title: "الخضار"),
+            );
           },
           products: [
             {
@@ -92,7 +95,12 @@ class Body extends StatelessWidget {
           title: Translation.snacks_and_packaged.tr,
           subtitle: Translation.quick_choices.tr,
           onViewAllTap: () {
-            context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.snacks_and_packaged.tr));
+            context.pushNamed(
+              RoutesManager.products.route,
+              arguments: ProductsViewArgs(
+                title: Translation.snacks_and_packaged.tr,
+              ),
+            );
           },
           products: [
             {
