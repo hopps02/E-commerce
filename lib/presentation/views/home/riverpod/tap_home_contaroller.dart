@@ -6,10 +6,11 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TapHomeState extends Equatable {
   final ReqState reqState;
-  const TapHomeState({this.reqState = ReqState.loading});
+  final String errorMessage;
+  const TapHomeState({this.reqState = ReqState.loading, this.errorMessage = ""});
 
-  TapHomeState copyWith({ReqState? reqState}) {
-    return TapHomeState(reqState: reqState ?? this.reqState);
+  TapHomeState copyWith({ReqState? reqState, String? errorMessage}) {
+    return TapHomeState(reqState: reqState ?? this.reqState, errorMessage: errorMessage ?? this.errorMessage);
   }
 
   @override

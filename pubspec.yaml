@@ -84,7 +84,7 @@ flutter_gen:
     image: true
     flutter_svg: true
     rive: false
-    lottie: false
+    lottie: true
   fonts:
     enabled: false
 

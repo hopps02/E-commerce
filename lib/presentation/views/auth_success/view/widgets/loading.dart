@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:lottie/lottie.dart';
 
 class Loading extends StatelessWidget {
@@ -11,7 +12,7 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Lottie.asset(
-        'assets/lottie_animations/succesfull.json',
+        Assets.lottieAnimations.succesfull.path,
         key: Key("Key"),
         width: 1.sw,
         height: 378.h,

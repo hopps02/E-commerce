@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jar/app/extensions/theme_extensions.dart';
 import 'package:jar/app/extensions/view_extensions.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/views/home/riverpod/bottom_navigation_controller.dart';
 
@@ -70,7 +71,7 @@ class _CustomBottomNavigationBarState
                 final item = widget.items[index];
                 final isSelected = bottomNavState.selectedIndex == index;
 
-                return Button(ref: ref, isSelected: isSelected, item: item, index: index,);
+                return Button(ref: ref, isSelected: isSelected, item: item, index: index,).pluseAnimation(index + 8);
               }),
             ),
           ),

@@ -1,15 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/ui_components/error_widget.dart';
+import 'package:jar/app/utils/state_render.dart';
+import 'package:jar/presentation/common/fast_state_render.dart';
+import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:jar/presentation/views/home/riverpod/tap_home_contaroller.dart';
 import 'package:jar/presentation/views/home/view/widgets/categories_section.dart';
 import 'package:jar/presentation/views/home/view/widgets/new_arrivals_banner.dart';
 import 'package:jar/presentation/views/home/view/widgets/offer_banner.dart';
 import 'package:jar/presentation/views/home/view/widgets/products_section.dart';
 import 'package:jar/presentation/views/home/view/widgets/top_category.dart';
 
-class ContentBody extends StatelessWidget {
+class ContentBody extends ConsumerWidget {
   final double bottomSafeAreaPadding;
   const ContentBody({super.key, required this.bottomSafeAreaPadding});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tapHomeState = ref.watch(tapHomeController);
+
+    return FastStateRender(
+      reqState: ReqState.success /* tapHomeState.reqState */,
+      loadingAlignment: Alignment(0, -0.2),
+      errorMessage: tapHomeState.errorMessage,
+      child: Body(bottomSafeAreaPadding: bottomSafeAreaPadding),
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({super.key, required this.bottomSafeAreaPadding});
+
+  final double bottomSafeAreaPadding;
 
   @override
   Widget build(BuildContext context) {
