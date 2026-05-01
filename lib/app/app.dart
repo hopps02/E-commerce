@@ -36,8 +36,16 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = View.of(context);
+        final aspectRatio = mediaQuery.physicalSize.aspectRatio;
+
+        final designSize = (aspectRatio > 0.5)
+            // some designes are not working with the default design size
+            // so for 16:9 dimensions we use 375, 667
+            ? const Size(375, 667) // 16:9 (iPhone SE)
+            : const Size(375, 812); // 20:9 (Android base)
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: designSize,
       builder: (context, details) {
         return MaterialApp(
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
