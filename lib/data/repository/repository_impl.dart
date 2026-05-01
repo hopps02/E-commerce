@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:jar/data/network/error_handler/error_handler.dart';
 import 'package:jar/data/network/error_handler/failure.dart';
-import 'package:jar/data/network/internet_checker.dart';
 import 'package:jar/data/responses/responses.dart';
 import 'package:jar/domain/repository/repository.dart';
 

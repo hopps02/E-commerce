@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jar/app/app.dart';
 import 'package:jar/app/config/constants.dart';
 import 'package:jar/app/config/supported_locales.dart';
@@ -30,7 +30,7 @@ Future<void> _initApp() async {
       container: DI.container,
       child: EasyLocalization(
         supportedLocales: SupportedLocales.allLocales,
-        startLocale: SupportedLocales.EN.locale,
+        startLocale: SupportedLocales.AR.locale,
         path: Constants.translationsPath,
         child: Phoenix(key: Key('phoenix'), child: MyApp()),
       ),

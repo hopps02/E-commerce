@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:jar/data/responses/responses.dart';
-import '../internet_checker.dart';
 import 'failure.dart';
 
 Future<Either<Failure, result>> fastHandler<result extends BasicResponse>({
