@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/app/ui_components/otp_field.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
@@ -23,18 +23,18 @@ class Otp extends StatelessWidget {
         fieldWidth: 54.w,
         fieldHeight: 54.w,
         unselectedFieldDecoration: ShapeDecoration(
-          shape: gradient_border.SmoothRectangleBorder(
+          shape: SmoothRectangleBorder(
             smoothness: 1,
             borderRadius: BorderRadius.circular(12.r),
-            side: gradient_border.BorderSide(color: ColorM.gray200, width: 1.w),
+            side: GradientBorderSide(color: ColorM.gray200, width: 1.w),
           ),
           color: ColorM.white,
         ),
         selectedFieldDecoration: ShapeDecoration(
-          shape: gradient_border.SmoothRectangleBorder(
+          shape: SmoothRectangleBorder(
             smoothness: 1,
             borderRadius: BorderRadius.circular(12.r),
-            side: gradient_border.BorderSide(
+            side: GradientBorderSide(
               gradient: LinearGradient(
                 colors: [ColorM.primary, ColorM.secondary],
                 begin: Alignment.topLeft,

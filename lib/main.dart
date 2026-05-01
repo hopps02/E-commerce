@@ -19,6 +19,7 @@ Future<void> _initApp() async {
   await EasyLocalization.ensureInitialized();
   await DI.init();
 
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

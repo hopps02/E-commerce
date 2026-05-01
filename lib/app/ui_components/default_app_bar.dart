@@ -5,8 +5,7 @@ import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gradient_border_side;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
@@ -52,7 +51,7 @@ class DefaultAppBar extends StatelessWidget {
       backgroundColor: backgroundColor,
       borderRadius: 12.r,
       alignment: Alignment.center,
-      side: gradient_border_side.BorderSide(color: ColorM.gray300, width: 1.w),
+      side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
       child: Icon(
         Icons.arrow_back_ios_new_rounded,
         color: arrowColor,

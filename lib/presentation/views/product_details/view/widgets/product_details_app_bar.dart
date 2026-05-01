@@ -6,7 +6,7 @@ import 'package:jar/app/ui_components/default_app_bar.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border_side;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 
 
 class ProductDetailsAppBar extends StatelessWidget {
@@ -41,7 +41,7 @@ class _CartIconButton extends StatelessWidget {
       backgroundColor: ColorM.white,
       borderRadius: 12.r,
       alignment: Alignment.center,
-      side: gradient_border_side.BorderSide(color: ColorM.gray300, width: 1.w),
+      side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
       child: SvgPicture.asset(
         Assets.svg.borderBag.path,
         width: 22.w,

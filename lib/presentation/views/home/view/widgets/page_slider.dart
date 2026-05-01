@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jar/presentation/views/home/riverpod/bottom_navigation_controller.dart';
 import 'package:jar/presentation/views/home/view/taps/tap_home_view.dart';
+import 'package:jar/presentation/views/home/view/taps/tap_my_orders_view.dart';
 
 class PageSlider extends ConsumerWidget {
   const PageSlider({super.key, required this.bottomSafeAreaPadding});
@@ -14,12 +15,18 @@ class PageSlider extends ConsumerWidget {
     final bottomNavNotifier = ref.read(bottomNavigationController.notifier);
 
     return CarouselSlider(
-      items: [TapHomeView(bottomSafeAreaPadding: bottomSafeAreaPadding)],
+      items: [
+        TapHomeView(bottomSafeAreaPadding: bottomSafeAreaPadding),
+        SizedBox(), // Cart
+        TapMyOrdersView(bottomSafeAreaPadding: bottomSafeAreaPadding),
+        SizedBox(), // Profile
+      ],
       options: CarouselOptions(
         viewportFraction: 1,
         aspectRatio: 1,
         height: double.infinity,
         enableInfiniteScroll: false,
+        scrollPhysics: const NeverScrollableScrollPhysics(),
         padEnds: false,
         animateToClosest: false,
         onPageChanged: (tapIndex, carouselPageChangedReason) {

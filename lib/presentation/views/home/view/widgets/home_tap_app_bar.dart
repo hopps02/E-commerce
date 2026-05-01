@@ -5,8 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/animations/animated_on_appear.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gradient_border_side;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
@@ -22,7 +21,6 @@ class HomeTapAppBar extends StatelessWidget {
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 0,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
       expandedHeight: 125.h,
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
@@ -126,7 +124,7 @@ class BottomAppBarContent extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         backgroundColor: ColorM.white,
         borderRadius: 14.r,
-        side: gradient_border_side.BorderSide(
+        side: GradientBorderSide(
           color: ColorM.gray300,
           width: 1.w,
         ),

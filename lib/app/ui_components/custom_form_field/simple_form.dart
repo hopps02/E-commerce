@@ -5,10 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gradient_border;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:smooth_corner/smooth_corner.dart';
 
 import 'custom_form_field.dart';
 
@@ -118,18 +116,18 @@ class SimpleForm extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             borderRadius ?? SizeM.commonBorderRadius.r,
           ),
-          side: BorderSide(color: borderColor ?? ColorM.gray100, width: 1.w),
+          side: GradientBorderSide(color: borderColor ?? ColorM.gray100, width: 1.w),
         ),
       ),
       activeBoxDecoration: enableActiveBorder
           ? ShapeDecoration(
               color: backgroundColor ?? ColorM.white,
-              shape: gradient_border.SmoothRectangleBorder(
+              shape: SmoothRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   borderRadius ?? SizeM.commonBorderRadius.r,
                 ),
                 smoothness: smoothness,
-                side: gradient_border.BorderSide(
+                side: GradientBorderSide(
                   color: ColorM.primary,
                   width: 1.w,
                 ),

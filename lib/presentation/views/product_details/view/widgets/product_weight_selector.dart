@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gbs;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
@@ -76,7 +76,7 @@ class _WeightChip extends StatelessWidget {
       borderRadius: 12.r,
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       backgroundColor: ColorM.transparent,
-      side: gbs.BorderSide(
+      side: GradientBorderSide(
         color: isSelected ? ColorM.primary : ColorM.gray200,
         width: 1.w,
       ),

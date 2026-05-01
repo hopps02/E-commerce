@@ -6,8 +6,7 @@ import 'package:jar/app/app.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/utils/zesty_snack.dart';
 import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gred;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 
 // error message
@@ -53,10 +52,10 @@ class SnackbarHelper {
                 width: double.infinity,
                 decoration: ShapeDecoration(
                   color: ColorM.white,
-                  shape: gred.SmoothRectangleBorder(
+                  shape: SmoothRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     smoothness: 1,
-                    side: gred.BorderSide(
+                    side: GradientBorderSide(
                       color: ColorM.primary,
                       width: 1.w,
                     ),

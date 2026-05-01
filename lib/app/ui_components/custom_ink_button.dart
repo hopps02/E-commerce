@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jar/app/extensions/extensions.dart';
-import 'gradient_border_side.dart' as gradient_border_side;
+import 'gradient_border_side.dart' ;
 
 class CustomInkButton extends StatelessWidget {
   final Widget child;
@@ -23,7 +23,7 @@ class CustomInkButton extends StatelessWidget {
   final bool enabled;
   final Duration? animationDuration;
   final AlignmentGeometry? alignment;
-  final gradient_border_side.BorderSide side;
+  final GradientBorderSide side;
   final double smoothness;
   final Gradient? gradient;
   final List<BoxShadow>? boxShadow;
@@ -49,7 +49,7 @@ class CustomInkButton extends StatelessWidget {
     this.enabled = true,
     this.animationDuration,
     this.alignment,
-    this.side = gradient_border_side.BorderSide.none,
+    this.side = GradientBorderSide.none,
     this.smoothness = 0,
     this.gradient,
     this.boxShadow,
@@ -71,7 +71,7 @@ class CustomInkButton extends StatelessWidget {
                 : null),
         gradient: gradient,
         shadows: boxShadow,
-        shape: gradient_border_side.SmoothRectangleBorder(
+        shape: SmoothRectangleBorder(
           smoothness: smoothness,
           borderRadius: BorderRadius.circular(borderRadius ?? 6),
           side: side,

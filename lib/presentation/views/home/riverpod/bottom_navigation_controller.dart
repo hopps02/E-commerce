@@ -33,6 +33,7 @@ class BottomNavigationNotifier extends Notifier<BottomNavigationState> {
     state = state.copyWith(selectedIndex: selectedIndex);
   }
   void onBottomNavTap(int selectedIndex) {
+    bottomNavBarSliderController.jumpToPage(selectedIndex);
     state = state.copyWith(selectedIndex: selectedIndex);
   }
 
