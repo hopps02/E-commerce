@@ -10,7 +10,6 @@ import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
-import 'package:jar/presentation/views/products/view/screens/products_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 
 class ProductCard extends StatefulWidget {

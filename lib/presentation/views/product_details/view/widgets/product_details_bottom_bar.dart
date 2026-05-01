@@ -25,7 +25,6 @@ class ProductDetailsBottomBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Container(
       decoration: BoxDecoration(
         color: ColorM.white,
@@ -90,13 +89,14 @@ class ProductDetailsBottomBar extends ConsumerWidget {
                               fontWeight: FontWeightM.medium,
                             ),
                           ),
-                          Direction(
-                            init: .rtl,
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              size: 20.sp,
-                              color: ColorM.white,
-                            ),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            textDirection:
+                                Directionality.of(context) == TextDirection.rtl
+                                ? TextDirection.ltr
+                                : TextDirection.rtl,
+                            size: 20.sp,
+                            color: ColorM.white,
                           ),
                         ],
                       ),

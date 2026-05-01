@@ -30,7 +30,7 @@ Future<void> _initApp() async {
       container: DI.container,
       child: EasyLocalization(
         supportedLocales: SupportedLocales.allLocales,
-        startLocale: SupportedLocales.AR.locale,
+        startLocale: SupportedLocales.EN.locale,
         path: Constants.translationsPath,
         child: Phoenix(key: Key('phoenix'), child: MyApp()),
       ),

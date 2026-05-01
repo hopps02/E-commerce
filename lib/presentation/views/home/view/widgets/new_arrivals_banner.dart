@@ -66,22 +66,30 @@ class NewArrivalsBanner extends StatelessWidget {
                   ),
                   16.h.verticalSpace,
                   // Shop Now button
-                  CustomInkButton(
-                    onTap: onShopNowTap,
-                    backgroundColor: ColorM.white,
-                    borderRadius: 23.r,
-                    width: 127.w,
-                    height: 36.h,
-                    alignment: Alignment.center,
-                    child: Text(
-                      Translation.start_shopping_now.tr,
-
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeightM.medium,
-                        color: ColorM.primary500,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomInkButton(
+                        onTap: onShopNowTap,
+                        backgroundColor: ColorM.white,
+                        borderRadius: 23.r,
+                        // width: 127.w,
+                        height: 36.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 23.w,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          Translation.start_shopping_now.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeightM.medium,
+                            color: ColorM.primary500,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),

@@ -71,7 +71,8 @@ class OrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${Translation.product_count.tr}: 2',
+                        Translation.product_count
+                            .trNamed({'count': '2'}),
                         style: context.bodyMedium.copyWith(
                           color: ColorM.gray900,
                           fontWeight: FontWeightM.medium,

@@ -51,8 +51,8 @@ class Body extends StatelessWidget {
         const CategoriesSection(),
         18.verticalSpace,
         ProductsSection(
-          title: "الخضار",
-          subtitle: "تسوّق فواكه وخضار طازجة، ومنتجات الألبان… بسهولة",
+          title: Translation.vegetables.tr,
+          subtitle: Translation.quick_choices.tr,
           onViewAllTap: () {
             context.pushNamed(
               RoutesManager.products.route,

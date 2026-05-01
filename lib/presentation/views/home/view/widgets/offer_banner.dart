@@ -6,6 +6,7 @@ import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
+import 'package:jar/presentation/res/translations_manager.dart';
 
 class OfferBanner extends StatelessWidget {
   const OfferBanner({super.key});
@@ -87,7 +88,7 @@ class OfferBanner extends StatelessWidget {
                   borderRadius: 9999,
                   alignment: .center,
                   child: Text(
-                    "تسوّق الآن",
+                    Translation.shop_now.tr,
                     style: context.labelLarge.copyWith(
                       color: ColorM.primary500,
                       fontWeight: FontWeight.bold,

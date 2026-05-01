@@ -3,19 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
+import 'package:jar/presentation/res/translations_manager.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback? onViewAllTap;
-  final String? viewAllText;
 
   const SectionHeader({
     super.key,
     required this.title,
     this.subtitle,
     this.onViewAllTap,
-    this.viewAllText = "عرض الكل",
   });
 
   @override
@@ -36,7 +35,7 @@ class SectionHeader extends StatelessWidget {
               GestureDetector(
                 onTap: onViewAllTap,
                 child: Text(
-                  viewAllText!,
+                  Translation.view_all.tr,
                   style: context.labelLarge.copyWith(
                     color: ColorM.primary500,
                   ),
