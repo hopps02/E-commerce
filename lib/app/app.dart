@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/app/utils/global_keyboard_dismissal.dart';
 
 import 'package:jar/presentation/res/routes_manager.dart';
@@ -67,12 +68,14 @@ class MyAppState extends State<MyApp> {
                     top: 0,
                     left: 0,
                     right: 0,
-                    height: MediaQuery.paddingOf(context).top,
-                    child: ClipRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                        child: Container(
-                          color: Colors.transparent,
+                    height: context.topSafeAreaPadding,
+                    child: IgnorePointer(
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                            color: Colors.transparent,
+                          ),
                         ),
                       ),
                     ),

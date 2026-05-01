@@ -42,37 +42,44 @@ class _CustomBottomNavigationBarState
         borderRadius: BorderRadius.circular(9999),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 13, sigmaY: 13),
-          child: Container(
-            width: 343.w,
-            height: 78.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(9999),
-              border: Border.all(
-                color: ColorM.white.withValues(alpha: 1),
-                width: 1.w,
+          child: RepaintBoundary(
+            child: Container(
+              width: 343.w,
+              height: 78.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9999),
+                border: Border.all(
+                  color: ColorM.white.withValues(alpha: 1),
+                  width: 1.w,
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    ColorM.white.withValues(alpha: 0.2),
+                    ColorM.white.withValues(alpha: 0.05),
+                    ColorM.gray800.withValues(alpha: 0.05),
+                  ],
+                  stops: const [0.0, 0.4, 1.0],
+                ),
               ),
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [
-                  ColorM.white.withValues(alpha: 0.2),
-                  ColorM.white.withValues(alpha: 0.05), 
-                  ColorM.gray800.withValues(alpha: 0.05),
-                ],
-                stops: const [0.0, 0.4, 1.0],
+
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(widget.items.length, (index) {
+                  final item = widget.items[index];
+                  final isSelected = bottomNavState.selectedIndex == index;
+
+                  return Button(
+                    ref: ref,
+                    isSelected: isSelected,
+                    item: item,
+                    index: index,
+                  ).pluseAnimation(index + 8);
+                }),
               ),
-            ),
-
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
-
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(widget.items.length, (index) {
-                final item = widget.items[index];
-                final isSelected = bottomNavState.selectedIndex == index;
-
-                return Button(ref: ref, isSelected: isSelected, item: item, index: index,).pluseAnimation(index + 8);
-              }),
             ),
           ),
         ),
@@ -98,9 +105,8 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => ref
-          .read(bottomNavigationController.notifier)
-          .onBottomNavTap(index),
+      onTap: () =>
+          ref.read(bottomNavigationController.notifier).onBottomNavTap(index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -111,9 +117,7 @@ class Button extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: ColorM.white,
-          borderRadius: BorderRadius.circular(
-            isSelected ? 32.r : 32.r,
-          ),
+          borderRadius: BorderRadius.circular(isSelected ? 32.r : 32.r),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -131,9 +135,11 @@ class Button extends StatelessWidget {
               visible: isSelected,
               enterDuration: const Duration(milliseconds: 300),
               exitDuration: const Duration(milliseconds: 300),
-              enter: fadeIn(curve: Curves.fastEaseInToSlowEaseOut) +
+              enter:
+                  fadeIn(curve: Curves.fastEaseInToSlowEaseOut) +
                   expandHorizontally(curve: Curves.fastEaseInToSlowEaseOut),
-              exit: fadeOut(curve: Curves.fastEaseInToSlowEaseOut) +
+              exit:
+                  fadeOut(curve: Curves.fastEaseInToSlowEaseOut) +
                   shrinkHorizontally(curve: Curves.fastEaseInToSlowEaseOut),
               child: Align(
                 alignment: .centerStart,

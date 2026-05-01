@@ -47,7 +47,7 @@ class SearchData extends ConsumerWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 12.w,
               mainAxisSpacing: 12.h,
-              childAspectRatio: .85,
+              childAspectRatio: .8,
             ),
             itemCount: _allProducts.length,
             itemBuilder: (context, index) {
