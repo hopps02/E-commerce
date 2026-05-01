@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:jar/app/utils/global_keyboard_dismissal.dart';
@@ -49,7 +51,27 @@ class MyAppState extends State<MyApp> {
           locale: context.locale,
           onGenerateRoute: RoutesGeneratorManager.getRoute,
           builder: (context, child) {
-            return GlobalKeyboardDismissal(child: child!);
+            return GlobalKeyboardDismissal(
+              child: Stack(
+                children: [
+                  child!,
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: MediaQuery.paddingOf(context).top,
+                    child: ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                        child: Container(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
           },
         );
       },

@@ -24,6 +24,7 @@ class HomeTapAppBar extends StatelessWidget {
       expandedHeight: 125.h,
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
         background: TopAppBarContent().slide,
