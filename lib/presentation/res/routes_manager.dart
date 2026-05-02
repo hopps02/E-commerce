@@ -2,14 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
+import 'package:jar/presentation/views/cart/view/screens/cart_view.dart';
+import 'package:jar/presentation/views/home/view/screens/home_view.dart';
+import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
+import 'package:jar/presentation/views/products/view/screens/products_view.dart';
+import 'package:jar/presentation/views/search/view/screens/search_view.dart';
+import 'package:jar/presentation/views/sections/view/screens/sections_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
+
+// dart format off
 enum RoutesManager {
-  splash('splash/'),
-  onboarding('onboarding/'),
-  auth('auth/'),
-  authSuccess('authSuccess/'),;
+  splash            ('splash/'),
+  onboarding        ('onboarding/'),
+  auth              ('auth/'),
+  authSuccess       ('authSuccess/'),
+  home              ('home/'),
+  search            ('search/'),
+  sections          ('sections/'),
+  products          ('products/'),
+  productDetails    ('productDetails/'),
+  cart              ('cart/');
+
   final String route;
 
   const RoutesManager(this.route);
@@ -17,46 +32,58 @@ enum RoutesManager {
 
 class RoutesGeneratorManager {
   static Widget _getScreen(String? name, RouteSettings settings) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-    ));
     return switch (RoutesManager.values.firstWhere((t) => t.route == name)) {
-      RoutesManager.splash => const SplashView(),
-      RoutesManager.onboarding => const OnboardingView(),
-      RoutesManager.auth => const AuthView(),
-      RoutesManager.authSuccess => const AuthSuccessView(),
+      RoutesManager.splash            => const SplashView(),
+      RoutesManager.onboarding        => const OnboardingView(),
+      RoutesManager.auth              => const AuthView(),
+      RoutesManager.authSuccess       => const AuthSuccessView(),
+      RoutesManager.home              => const HomeView(),
+      RoutesManager.search            => const SearchView(),
+      RoutesManager.sections          => const SectionsView(),
+      RoutesManager.products          => _productsView(settings.arguments),
+      RoutesManager.productDetails    => _productDetailsView(settings.arguments),
+      RoutesManager.cart              => const CartView(),
     };
   }
+  // dart format on
 
   // custom navigation animation
   static Route<dynamic> getRoute(RouteSettings settings) => PageRouteBuilder(
-        settings: settings,
-        transitionDuration: Duration(milliseconds: 400),
-        reverseTransitionDuration: Duration(milliseconds: 300),
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            _getScreen(settings.name, settings),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1, 0.0);
-          const end = Offset.zero;
-          final tween = Tween(begin: begin, end: end);
-          final curvedAnimation = CurvedAnimation(
-            parent: animation,
-            curve: Curves.fastLinearToSlowEaseIn,
-          );
-
-          return Opacity(
-            opacity: curvedAnimation.value,
-            child: SlideTransition(
-              position: tween.animate(curvedAnimation),
-              child: child,
-            ),
-          );
-        },
+    settings: settings,
+    transitionDuration: Duration(milliseconds: 400),
+    reverseTransitionDuration: Duration(milliseconds: 300),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        _getScreen(settings.name, settings),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1, 0.0);
+      const end = Offset.zero;
+      final tween = Tween(begin: begin, end: end);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.fastLinearToSlowEaseIn,
       );
 
-  // static Route<dynamic> getRoute(RouteSettings settings) => MaterialPageRoute(
-  //     builder: _getBuilder(settings.name, settings), settings: settings);
+      return Opacity(
+        opacity: curvedAnimation.value,
+        child: SlideTransition(
+          position: tween.animate(curvedAnimation),
+          child: child,
+        ),
+      );
+    },
+  );
 
+  static ProductsView _productsView(Object? arguments) {
+    return ProductsView(
+      args: arguments as ProductsViewArgs? ?? ProductsViewArgs(title: "NONE"),
+    );
+  }
+
+  static ProductDetailsView _productDetailsView(Object? arguments) {
+    return ProductDetailsView(
+      args: arguments is ProductDetailsViewArgs
+          ? arguments
+          : const ProductDetailsViewArgs(productId: ''),
+    );
+  }
 }

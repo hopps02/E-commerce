@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:jar/app/di/dependency_injection.dart';
 import 'package:flutter/material.dart';
+import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/app/utils/global_keyboard_dismissal.dart';
 
 import 'package:jar/presentation/res/routes_manager.dart';
@@ -25,8 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Key key = UniqueKey();
-  late ThemeMode _themeMode;
 
   @override
   void initState() {
@@ -37,11 +37,16 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    _themeMode = DI().storageService.themeMode == ThemeMode.dark
-        ? ThemeMode.dark
-        : ThemeMode.light;
+    final mediaQuery = View.of(context);
+        final aspectRatio = mediaQuery.physicalSize.aspectRatio;
+
+        final designSize = (aspectRatio > 0.5)
+            // some designes are not working with the default design size
+            // so for 16:9 dimensions we use 375, 667
+            ? const Size(375, 667) // 16:9 (iPhone SE)
+            : const Size(375, 812); // 20:9 (Android base)
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: designSize,
       builder: (context, details) {
         return MaterialApp(
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
@@ -49,19 +54,40 @@ class MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: RoutesManager.splash.route,
           theme: ThemeManager.lightTheme(context),
-          // darkTheme: ThemeManager.darkTheme,
-          themeMode: _themeMode,
+          themeMode: ThemeMode.light,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: RoutesGeneratorManager.getRoute,
           builder: (context, child) {
-            return GlobalKeyboardDismissal(child: child!);
+            return GlobalKeyboardDismissal(
+              child: Stack(
+                children: [
+                  child!,
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: context.topSafeAreaPadding,
+                    child: IgnorePointer(
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
           },
         );
       },
     );
   }
 
-  ThemeMode get themeMode => _themeMode;
+  ThemeMode get themeMode => ThemeMode.light;
 }

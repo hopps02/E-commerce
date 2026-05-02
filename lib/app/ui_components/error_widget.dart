@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
+import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
+import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:lottie/lottie.dart';
 
 enum ErrorType { noInternet, noResults, noNotification, notFound, noEsim, none }
 
@@ -47,56 +50,70 @@ class MyErrorWidget extends StatelessWidget {
     //   }
     // }
 
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (svgPath != null) ...[
-            SvgPicture.asset(
-              svgPath!,
-              height: svgSize ?? 270.w,
-              width: svgSize ?? 270.w,
-            ),
-            14.verticalSpace,
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (svgPath != null) ...[
+          SvgPicture.asset(
+            svgPath!,
+            height: svgSize ?? 270.w,
+            width: svgSize ?? 270.w,
+          ),
+          14.verticalSpace,
+        ] else
+          Lottie.asset(
+            Assets.lottieAnimations.error.path,
+            key: const Key("empty-lottie-error-render"),
+            width: 200.w,
+            height: 200.w,
+            repeat: true,
+            fit: BoxFit.contain,
+          ),
+        Text(
+          titleMessage,
+          textAlign: TextAlign.center,
+          style: context.headlineMedium.copyWith(
+            fontWeight: FontWeightM.medium,
+            fontSize: 24.sp,
+          ),
+        ),
+        if (subtitleMessage != null) ...[
+          15.verticalSpace,
           Text(
-            titleMessage,
+            subtitleMessage!,
             textAlign: TextAlign.center,
-            style: context.headlineMedium.copyWith(
-              fontWeight: FontWeightM.medium,
-              fontSize: 24.sp,
+            style: context.titleMedium.copyWith(
+              color: context.colorScheme.surface.withValues(alpha: .5),
             ),
           ),
-          if (subtitleMessage != null) ...[
-            15.verticalSpace,
-            Text(
-              subtitleMessage!,
-              textAlign: TextAlign.center,
-              style: context.titleMedium.copyWith(
-                color: context.colorScheme.surface.withValues(alpha: .5),
-              ),
-            ),
-          ],
-          if (onRetry != null) ...[
-            32.verticalSpace,
-            CustomInkButton(
-              onTap: onRetry,
-              backgroundColor: ColorM.primary,
-              borderRadius: 999999,
-              padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
-              child: Text(
-                retryText ?? Translation.retry_button.tr,
-                style: context.labelMedium.copyWith(
-                  fontWeight: FontWeightM.medium,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
         ],
-      ),
+        if (onRetry != null) ...[
+          32.verticalSpace,
+          CustomInkButton(
+            onTap: onRetry,
+            backgroundColor: ColorM.primary,
+            borderRadius: 10.r,
+            padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
+            smoothness: 1,
+            boxShadow: [
+              BoxShadow(
+                color: ColorM.primary.withValues(alpha: 0.2),
+                blurRadius: 0,
+                offset: Offset(9.w, 9.w),
+              ),
+            ],
+            child: Text(
+              retryText ?? Translation.retry_button.tr,
+              style: context.labelMedium.copyWith(
+                fontWeight: FontWeightM.medium,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:jar/app/di/dependency_injection.dart';
 import 'package:jar/app/extensions/navigation_extension.dart';
 import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/onboarding/view/screens/image_background.dart';
+import 'package:jar/presentation/views/onboarding/view/widgets/image_background.dart';
 import 'package:jar/presentation/views/onboarding/view/widgets/gradient_background.dart';
 import 'package:jar/presentation/views/onboarding/view/widgets/onboarding_content.dart';
 

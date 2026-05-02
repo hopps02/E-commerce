@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/utils/overlay_loading/overlay_loading.dart';
+import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:lottie/lottie.dart';
 
 abstract class LoadingManager {
@@ -52,7 +53,7 @@ class OverlayLoadingManager implements LoadingManager {
       customWidget:
           customWidget ??
           Lottie.asset(
-            'assets/lottie_animations/sandy-loading.json',
+            Assets.lottieAnimations.sandyLoading.path,
             key: Key("loading-lottie"),
             width: 100.w,
             height: 100.w,

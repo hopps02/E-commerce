@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/view_extensions.dart';
+import 'package:jar/app/utils/state_render.dart';
+import 'package:jar/presentation/common/fast_state_render.dart';
+import 'package:jar/presentation/res/color_manager.dart';
+import 'package:jar/presentation/res/sizes_manager.dart';
+import 'package:jar/presentation/views/product_details/riverpod/product_details_controller.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_description.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_details_app_bar.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_details_bottom_bar.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_image_slider.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_info_section.dart';
+import 'package:jar/presentation/views/product_details/view/widgets/product_weight_selector.dart';
+
+class ProductDetailsViewArgs {
+  final String productId;
+
+  const ProductDetailsViewArgs({required this.productId});
+}
+
+class ProductDetailsView extends ConsumerWidget {
+  final ProductDetailsViewArgs args;
+  const ProductDetailsView({super.key, required this.args});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(productDetailsController);
+
+    return Scaffold(
+      backgroundColor: ColorM.white,
+      body: Column(
+        children: [
+          // Status bar space
+          SizedBox(height: context.topSafeAreaPadding),
+
+          // App Bar
+          const ProductDetailsAppBar(),
+
+          // Thin divider
+          Container(height: 6.h, color: ColorM.gray150),
+
+          // Scrollable body
+          Expanded(
+            child: FastStateRender(
+              reqState: ReqState.success /*state.reqState*/,
+              errorMessage: state.errorMessage,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    16.verticalSpace,
+
+                    // Product image with favorite + dots
+                    ProductImageSlider(imageUrls: ["", "", "", ""]),
+
+                    14.verticalSpace,
+
+                    // Product name + availability + price
+                    ProductInfoSection(
+                      name: "أفوكادو",
+                      price: 12.0,
+                      oldPrice: 14.0,
+                      isAvailable: true,
+                    ),
+
+                    12.verticalSpace,
+
+                    // Divider
+                    Divider(
+                      color: ColorM.gray300,
+                      height: 1,
+                      indent: SizeM.pagePadding.w,
+                      endIndent: SizeM.pagePadding.w,
+                    ),
+                    12.verticalSpace,
+
+                    // Weight selector
+                    ProductWeightSelector(
+                      weights: ["500 جم", "1 كجم", "2 كجم"],
+                    ),
+
+                    12.verticalSpace,
+                    // Divider
+                    Divider(
+                      color: ColorM.gray300,
+                      height: 1,
+                      indent: SizeM.pagePadding.w,
+                      endIndent: SizeM.pagePadding.w,
+                    ),
+                    12.verticalSpace,
+
+                    // Description
+                    ProductDescription(
+                      description:
+                          "الأفوكادو فاكهة غنية بالعناصر الغذائية وتتميز بقوامها الكريمي واحتوائها على دهون صحية. يعود أصلها إلى أمريكا الوسطى والجنوبية، وقد استُخدمت منذ آلاف السنين. مثالية للسلطات، السندوتشات، أو العصائر.",
+                    ),
+
+                    SizedBox(height: SizeM.pagePadding.h),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      // Fixed bottom bar
+      bottomNavigationBar: ProductDetailsBottomBar(
+        price: 12.0,
+        productName: "جزر أصفر (Hills Farm) · جزر شانتينيه",
+      ),
+    );
+  }
+}

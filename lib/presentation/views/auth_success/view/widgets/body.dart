@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/navigation_extension.dart';
 import 'package:jar/app/extensions/theme_extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/a_common/general_padding.dart';
+import 'package:jar/presentation/common/general_padding.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -42,7 +44,7 @@ class Body extends StatelessWidget {
           // Start Shopping Button
           CustomInkButton(
             onTap: () {
-              // TODO: Navigate to Home
+              context.pushNamedAndRemoveUntil(RoutesManager.home.route,(route) => false);
             },
             borderRadius: 12.r,
             height: 50.h,

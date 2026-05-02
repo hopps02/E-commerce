@@ -1,4 +1,4 @@
-import 'package:jar/app/extensions/extensions.dart';
+import 'package:jar/app/extensions/theme_extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
@@ -74,7 +74,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
           );
         },
         textStyle: context.labelSmall.copyWith(
-          color: context.colorScheme.surface.withValues(alpha: .5),
+          color: ColorM.gray900.withValues(alpha: .5),
           fontWeight: FontWeightM.medium,
         ),
         loadingText: Translation.loading.tr,

@@ -830,10 +830,6 @@ class NiceTextForm extends StatefulWidget {
   /// Example: onTextSuggested: (suggestions) => setState(() => suggestedTexts = suggestions)
   final Function(List<String>)? onTextSuggested;
 
-  // lable2
-  final Widget? label2;
-  final TextStyle? label2Style;
-
   const NiceTextForm({
     super.key,
     this.height,
@@ -1041,8 +1037,6 @@ class NiceTextForm extends StatefulWidget {
     this.onTextCorrected,
     this.enableTextSuggestion = false,
     this.onTextSuggested,
-    this.label2,
-    this.label2Style,
     this.textAlign = TextAlign.start,
   });
 
@@ -1312,63 +1306,43 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                             _overlayPortalController.show();
                           }
                         },
-                        decoration: InputDecoration(
+                        decoration: InputDecoration.collapsed(
                           // no border
                           border: InputBorder.none,
-                          // no content padding
-                          contentPadding: EdgeInsets.zero,
-                          // no label
-                          label: widget.label2,
-                          // no label style
-                          labelStyle: widget.label2Style,
-                          // no helper text
-                          helperText: null,
-                          // no helper style
-                          helperStyle: null,
-                          // no error text
-                          errorText: null,
-                          // no error style
-                          errorStyle: null,
-                          // no floating label style
-                          floatingLabelStyle: widget.label2Style,
                           // no filled
                           filled: false,
                           // no fill color
                           fillColor: Colors.transparent,
-                          // no prefix icon
-                          prefixIcon: null,
-                          // no suffix icon
-                          suffixIcon: null,
                           hintText: widget.hintText,
                           hintStyle: widget.hintStyle,
                         ),
                         onChanged: (value) async {
                           _value = value;
                           _characterCount = value.length;
-
+                      
                           // Handle debounced text change
                           if (widget.debounceTime != null) {
                             _handleDebouncedTextChange(value);
                           } else if (widget.onTextChanged != null) {
                             widget.onTextChanged!(value);
                           }
-
+                      
                           // Handle password strength check
                           if (widget.enablePasswordStrength) {
                             _checkPasswordStrength(value);
                           }
-
+                      
                           // Handle auto-complete and suggestions
                           if (widget.enableAutoComplete &&
                               widget.suggestions != null) {
                             // Auto-complete logic here
                           }
-
+                      
                           // Handle spell check
                           if (widget.enableSpellCheck) {
                             // Spell check logic here
                           }
-
+                      
                           // Handle custom validation
                           if (widget.enableCustomValidation &&
                               widget.customValidators != null) {
@@ -1376,37 +1350,37 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                               validator?.call(value);
                             }
                           }
-
+                      
                           // Handle text analysis features
                           if (widget.enableReadabilityScore) {
                             // Readability score calculation
                           }
-
+                      
                           if (widget.enableSentimentAnalysis) {
                             // Sentiment analysis
                           }
-
+                      
                           if (widget.enableKeywordExtraction) {
                             // Keyword extraction
                           }
-
+                      
                           if (widget.enableLanguageDetection) {
                             // Language detection
                           }
-
+                      
                           // Update UI state
                           setState(() {
                             _showClearButton = value.isNotEmpty;
                             _showCharacterCount = widget.showCharacterCount;
                           });
-
+                      
                           // Add to history
                           if (widget.enableHistory) {
                             _addToHistory(value);
                           }
-
+                      
                           _cancelabelOperation?.cancel();
-
+                      
                           if (widget.searchResultsBuilder != null) {
                             _cancelabelOperation =
                                 CancelableOperation.fromFuture(
@@ -1419,7 +1393,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                             _searchWidget = searchW;
                             handleShowingSearchWidget();
                           }
-
+                      
                           String? msg = widget.validator != null
                               ? widget.validator!(value)
                               : null;

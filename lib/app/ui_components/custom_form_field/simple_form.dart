@@ -5,10 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gradient_border;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:smooth_corner/smooth_corner.dart';
 
 import 'custom_form_field.dart';
 
@@ -47,10 +45,8 @@ class SimpleForm extends StatelessWidget {
   final bool enableCustomValidation;
   final List<Function(String)?>? customValidators;
   final bool enableActiveBorder;
-
-  final Widget? label2;
-  final TextStyle? label2Style;
   final TextAlign textAlign;
+  final Color? borderColor;
 
   const SimpleForm({
     super.key,
@@ -86,10 +82,9 @@ class SimpleForm extends StatelessWidget {
     this.smoothness = 1,
     this.enableCustomValidation = false,
     this.customValidators,
-    this.label2,
-    this.label2Style,
     this.enableActiveBorder = false,
     this.textAlign = TextAlign.start,
+    this.borderColor,
   });
 
   @override
@@ -115,35 +110,30 @@ class SimpleForm extends StatelessWidget {
         fontWeight: FontWeightM.medium,
       ),
       boxDecoration: ShapeDecoration(
-        color:
-            backgroundColor ??
-             ColorM.white,
+        color: backgroundColor ?? ColorM.white,
         shape: SmoothRectangleBorder(
           smoothness: smoothness,
           borderRadius: BorderRadius.circular(
             borderRadius ?? SizeM.commonBorderRadius.r,
           ),
-          side: BorderSide(
-            color: ColorM.gray100,
-            width: 1.w,
-          ),
+          side: GradientBorderSide(color: borderColor ?? ColorM.gray100, width: 1.w),
         ),
       ),
-      activeBoxDecoration: enableActiveBorder ? 
-      ShapeDecoration(
-        color:
-            backgroundColor ??ColorM.white,
-        shape: gradient_border.SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            borderRadius ?? SizeM.commonBorderRadius.r,
-          ),
-          smoothness: smoothness,
-          side: gradient_border.BorderSide(
-            color: ColorM.primary,
-            width: 1.w,
-          ),
-        ),
-      ) : null,
+      activeBoxDecoration: enableActiveBorder
+          ? ShapeDecoration(
+              color: backgroundColor ?? ColorM.white,
+              shape: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  borderRadius ?? SizeM.commonBorderRadius.r,
+                ),
+                smoothness: smoothness,
+                side: GradientBorderSide(
+                  color: ColorM.primary,
+                  width: 1.w,
+                ),
+              ),
+            )
+          : null,
       padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
       isPhoneForm: false,
       obscureText: obscureText,

@@ -4,8 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/app/ui_components/direction.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as gradient_border_side;
+import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
@@ -140,7 +139,7 @@ class Buttons extends StatelessWidget {
             borderRadius: SizeM.commonBorderRadius.r,
             height: 52.h,
             alignment: Alignment.center,
-            side: gradient_border_side.BorderSide(
+            side: GradientBorderSide(
               color: ColorM.primary700,
               width: 1.w,
             ),

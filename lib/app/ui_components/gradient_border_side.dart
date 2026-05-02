@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 
 
 @immutable
-class BorderSide with Diagnosticable {
+class GradientBorderSide with Diagnosticable {
   /// Creates the side of a border.
   ///
   /// By default, the border is 1.0 logical pixels wide and solid black.
-  const BorderSide({
+  const GradientBorderSide({
     this.gradient,
     this.color = const Color(0xFF000000),
     this.width = 1.0,
@@ -18,21 +18,21 @@ class BorderSide with Diagnosticable {
     this.strokeAlign = strokeAlignInside,
   }) : assert(width >= 0.0);
 
-  /// Creates a [BorderSide] that represents the addition of the two given
-  /// [BorderSide]s.
+  /// Creates a [GradientBorderSide] that represents the addition of the two given
+  /// [GradientBorderSide]s.
   ///
   /// It is only valid to call this if [canMerge] returns true for the two
   /// sides.
   ///
   /// If one of the sides is zero-width with [BorderStyle.none], then the other
   /// side is return as-is. If both of the sides are zero-width with
-  /// [BorderStyle.none], then [BorderSide.none] is returned.
-  static BorderSide merge(BorderSide a, BorderSide b) {
+  /// [BorderStyle.none], then [GradientBorderSide.none] is returned.
+  static GradientBorderSide merge(GradientBorderSide a, GradientBorderSide b) {
     assert(canMerge(a, b));
     final bool aIsNone = a.style == BorderStyle.none && a.width == 0.0;
     final bool bIsNone = b.style == BorderStyle.none && b.width == 0.0;
     if (aIsNone && bIsNone) {
-      return BorderSide.none;
+      return GradientBorderSide.none;
     }
     if (aIsNone) {
       return b;
@@ -42,7 +42,7 @@ class BorderSide with Diagnosticable {
     }
     assert(a.color == b.color);
     assert(a.style == b.style);
-    return BorderSide(
+    return GradientBorderSide(
       color: a.color, // == b.color
       width: a.width + b.width,
       strokeAlign: math.max(a.strokeAlign, b.strokeAlign),
@@ -73,9 +73,9 @@ class BorderSide with Diagnosticable {
   final BorderStyle style;
 
   /// A hairline black border that is not rendered.
-  static const BorderSide none = BorderSide(width: 0.0, style: BorderStyle.none);
+  static const GradientBorderSide none = GradientBorderSide(width: 0.0, style: BorderStyle.none);
 
-  /// The relative position of the stroke on a [BorderSide] in an
+  /// The relative position of the stroke on a [GradientBorderSide] in an
   /// [OutlinedBorder] or [Border].
   ///
   /// Values typically range from -1.0 ([strokeAlignInside], inside border,
@@ -94,7 +94,7 @@ class BorderSide with Diagnosticable {
   /// - [strokeAlignOutside] provides zero padding, as stroke is drawn entirely outside.
   ///
   /// This property is not honored by [toPaint] (because the [Paint] object
-  /// cannot represent it); it is intended that classes that use [BorderSide]
+  /// cannot represent it); it is intended that classes that use [GradientBorderSide]
   /// objects implement this property when painting borders by suitably
   /// inflating or deflating their regions.
   ///
@@ -114,7 +114,7 @@ class BorderSide with Diagnosticable {
   static const double strokeAlignInside = -1.0;
 
   /// The border is drawn on the center of the border path, with half of the
-  /// [BorderSide.width] on the inside, and the other half on the outside of
+  /// [GradientBorderSide.width] on the inside, and the other half on the outside of
   /// the path.
   ///
   /// This is a constant for use with [strokeAlign].
@@ -126,14 +126,14 @@ class BorderSide with Diagnosticable {
   static const double strokeAlignOutside = 1.0;
 
   /// Creates a copy of this border but with the given fields replaced with the new values.
-  BorderSide copyWith({
+  GradientBorderSide copyWith({
     Color? color,
     double? width,
     BorderStyle? style,
     double? strokeAlign,
     Gradient? gradient,
   }) {
-    return BorderSide(
+    return GradientBorderSide(
       color: color ?? this.color,
       width: width ?? this.width,
       style: style ?? this.style,
@@ -158,8 +158,8 @@ class BorderSide with Diagnosticable {
   ///
   /// Values for `t` are usually obtained from an [Animation<double>], such as
   /// an [AnimationController].
-  BorderSide scale(double t) {
-    return BorderSide(
+  GradientBorderSide scale(double t) {
+    return GradientBorderSide(
       color: color,
       gradient: gradient,
       width: math.max(0.0, width * t),
@@ -200,12 +200,12 @@ class BorderSide with Diagnosticable {
     }
   }
 
-  /// Whether the two given [BorderSide]s can be merged using
-  /// [BorderSide.merge].
+  /// Whether the two given [GradientBorderSide]s can be merged using
+  /// [GradientBorderSide.merge].
   ///
   /// Two sides can be merged if one or both are zero-width with
   /// [BorderStyle.none], or if they both have the same color and style.
-  static bool canMerge(BorderSide a, BorderSide b) {
+  static bool canMerge(GradientBorderSide a, GradientBorderSide b) {
     if ((a.style == BorderStyle.none && a.width == 0.0) ||
         (b.style == BorderStyle.none && b.width == 0.0)) {
       return true;
@@ -216,7 +216,7 @@ class BorderSide with Diagnosticable {
   /// Linearly interpolate between two border sides.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static BorderSide lerp(BorderSide a, BorderSide b, double t) {
+  static GradientBorderSide lerp(GradientBorderSide a, GradientBorderSide b, double t) {
     if (identical(a, b)) {
       return a;
     }
@@ -228,10 +228,10 @@ class BorderSide with Diagnosticable {
     }
     final double width = ui.lerpDouble(a.width, b.width, t)!;
     if (width < 0.0) {
-      return BorderSide.none;
+      return GradientBorderSide.none;
     }
     if (a.style == b.style && a.strokeAlign == b.strokeAlign) {
-      return BorderSide(
+      return GradientBorderSide(
         color: Color.lerp(a.color, b.color, t)!,
         width: width,
         style: a.style, // == b.style
@@ -247,26 +247,26 @@ class BorderSide with Diagnosticable {
       BorderStyle.none => b.color.withAlpha(0x00),
     };
     if (a.strokeAlign != b.strokeAlign) {
-      return BorderSide(
+      return GradientBorderSide(
         color: Color.lerp(colorA, colorB, t)!,
         width: width,
         strokeAlign: ui.lerpDouble(a.strokeAlign, b.strokeAlign, t)!,
       );
     }
-    return BorderSide(
+    return GradientBorderSide(
       color: Color.lerp(colorA, colorB, t)!,
       width: width,
       strokeAlign: a.strokeAlign, // == b.strokeAlign
     );
   }
 
-  /// Get the amount of the stroke width that lies inside of the [BorderSide].
+  /// Get the amount of the stroke width that lies inside of the [GradientBorderSide].
   ///
   /// For example, this will return the [width] for a [strokeAlign] of -1, half
   /// the [width] for a [strokeAlign] of 0, and 0 for a [strokeAlign] of 1.
   double get strokeInset => width * (1 - (1 + strokeAlign) / 2);
 
-  /// Get the amount of the stroke width that lies outside of the [BorderSide].
+  /// Get the amount of the stroke width that lies outside of the [GradientBorderSide].
   ///
   /// For example, this will return 0 for a [strokeAlign] of -1, half the
   /// [width] for a [strokeAlign] of 0, and the [width] for a [strokeAlign]
@@ -288,7 +288,7 @@ class BorderSide with Diagnosticable {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is BorderSide &&
+    return other is GradientBorderSide &&
         other.color == color &&
         other.width == width &&
         other.style == style &&
@@ -300,7 +300,7 @@ class BorderSide with Diagnosticable {
   int get hashCode => Object.hash(color, width, style, strokeAlign, gradient);
 
   @override
-  String toStringShort() => 'BorderSide';
+  String toStringShort() => 'GradientBorderSide';
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -320,20 +320,20 @@ class BorderSide with Diagnosticable {
 /// A border with rounded corners that supports gradient borders.
 ///
 /// This border is similar to [RoundedRectangleBorder] but supports gradient
-/// borders through the custom [BorderSide] class.
+/// borders through the custom [GradientBorderSide] class.
 class GradientRoundedRectangleBorder extends ShapeBorder {
   /// Creates a rounded rectangle border.
   ///
-  /// The [side] argument must not be null. It defaults to [BorderSide.none].
+  /// The [side] argument must not be null. It defaults to [GradientBorderSide.none].
   ///
   /// The [borderRadius] argument must not be null. It defaults to [BorderRadius.zero].
   const GradientRoundedRectangleBorder({
-    this.side = BorderSide.none,
+    this.side = GradientBorderSide.none,
     this.borderRadius = BorderRadius.zero,
   });
 
   /// The border side to paint.
-  final BorderSide side;
+  final GradientBorderSide side;
 
   /// The border radius.
   final BorderRadius borderRadius;
@@ -353,7 +353,7 @@ class GradientRoundedRectangleBorder extends ShapeBorder {
   ShapeBorder? lerpFrom(ShapeBorder? a, double t) {
     if (a is GradientRoundedRectangleBorder) {
       return GradientRoundedRectangleBorder(
-        side: BorderSide.lerp(a.side, side, t),
+        side: GradientBorderSide.lerp(a.side, side, t),
         borderRadius: BorderRadius.lerp(a.borderRadius, borderRadius, t)!,
       );
     }
@@ -364,7 +364,7 @@ class GradientRoundedRectangleBorder extends ShapeBorder {
   ShapeBorder? lerpTo(ShapeBorder? b, double t) {
     if (b is GradientRoundedRectangleBorder) {
       return GradientRoundedRectangleBorder(
-        side: BorderSide.lerp(side, b.side, t),
+        side: GradientBorderSide.lerp(side, b.side, t),
         borderRadius: BorderRadius.lerp(borderRadius, b.borderRadius, t)!,
       );
     }
@@ -373,7 +373,7 @@ class GradientRoundedRectangleBorder extends ShapeBorder {
 
   /// Creates a copy of this border with the given fields replaced.
   GradientRoundedRectangleBorder copyWith({
-    BorderSide? side,
+    GradientBorderSide? side,
     BorderRadius? borderRadius,
   }) {
     return GradientRoundedRectangleBorder(
@@ -462,12 +462,12 @@ enum CornerLocation { tl, tr, bl, br }
 /// A rectangular border with variable smoothness transitions between
 /// the straight sides and the rounded corners.
 /// 
-/// Supports gradient borders through the custom [BorderSide] class.
+/// Supports gradient borders through the custom [GradientBorderSide] class.
 class SmoothRectangleBorder extends ShapeBorder {
-  SmoothRectangleBorder({
+  const SmoothRectangleBorder({
     this.smoothness = 0.0,
     this.borderRadius = BorderRadius.zero,
-    this.side = BorderSide.none,
+    this.side = GradientBorderSide.none,
   });
 
   /// The radius for each corner.
@@ -486,7 +486,7 @@ class SmoothRectangleBorder extends ShapeBorder {
   final double smoothness;
 
   /// The border side to paint.
-  final BorderSide side;
+  final GradientBorderSide side;
 
   @override
   EdgeInsetsGeometry get dimensions => EdgeInsets.all(side.width);
@@ -693,7 +693,7 @@ class SmoothRectangleBorder extends ShapeBorder {
   ShapeBorder? lerpFrom(ShapeBorder? a, double t) {
     if (a is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
-        side: BorderSide.lerp(a.side, side, t),
+        side: GradientBorderSide.lerp(a.side, side, t),
         borderRadius:
             BorderRadiusGeometry.lerp(a.borderRadius, borderRadius, t)!,
         smoothness: a.smoothness + (smoothness - a.smoothness) * t,
@@ -706,7 +706,7 @@ class SmoothRectangleBorder extends ShapeBorder {
   ShapeBorder? lerpTo(ShapeBorder? b, double t) {
     if (b is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
-        side: BorderSide.lerp(side, b.side, t),
+        side: GradientBorderSide.lerp(side, b.side, t),
         borderRadius:
             BorderRadiusGeometry.lerp(borderRadius, b.borderRadius, t)!,
         smoothness: smoothness + (b.smoothness - smoothness) * t,
@@ -717,7 +717,7 @@ class SmoothRectangleBorder extends ShapeBorder {
 
   /// Creates a copy of this border with the given fields replaced.
   SmoothRectangleBorder copyWith({
-    BorderSide? side,
+    GradientBorderSide? side,
     BorderRadiusGeometry? borderRadius,
     double? smoothness,
   }) {

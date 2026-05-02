@@ -1,4 +1,3 @@
-import 'package:jar/app/ui_components/platform_safe_area.dart';
 import 'package:flutter/material.dart';
 
 enum SupportedLocales {

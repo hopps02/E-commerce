@@ -37,6 +37,8 @@ enum Translation {
   verification_code_sent_part1,
   verification_code_sent_part2,
   start_shopping,
+  start_shopping_now,
+
   onboarding_grocery_desc,
   resend_code_question,
   resend_code_action,
@@ -64,6 +66,7 @@ enum Translation {
   frozen_items,
   cleaners,
   available,
+  unavailable,
   save_up_to_40_on_fresh,
   package_size,
   shop_now,
@@ -95,7 +98,7 @@ enum Translation {
   shipping_cost,
   discount,
   total_amount,
-  seconds
+  seconds, profile, checkout, no_data_found
 }
 
 extension Tra on Translation {
