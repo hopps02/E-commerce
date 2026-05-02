@@ -97,5 +97,22 @@
   "total_amount": "المبلغ الإجمالي",
   "seconds": "{count} ثانية",
   "checkout": "الدفع",
-  "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي."
+  "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي.",
+
+  "_comment_profile": "===== Profile =====",
+  "edit_profile": "تعديل الحساب",
+  "addresses": "العناوين",
+  "notifications": "الإشعارات",
+  "languages": "اللغات",
+  "help_and_support": "المساعدة والدعم",
+  "about_us": "من نحن",
+  "legal_and_policies": "السياسات والقانونية",
+  "delete_account": "حذف الحساب",
+  "log_out": "تسجيل الخروج",
+  "are_you_sure_log_out": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "are_you_sure_delete_account": "إذا كنت ترغب في حذف حسابك، فسيتم حذف جميع بياناتك نهائياً ولن تتمكن من استرجاعها لاحقاً.",
+  "delete": "حذف",
+  "back": "رجوع",
+  "english": "الإنجليزية (US)",
+  "arabic": "العربية (AR)"
 }

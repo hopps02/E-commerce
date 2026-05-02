@@ -97,5 +97,22 @@
   "total_amount": "Total Amount",
   "seconds": "{count}s",
   "checkout": "Checkout",
-  "no_data_found": "Oops, there's no data to show right now."
+  "no_data_found": "Oops, there's no data to show right now.",
+
+  "_comment_profile": "===== Profile =====",
+  "edit_profile": "Edit Profile",
+  "addresses": "Addresses",
+  "notifications": "Notifications",
+  "languages": "Languages",
+  "help_and_support": "Help and Support",
+  "about_us": "About Us",
+  "legal_and_policies": "Legal and Policies",
+  "delete_account": "Delete Account",
+  "log_out": "Log Out",
+  "are_you_sure_log_out": "Are you sure you want to log out?",
+  "are_you_sure_delete_account": "If you want to delete your account, all your data will be permanently deleted and you won't be able to retrieve it later.",
+  "delete": "Delete",
+  "back": "Back",
+  "english": "English (US)",
+  "arabic": "Arabic (AR)"
 }

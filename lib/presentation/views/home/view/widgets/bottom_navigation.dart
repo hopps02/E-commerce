@@ -5,7 +5,7 @@ import 'package:jar/app/ui_components/animations/animated_on_appear.dart';
 import 'package:jar/presentation/views/home/view/widgets/bottom_navigation_bar.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({super.key, required this.bottomNavItems});
+  BottomNavigation({super.key, required this.bottomNavItems});
 
   final List<NavigationItem> bottomNavItems;
 

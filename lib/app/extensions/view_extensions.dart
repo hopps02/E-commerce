@@ -18,6 +18,9 @@ extension ViewExt on BuildContext{
   double get leftViewInsets         => View.of(this).viewInsets.left / devicePixelRatio;
   double get rightViewInsets        => View.of(this).viewInsets.right / devicePixelRatio;
   double get textScaleFactor        => View.of(this).platformDispatcher.textScaleFactor;
+  TextDirection get textDirection   => Directionality.of(this);
+  bool get isRTL                    => textDirection == TextDirection.rtl;
+  bool get isLTR                    => textDirection == TextDirection.ltr;
   TextScaler get textScaler         => TextScaler.linear(textScaleFactor);
 }
 // dart format on

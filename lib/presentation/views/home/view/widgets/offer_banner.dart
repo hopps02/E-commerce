@@ -36,9 +36,12 @@ class OfferBanner extends StatelessWidget {
           PositionedDirectional(
             bottom: 0,
             end: 0,
-            child: Assets.tempImages.offerGirl.image(
-              height: 200.h,
-              fit: BoxFit.contain,
+            child: Transform.scale(
+              scaleX: context.isRTL ? 1 : -1,
+              child: Assets.tempImages.offerGirl.image(
+                height: 200.h,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           

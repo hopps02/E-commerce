@@ -73,6 +73,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/bag-plus.svg
   SvgGenImage get bagPlus => const SvgGenImage('assets/svg/bag-plus.svg');
 
+  /// File path: assets/svg/bell.svg
+  SvgGenImage get bell => const SvgGenImage('assets/svg/bell.svg');
+
   /// File path: assets/svg/bin.svg
   SvgGenImage get bin => const SvgGenImage('assets/svg/bin.svg');
 
@@ -85,6 +88,10 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/border-home.svg
   SvgGenImage get borderHome => const SvgGenImage('assets/svg/border-home.svg');
+
+  /// File path: assets/svg/border-location.svg
+  SvgGenImage get borderLocation =>
+      const SvgGenImage('assets/svg/border-location.svg');
 
   /// File path: assets/svg/border-receipt.svg
   SvgGenImage get borderReceipt =>
@@ -101,6 +108,10 @@ class $AssetsSvgGen {
   SvgGenImage get circleCheck =>
       const SvgGenImage('assets/svg/circle-check.svg');
 
+  /// File path: assets/svg/delete-account.svg
+  SvgGenImage get deleteAccount =>
+      const SvgGenImage('assets/svg/delete-account.svg');
+
   /// File path: assets/svg/fill-heart.svg
   SvgGenImage get fillHeart => const SvgGenImage('assets/svg/fill-heart.svg');
 
@@ -111,8 +122,26 @@ class $AssetsSvgGen {
   SvgGenImage get fillReceipt =>
       const SvgGenImage('assets/svg/fill-receipt.svg');
 
+  /// File path: assets/svg/headphone.svg
+  SvgGenImage get headphone => const SvgGenImage('assets/svg/headphone.svg');
+
+  /// File path: assets/svg/info-note.svg
+  SvgGenImage get infoNote => const SvgGenImage('assets/svg/info-note.svg');
+
+  /// File path: assets/svg/info.svg
+  SvgGenImage get info => const SvgGenImage('assets/svg/info.svg');
+
+  /// File path: assets/svg/language.svg
+  SvgGenImage get language => const SvgGenImage('assets/svg/language.svg');
+
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
+
+  /// File path: assets/svg/logout.svg
+  SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
+
+  /// File path: assets/svg/man-profile.svg
+  SvgGenImage get manProfile => const SvgGenImage('assets/svg/man-profile.svg');
 
   /// File path: assets/svg/minus-square.svg
   SvgGenImage get minusSquare =>
@@ -125,27 +154,45 @@ class $AssetsSvgGen {
   /// File path: assets/svg/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svg/search.svg');
 
+  /// File path: assets/svg/shopping-basket.svg
+  SvgGenImage get shoppingBasket =>
+      const SvgGenImage('assets/svg/shopping-basket.svg');
+
+  /// File path: assets/svg/user-pen.svg
+  SvgGenImage get userPen => const SvgGenImage('assets/svg/user-pen.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     addSquare,
     appLogo,
     arrowLeftLong,
     bagPlus,
+    bell,
     bin,
     borderBag,
     borderHeart,
     borderHome,
+    borderLocation,
     borderReceipt,
     borderUser,
     bubbleCheck,
     circleCheck,
+    deleteAccount,
     fillHeart,
     fillHome,
     fillReceipt,
+    headphone,
+    infoNote,
+    info,
+    language,
     location,
+    logout,
+    manProfile,
     minusSquare,
     saudiRiyalSymbol,
     search,
+    shoppingBasket,
+    userPen,
   ];
 }
 

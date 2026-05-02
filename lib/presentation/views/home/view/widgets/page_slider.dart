@@ -5,6 +5,8 @@ import 'package:jar/presentation/views/home/riverpod/bottom_navigation_controlle
 import 'package:jar/presentation/views/home/view/taps/tap_home_view.dart';
 import 'package:jar/presentation/views/home/view/taps/tap_my_orders_view.dart';
 
+import 'package:jar/presentation/views/home/view/taps/tap_profile_view.dart';
+
 class PageSlider extends ConsumerWidget {
   const PageSlider({super.key, required this.bottomSafeAreaPadding});
 
@@ -19,7 +21,7 @@ class PageSlider extends ConsumerWidget {
         TapHomeView(bottomSafeAreaPadding: bottomSafeAreaPadding),
         SizedBox(), // Cart
         TapMyOrdersView(bottomSafeAreaPadding: bottomSafeAreaPadding),
-        SizedBox(), // Profile
+        TapProfileView(bottomSafeAreaPadding: bottomSafeAreaPadding), // Profile
       ],
       options: CarouselOptions(
         viewportFraction: 1,

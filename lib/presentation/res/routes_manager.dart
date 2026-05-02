@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
 import 'package:jar/presentation/views/cart/view/screens/cart_view.dart';
@@ -8,6 +9,7 @@ import 'package:jar/presentation/views/product_details/view/screens/product_deta
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
 import 'package:jar/presentation/views/search/view/screens/search_view.dart';
 import 'package:jar/presentation/views/sections/view/screens/sections_view.dart';
+import 'package:jar/presentation/views/language/view/screens/language_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
@@ -23,7 +25,8 @@ enum RoutesManager {
   sections          ('sections/'),
   products          ('products/'),
   productDetails    ('productDetails/'),
-  cart              ('cart/');
+  cart              ('cart/'),
+  language          ('language/');
 
   final String route;
 
@@ -37,12 +40,13 @@ class RoutesGeneratorManager {
       RoutesManager.onboarding        => const OnboardingView(),
       RoutesManager.auth              => const AuthView(),
       RoutesManager.authSuccess       => const AuthSuccessView(),
-      RoutesManager.home              => const HomeView(),
+      RoutesManager.home              => _homeView(settings.arguments),
       RoutesManager.search            => const SearchView(),
       RoutesManager.sections          => const SectionsView(),
       RoutesManager.products          => _productsView(settings.arguments),
       RoutesManager.productDetails    => _productDetailsView(settings.arguments),
       RoutesManager.cart              => const CartView(),
+      RoutesManager.language          => const LanguageView(),
     };
   }
   // dart format on
@@ -72,6 +76,10 @@ class RoutesGeneratorManager {
       );
     },
   );
+
+  static Widget _homeView(Object? arguments) {
+    return Phoenix(key: Key('phoenix'),  child: HomeView());
+  }
 
   static ProductsView _productsView(Object? arguments) {
     return ProductsView(

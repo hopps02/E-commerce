@@ -98,7 +98,24 @@ enum Translation {
   shipping_cost,
   discount,
   total_amount,
-  seconds, profile, checkout, no_data_found
+  seconds, profile, checkout, no_data_found,
+
+  // Profile
+  edit_profile,
+  addresses,
+  notifications,
+  languages,
+  help_and_support,
+  about_us,
+  legal_and_policies,
+  delete_account,
+  log_out,
+  are_you_sure_log_out,
+  are_you_sure_delete_account,
+  delete,
+  back,
+  english,
+  arabic
 }
 
 extension Tra on Translation {
