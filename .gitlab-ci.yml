@@ -7,14 +7,25 @@ stages:
   - test
   - build
 
-test_flutter:
+unit_tests:
   stage: test
   image: ghcr.io/cirruslabs/flutter:$FLUTTER_VERSION
   tags:
     - dev
   script:
     - flutter pub get
-    - flutter test
+    - flutter test test/unit/**
+  only:
+    - master
+
+logic_integration_tests:
+  stage: test
+  image: ghcr.io/cirruslabs/flutter:$FLUTTER_VERSION
+  tags:
+    - dev
+  script:
+    - flutter pub get
+    - flutter test test/integration/**
   only:
     - master
 
