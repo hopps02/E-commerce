@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'local_notification_services.dart';
 
 // Top-level background message handler. Must be a global or static function.

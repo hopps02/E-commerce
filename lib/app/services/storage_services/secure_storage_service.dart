@@ -2,39 +2,47 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+
+/// Save sensitive data using [flutter_secure_storage] library
+// dart format off
 abstract class SecureStorageServiceBase {
+
   final FlutterSecureStorage _storage;
-  static const _tokenKey = 'access-token';
-  static const _userDataKey = 'user-data';
+  static const               _tokenKey    = 'access-token';
+  static const               _mapDataKey = 'user-data';
+
   SecureStorageServiceBase(this._storage);
 
-  // Token
-  Future<void> setToken(String token) async =>
-      await _storage.write(key: _tokenKey, value: token);
-  Future<String?> get token async => await _storage.read(key: _tokenKey);
-  Future<void> deleteToken() async => await _storage.delete(key: _tokenKey);
-  Future<bool> isUserRegistered() async => (await _storage.read(key: _tokenKey)) != null;
+  /// [setToken] saving token using [flutter_secure_storage] library
+  /// use [token] getter to get the token or null if there is no token saved
+  /// use [deleteToken] to delete saved token
+  Future<void> setToken(String token) async => await _storage.write(key: _tokenKey, value: token);
+  
+  /// get saved token
+  Future<String?> get token           async => await _storage.read(key: _tokenKey);
+
+  /// delete saved token
+  Future<void> deleteToken()          async => await _storage.delete(key: _tokenKey);
+
+  /// check if there is token or not
+  Future<bool> isUserRegistered()     async => (await _storage.read(key: _tokenKey)) != null;
 
   // User Data
-  Future<void> setUserData(Map<String, dynamic> userData) async =>
-      await _storage.write(key: _userDataKey, value: jsonEncode(userData));
-  Future<Map<String, dynamic>?> get userData async {
-    final data = await _storage.read(key: _userDataKey);
+  Future<void> setSecureMap(Map<String, dynamic> data) async => await _storage.write(key: _mapDataKey, value: jsonEncode(data));
+  Future<Map<String, dynamic>?> get secureMap async {
+    final data = await _storage.read(key: _mapDataKey);
     return data != null ? jsonDecode(data) : null;
   }
+  Future<void> deleteSecureMap()      async => await _storage.delete(key: _mapDataKey);
 
-  Future<void> deleteUserData() async =>
-      await _storage.delete(key: _userDataKey);
-
-  // Clear
-  Future<void> clearAll() async => await _storage.deleteAll();
+  /// delete all saved data from secure storage
+  Future<void> clearAll()             async => await _storage.deleteAll();
 }
 
 class SecureStorageService extends SecureStorageServiceBase {
   SecureStorageService([FlutterSecureStorage? storage])
     : super(
-        storage ??
-            const FlutterSecureStorage(
+        storage ?? const FlutterSecureStorage(
               aOptions: AndroidOptions(encryptedSharedPreferences: true),
               iOptions: IOSOptions(
                 accessibility: KeychainAccessibility.first_unlock_this_device,

@@ -1,18 +1,17 @@
 import 'dart:convert';
-import 'package:jar/app/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// dart format off
 abstract class SharedPrefsServiceBase {
   final SharedPreferences _prefs;
   SharedPrefsServiceBase(this._prefs);
 
-  static const _themeKey = 'theme_mode';
+  static const _themeKey    = 'theme_mode';
   static const _languageKey = 'language_code';
 
   // String (e.g., Language)
-  Future<void> setLanguage(Locale code) async =>
-      await _prefs.setString(_languageKey, code.toString());
+  Future<void> setLanguage(Locale code)                      async => await _prefs.setString(_languageKey, code.toString());
   Locale? get language {
     final code = _prefs.getString(_languageKey);
     if (code == null) return null;
@@ -25,44 +24,43 @@ abstract class SharedPrefsServiceBase {
   }
 
   // Int (e.g., Theme Mode: 0 for light, 1 for dark, 2 for system)
-  Future<void> setThemeMode(ThemeMode mode) async =>
-      await _prefs.setInt(_themeKey, mode.index);
-  ThemeMode get themeMode => ThemeMode.values[_prefs.getInt(_themeKey) ?? 0];
+  Future<void> setThemeMode(ThemeMode mode)                  async => await _prefs.setInt(_themeKey, mode.index);
+  ThemeMode get themeMode                                          =>       ThemeMode.values[_prefs.getInt(_themeKey) ?? 0];
 
   // Generic Map (JSON)
-  Future<void> setMap(String key, Map<String, dynamic> data) async =>
-      await _prefs.setString(key, jsonEncode(data));
+  Future<void> setMap(String key, Map<String, dynamic> data) async => await _prefs.setString(key, jsonEncode(data));
   Map<String, dynamic>? getMap(String key) {
     final data = _prefs.getString(key);
     return data != null ? jsonDecode(data) as Map<String, dynamic> : null;
   }
 
-  Future<void> deleteMap(String key) async => await _prefs.remove(key);
+  Future<void> deleteMap(String key)                         async => await _prefs.remove(key);
 
   // Helper Clear Methods
-  Future<void> remove(String key) async => await _prefs.remove(key);
-  Future<void> clearAll() async => await _prefs.clear();
+  Future<void> remove(String key)                            async => await _prefs.remove(key);
+  Future<void> clearAll()                                    async => await _prefs.clear();
 }
 
 class SharedPrefsService extends SharedPrefsServiceBase {
   SharedPrefsService(super.prefs);
-  static const _userLatitudeKey = 'user-latitude';
-  static const _userLongitudeKey = 'user-longitude';
-  static const _userAddressKey = 'user-address';
+  
+  static const _userLatitudeKey      = 'user-latitude';
+  static const _userLongitudeKey     = 'user-longitude';
+  static const _userAddressKey       = 'user-address';
   static const _skippedOnBoardingKey = 'skipped-on-boarding';
 
   Future<void> saveLocationData({
     required double latitude,
     required double longitude,
     required String address,
-  }) async {
+  })                                                         async {
     await _prefs.setDouble(_userLatitudeKey, latitude);
     await _prefs.setDouble(_userLongitudeKey, longitude);
     await _prefs.setString(_userAddressKey, address);
   }
 
   Future<({double? latitude, double? longitude, String? address})>
-  getLocationData() async {
+    getLocationData()                                        async {
     final latitude = _prefs.getDouble(_userLatitudeKey);
     final longitude = _prefs.getDouble(_userLongitudeKey);
     final address = _prefs.getString(_userAddressKey);
@@ -82,10 +80,7 @@ class SharedPrefsService extends SharedPrefsServiceBase {
         address.isNotEmpty;
   }
 
-  Future<void> setSkippedOnBoarding() async =>
-      await _prefs.setBool(_skippedOnBoardingKey, true);
-  bool get isSkippedOnBoarding =>
-      _prefs.getBool(_skippedOnBoardingKey) ?? false;
-  Future<void> deleteSkippedOnBoarding() async =>
-      await _prefs.remove(_skippedOnBoardingKey);
+  Future<void> setSkippedOnBoarding()                        async => await _prefs.setBool(_skippedOnBoardingKey, true);
+  bool get isSkippedOnBoarding                                     =>       _prefs.getBool(_skippedOnBoardingKey) ?? false;
+  Future<void> deleteSkippedOnBoarding()                     async => await _prefs.remove(_skippedOnBoardingKey);
 }
