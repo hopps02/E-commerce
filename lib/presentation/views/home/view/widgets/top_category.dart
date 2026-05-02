@@ -6,6 +6,7 @@ import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/category_card.dart';
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
+import 'package:jar/presentation/res/translations_manager.dart';
 
 class TopCategory extends StatelessWidget {
   const TopCategory({
@@ -20,27 +21,27 @@ class TopCategory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CategoryCard(
-            title: "البقالة",
-            subtitle: "طازج يوميًا",
+            title: Translation.grocery.tr,
+            subtitle: Translation.fresh_daily.tr,
             imagePath: Assets.tempImages.image1.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: "البقالة"));
+              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.grocery.tr));
             },
           ),
           CategoryCard(
-            title: "أفضل العروض",
-            subtitle: "وفّر أكثر اليوم",
+            title: Translation.best_offers.tr,
+            subtitle: Translation.save_more_today.tr,
             imagePath: Assets.tempImages.image2.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: "أفضل العروض"));
+              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.best_offers.tr));
             },
           ),
           CategoryCard(
-            title: "احتياجاتك اليومية",
-            subtitle: "مختار بعناية وطازج",
+            title: Translation.daily_needs.tr,
+            subtitle: Translation.carefully_selected_fresh.tr,
             imagePath: Assets.tempImages.image3.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: "احتياجاتك اليومية"));
+              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.daily_needs.tr));
             },
           ),
         ],
