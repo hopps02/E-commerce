@@ -12,17 +12,18 @@ import 'package:jar/presentation/views/sections/view/screens/sections_view.dart'
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
 
+// dart format off
 enum RoutesManager {
-  splash('splash/'),
-  onboarding('onboarding/'),
-  auth('auth/'),
-  authSuccess('authSuccess/'),
-  home('home/'),
-  search('search/'),
-  sections('sections/'),
-  products('products/'),
-  productDetails('productDetails/'),
-  cart('cart/');
+  splash            ('splash/'),
+  onboarding        ('onboarding/'),
+  auth              ('auth/'),
+  authSuccess       ('authSuccess/'),
+  home              ('home/'),
+  search            ('search/'),
+  sections          ('sections/'),
+  products          ('products/'),
+  productDetails    ('productDetails/'),
+  cart              ('cart/');
 
   final String route;
 
@@ -31,26 +32,20 @@ enum RoutesManager {
 
 class RoutesGeneratorManager {
   static Widget _getScreen(String? name, RouteSettings settings) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-    );
     return switch (RoutesManager.values.firstWhere((t) => t.route == name)) {
-      RoutesManager.splash => const SplashView(),
-      RoutesManager.onboarding => const OnboardingView(),
-      RoutesManager.auth => const AuthView(),
-      RoutesManager.authSuccess => const AuthSuccessView(),
-      RoutesManager.home => const HomeView(),
-      RoutesManager.search => const SearchView(),
-      RoutesManager.sections => const SectionsView(),
-      RoutesManager.products => _productsView(settings.arguments),
-      RoutesManager.productDetails => _productDetailsView(settings.arguments),
-      RoutesManager.cart => const CartView(),
+      RoutesManager.splash            => const SplashView(),
+      RoutesManager.onboarding        => const OnboardingView(),
+      RoutesManager.auth              => const AuthView(),
+      RoutesManager.authSuccess       => const AuthSuccessView(),
+      RoutesManager.home              => const HomeView(),
+      RoutesManager.search            => const SearchView(),
+      RoutesManager.sections          => const SectionsView(),
+      RoutesManager.products          => _productsView(settings.arguments),
+      RoutesManager.productDetails    => _productDetailsView(settings.arguments),
+      RoutesManager.cart              => const CartView(),
     };
   }
+  // dart format on
 
   // custom navigation animation
   static Route<dynamic> getRoute(RouteSettings settings) => PageRouteBuilder(
@@ -88,9 +83,7 @@ class RoutesGeneratorManager {
     return ProductDetailsView(
       args: arguments is ProductDetailsViewArgs
           ? arguments
-          : const ProductDetailsViewArgs(
-              productId: ''
-            ),
+          : const ProductDetailsViewArgs(productId: ''),
     );
   }
 }

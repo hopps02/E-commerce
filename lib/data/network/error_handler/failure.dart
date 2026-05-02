@@ -1,28 +1,5 @@
 import 'error_handler.dart';
 
-// class Failure {
-//   final int code;
-//   final String message;
-//
-//   Failure(this.code, this.message);
-//
-//   @override
-//   String toString() => 'Failure(code: $code, message: "$message")';
-// }
-//
-// extension GetFailureDio on DioErrors {
-//   Failure get failure => Failure(code, message);
-// }
-//
-// extension GetFailureApi on ApiErrors {
-//   Failure failure() => Failure(code, message);
-// }
-
-
-
-
-
-
 
 abstract class Failure {
   const Failure();

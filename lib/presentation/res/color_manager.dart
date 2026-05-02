@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// 
+// dart format off
 abstract class ColorM{
   static const Color primary                = Color(0xFF5130EC);
   static const Color primary50              = Color(0xFFF3F0FF);
@@ -34,3 +34,4 @@ abstract class ColorM{
   static const Color transparent            = Colors.transparent;
   static const Color red                    = Color(0xFFEF4444);
 }
+

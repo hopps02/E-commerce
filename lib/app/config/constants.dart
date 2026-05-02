@@ -1,22 +1,20 @@
-import 'package:flutter/widgets.dart';
 
+/// **Important Note:** This class contains constants that are used throughout the application.
+///
+/// - `baseUrl`: The base URL for API requests.
+/// - `splashTimer`: The duration in seconds for which the splash screen is displayed.
+/// - `translationsPath`: The path to the translation files.
+///
+/// **Usage:**
+/// ```dart
+/// String url = Constants.baseUrl;
+/// int duration = Constants.splashTimer;
+/// String path = Constants.translationsPath;
+/// ```
+// dart format off
 class Constants {
-  static const String baseUrl = 'https://dev.retm.net';
-  static const String apiKey = '';
-  static const int splashTimer = 2;
+  static const String baseUrl          = '';
+  static const int    splashTimer      = 2;
   static const String translationsPath = "assets/translations";
-  static const String skippedOnBoarding = "skipped-on-boarding";
-  static const String accessToken = "access-token";
-  static const String refreshToken = "refresh-token";
-  static const String language = "language";
-  static const String userId = "user-id";
-  static const String idToken = "id-token";
-  static const String isDark = "is-dark";
-
-  static const int milliseconds800 = 800;
-  static const double slideDistance100 = 100.0;
-  static const Curve curveEaseInOutQuint = Curves.easeInOutQuint;
-
-  static const int milliseconds400 = 400;
-  static const int delay800 = 800;
 }
+// dart format on

@@ -3,6 +3,28 @@ import 'package:dio/dio.dart';
 import 'package:jar/data/responses/responses.dart';
 import 'failure.dart';
 
+/// A universal wrapper for executing network requests safely and cleanly.
+/// 
+/// This function acts as the main safety boundary between your remote data sources (API) 
+/// and your repository layer. It automatically handles:
+/// 
+/// 1. **Execution**: Runs the asynchronous API [request].
+/// 2. **Success Parsing**: If the request succeeds and `response.success` is true, 
+///    it returns the data wrapped in a [Right].
+/// 3. **Logical Backend Errors**: If the HTTP request succeeds (200 OK) but the backend 
+///    explicitly marks it as a failure (`success` == false), it extracts the backend 
+///    message and returns it as a [Left(ServerError)].
+/// 4. **Exception Catching**: It catches **ALL** thrown exceptions (e.g., Dio timeouts, 
+///    `400 Bad Request`, `401 Unauthorized`, `500 Server Crashes`, No Internet) and 
+///    safely passes them to the `e.handle` [ErrorHandler] extension. This guarantees 
+///    your UI will always receive a structured [Failure] object, never an app crash.
+/// 
+/// Usage in Repository:
+/// ```dart
+/// return fastHandler(
+///   request: () => _apiServiceClient.login(requestModel),
+/// );
+/// ```
 Future<Either<Failure, result>> fastHandler<result extends BasicResponse>({
   required Future<result> Function() request,
 }) async {
@@ -69,7 +91,6 @@ extension ErrorHandler on dynamic {
           (this as DioException).response?.data["message"],
           (this as DioException).response?.data["error"],
         ),
-        _ => DioLocalError(message: (this as DioException).message),
       },
       // FirebaseException() => _handleResponseError(
       //     (this as FirebaseException).code,
@@ -81,36 +102,57 @@ extension ErrorHandler on dynamic {
   }
 }
 
-String? _extractValidationError(dynamic responseData) {
-  if (responseData == null) return null;
+/// Parses the raw error response from the backend and maps it to a structured [Failure] object.
+/// 
+/// Enhancement: This function now gracefully falls back to default HTTP status messages 
+/// (e.g., "Bad Request" for 400) if the backend fails to provide a clear [message] or [error] string.
+Failure _handleResponseError(dynamic status, String? message, String? error) {
+  final fallbackMessage = message ?? error;
 
-  // Handle validation error structure
-  if (responseData is Map<String, dynamic> &&
-      responseData['errors'] is Map<String, dynamic>) {
-    final errors = responseData['errors'] as Map<String, dynamic>;
-    // Get the first error message from any field
-    for (var fieldErrors in errors.values) {
-      if (fieldErrors is List && fieldErrors.isNotEmpty) {
-        return fieldErrors.first.toString();
-      }
+  // 1. Try to match an exact known API error from the backend.
+  if (status != null && fallbackMessage != null) {
+    final apiError = ApiErrorType.from(status, fallbackMessage);
+    if (apiError != null) {
+      return CustomServerError(error: apiError);
     }
   }
 
-  // Fallback to message or title
-  return responseData['message'] ?? responseData['title'];
-}
-
-Failure _handleResponseError(dynamic status, String? message, String? error) {
-  if (status != null && (message ?? error) != null) {
-    final apiError = ApiErrorType.from(status, (message ?? error)!);
-    return apiError != null
-        ? CustomServerError(error: apiError)
-        : ServerError(message: message ?? error);
-  } else {
-    return ServerError(message: "An unknown error occurred.");
+  // 2. If we have a message from the backend but it's not a pre-defined ApiErrorType, return it directly.
+  if (fallbackMessage != null && fallbackMessage.isNotEmpty) {
+    return ServerError(message: fallbackMessage);
   }
+
+  // 3. Enhancement: If no message is provided by the backend, map the HTTP status code to a readable message.
+  if (status is int) {
+    switch (status) {
+      case 400:
+        return ServerError(message: "Bad Request: Invalid data provided.");
+      case 401:
+        return ServerError(message: "Unauthorized: Please login again.");
+      case 403:
+        return ServerError(message: "Forbidden: You don't have access.");
+      case 404:
+        return ServerError(message: "Not Found: The requested resource does not exist.");
+      case 429:
+        return ServerError(message: "Too Many Requests: Please try again later.");
+      case 500:
+      case 502:
+      case 503:
+      case 504:
+        return ServerError(message: "Server Error: Something went wrong on our end.");
+      default:
+        return ServerError(message: "Server Error: Code $status.");
+    }
+  }
+
+  // 4. Default fallback when both status and message are unhelpful.
+  return ServerError(message: "An unknown error occurred.");
 }
 
+/// Represents connection-level and protocol-level errors thrown by the Dio HTTP client.
+/// 
+/// Use this enum to handle things like request timeouts, lack of internet connection, 
+/// or bad SSL certificates. These happen BEFORE or DURING the request, not based on backend logic.
 enum DioErrorType {
   CANCEL("CANCEL", "Request was cancelled", "CANCEL"),
   CONNECTION_ERROR(
@@ -145,14 +187,6 @@ enum DioErrorType {
     "BAD_RESPONSE",
   );
 
-  // Example HTTP errors
-  // INTERNAL_SERVER_ERROR(500, "Internal Server Error", "INTERNAL_SERVER_ERROR"),
-  // BAD_REQUEST(400, "Bad Request", "BAD_REQUEST"),
-  // UNAUTHORIZED(401, "Unauthorized", "UNAUTHORIZED"),
-  // FORBIDDEN(403, "Forbidden", "FORBIDDEN"),
-  // NOT_FOUND(404, "Not Found", "NOT_FOUND"),
-  // TOO_MANY_REQUESTS(429, "Too Many Requests", "TOO_MANY_REQUESTS");
-
   final dynamic
   status; // `dynamic` to handle both String (Dio errors) and int (HTTP errors)
   final String message;
@@ -170,6 +204,11 @@ enum DioErrorType {
   }
 }
 
+/// Represents known business-logic errors specifically returned by your backend API.
+/// 
+/// Whenever the backend team defines a new standard error (e.g., "USER_BANNED"), 
+/// you should add it here. The `_handleResponseError` will automatically parse it
+/// and return it as a [CustomServerError].
 enum ApiErrorType {
   USER_NOT_CONFIRMED(401, "User is not confirmed."),
   UNAUTHORIZED(401, "غير مصرح"),
