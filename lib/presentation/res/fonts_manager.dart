@@ -12,23 +12,23 @@ enum FontsM{
 
 abstract class FontWeightM {
   /// 100
-  static const FontWeight thin         = FontWeight.w100;
+  static const FontWeight thin         = FontWeight(100);
   /// w200
-  static const FontWeight extraLight   = FontWeight.w200;
+  static const FontWeight extraLight   = FontWeight(200);
   /// w300
-  static const FontWeight light        = FontWeight.w300;
+  static const FontWeight light        = FontWeight(300);
   /// w400
-  static const FontWeight regular      = FontWeight.w400;
+  static const FontWeight regular      = FontWeight(400);
   /// w500
-  static const FontWeight medium       = FontWeight.w500;
+  static const FontWeight medium       = FontWeight(500);
   /// w600
-  static const FontWeight semiBold     = FontWeight.w600;
+  static const FontWeight semiBold     = FontWeight(600);
   /// w700
-  static const FontWeight bold         = FontWeight.w700;
+  static const FontWeight bold         = FontWeight(700);
   /// w800
-  static const FontWeight extraBold    = FontWeight.w800;
+  static const FontWeight extraBold    = FontWeight(800);
   /// w900
-  static const FontWeight black        = FontWeight.w900;
+  static const FontWeight black        = FontWeight(900);
   /// normal
-  static const FontWeight normal       = FontWeight.normal;
+  static const FontWeight normal       = FontWeight(400);
 }

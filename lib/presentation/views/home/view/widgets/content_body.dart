@@ -48,7 +48,7 @@ class Body extends StatelessWidget {
         18.verticalSpace,
         const OfferBanner(),
         18.verticalSpace,
-        const CategoriesSection(),
+        CategoriesSection(),
         18.verticalSpace,
         ProductsSection(
           title: Translation.vegetables.tr,

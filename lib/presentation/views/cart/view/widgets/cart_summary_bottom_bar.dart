@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/direction.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
@@ -13,14 +12,16 @@ class CartSummaryBottomBar extends StatelessWidget {
   final double totalProducts;
   final double shippingCost;
   final double discount;
-  final VoidCallback onCheckout;
+  final VoidCallback? onCheckout;
+  final VoidCallback? onConfirm;
 
   const CartSummaryBottomBar({
     super.key,
     required this.totalProducts,
     required this.shippingCost,
     required this.discount,
-    required this.onCheckout,
+    this.onCheckout,
+    this.onConfirm,
   });
 
   double get totalAmount => (totalProducts + shippingCost) - discount;
@@ -99,62 +100,21 @@ class CartSummaryBottomBar extends StatelessWidget {
 
                 // Checkout Button
                 CustomInkButton(
-                  onTap: onCheckout,
+                  onTap: onCheckout ?? onConfirm,
                   width: double.infinity,
                   height: 56.h,
                   backgroundColor: ColorM.primary,
                   borderRadius: 16.r,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // View Cart text + Icon (Right side in RTL)
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 4.w,
-                        children: [
-                          Text(
-                            Translation
-                                .checkout
-                                .tr, // Figma uses view_cart text here too
-                            style: context.bodyLarge.copyWith(
-                              color: ColorM.white,
-                              fontWeight: FontWeightM.medium,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_back_ios,
-                            textDirection: Directionality.of(context) == TextDirection.rtl
-                                ? TextDirection.ltr
-                                : TextDirection.rtl,
-                            size: 20.sp,
-                            color: ColorM.white,
-                          ),
-                        ],
-                      ),
-                      // Price (Left side in RTL)
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 3.w,
-                        children: [
-                          Text(
-                            "$totalAmount",
-                            style: context.titleLarge.copyWith(
-                              color: ColorM.white,
-                              fontWeight: FontWeightM.semiBold,
-                            ),
-                          ),
-                          SvgPicture.asset(
-                            Assets.svg.saudiRiyalSymbol.path,
-                            width: 15.sp,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.white,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  alignment: Alignment.center,
+                  child: Text(
+                    onCheckout != null
+                        ? Translation.order_now.tr
+                        : Translation.confirm_order.tr,
+                    style: context.bodyLarge.copyWith(
+                      color: ColorM.white,
+                      fontWeight: FontWeightM.medium,
+                    ),
                   ),
                 ),
               ],

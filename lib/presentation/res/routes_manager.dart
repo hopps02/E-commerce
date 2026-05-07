@@ -13,6 +13,7 @@ import 'package:jar/presentation/views/language/view/screens/language_view.dart'
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
+import '../views/confirm_order/view/screens/confirm_order_view.dart';
 
 // dart format off
 enum RoutesManager {
@@ -26,6 +27,7 @@ enum RoutesManager {
   products          ('products/'),
   productDetails    ('productDetails/'),
   cart              ('cart/'),
+  confirmOrder      ('confirmOrder/'),
   language          ('language/');
 
   final String route;
@@ -46,6 +48,7 @@ class RoutesGeneratorManager {
       RoutesManager.products          => _productsView(settings.arguments),
       RoutesManager.productDetails    => _productDetailsView(settings.arguments),
       RoutesManager.cart              => const CartView(),
+      RoutesManager.confirmOrder      => const ConfirmOrderView(),
       RoutesManager.language          => const LanguageView(),
     };
   }

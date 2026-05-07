@@ -97,6 +97,12 @@
   "total_amount": "المبلغ الإجمالي",
   "seconds": "{count} ثانية",
   "checkout": "الدفع",
+  "order_placed_successfully": "تم الطلب بنجاح",
+  "order_number": "رقم الطلب:",
+  "view_order": "عرض الطلب",
+  "confirm_order": "تأكيد الطلب",
+  "order_now": "طلب الآن",
+  "orders": "الطلبات",
   "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي.",
 
   "_comment_profile": "===== Profile =====",

@@ -97,6 +97,12 @@
   "total_amount": "Total Amount",
   "seconds": "{count}s",
   "checkout": "Checkout",
+  "order_placed_successfully": "Order placed successfully",
+  "order_number": "Order Number:",
+  "view_order": "View Order",
+  "confirm_order": "Confirm Order",
+  "order_now": "Order Now",
+  "orders": "Orders",
   "no_data_found": "Oops, there's no data to show right now.",
 
   "_comment_profile": "===== Profile =====",

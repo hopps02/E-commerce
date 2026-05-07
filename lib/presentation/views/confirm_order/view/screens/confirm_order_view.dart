@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/navigation_extension.dart';
+import 'package:jar/app/extensions/view_extensions.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/views/cart/view/widgets/cart_summary_bottom_bar.dart';
+import 'package:jar/presentation/views/confirm_order/view/widgets/confirm_order_app_bar.dart';
+import 'package:jar/presentation/views/confirm_order/view/widgets/delivery_to.dart';
+import 'package:jar/presentation/views/confirm_order/view/widgets/orders.dart';
+
+class ConfirmOrderView extends StatefulWidget {
+  const ConfirmOrderView({super.key});
+
+  @override
+  State<ConfirmOrderView> createState() => _ConfirmOrderViewState();
+}
+
+class _ConfirmOrderViewState extends State<ConfirmOrderView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          // Status bar space
+          SizedBox(height: context.topSafeAreaPadding),
+
+          // App Bar
+          ConfirmOrderAppBar(),
+
+          DeliveryTo(),
+
+          18.verticalSpace,
+
+          Orders()
+          
+        ],
+      ),
+
+      bottomNavigationBar: CartSummaryBottomBar(
+              totalProducts: 200,
+              shippingCost: 10,
+              discount: 30,
+              onConfirm: () {
+              },
+            ),
+    );
+  }
+}

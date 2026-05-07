@@ -99,6 +99,12 @@ enum Translation {
   discount,
   total_amount,
   seconds, profile, checkout, no_data_found,
+  order_placed_successfully,
+  order_number,
+  view_order,
+  confirm_order,
+  order_now,
+  orders,
 
   // Profile
   edit_profile,

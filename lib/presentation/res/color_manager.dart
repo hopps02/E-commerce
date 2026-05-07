@@ -15,6 +15,7 @@ abstract class ColorM{
   static const Color primary900             = Color(0xFF1E0F57);
   static const Color lightPurple            = Color(0xFFF3F0FF);
   static const Color secondary              = Color(0xFF5F5CA4);
+  static const Color greenSecondary         = Color(0xFF2A9C64);
   
   static const Color gray50                 = Color(0xFFF4F4F4);
   static const Color gray100                = Color(0xFFF9FAFB);
@@ -28,6 +29,7 @@ abstract class ColorM{
   static const Color gray700                = Color(0xFF515151);
   static const Color gray800                = Color(0xFF374151);
   static const Color gray900                = Color(0xFF1F2937);
+  static const Color gray950                = Color(0xFF181818);
   static const Color gray1000               = Color(0xFF111827);
 
   static const Color white                  = Color(0xFFFFFFFF);
