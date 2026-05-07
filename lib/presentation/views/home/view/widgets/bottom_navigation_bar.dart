@@ -15,10 +15,16 @@ class NavigationItem {
   final String svgPath;
   final String selectedSvgPath;
 
+  /// Custom action for a the item
+  /// if 'null'     it will navigate to the screen with the same index
+  /// if 'not null' it will execute the action instead of navigating
+  final void Function()? onTap;
+
   NavigationItem({
     required this.title,
     required this.svgPath,
     required this.selectedSvgPath,
+    this.onTap,
   });
 }
 
@@ -105,8 +111,11 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          ref.read(bottomNavigationController.notifier).onBottomNavTap(index),
+      onTap: () => item.onTap != null
+          ? item.onTap!()
+          : ref
+              .read(bottomNavigationController.notifier)
+              .onBottomNavTap(index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
