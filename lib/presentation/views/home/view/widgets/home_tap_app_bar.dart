@@ -95,8 +95,7 @@ class TopAppBarContent extends StatelessWidget {
               ),
               SvgPicture.asset(
                 Assets.svg.appLogo.path,
-                width: 22.w,
-                height: 49.h,
+                width: 39.w,
                 fit: .cover,
               ),
             ],

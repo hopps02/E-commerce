@@ -11,8 +11,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       Assets.svg.appLogo.path,
-      width: 63.w,
-      height: 140.h,
+      width: 155.w,
     ).pluseAnimation(5);
   }
 }

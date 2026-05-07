@@ -38,42 +38,6 @@ class ProfileSettings extends StatelessWidget {
               onTap: () {},
             ),
             ProfileMenuItem(
-              icon: Assets.svg.borderLocation.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Translation.addresses.tr,
-              onTap: () {},
-            ),
-            ProfileMenuItem(
-              icon: Assets.svg.shoppingBasket.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Translation.my_orders.tr,
-              onTap: () {},
-            ),
-            ProfileMenuItem(
-              icon: Assets.svg.bell.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Translation.notifications.tr,
-              onTap: () {},
-            ),
-            ProfileMenuItem(
               icon: Assets.svg.language.svg(
                 width: 20.w,
                 height: 20.w,
@@ -97,18 +61,6 @@ class ProfileSettings extends StatelessWidget {
                 ),
               ),
               title: Translation.help_and_support.tr,
-              onTap: () {},
-            ),
-            ProfileMenuItem(
-              icon: Assets.svg.info.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Translation.about_us.tr,
               onTap: () {},
             ),
             ProfileMenuItem(

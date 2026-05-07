@@ -40,8 +40,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
           animationDuration: Duration(seconds: 1),
           child: SvgPicture.asset(
             Assets.svg.appLogo.path,
-            width: 63.w,
-            height: 140.h,
+            width: 155.w,
           ),
         ),
       ),
@@ -54,9 +53,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
       if (!DI().storageService.isSkippedOnBoarding) {
         context.pushNamedAndRemoveUntil(RoutesManager.onboarding.route, (_) => false);
       } else if (await DI().storageService.isUserRegistered) {
-        // Navigator.of(
-        //   context,
-        // ).pushNamedAndRemoveUntil(RoutesManager.home.route, (_) => false);
+        if (context.mounted) context.pushNamedAndRemoveUntil(RoutesManager.home.route, (_) => false);
       } else {
         if (context.mounted) context.pushNamedAndRemoveUntil(RoutesManager.auth.route, (_) => false);
       }

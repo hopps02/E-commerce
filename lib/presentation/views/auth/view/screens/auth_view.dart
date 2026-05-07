@@ -44,10 +44,12 @@ class _AuthViewState extends ConsumerState<AuthView> {
         DI().loadingService.show();
         Future.delayed(Duration(seconds: 3), () {
           DI().loadingService.hide();
-          OtpBottomSheet.show(
-            context,
-            mobileNumber: phoneNumberController.text,
-          );
+          if (mounted) {
+            OtpBottomSheet.show(
+              context,
+              mobileNumber: phoneNumberController.text,
+            );
+          }
         });
       },
     );

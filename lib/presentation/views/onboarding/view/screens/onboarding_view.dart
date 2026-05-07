@@ -26,7 +26,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           OnboardingContent(
             title: Translation.welcome_to_jar.tr,
             description: Translation.onboarding_grocery_desc.tr,
-            onNext: _handleOnboardingComplete,
+            onNext: _handleOnNext,
             onLogin: _handleOnboardingComplete,
           ),
         ],
@@ -37,6 +37,11 @@ class _OnboardingViewState extends State<OnboardingView> {
   Future<void> _handleOnboardingComplete() async {
     await DI().storageService.setSkippedOnBoarding();
     if(mounted) context.pushNamedAndRemoveUntil(RoutesManager.auth.route, (route) => false);
+  }
+
+  Future<void> _handleOnNext() async {
+    await DI().storageService.setSkippedOnBoarding();
+    if(mounted) context.pushNamedAndRemoveUntil(RoutesManager.home.route, (route) => false);
   }
 }
 

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -23,10 +22,7 @@ class ProfileInfo extends StatelessWidget {
           ),
         ),
         32.verticalSpace,
-    
-        // User Info
-        Assets.svg.manProfile.svg(width: 110.w, height: 110.w),
-        8.verticalSpace,
+
         Text(
           'Leonardo',
           style: context.headlineSmall.copyWith(
