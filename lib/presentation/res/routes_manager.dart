@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:jar/app/enums/enums.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
 import 'package:jar/presentation/views/cart/view/screens/cart_view.dart';
@@ -41,7 +42,7 @@ class RoutesGeneratorManager {
       RoutesManager.splash            => const SplashView(),
       RoutesManager.onboarding        => const OnboardingView(),
       RoutesManager.auth              => const AuthView(),
-      RoutesManager.authSuccess       => const AuthSuccessView(),
+      RoutesManager.authSuccess       => _authSuccessView(settings.arguments),
       RoutesManager.home              => _homeView(settings.arguments),
       RoutesManager.search            => const SearchView(),
       RoutesManager.sections          => const SectionsView(),
@@ -95,6 +96,14 @@ class RoutesGeneratorManager {
       args: arguments is ProductDetailsViewArgs
           ? arguments
           : const ProductDetailsViewArgs(productId: ''),
+    );
+  }
+
+   static AuthSuccessView _authSuccessView(Object? arguments) {
+    return AuthSuccessView(
+      args: arguments is AuthSuccessArgs
+          ? arguments
+          : const AuthSuccessArgs(successViewType: SuccessViewType.auth),
     );
   }
 }

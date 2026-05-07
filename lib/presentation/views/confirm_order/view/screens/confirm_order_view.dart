@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/enums/enums.dart';
 import 'package:jar/app/extensions/navigation_extension.dart';
 import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_summary_bottom_bar.dart';
 import 'package:jar/presentation/views/confirm_order/view/widgets/confirm_order_app_bar.dart';
 import 'package:jar/presentation/views/confirm_order/view/widgets/delivery_to.dart';
@@ -41,6 +43,13 @@ class _ConfirmOrderViewState extends State<ConfirmOrderView> {
               shippingCost: 10,
               discount: 30,
               onConfirm: () {
+                context.pushNamedAndRemoveUntil(
+                  RoutesManager.authSuccess.route,
+                  (route) => route.settings.name == RoutesManager.home.route,
+                  arguments: AuthSuccessArgs(
+                    successViewType: SuccessViewType.order,
+                  ),
+                );
               },
             ),
     );

@@ -16,6 +16,7 @@ abstract class ColorM{
   static const Color lightPurple            = Color(0xFFF3F0FF);
   static const Color secondary              = Color(0xFF5F5CA4);
   static const Color greenSecondary         = Color(0xFF2A9C64);
+  static const Color greenPrimary           = Color(0xFF00422B);
   
   static const Color gray50                 = Color(0xFFF4F4F4);
   static const Color gray100                = Color(0xFFF9FAFB);
