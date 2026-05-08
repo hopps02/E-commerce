@@ -5,6 +5,7 @@ import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/cart/riverpod/cart_controller.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_item_card.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class CartData extends StatelessWidget {
   const CartData({
@@ -44,7 +45,7 @@ class CartData extends StatelessWidget {
               initialQuantity: 1,
               onQuantityChanged: (newQty) {},
               onDelete: () {},
-            );
+            ).premiumAppear(index: index % 5);
           },
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/views/search/view/widgets/search_bar_section.dart';
 import 'package:jar/presentation/views/search/view/widgets/search_data.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -105,9 +106,9 @@ class _SearchViewState extends State<SearchView> {
       body: Column(
         children: [
           SizedBox(height: context.topSafeAreaPadding),
-          SearchBarSection(controller: _controller),
-          Container(height: 6.h, color: ColorM.gray150),
-          SearchData(allProducts: _allProducts),
+          SearchBarSection(controller: _controller).premiumAppear(index: 0),
+          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+          SearchData(),
         ],
       ),
     );

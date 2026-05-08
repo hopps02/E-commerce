@@ -5,6 +5,7 @@ import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/sections/view/widgets/app_bar.dart';
 import 'package:jar/presentation/views/sections/view/widgets/sections_data.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class SectionsView extends StatefulWidget {
   const SectionsView({super.key});
@@ -20,8 +21,8 @@ class _SectionsViewState extends State<SectionsView> {
       body: Column(
         children: [
           SizedBox(height: context.topSafeAreaPadding),
-          TopAppBar(title: Translation.categories.tr),
-          Container(height: 6.h, color: ColorM.gray150),
+          TopAppBar(title: Translation.categories.tr).premiumAppear(index: 0),
+          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
           SectionsData()
         ],
       ),

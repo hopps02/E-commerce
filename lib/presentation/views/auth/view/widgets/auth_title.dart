@@ -16,7 +16,7 @@ class AuthTitle extends StatelessWidget {
         Text(
           Translation.login.tr,
           style: context.titleLarge.copyWith(fontWeight: FontWeightM.semiBold),
-        ).pluseAnimation(4),
+        ),
         6.verticalSpace,
         Text(
           Translation.enter_mobile_to_continue.tr,
@@ -24,7 +24,7 @@ class AuthTitle extends StatelessWidget {
             fontSize: 15.sp,
             color: ColorM.gray500,
           ),
-        ).pluseAnimation(3),
+        ),
       ],
     );
   }

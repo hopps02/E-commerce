@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/presentation/views/home/view/widgets/my_orders_app_bar.dart';
 import 'package:jar/presentation/views/home/view/widgets/my_orders_slider.dart';
 import 'package:jar/presentation/views/home/view/widgets/my_orders_taps_button.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class TapMyOrdersView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
@@ -25,9 +26,9 @@ class _TapMyOrdersViewState extends ConsumerState<TapMyOrdersView>
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
-          MyOrdersAppBar(),
+          MyOrdersAppBar().premiumAppear(index: 0),
           34.verticalSpace,
-          MyOrdersTapsButton(),
+          MyOrdersTapsButton().premiumAppear(index: 1),
           16.verticalSpace,
           MyOrdersSlider(bottomSafeAreaPadding: widget.bottomSafeAreaPadding),
         ],

@@ -10,12 +10,10 @@ import 'package:jar/presentation/common/fast_state_render.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
 import 'package:jar/presentation/views/search/riverpod/search_controller.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class SearchData extends ConsumerWidget {
-  const SearchData({super.key, required List<Map<String, dynamic>> allProducts})
-    : _allProducts = allProducts;
-
-  final List<Map<String, dynamic>> _allProducts;
+  const SearchData({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,20 +47,19 @@ class SearchData extends ConsumerWidget {
               mainAxisSpacing: 12.h,
               childAspectRatio: .8,
             ),
-            itemCount: _allProducts.length,
+            itemCount: 20,
             itemBuilder: (context, index) {
-              final p = _allProducts[index];
               return ProductCard(
                 fitForGridList: true,
-                title: p['name'],
-                imageUrl: p['image'],
-                price: p['price'],
-                oldPrice: p['oldPrice'],
-                quantity: p['quantity'],
-                isFavorite: p['isFavorite'] ?? false,
+                title: "الكرنب الأخضر",
+                imageUrl: "",
+                price: 12,
+                oldPrice: 18,
+                quantity: 0,
+                isFavorite: false,
                 onFavTap: () {},
                 onQuantityChanged: (_) {},
-              );
+              ).premiumAppear(index: (index % 2)+ 1);
             },
           ),
         ),

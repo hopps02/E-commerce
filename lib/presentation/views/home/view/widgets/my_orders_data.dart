@@ -3,11 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jar/app/extensions/navigation_extension.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 import 'package:jar/app/ui_components/customized_smart_refresh.dart';
 import 'package:jar/presentation/common/fast_state_render.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/riverpod/my_orders_tab_controller.dart';
 import 'package:jar/presentation/views/home/view/widgets/order_card.dart';
+
+import '../../../../res/routes_manager.dart';
 
 enum MyOrdersDataType { current, previous }
 
@@ -74,7 +78,10 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
           ),
           itemCount: 3,
           separatorBuilder: (context, index) => 16.verticalSpace,
-          itemBuilder: (context, index) => OrderCard(step: (index % 3) + 1),
+          itemBuilder: (context, index) => OrderCard(
+            step: (index % 3) + 1,
+            onTapDetails: () => context.pushNamed(RoutesManager.orderDetails.route,),//TODO
+          ).premiumAppear(index: (index % 3)),
         ),
       ),
     );

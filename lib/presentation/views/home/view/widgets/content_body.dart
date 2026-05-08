@@ -15,6 +15,7 @@ import 'package:jar/presentation/views/home/view/widgets/offer_banner.dart';
 import 'package:jar/presentation/views/home/view/widgets/products_section.dart';
 import 'package:jar/presentation/views/home/view/widgets/top_category.dart';
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class ContentBody extends ConsumerWidget {
   final double bottomSafeAreaPadding;
@@ -44,11 +45,11 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
       children: [
         10.verticalSpace,
-        TopCategory(),
+        TopCategory().premiumAppear(index: 0),
         18.verticalSpace,
-        const OfferBanner(),
+        const OfferBanner().premiumAppear(index: 1),
         18.verticalSpace,
-        CategoriesSection(),
+        CategoriesSection().premiumAppear(index: 2),
         18.verticalSpace,
         ProductsSection(
           title: Translation.vegetables.tr,
@@ -85,10 +86,10 @@ class Body extends StatelessWidget {
               "quantity": 1,
             },
           ],
-        ),
+        ).premiumAppear(index: 3),
         18.verticalSpace,
         // New Arrivals Banner
-        NewArrivalsBanner(onShopNowTap: () {}),
+        NewArrivalsBanner(onShopNowTap: () {}).premiumAppear(index: 4),
         18.verticalSpace,
         // Snacks & Packaged Section
         ProductsSection(
@@ -128,7 +129,7 @@ class Body extends StatelessWidget {
               "quantity": 0,
             },
           ],
-        ),
+        ).premiumAppear(index: 5),
         18.verticalSpace,
       ],
     );

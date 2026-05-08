@@ -39,16 +39,16 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
                 SizedBox(height: context.topSafeAreaPadding),
                 28.verticalSpace,
                 // App Bar equivalent
-                ProfileInfo(),
+                ProfileInfo().premiumAppear(index: 0),
                 24.verticalSpace,
 
                 // Menu Container
-                ProfileSettings(),
+                ProfileSettings().premiumAppear(index: 1),
 
                 16.verticalSpace,
 
                 // Logout Button
-                LogoutButton(),
+                LogoutButton().premiumAppear(index: 2),
 
                 SizedBox(height: widget.bottomSafeAreaPadding),
               ],

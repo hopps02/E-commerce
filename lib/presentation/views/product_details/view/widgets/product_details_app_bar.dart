@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/app/ui_components/default_app_bar.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/app/ui_components/gradient_border_side.dart';
 
@@ -34,6 +36,7 @@ class _CartIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomInkButton(
+      onTap: () => context.pushNamed(RoutesManager.cart.route),
       padding: EdgeInsets.zero,
       width: 38.w,
       height: 38.w,

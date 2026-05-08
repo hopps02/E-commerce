@@ -13,6 +13,7 @@ import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
 import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
 import 'package:jar/presentation/views/products/riverpod/products_controller.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class ProductsData extends ConsumerWidget {
   const ProductsData({super.key});
@@ -75,7 +76,7 @@ class ProductsData extends ConsumerWidget {
                   onFavTap: () {},
                   onQuantityChanged: (_) {},
                 ),
-              );
+              ).premiumAppear(index: (index % 2) +1);
             },
           ),
         ),

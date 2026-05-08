@@ -17,7 +17,7 @@ class AuthSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorM.greenPrimary,
+      backgroundColor: args.successViewType.isOrder ? ColorM.greenPrimary : ColorM.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

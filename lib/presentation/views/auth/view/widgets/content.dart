@@ -30,15 +30,15 @@ class Content extends StatelessWidget {
         mainAxisSize: .min,
         spacing: 10.h,
         children: [
-          AuthTitle(),
+          AuthTitle().premiumAppear(index: 1),
           PhoneField(
             phoneNumberController: phoneNumberController,
             phoneNumberFocusNode: phoneNumberFocusNode,
-          ).pluseAnimation(2),
-          Container(height: 1.w, color: ColorM.white, width: double.infinity,),
-          SentOtpButton(onSendOtpCode: onSendOtpCode).pluseAnimation(1)
+          ).premiumAppear(index: 2),
+          Container(height: 1.w, color: ColorM.white, width: double.infinity,).premiumAppear(index: 3),
+          SentOtpButton(onSendOtpCode: onSendOtpCode).premiumAppear(index: 4)
         ],
       ),
-    ).pluseAnimation(0, false);
+    ).containerSlideUp(delay: 50);
   }
 }

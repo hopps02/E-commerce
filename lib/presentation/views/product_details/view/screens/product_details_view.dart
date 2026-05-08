@@ -13,6 +13,7 @@ import 'package:jar/presentation/views/product_details/view/widgets/product_deta
 import 'package:jar/presentation/views/product_details/view/widgets/product_image_slider.dart';
 import 'package:jar/presentation/views/product_details/view/widgets/product_info_section.dart';
 import 'package:jar/presentation/views/product_details/view/widgets/product_weight_selector.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class ProductDetailsViewArgs {
   final String productId;
@@ -54,7 +55,7 @@ class ProductDetailsView extends ConsumerWidget {
                     16.verticalSpace,
 
                     // Product image with favorite + dots
-                    ProductImageSlider(imageUrls: ["", "", "", ""]),
+                    ProductImageSlider(imageUrls: ["", "", "", ""]).premiumAppear(index: 0),
 
                     14.verticalSpace,
 
@@ -64,7 +65,7 @@ class ProductDetailsView extends ConsumerWidget {
                       price: 12.0,
                       oldPrice: 14.0,
                       isAvailable: true,
-                    ),
+                    ).premiumAppear(index: 1),
 
                     12.verticalSpace,
 
@@ -74,13 +75,13 @@ class ProductDetailsView extends ConsumerWidget {
                       height: 1,
                       indent: SizeM.pagePadding.w,
                       endIndent: SizeM.pagePadding.w,
-                    ),
+                    ).premiumAppear(index: 2),
                     12.verticalSpace,
 
                     // Weight selector
                     ProductWeightSelector(
                       weights: ["500 جم", "1 كجم", "2 كجم"],
-                    ),
+                    ).premiumAppear(index: 3),
 
                     12.verticalSpace,
                     // Divider
@@ -89,14 +90,14 @@ class ProductDetailsView extends ConsumerWidget {
                       height: 1,
                       indent: SizeM.pagePadding.w,
                       endIndent: SizeM.pagePadding.w,
-                    ),
+                    ).premiumAppear(index: 4),
                     12.verticalSpace,
 
                     // Description
                     ProductDescription(
                       description:
                           "الأفوكادو فاكهة غنية بالعناصر الغذائية وتتميز بقوامها الكريمي واحتوائها على دهون صحية. يعود أصلها إلى أمريكا الوسطى والجنوبية، وقد استُخدمت منذ آلاف السنين. مثالية للسلطات، السندوتشات، أو العصائر.",
-                    ),
+                    ).premiumAppear(index: 5),
 
                     SizedBox(height: SizeM.pagePadding.h),
                   ],
@@ -111,7 +112,7 @@ class ProductDetailsView extends ConsumerWidget {
       bottomNavigationBar: ProductDetailsBottomBar(
         price: 12.0,
         productName: "جزر أصفر (Hills Farm) · جزر شانتينيه",
-      ),
+      ).containerSlideUp(),
     );
   }
 }

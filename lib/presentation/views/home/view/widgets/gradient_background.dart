@@ -9,16 +9,19 @@ class GradientBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: .bottomCenter,
-      child: Container(
-        height: 140.h,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              ColorM.white.withValues(alpha: 0),
-              ColorM.primary700.withValues(alpha: 0.20),
-            ],
+      child: IgnorePointer(
+        ignoring: true,
+        child: Container(
+          height: 140.h,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorM.white.withValues(alpha: 0),
+                ColorM.primary700.withValues(alpha: 0.20),
+              ],
+            ),
           ),
         ),
       ),

@@ -22,7 +22,7 @@ class Orders extends StatelessWidget {
             Text(
               Translation.orders.tr,
               style: context.bodyLarge.copyWith(fontWeight: FontWeightM.bold),
-            ),
+            ).premiumAppear(index: 2),
             Expanded(
               child: ListView.separated(
                 itemCount: 4,
@@ -35,7 +35,7 @@ class Orders extends StatelessWidget {
                     title: "خيار طازج",
                     price: "15.00",
                     count: "2",
-                  );
+                  ).premiumAppear(index: (index % 5) + 2);
                 },
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:jar/presentation/common/fast_state_render.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/category_grid_item.dart';
 import 'package:jar/presentation/views/sections/riverpod/sections_controller.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class SectionsData extends ConsumerWidget {
   const SectionsData({super.key,});
@@ -27,11 +28,11 @@ class SectionsData extends ConsumerWidget {
           runSpacing: 16.h,
           alignment: WrapAlignment.start,
           children: [
-            for(int i =0;i<40;i++) CategoryGridItem(
+            for(int i =0;i<20;i++) CategoryGridItem(
               title: "مواد البقالة",
               imageUrl:"",
               onTap: () {},
-            )
+            ).premiumAppear(index: 3)
           ],
         ),
         ),

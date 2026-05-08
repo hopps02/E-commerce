@@ -9,6 +9,7 @@ import 'package:jar/presentation/views/cart/view/widgets/cart_summary_bottom_bar
 import 'package:jar/presentation/views/confirm_order/view/widgets/confirm_order_app_bar.dart';
 import 'package:jar/presentation/views/confirm_order/view/widgets/delivery_to.dart';
 import 'package:jar/presentation/views/confirm_order/view/widgets/orders.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class ConfirmOrderView extends StatefulWidget {
   const ConfirmOrderView({super.key});
@@ -27,9 +28,9 @@ class _ConfirmOrderViewState extends State<ConfirmOrderView> {
           SizedBox(height: context.topSafeAreaPadding),
 
           // App Bar
-          ConfirmOrderAppBar(),
+          ConfirmOrderAppBar().premiumAppear(index: 0),
 
-          DeliveryTo(),
+          DeliveryTo().premiumAppear(index: 1),
 
           18.verticalSpace,
 
@@ -51,7 +52,7 @@ class _ConfirmOrderViewState extends State<ConfirmOrderView> {
                   ),
                 );
               },
-            ),
+            ).containerSlideUp(),
     );
   }
 }

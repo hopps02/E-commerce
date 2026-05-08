@@ -13,7 +13,8 @@ import 'package:smooth_corner/smooth_corner.dart';
 
 class OrderCard extends StatelessWidget {
   final int step;
-  const OrderCard({super.key, required this.step});
+  final VoidCallback onTapDetails;
+  const OrderCard({super.key, required this.step, required this.onTapDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +72,7 @@ class OrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        Translation.product_count
-                            .trNamed({'count': '2'}),
+                        Translation.product_count.trNamed({'count': '2'}),
                         style: context.bodyMedium.copyWith(
                           color: ColorM.gray900,
                           fontWeight: FontWeightM.medium,
@@ -202,6 +202,7 @@ class OrderCard extends StatelessWidget {
                 borderRadius: 10.r,
                 smoothness: 1,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                onTap: onTapDetails,
                 child: Text(
                   Translation.view_details.tr,
                   style: context.labelMedium.copyWith(
@@ -209,7 +210,6 @@ class OrderCard extends StatelessWidget {
                     fontWeight: FontWeightM.medium,
                   ),
                 ),
-                onTap: () {},
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

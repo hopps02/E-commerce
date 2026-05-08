@@ -11,6 +11,7 @@ import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
@@ -27,7 +28,7 @@ class LanguageView extends StatelessWidget {
             16.verticalSpace,
             DefaultAppBar(
               title: Translation.languages.tr,
-            ),
+            ).premiumAppear(index: 0),
             32.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -42,7 +43,7 @@ class LanguageView extends StatelessWidget {
                       height: 24.w,
                       colorFilter: const ColorFilter.mode(ColorM.gray900, BlendMode.srcIn),
                     ),
-                  ),
+                  ).premiumAppear(index: 1),
                   16.verticalSpace,
                   _LanguageItem(
                     title: Translation.arabic.tr,
@@ -53,7 +54,7 @@ class LanguageView extends StatelessWidget {
                       height: 24.w,
                       colorFilter: const ColorFilter.mode(ColorM.gray900, BlendMode.srcIn),
                     ),
-                  ),
+                  ).premiumAppear(index: 2),
                 ],
               ),
             ),

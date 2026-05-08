@@ -8,6 +8,7 @@ import 'package:jar/presentation/views/cart/riverpod/cart_controller.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_app_bar.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_data.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_summary_bottom_bar.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class CartView extends ConsumerWidget {
   const CartView({super.key});
@@ -25,10 +26,10 @@ class CartView extends ConsumerWidget {
           SizedBox(height: context.topSafeAreaPadding),
 
           // App Bar
-          CartAppBar(),
+          CartAppBar().premiumAppear(index: 0),
 
           // Thin divider
-          Container(height: 6.h, color: ColorM.gray150),
+          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
 
           // Scrollable body
           CartData(state: state, notifier: notifier),
@@ -44,7 +45,7 @@ class CartView extends ConsumerWidget {
               onCheckout: () {
                 context.pushNamed(RoutesManager.confirmOrder.route);
               },
-            )
+            ).containerSlideUp()
           : null,
     );
   }

@@ -6,6 +6,7 @@ import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/views/products/view/widgets/products_data.dart';
 import 'package:jar/presentation/views/sections/view/widgets/app_bar.dart';
+import 'package:jar/app/extensions/widget_extensions.dart';
 
 class ProductsViewArgs {
   final String title;
@@ -28,8 +29,8 @@ class _ProductsViewState extends State<ProductsView> {
       body: Column(
         children: [
           SizedBox(height: context.topSafeAreaPadding),
-          TopAppBar(title: widget.args.title,),
-          Container(height: 6.h, color: ColorM.gray150),
+          TopAppBar(title: widget.args.title,).premiumAppear(index: 0),
+          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
           ProductsData()
         ],
       ),

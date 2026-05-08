@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView>
 
               GradientBackground(),
 
-              BottomNavigation(bottomNavItems: bottomNavItems),
+              BottomNavigation(bottomNavItems: bottomNavItems).containerSlideUp(),
             ],
           ),
         );

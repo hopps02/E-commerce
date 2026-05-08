@@ -12,6 +12,6 @@ class Logo extends StatelessWidget {
     return SvgPicture.asset(
       Assets.svg.appLogo.path,
       width: 155.w,
-    ).pluseAnimation(5);
+    ).premiumAppear(index: 0);
   }
 }

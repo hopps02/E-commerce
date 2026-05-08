@@ -71,7 +71,7 @@ class DisplayedText extends StatelessWidget {
             color: ColorM.white,
             height: 1.5,
           ),
-        ).pluseAnimation(4),
+        ).premiumAppear(index: 0),
         Text(
           description,
           style: context.bodyLarge.copyWith(
@@ -80,7 +80,7 @@ class DisplayedText extends StatelessWidget {
             color: ColorM.gray300,
             height: 1.5,
           ),
-        ).pluseAnimation(3),
+        ).premiumAppear(index: 1),
       ],
     );
   }
@@ -129,7 +129,7 @@ class Buttons extends StatelessWidget {
                 ),
               ],
             ),
-          ).pluseAnimation(2),
+          ).premiumAppear(index: 2),
         ),
 
         Expanded(
@@ -150,7 +150,7 @@ class Buttons extends StatelessWidget {
                 color: ColorM.white,
               ),
             ),
-          ).pluseAnimation(1),
+          ).premiumAppear(index: 3),
         ),
       ],
     );
