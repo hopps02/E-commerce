@@ -48,7 +48,7 @@ class ProfileInfo extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: Text(
-              'L',
+              'A',
               style: context.headlineMedium.copyWith(
                 color: ColorM.primary500,
                 fontWeight: FontWeightM.bold,

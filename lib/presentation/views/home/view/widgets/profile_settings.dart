@@ -57,7 +57,9 @@ class ProfileSettings extends StatelessWidget {
               ),
             ),
             title: Translation.help_and_support.tr,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RoutesManager.helpSupport.route);
+            },
           ),
           ProfileMenuItem(
             icon: Assets.svg.infoNote.svg(
@@ -69,7 +71,9 @@ class ProfileSettings extends StatelessWidget {
               ),
             ),
             title: Translation.legal_and_policies.tr,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RoutesManager.legalPolicies.route);
+            },
           ),
           ProfileMenuItem(
             icon: Assets.svg.deleteAccount.svg(
