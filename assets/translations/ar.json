@@ -107,6 +107,8 @@
   "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي.",
 
   "_comment_profile": "===== Profile =====",
+  "name": "الاسم",
+  "save": "حفظ",
   "edit_profile": "تعديل الحساب",
   "addresses": "العناوين",
   "notifications": "الإشعارات",

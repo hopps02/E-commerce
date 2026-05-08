@@ -107,6 +107,8 @@
   "no_data_found": "Oops, there's no data to show right now.",
 
   "_comment_profile": "===== Profile =====",
+  "name": "Name",
+  "save": "Save",
   "edit_profile": "Edit Profile",
   "addresses": "Addresses",
   "notifications": "Notifications",

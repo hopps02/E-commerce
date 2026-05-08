@@ -108,6 +108,8 @@ enum Translation {
   order_details,
 
   // Profile
+  name,
+  save,
   edit_profile,
   addresses,
   notifications,

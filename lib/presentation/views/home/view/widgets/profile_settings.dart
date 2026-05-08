@@ -29,7 +29,9 @@ class ProfileSettings extends StatelessWidget {
               ),
             ),
             title: Translation.edit_profile.tr,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RoutesManager.editProfile.route);
+            },
           ),
           ProfileMenuItem(
             icon: Assets.svg.language.svg(

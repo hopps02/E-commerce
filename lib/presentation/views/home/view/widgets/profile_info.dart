@@ -58,7 +58,7 @@ class ProfileInfo extends StatelessWidget {
         ),
         20.verticalSpace,
         Text(
-          'Leonardo',
+          'Ahmed Jihad',
           style: context.headlineSmall.copyWith(
             fontWeight: FontWeightM.bold,
             color: ColorM.gray900,
@@ -72,7 +72,8 @@ class ProfileInfo extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Text(
-            'Leonardo@gmail.com',
+            '+966-596735479',
+            textDirection: TextDirection.ltr,
             style: context.bodyLarge.copyWith(
               color: ColorM.gray500,
               fontWeight: FontWeightM.medium,

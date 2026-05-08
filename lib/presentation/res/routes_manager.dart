@@ -11,6 +11,7 @@ import 'package:jar/presentation/views/products/view/screens/products_view.dart'
 import 'package:jar/presentation/views/search/view/screens/search_view.dart';
 import 'package:jar/presentation/views/sections/view/screens/sections_view.dart';
 import 'package:jar/presentation/views/language/view/screens/language_view.dart';
+import 'package:jar/presentation/views/edit_profile/view/screens/edit_profile_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 import '../views/onboarding/view/screens/onboarding_view.dart';
@@ -31,7 +32,8 @@ enum RoutesManager {
   cart              ('cart/'),
   confirmOrder      ('confirmOrder/'),
   orderDetails      ('orderDetails/'),
-  language          ('language/');
+  language          ('language/'),
+  editProfile       ('editProfile/');
 
   final String route;
 
@@ -54,6 +56,7 @@ class RoutesGeneratorManager {
       RoutesManager.confirmOrder      => const ConfirmOrderView(),
       RoutesManager.orderDetails      => const OrderDetailsView(),
       RoutesManager.language          => const LanguageView(),
+      RoutesManager.editProfile       => const EditProfileView(),
     };
   }
   // dart format on
