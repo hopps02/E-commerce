@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_controller.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jar/app/utils/state_render.dart';

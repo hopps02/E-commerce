@@ -105,6 +105,7 @@ enum Translation {
   confirm_order,
   order_now,
   orders,
+  order_details,
 
   // Profile
   edit_profile,

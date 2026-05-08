@@ -19,6 +19,8 @@ class DefaultAppBar extends StatelessWidget {
     this.titleAlignment = Alignment.center,
     this.titleTextAlign = TextAlign.center,
     this.padding,
+    this.titleColor,
+    this.backButtonIconColor,
   });
 
   final String? title;
@@ -30,6 +32,8 @@ class DefaultAppBar extends StatelessWidget {
   final AlignmentGeometry titleAlignment;
   final TextAlign titleTextAlign;
   final EdgeInsetsGeometry? padding;
+  final Color? titleColor;
+  final Color? backButtonIconColor;
 
   EdgeInsetsGeometry get _defaultPadding =>
       EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg);
@@ -39,7 +43,7 @@ class DefaultAppBar extends StatelessWidget {
     if (customBackButton != null) return customBackButton;
 
     // Determine arrow color based on background
-    Color arrowColor = ColorM.gray700;
+    Color arrowColor = backButtonIconColor ?? ColorM.gray700;
     Color backgroundColor = Colors.transparent;
 
     return CustomInkButton(
@@ -77,6 +81,7 @@ class DefaultAppBar extends StatelessWidget {
                 style: context.bodyLarge.copyWith(
                   height: 1,
                   fontWeight: FontWeightM.semiBold,
+                  color: titleColor,
                 ),
               ));
 
