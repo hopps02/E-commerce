@@ -17,82 +17,75 @@ class ProfileSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          color: ColorM.gray50,
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        child: Column(
-          children: [
-            ProfileMenuItem(
-              icon: Assets.svg.userPen.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
+      child: Column(
+        children: [
+          ProfileMenuItem(
+            icon: Assets.svg.userPen.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.primary500,
+                BlendMode.srcIn,
               ),
-              title: Translation.edit_profile.tr,
-              onTap: () {},
             ),
-            ProfileMenuItem(
-              icon: Assets.svg.language.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
+            title: Translation.edit_profile.tr,
+            onTap: () {},
+          ),
+          ProfileMenuItem(
+            icon: Assets.svg.language.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.primary500,
+                BlendMode.srcIn,
               ),
-              title: Translation.languages.tr,
-              onTap: () {
-                context.pushNamed(RoutesManager.language.route);
-              },
             ),
-            ProfileMenuItem(
-              icon: Assets.svg.headphone.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
+            title: Translation.languages.tr,
+            onTap: () {
+              context.pushNamed(RoutesManager.language.route);
+            },
+          ),
+          ProfileMenuItem(
+            icon: Assets.svg.headphone.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.primary500,
+                BlendMode.srcIn,
               ),
-              title: Translation.help_and_support.tr,
-              onTap: () {},
             ),
-            ProfileMenuItem(
-              icon: Assets.svg.infoNote.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray900,
-                  BlendMode.srcIn,
-                ),
+            title: Translation.help_and_support.tr,
+            onTap: () {},
+          ),
+          ProfileMenuItem(
+            icon: Assets.svg.infoNote.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.primary500,
+                BlendMode.srcIn,
               ),
-              title: Translation.legal_and_policies.tr,
-              onTap: () {},
             ),
-            ProfileMenuItem(
-              icon: Assets.svg.deleteAccount.svg(
-                width: 20.w,
-                height: 20.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.red,
-                  BlendMode.srcIn,
-                ),
+            title: Translation.legal_and_policies.tr,
+            onTap: () {},
+          ),
+          ProfileMenuItem(
+            icon: Assets.svg.deleteAccount.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.red,
+                BlendMode.srcIn,
               ),
-              title: Translation.delete_account.tr,
-              isDestructive: true,
-              showArrow: false,
-              onTap: () {
-                DeleteAccountBottomSheet.show(context);
-              },
             ),
-          ],
-        ),
+            title: Translation.delete_account.tr,
+            isDestructive: true,
+            showArrow: false,
+            onTap: () {
+              DeleteAccountBottomSheet.show(context);
+            },
+          ),
+        ],
       ),
     );
   }

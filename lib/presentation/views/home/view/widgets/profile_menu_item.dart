@@ -23,32 +23,54 @@ class ProfileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomInkButton(
-      onTap: onTap,
-      borderRadius: 0,
-      backgroundColor: Colors.transparent,
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 14.w),
-      child: Row(
-        children: [
-          Container(padding: EdgeInsets.all(8.dg), child: icon),
-          4.horizontalSpace,
-          Expanded(
-            child: Text(
-              title,
-              style: context.titleMedium.copyWith(
-                fontWeight: FontWeightM.medium,
-                color: isDestructive ? ColorM.red : ColorM.gray900,
-                fontSize: 16.sp,
+    return Container(
+      margin: EdgeInsets.only(bottom: 16.h),
+      decoration: BoxDecoration(
+        color: ColorM.white,
+        borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: ColorM.gray200.withOpacity(0.4),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        border: Border.all(color: ColorM.gray150, width: 1),
+      ),
+      child: CustomInkButton(
+        onTap: onTap,
+        borderRadius: 20.r,
+        backgroundColor: Colors.transparent,
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(12.dg),
+              decoration: BoxDecoration(
+                color: isDestructive ? ColorM.red.withOpacity(0.08) : ColorM.primary50,
+                shape: BoxShape.circle,
+              ),
+              child: icon,
+            ),
+            16.horizontalSpace,
+            Expanded(
+              child: Text(
+                title,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeightM.semiBold,
+                  color: isDestructive ? ColorM.red : ColorM.gray900,
+                  fontSize: 16.sp,
+                ),
               ),
             ),
-          ),
-          if (showArrow)
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 16.w,
-              color: ColorM.gray900,
-            ),
-        ],
+            if (showArrow)
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 18.w,
+                color: ColorM.gray300,
+              ),
+          ],
+        ),
       ),
     );
   }
