@@ -10,8 +10,10 @@ import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/app/extensions/widget_extensions.dart';
 
-import 'package:jar/app/ui_components/custom_action_tile.dart';
-import 'package:jar/app/ui_components/support_contact_card.dart';
+import 'package:jar/presentation/common/fast_state_render.dart';
+import 'package:jar/presentation/views/help_support/riverpod/help_support_controller.dart';
+import 'package:jar/presentation/views/help_support/view/widgets/help_support_app_bar.dart';
+import 'package:jar/presentation/views/help_support/view/widgets/help_support_body.dart';
 
 class HelpSupportView extends ConsumerWidget {
   const HelpSupportView({super.key});
@@ -23,56 +25,13 @@ class HelpSupportView extends ConsumerWidget {
       body: Column(
         children: [
           SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: SizeM.pagePadding.w),
-            title: Translation.help_and_support.tr,
-          ).premiumAppear(index: 0),
+          const HelpSupportAppBar().premiumAppear(index: 0),
           Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
           Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(vertical: 24.h) + EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  
-                  CustomActionTile(
-                    title: 'What do you mean?',
-                    onTap: () {},
-                    expandedContent: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla.',
-                      style: context.bodyMedium.copyWith(color: ColorM.gray600, height: 1.5),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w, vertical: 16.h),
-                  ).premiumAppear(index: 2),
-                  CustomActionTile(
-                    title: 'How to become a partner?',
-                    onTap: () {},
-                    expandedContent: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor.',
-                      style: context.bodyMedium.copyWith(color: ColorM.gray600, height: 1.5),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w, vertical: 16.h),
-                  ).premiumAppear(index: 3),
-                  CustomActionTile(
-                    title: 'Delivery policy',
-                    onTap: () {},
-                    expandedContent: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor.',
-                      style: context.bodyMedium.copyWith(color: ColorM.gray600, height: 1.5),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w, vertical: 16.h),
-                  ).premiumAppear(index: 4),
-                  CustomActionTile(
-                    title: 'Refund Policy',
-                    onTap: () {},
-                    expandedContent: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor.',
-                      style: context.bodyMedium.copyWith(color: ColorM.gray600, height: 1.5),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w, vertical: 16.h),
-                  ).premiumAppear(index: 5),
-                ],
-              ),
+            child: FastStateRender(
+              reqState: ref.watch(helpSupportController).reqState,
+              onRetry: () {},
+              child: const HelpSupportBody().containerSlideUp(),
             ),
           ),
         ],

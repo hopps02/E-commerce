@@ -55,7 +55,7 @@ class FastStateRender extends StatelessWidget {
             repeat: true,
             fit: BoxFit.contain,
           ),
-        );
+        ).premiumAppear(index: 2);
       },
       error: (context) => Align(
         alignment: alignment,
