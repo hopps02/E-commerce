@@ -48,10 +48,15 @@ class Body extends StatelessWidget {
           // Start Shopping Button
           CustomInkButton(
             onTap: () {
-              context.pushNamedAndRemoveUntil(
-                RoutesManager.home.route,
-                (route) => false,
-              );
+              if(successViewType.isOrder){
+                 context.popUntilNamed(RoutesManager.home.route);
+              }else{
+                context.pushNamedAndRemoveUntil(
+                  RoutesManager.home.route,
+                  (route) => false,
+                );
+              }
+              
             },
             borderRadius: 12.r,
             height: 50.h,
