@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jar/app/config/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off
@@ -48,6 +49,7 @@ class SharedPrefsService extends SharedPrefsServiceBase {
   static const _userLongitudeKey     = 'user-longitude';
   static const _userAddressKey       = 'user-address';
   static const _skippedOnBoardingKey = 'skipped-on-boarding';
+  static const _locationDismissedKey = 'location-dismissed-counter';
 
   Future<void> saveLocationData({
     required double latitude,
@@ -58,6 +60,11 @@ class SharedPrefsService extends SharedPrefsServiceBase {
     await _prefs.setDouble(_userLongitudeKey, longitude);
     await _prefs.setString(_userAddressKey, address);
   }
+
+  int get locationDismissedCount                                   =>       _prefs.getInt(_locationDismissedKey) ?? 0;
+  bool get shouldShowLocationDialog                                =>       locationDismissedCount < Constants.locationDialogShowCountLimit;
+  Future<void> incrementLocationDismissedCount()             async => await _prefs.setInt(_locationDismissedKey, locationDismissedCount + 1);
+  Future<void> resetLocationDismissedCount()                 async => await _prefs.setInt(_locationDismissedKey, 0);
 
   Future<({double? latitude, double? longitude, String? address})>
     getLocationData()                                        async {

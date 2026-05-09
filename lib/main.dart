@@ -27,13 +27,13 @@ Future<void> _initApp() async {
   runApp(
     UncontrolledProviderScope(
       container: DI.container,
-      child: EasyLocalization(
-        supportedLocales: SupportedLocales.allLocales,
-        startLocale: SupportedLocales.AR.locale,
-        path: Constants.translationsPath,
-        child: MyApp(),
+        child: EasyLocalization(
+          supportedLocales: SupportedLocales.allLocales,
+          startLocale: SupportedLocales.AR.locale,
+          path: Constants.translationsPath,
+          child: MyApp(),
+        ),
       ),
-    ),
   );
 }
 

@@ -123,5 +123,14 @@
   "delete": "Delete",
   "back": "Back",
   "english": "English (US)",
-  "arabic": "Arabic (AR)"
+  "arabic": "Arabic (AR)",
+  "enable_locations_title": "Enable Location",
+  "update_location_title": "Update Location",
+  "update_location_subtitle": "Would you like to update your delivery address to your current location? This helps us ensure accurate and fast delivery to your doorstep.",
+  "enable_locations_subtitle": "Please enable location access so we can deliver your orders accurately to your doorstep and show available products in your area.",
+  "continue_location": "Continue",
+  "select_your_location": "Select your location",
+  "location_permissions_permanently_denied": "Location access is permanently denied. Please enable it manually from your phone settings to allow us to deliver to your location.",
+  "unknown_location": "Unknown Location",
+  "something_is_wrong": "Something went wrong, please try again."
 }

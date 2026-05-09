@@ -86,7 +86,6 @@ class _LanguageItem extends StatelessWidget {
       onTap: () async {
         if (!isSelected) {
           await context.setLocale(locale);
-          if(context.mounted) Phoenix.rebirth(context);
         }
       },
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),

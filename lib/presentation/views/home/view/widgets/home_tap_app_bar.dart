@@ -12,6 +12,9 @@ import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/routes_manager.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jar/presentation/common/riverpod/location_controller.dart';
+import 'package:jar/presentation/views/home/view/widgets/location_picker_dialog.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});
@@ -27,38 +30,50 @@ class HomeTapAppBar extends StatelessWidget {
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
-        background: TopAppBarContent().slide,
+        background: const TopAppBarContent().slide,
       ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(55.h),
-        child: BottomAppBarContent().slide,
+        child: const BottomAppBarContent().slide,
       ),
     );
   }
 }
 
-class TopAppBarContent extends StatelessWidget {
+class TopAppBarContent extends ConsumerWidget {
   const TopAppBarContent({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locationCity = ref.watch(locationController.select((s) => s.locationCity));
+
     return GeneralPadding(
       child: Align(
-        alignment: .topCenter,
+        alignment: Alignment.topCenter,
         child: Padding(
           padding: EdgeInsets.only(top: context.topSafeAreaPadding + 4.h),
           child: Row(
-            mainAxisAlignment: .spaceBetween,
-            crossAxisAlignment: .center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
-                crossAxisAlignment: .start,
-                mainAxisSize: .min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(Translation.deliver_to.tr, style: context.labelLarge),
                   8.verticalSpace,
                   CustomInkButton(
-                    onTap: () {},
+                    onTap: () {
+                      LocationPickerDialog.show(
+                        context,
+                        isUpdating: locationCity != null,
+                        onEnablePressed: () async {
+                          return await ref
+                              .read(locationController.notifier)
+                              .handleLocationPermissionAndFetch();
+                        },
+                      );
+                    },
                     padding: EdgeInsets.symmetric(
                       vertical: 8.h,
                       horizontal: 4.w,
@@ -66,7 +81,7 @@ class TopAppBarContent extends StatelessWidget {
                     borderRadius: 8.r,
                     backgroundColor: ColorM.gray100,
                     child: Row(
-                      mainAxisSize: .min,
+                      mainAxisSize: MainAxisSize.min,
                       spacing: 4.w,
                       children: [
                         SvgPicture.asset(
@@ -75,7 +90,7 @@ class TopAppBarContent extends StatelessWidget {
                           height: 18.sp,
                         ),
                         Text(
-                          "السوق القديم , تبوك",
+                          locationCity ?? Translation.select_your_location.tr,
                           style: context.labelMedium.copyWith(
                             color: ColorM.gray600,
                           ),
@@ -96,7 +111,7 @@ class TopAppBarContent extends StatelessWidget {
               SvgPicture.asset(
                 Assets.svg.appLogo.path,
                 width: 39.w,
-                fit: .cover,
+                fit: BoxFit.cover,
               ),
             ],
           ),

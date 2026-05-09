@@ -65,6 +65,21 @@ doc/
 
 ---
 
+## 🎨 Asset Management
+
+We use [fluttergen](https://pub.dev/packages/flutter_gen) to generate type-safe accessors for all assets (images, SVGs, Lottie animations, etc.).
+
+Whenever you add or remove an asset, run the following command to sync the generated files:
+
+```powershell
+fluttergen -c .\pubspec.yaml
+```
+
+This updates `lib/presentation/res/gen/assets.gen.dart`, allowing you to use assets like this:
+`Assets.svg.location.svg()` or `Assets.lottieAnimations.globe.lottie()`.
+
+---
+
 ## 🧭 External sources of truth
 
 - **API**: Postman / Swagger — not duplicated here.

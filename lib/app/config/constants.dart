@@ -13,8 +13,9 @@
 /// ```
 // dart format off
 class Constants {
-  static const String baseUrl          = '';
-  static const int    splashTimer      = 2;
-  static const String translationsPath = "assets/translations";
+  static const String baseUrl                      = '';
+  static const int    splashTimer                  = 2;
+  static const String translationsPath             = "assets/translations";
+  static const int    locationDialogShowCountLimit = 3;
 }
 // dart format on

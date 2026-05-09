@@ -94,7 +94,7 @@ class RoutesGeneratorManager {
   );
 
   static Widget _homeView(Object? arguments) {
-    return Phoenix(key: Key('phoenix'),  child: HomeView());
+    return HomeView();
   }
 
   static ProductsView _productsView(Object? arguments) {

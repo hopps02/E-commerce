@@ -124,7 +124,18 @@ enum Translation {
   delete,
   back,
   english,
-  arabic
+  arabic,
+
+  // Location
+  enable_locations_title,
+  update_location_title,
+  update_location_subtitle,
+  enable_locations_subtitle,
+  continue_location,
+  select_your_location,
+  location_permissions_permanently_denied,
+  unknown_location,
+  something_is_wrong
 }
 
 extension Tra on Translation {

@@ -45,6 +45,10 @@ class $AssetsLottieAnimationsGen {
   LottieGenImage get error =>
       const LottieGenImage('assets/lottie_animations/error.json');
 
+  /// File path: assets/lottie_animations/globe.json
+  LottieGenImage get globe =>
+      const LottieGenImage('assets/lottie_animations/globe.json');
+
   /// File path: assets/lottie_animations/sandy-loading.json
   LottieGenImage get sandyLoading =>
       const LottieGenImage('assets/lottie_animations/sandy-loading.json');
@@ -54,7 +58,13 @@ class $AssetsLottieAnimationsGen {
       const LottieGenImage('assets/lottie_animations/succesfull.json');
 
   /// List of all assets
-  List<LottieGenImage> get values => [empty, error, sandyLoading, succesfull];
+  List<LottieGenImage> get values => [
+    empty,
+    error,
+    globe,
+    sandyLoading,
+    succesfull,
+  ];
 }
 
 class $AssetsSvgGen {

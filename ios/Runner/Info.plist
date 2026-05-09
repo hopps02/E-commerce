@@ -9,6 +9,9 @@
 			<string>en</string>
 			<string>ar</string>
 		</array>
+
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>This app needs access to location when open.</string>
 		<!-- END -->
 
 		<key>CADisableMinimumFrameDurationOnPhone</key>

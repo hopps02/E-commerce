@@ -45,12 +45,23 @@ class StorageService extends StorageServiceBase {
     longitude: longitude,
     address: address,
   );
+  
   Future<({double? latitude, double? longitude, String? address})>
     getLocationData()                                        async => await _sharedPrefsService.getLocationData();
+  
   bool get isLocationSelected                                      =>       _sharedPrefsService.isLocationSelected;
+  bool get shouldShowLocationDialog                                =>       _sharedPrefsService.shouldShowLocationDialog;
+  int get locationDismissedCount                                   =>       _sharedPrefsService.locationDismissedCount;
+  Future<void> incrementLocationDismissedCount()             async => await _sharedPrefsService.incrementLocationDismissedCount();
+  Future<void> resetLocationDismissedCount()                 async => await _sharedPrefsService.resetLocationDismissedCount();
+  
   Future<bool> get isUserRegistered                          async => await _secureStorageService.isUserRegistered();
+  
   Future<void> setSkippedOnBoarding()                        async => await _sharedPrefsService.setSkippedOnBoarding();
+  
+  
   bool get isSkippedOnBoarding                                     =>       _sharedPrefsService.isSkippedOnBoarding;
+  
   Future<void> deleteSkippedOnBoarding()                     async => await _sharedPrefsService.deleteSkippedOnBoarding();
 
   // Clear

@@ -123,5 +123,14 @@
   "delete": "حذف",
   "back": "رجوع",
   "english": "الإنجليزية (US)",
-  "arabic": "العربية (AR)"
+  "arabic": "العربية (AR)",
+  "enable_locations_title": "تفعيل الموقع",
+  "update_location_title": "تحديث الموقع",
+  "update_location_subtitle": "هل ترغب في تحديث عنوان التوصيل إلى موقعك الحالي؟ هذا يساعدنا في ضمان توصيل دقيق وسريع لطلبك.",
+  "enable_locations_subtitle": "يرجى تفعيل الوصول للموقع لنتمكن من توصيل طلباتك بدقة إلى باب منزلك وعرض المنتجات المتاحة في منطقتك.",
+  "continue_location": "متابعة",
+  "select_your_location": "حدد موقعك",
+  "location_permissions_permanently_denied": "تم رفض الوصول للموقع بشكل دائم. يرجى تفعيله يدوياً من إعدادات الهاتف لنتمكن من التوصيل لموقعك.",
+  "unknown_location": "موقع غير معروف",
+  "something_is_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى."
 }
