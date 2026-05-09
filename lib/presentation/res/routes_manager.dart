@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jar/app/enums/enums.dart';
 import 'package:jar/presentation/views/auth/view/screens/auth_view.dart';
 import 'package:jar/presentation/views/auth_success/view/screens/auth_success_view.dart';
