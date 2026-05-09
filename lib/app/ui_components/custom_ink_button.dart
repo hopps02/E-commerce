@@ -53,7 +53,7 @@ class CustomInkButton extends StatelessWidget {
     this.smoothness = 0,
     this.gradient,
     this.boxShadow,
-    this.enableHapticFeedback = true,
+    this.enableHapticFeedback = false,
   });
 
   @override
