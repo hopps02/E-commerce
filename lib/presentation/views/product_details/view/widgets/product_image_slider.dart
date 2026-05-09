@@ -52,22 +52,27 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
             },
           ),
 
-          // Favorite Button (strictly on the left to match Figma)
           PositionedDirectional(
             top: 0.h,
             end: 16.w,
             child: CustomInkButton(
-              onTap: () {},
+              onTap: () => ref.read(productDetailsController.notifier).toggleFavorite(),
               width: 32.w,
               height: 32.w,
               borderRadius: 99999,
               backgroundColor: ColorM.gray100,
               alignment: Alignment.center,
               child: SvgPicture.asset(
-                true
-                    ? Assets.svg.borderHeart.path
-                    : Assets.svg.fillHeart.path,
+                ref.watch(productDetailsController.select((s) => s.isFavorite))
+                    ? Assets.svg.fillHeart.path
+                    : Assets.svg.borderHeart.path,
                 width: 14.w,
+                colorFilter: ColorFilter.mode(
+                  ref.watch(productDetailsController.select((s) => s.isFavorite))
+                      ? Colors.red
+                      : ColorM.gray700,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),

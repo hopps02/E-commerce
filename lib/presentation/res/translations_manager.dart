@@ -135,7 +135,7 @@ enum Translation {
   select_your_location,
   location_permissions_permanently_denied,
   unknown_location,
-  something_is_wrong
+  something_is_wrong, add_to_cart
 }
 
 extension Tra on Translation {
