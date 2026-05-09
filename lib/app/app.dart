@@ -52,7 +52,7 @@ class MyAppState extends State<MyApp> {
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
           navigatorKey: NAVIGATOR_KEY,
           debugShowCheckedModeBanner: false,
-          initialRoute: RoutesManager.home.route,
+          initialRoute: RoutesManager.splash.route,
           theme: ThemeManager.lightTheme(context),
           themeMode: ThemeMode.light,
           localizationsDelegates: context.localizationDelegates,
