@@ -1,15 +1,14 @@
-import 'package:jar/app/utils/overlay_loading/overlay_loading_manager.dart';
-import 'package:jar/app/utils/snackbar_helper.dart';
-import 'package:jar/domain/usecase/auth_init_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jar/data/network/api.dart';
-import 'package:jar/data/network/dio_factory.dart';
-import 'package:jar/data/repository/repository_impl.dart';
-
 import 'package:jar/app/services/storage_services/secure_storage_service.dart';
 import 'package:jar/app/services/storage_services/shared_prefrences_service.dart';
 import 'package:jar/app/services/storage_services/storage_service.dart';
+import 'package:jar/app/utils/overlay_loading/overlay_loading_manager.dart';
+import 'package:jar/app/utils/snackbar_helper.dart';
+import 'package:jar/data/network/api/api.dart';
+import 'package:jar/data/network/dio_factory.dart';
+import 'package:jar/data/repository/repository_impl.dart';
+import 'package:jar/domain/usecase/auth_init_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off
 class DI {
@@ -25,9 +24,9 @@ class DI {
   static final _storageService            = Provider((ref) => StorageService(ref.watch(_secureStorage), ref.watch(_sharedPrefsService)));
 
   // --- Network ---
-  static final _dioFactory                = Provider((ref) => DioFactory(ref.watch(_storageService)));
-  
-  static final _appServices               = Provider((ref) => AppServices(ref.watch(_dioFactory)));
+  static final _dio                       = Provider((ref) => buildDio(ref.watch(_storageService)));
+
+  static final _appServices               = Provider((ref) => AppServices(ref.watch(_dio)));
   // --- Domain & Data ---
   static final _repository                = Provider((ref) => Repository(ref.watch(_appServices)));
 
@@ -42,10 +41,13 @@ class DI {
   /// Call this in your main.dart before runApp()
   static Future<void> init({ProviderContainer? container}) async {
     final prefs   = await SharedPreferences.getInstance();
-    
+
     DI.container  = container ?? ProviderContainer(
       overrides: [_sharedPreferences.overrideWithValue(prefs)],
     );
+
+    // Warm the token cache so the first API request doesn't pay the secure-storage read.
+    await DI().storageService.getToken();
   }
 }
 

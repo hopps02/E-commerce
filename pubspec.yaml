@@ -50,6 +50,9 @@ dependencies:
 
   nice_text_form:
       git: https://github.com/ahmedjihad2024/nice_text_form.git
+  retrofit: 4.9.2
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.11.0
 
 dependency_overrides:
   intl: ^0.20.0
@@ -61,6 +64,9 @@ dev_dependencies:
   flutter_gen_runner:
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.4
+  freezed: 3.2.5
+  json_serializable: ^6.13.2
+  retrofit_generator: ^10.2.6
 
 flutter_launcher_icons:
   android: "ic_launcher"

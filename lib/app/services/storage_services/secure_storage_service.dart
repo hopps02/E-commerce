@@ -10,19 +10,26 @@ abstract class SecureStorageServiceBase {
   final FlutterSecureStorage _storage;
   static const               _tokenKey    = 'access-token';
   static const               _mapDataKey = 'user-data';
+  String?                     _cachedToken;
 
   SecureStorageServiceBase(this._storage);
 
   /// [setToken] saving token using [flutter_secure_storage] library
   /// use [token] getter to get the token or null if there is no token saved
   /// use [deleteToken] to delete saved token
-  Future<void> setToken(String token) async => await _storage.write(key: _tokenKey, value: token);
+  Future<void> setToken(String token) async => {
+    await _storage.write(key: _tokenKey, value: token),
+    _cachedToken = token,
+  };
   
-  /// get saved token
-  Future<String?> get token           async => await _storage.read(key: _tokenKey);
+  /// get saved token (cache-aside: first call hits storage, then in-memory)
+  Future<String?> get token           async => _cachedToken ??= await _storage.read(key: _tokenKey);
 
   /// delete saved token
-  Future<void> deleteToken()          async => await _storage.delete(key: _tokenKey);
+  Future<void> deleteToken()          async => {
+    await _storage.delete(key: _tokenKey),
+    _cachedToken = null,
+  };
 
   /// check if there is token or not
   Future<bool> isUserRegistered()     async => (await _storage.read(key: _tokenKey)) != null;

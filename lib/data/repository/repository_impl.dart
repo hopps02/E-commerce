@@ -4,7 +4,7 @@ import 'package:jar/data/network/error_handler/failure.dart';
 import 'package:jar/data/responses/responses.dart';
 import 'package:jar/domain/repository/repository.dart';
 
-import '../network/api.dart';
+import '../network/api/api.dart';
 import '../request/request.dart';
 
 class Repository implements RepositoryAbs {

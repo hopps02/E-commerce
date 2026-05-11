@@ -1,12 +1,18 @@
-import 'dart:io';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:retrofit/retrofit.dart';
 
-import 'package:dio/dio.dart';
-import 'package:jar/app/enums/enums.dart';
+import '../network/converters/datetime_converter.dart';
 
-class AuthInitRequest {
-  final String email;
+part 'request.freezed.dart';
+part 'request.g.dart';
 
-  AuthInitRequest({required this.email});
+@freezed
+abstract class AuthInitRequest with _$AuthInitRequest {
+  const factory AuthInitRequest({
+    @Query('email') required String email,
+    @Query('birth_date') @DateTimeConverter() required DateTime birthDate,
+  }) = _AuthInitRequest;
 
-  Map<String, dynamic> toJson() => {'email': email};
+  factory AuthInitRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuthInitRequestFromJson(json);
 }

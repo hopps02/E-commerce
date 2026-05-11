@@ -1,37 +1,25 @@
-import 'dart:convert';
-import 'dart:typed_data';
-import 'dart:ui';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:jar/app/enums/enums.dart';
+import '../network/converters/datetime_converter.dart';
 
-class BasicResponse {
-  final bool success;
-  final String message;
+part 'responses.freezed.dart';
+part 'responses.g.dart';
 
-  BasicResponse({required this.success, required this.message});
-
-  factory BasicResponse.fromJson(Map<String, dynamic> json) {
-    return BasicResponse(
-      success: (json['success'] as bool?) ?? true,
-      message: (json['message'] as String?) ?? "",
-    );
-  }
+abstract class BasicResponse {
+  bool get success;
+  String get message;
 }
 
-class AuthInitResponse extends BasicResponse {
-  final bool registered;
+@freezed
+abstract class AuthInitResponse with _$AuthInitResponse implements BasicResponse {
+  const factory AuthInitResponse({
+    @Default(true) bool success,
+    @Default('') String message,
+    @Default(false) bool registered,
+    @DateTimeConverter() required DateTime createdAt,
+    @NullableDateTimeConverter() DateTime? lastLoginAt,
+  }) = _AuthInitResponse;
 
-  AuthInitResponse({
-    required super.success,
-    required super.message,
-    required this.registered,
-  });
-
-  factory AuthInitResponse.fromJson(Map<String, dynamic> json) {
-    return AuthInitResponse(
-      success: (json['success'] as bool?) ?? true,
-      message: (json['message'] as String?) ?? "",
-      registered: (json['registered'] as bool?) ?? false,
-    );
-  }
+  factory AuthInitResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthInitResponseFromJson(json);
 }
