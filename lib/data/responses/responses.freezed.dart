@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthInitResponse {
 
- bool get success; String get message; bool get registered;@DateTimeConverter() DateTime get createdAt;@NullableDateTimeConverter() DateTime? get lastLoginAt;
+ bool get success; String get message; bool get registered;@JsonKey(name: 'created_at')@DateTimeConverter() DateTime get createdAt;@JsonKey(name: 'last_login_at')@NullableDateTimeConverter() DateTime? get lastLoginAt;
 /// Create a copy of AuthInitResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AuthInitResponseCopyWith<$Res>  {
   factory $AuthInitResponseCopyWith(AuthInitResponse value, $Res Function(AuthInitResponse) _then) = _$AuthInitResponseCopyWithImpl;
 @useResult
 $Res call({
- bool success, String message, bool registered,@DateTimeConverter() DateTime createdAt,@NullableDateTimeConverter() DateTime? lastLoginAt
+ bool success, String message, bool registered,@JsonKey(name: 'created_at')@DateTimeConverter() DateTime createdAt,@JsonKey(name: 'last_login_at')@NullableDateTimeConverter() DateTime? lastLoginAt
 });
 
 
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  String message,  bool registered, @DateTimeConverter()  DateTime createdAt, @NullableDateTimeConverter()  DateTime? lastLoginAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  String message,  bool registered, @JsonKey(name: 'created_at')@DateTimeConverter()  DateTime createdAt, @JsonKey(name: 'last_login_at')@NullableDateTimeConverter()  DateTime? lastLoginAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthInitResponse() when $default != null:
 return $default(_that.success,_that.message,_that.registered,_that.createdAt,_that.lastLoginAt);case _:
@@ -178,7 +178,7 @@ return $default(_that.success,_that.message,_that.registered,_that.createdAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  String message,  bool registered, @DateTimeConverter()  DateTime createdAt, @NullableDateTimeConverter()  DateTime? lastLoginAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  String message,  bool registered, @JsonKey(name: 'created_at')@DateTimeConverter()  DateTime createdAt, @JsonKey(name: 'last_login_at')@NullableDateTimeConverter()  DateTime? lastLoginAt)  $default,) {final _that = this;
 switch (_that) {
 case _AuthInitResponse():
 return $default(_that.success,_that.message,_that.registered,_that.createdAt,_that.lastLoginAt);case _:
@@ -198,7 +198,7 @@ return $default(_that.success,_that.message,_that.registered,_that.createdAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  String message,  bool registered, @DateTimeConverter()  DateTime createdAt, @NullableDateTimeConverter()  DateTime? lastLoginAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  String message,  bool registered, @JsonKey(name: 'created_at')@DateTimeConverter()  DateTime createdAt, @JsonKey(name: 'last_login_at')@NullableDateTimeConverter()  DateTime? lastLoginAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthInitResponse() when $default != null:
 return $default(_that.success,_that.message,_that.registered,_that.createdAt,_that.lastLoginAt);case _:
@@ -213,14 +213,14 @@ return $default(_that.success,_that.message,_that.registered,_that.createdAt,_th
 @JsonSerializable()
 
 class _AuthInitResponse implements AuthInitResponse {
-  const _AuthInitResponse({this.success = true, this.message = '', this.registered = false, @DateTimeConverter() required this.createdAt, @NullableDateTimeConverter() this.lastLoginAt});
+  const _AuthInitResponse({this.success = true, this.message = '', this.registered = false, @JsonKey(name: 'created_at')@DateTimeConverter() required this.createdAt, @JsonKey(name: 'last_login_at')@NullableDateTimeConverter() this.lastLoginAt});
   factory _AuthInitResponse.fromJson(Map<String, dynamic> json) => _$AuthInitResponseFromJson(json);
 
 @override@JsonKey() final  bool success;
 @override@JsonKey() final  String message;
 @override@JsonKey() final  bool registered;
-@override@DateTimeConverter() final  DateTime createdAt;
-@override@NullableDateTimeConverter() final  DateTime? lastLoginAt;
+@override@JsonKey(name: 'created_at')@DateTimeConverter() final  DateTime createdAt;
+@override@JsonKey(name: 'last_login_at')@NullableDateTimeConverter() final  DateTime? lastLoginAt;
 
 /// Create a copy of AuthInitResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -255,7 +255,7 @@ abstract mixin class _$AuthInitResponseCopyWith<$Res> implements $AuthInitRespon
   factory _$AuthInitResponseCopyWith(_AuthInitResponse value, $Res Function(_AuthInitResponse) _then) = __$AuthInitResponseCopyWithImpl;
 @override @useResult
 $Res call({
- bool success, String message, bool registered,@DateTimeConverter() DateTime createdAt,@NullableDateTimeConverter() DateTime? lastLoginAt
+ bool success, String message, bool registered,@JsonKey(name: 'created_at')@DateTimeConverter() DateTime createdAt,@JsonKey(name: 'last_login_at')@NullableDateTimeConverter() DateTime? lastLoginAt
 });
 
 

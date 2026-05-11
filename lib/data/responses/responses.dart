@@ -16,8 +16,8 @@ abstract class AuthInitResponse with _$AuthInitResponse implements BasicResponse
     @Default(true) bool success,
     @Default('') String message,
     @Default(false) bool registered,
-    @DateTimeConverter() required DateTime createdAt,
-    @NullableDateTimeConverter() DateTime? lastLoginAt,
+    @JsonKey(name: 'created_at') @DateTimeConverter() required DateTime createdAt,
+    @JsonKey(name: 'last_login_at') @NullableDateTimeConverter() DateTime? lastLoginAt,
   }) = _AuthInitResponse;
 
   factory AuthInitResponse.fromJson(Map<String, dynamic> json) =>

@@ -1,4 +1,4 @@
-# 📘 Mawadk Documentation
+# 📘  Documentation
 
 Welcome. This folder is the source of truth for how this project is built and how to contribute.
 
@@ -62,6 +62,42 @@ doc/
    - **Simple** → copy `doc_simple/template.md` to `doc/features/<feature_name>/README.md`.
    - **Full** → copy all four files from `doc_strategy/` into `doc/features/<feature_name>/`.
 4. Add a one-line entry to [`features/README.md`](./features/README.md).
+
+---
+
+## 🌐 Networking & Data Serialization
+
+We use a modern, type-safe stack for networking and data handling.
+
+### 🛠️ The Stack
+- **[Retrofit](https://pub.dev/packages/retrofit)**: Used to define API endpoints via the `AppServices` interface.
+- **[Dio](https://pub.dev/packages/dio)**: The core HTTP client, enhanced with custom interceptors for Auth and Localization.
+- **[Freezed](https://pub.dev/packages/freezed)**: Powers all data models (Requests/Responses) with immutability and automated JSON serialization.
+
+### 📂 Data Layer Structure
+- **`lib/data/network/`**: Core networking logic, including the `Dio` builder and modular interceptors.
+- **`lib/data/request/`**: Request models with Retrofit annotations (e.g., `@Query`, `@Body`).
+- **`lib/data/responses/`**: Response models that implement `BasicResponse` and use `Freezed` for parsing.
+
+### ⚙️ Code Generation
+
+Since we use Retrofit and Freezed, you must run the build runner after modifying any API or Model file.
+
+*   **One-time Build**:
+    ```powershell
+    dart run build_runner build
+    ```
+*   **Watch Mode** (Auto-regenerate on save):
+    ```powershell
+    dart run build_runner watch -d
+    ```
+*   **Delete Conflicting Outputs**:
+    ```powershell
+    dart run build_runner build --delete-conflicting-outputs
+    ```
+
+> [!TIP]
+> **Field Mapping**: Always use `@JsonKey(name: 'field_name')` for properties where the API key (usually `snake_case`) differs from your Dart variable name (usually `camelCase`).
 
 ---
 

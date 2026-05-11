@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthInitRequest {
 
-@Query('email') String get email;@Query('birth_date')@DateTimeConverter() DateTime get birthDate;
+@JsonKey(name: 'email') String get email;@JsonKey(name: 'birth_date')@DateTimeConverter() DateTime get birthDate;
 /// Create a copy of AuthInitRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AuthInitRequestCopyWith<$Res>  {
   factory $AuthInitRequestCopyWith(AuthInitRequest value, $Res Function(AuthInitRequest) _then) = _$AuthInitRequestCopyWithImpl;
 @useResult
 $Res call({
-@Query('email') String email,@Query('birth_date')@DateTimeConverter() DateTime birthDate
+@JsonKey(name: 'email') String email,@JsonKey(name: 'birth_date')@DateTimeConverter() DateTime birthDate
 });
 
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@Query('email')  String email, @Query('birth_date')@DateTimeConverter()  DateTime birthDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'email')  String email, @JsonKey(name: 'birth_date')@DateTimeConverter()  DateTime birthDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthInitRequest() when $default != null:
 return $default(_that.email,_that.birthDate);case _:
@@ -175,7 +175,7 @@ return $default(_that.email,_that.birthDate);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@Query('email')  String email, @Query('birth_date')@DateTimeConverter()  DateTime birthDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'email')  String email, @JsonKey(name: 'birth_date')@DateTimeConverter()  DateTime birthDate)  $default,) {final _that = this;
 switch (_that) {
 case _AuthInitRequest():
 return $default(_that.email,_that.birthDate);case _:
@@ -195,7 +195,7 @@ return $default(_that.email,_that.birthDate);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@Query('email')  String email, @Query('birth_date')@DateTimeConverter()  DateTime birthDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'email')  String email, @JsonKey(name: 'birth_date')@DateTimeConverter()  DateTime birthDate)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthInitRequest() when $default != null:
 return $default(_that.email,_that.birthDate);case _:
@@ -210,11 +210,11 @@ return $default(_that.email,_that.birthDate);case _:
 @JsonSerializable()
 
 class _AuthInitRequest implements AuthInitRequest {
-  const _AuthInitRequest({@Query('email') required this.email, @Query('birth_date')@DateTimeConverter() required this.birthDate});
+  const _AuthInitRequest({@JsonKey(name: 'email') required this.email, @JsonKey(name: 'birth_date')@DateTimeConverter() required this.birthDate});
   factory _AuthInitRequest.fromJson(Map<String, dynamic> json) => _$AuthInitRequestFromJson(json);
 
-@override@Query('email') final  String email;
-@override@Query('birth_date')@DateTimeConverter() final  DateTime birthDate;
+@override@JsonKey(name: 'email') final  String email;
+@override@JsonKey(name: 'birth_date')@DateTimeConverter() final  DateTime birthDate;
 
 /// Create a copy of AuthInitRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -249,7 +249,7 @@ abstract mixin class _$AuthInitRequestCopyWith<$Res> implements $AuthInitRequest
   factory _$AuthInitRequestCopyWith(_AuthInitRequest value, $Res Function(_AuthInitRequest) _then) = __$AuthInitRequestCopyWithImpl;
 @override @useResult
 $Res call({
-@Query('email') String email,@Query('birth_date')@DateTimeConverter() DateTime birthDate
+@JsonKey(name: 'email') String email,@JsonKey(name: 'birth_date')@DateTimeConverter() DateTime birthDate
 });
 
 

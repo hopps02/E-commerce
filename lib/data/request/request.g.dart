@@ -10,12 +10,12 @@ _AuthInitRequest _$AuthInitRequestFromJson(Map<String, dynamic> json) =>
     _AuthInitRequest(
       email: json['email'] as String,
       birthDate: const DateTimeConverter().fromJson(
-        json['birthDate'] as String,
+        json['birth_date'] as String,
       ),
     );
 
 Map<String, dynamic> _$AuthInitRequestToJson(_AuthInitRequest instance) =>
     <String, dynamic>{
       'email': instance.email,
-      'birthDate': const DateTimeConverter().toJson(instance.birthDate),
+      'birth_date': const DateTimeConverter().toJson(instance.birthDate),
     };
