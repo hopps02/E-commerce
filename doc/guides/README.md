@@ -8,7 +8,8 @@ Welcome. This folder is the source of truth for how this project is built and ho
 
 1. **[ARCHITECTURE.md](./ARCHITECTURE.md)** — the layers (Presentation / Domain / Data), how they talk to each other, and the core patterns (DI, error handling, data flow).
 2. **[CONTRIBUTING.md](./CONTRIBUTING.md)** — commit conventions, branch naming, code standards.
-3. **[testing/testing_strategy.md](./testing/testing_strategy.md)** — unit, logic-integration, and folder conventions.
+3. **[CI_CD.md](./CI_CD.md)** — every GitHub Actions workflow, what it does, and the accounts / secrets / signing setup needed to run it.
+4. **[testing/testing_strategy.md](./testing/testing_strategy.md)** — unit, logic-integration, and folder conventions.
 
 ---
 

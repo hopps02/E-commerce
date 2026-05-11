@@ -1,0 +1,14 @@
+app_identifier "com.azsystem.fouru" # your bundle id
+
+# You should put the email of the person who owns 
+# the Apple Developer account or has "Admin" 
+# or "App Manager" access to this specific app.
+apple_id "qeqweq"     # example placeholder
+
+# To find your Team ID:
+# 1. Go to https://appstoreconnect.apple.com
+# 2. Click on "Users and Access" > "Membership"
+# 3. Your Team ID will be displayed there
+# 4. It is a string of letters and numbers (e.g., X12345678)
+itc_team_id "12312312"                # App Store Connect team id
+team_id "asdasdad"                    # Development team id

@@ -12,3 +12,8 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# fastlane
+fastlane/play_key.json
+fastlane/report.xml
+fastlane/README.md

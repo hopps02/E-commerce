@@ -1,0 +1,2 @@
+json_key_file("play_key.json")          # service-account JSON written at runtime by Fastfile
+package_name("com.azsystem.fouru")       # must match applicationId in android/app/build.gradle.kts
