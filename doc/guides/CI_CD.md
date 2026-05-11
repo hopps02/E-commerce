@@ -110,30 +110,78 @@ In GitHub: **Settings → Branches → Branch protection rules → master** → 
 ### What it does
 
 Every push to `master` (including merges from PRs) produces a GitHub Release
-containing release APKs:
+containing release APKs, prunes older releases, and emails recipients with a
+link to the new release:
 
-1. Checkout with full git history (needed for release notes).
+1. Checkout with full git history.
 2. Java 17 + Flutter `3.41.6`.
 3. `flutter pub get`.
 4. Reads the `version:` field from `pubspec.yaml` and computes the release tag
-   `v<pubspec-version>-<short-sha>` (for example, `v1.0.0-ddd38af`).
+   `v<pubspec-version>-<short-sha>` (for example, `v1.0.0-ddd38af`). Because
+   the short SHA is part of the tag, every commit produces a **unique** tag —
+   you never collide with an existing release even if `pubspec.yaml`'s version
+   field is unchanged.
 5. `flutter build apk --release --split-per-abi` — builds three smaller
    per-ABI APKs (`armeabi-v7a`, `arm64-v8a`, `x86_64`).
 6. `flutter build apk --release` — builds a universal APK that runs on any ABI
    (larger file size).
 7. Creates a GitHub Release using
    [`softprops/action-gh-release`](https://github.com/softprops/action-gh-release):
-   tag = the computed tag, name = the same, body = auto-generated notes from
-   commits since the last release, attached files = the four APKs above.
+   tag = the computed tag, name = the same, attached files = the four APKs
+   above. Auto-generated release notes are **currently disabled** (the
+   `generate_release_notes: true` line is commented out); the release body
+   will be empty unless you re-enable it.
+8. **Retention cleanup** — lists all releases, keeps the **2 most recent**, and
+   deletes the rest along with their git tags using `gh release delete
+   --cleanup-tag`. So the Releases page always shows at most two entries.
+9. **Email notification** — sends an HTML email via Gmail SMTP using
+   [`dawidd6/action-send-mail`](https://github.com/dawidd6/action-send-mail).
+   The email contains the tag, version, commit, and a clickable link to the
+   GitHub Release page (the APKs are **not attached** because they typically
+   exceed Gmail's 25 MB attachment limit).
 
 ### What you need to run it
 
 - **`GITHUB_TOKEN`** — provided automatically by GitHub Actions. No setup.
 - **`permissions: contents: write`** is already declared in the workflow so the
-  token can create releases and tags.
+  token can create releases, delete old releases, and delete tags.
 - Make sure **Settings → Actions → General → Workflow permissions** is set to
   **Read and write permissions** (or that the explicit `permissions:` block we
   declare is honored — which it is by default on most repos).
+
+### Email notification setup
+
+The "Send release email" step needs Gmail SMTP credentials. Gmail requires an
+**App Password** — your normal Google account password will not work and will
+be rejected by SMTP.
+
+1. Enable **2-Step Verification** on the Google account that will send the
+   emails: https://myaccount.google.com/security.
+2. Open https://myaccount.google.com/apppasswords → generate a new app
+   password (any name, e.g. `GitHub Actions`). Google shows a 16-character
+   password **once** — copy it immediately.
+3. Add the following GitHub secrets:
+
+   | Secret | Value |
+   |---|---|
+   | `MAIL_USERNAME` | The Gmail address sending the email (e.g. `you@gmail.com`). |
+   | `MAIL_PASSWORD` | The 16-character app password from step 2. **Not** your account password. |
+   | `MAIL_TO` | Recipient list. Use a **comma-separated** list to email multiple people, e.g. `alice@example.com,bob@example.com,carol@example.com`. |
+
+If you want to skip the email step entirely, delete or comment out the
+`Send release email` step in `release.yml`. The build/release/cleanup steps
+work independently of it.
+
+### Retention behaviour
+
+The cleanup step keeps **the 2 most recent releases**, sorted by creation
+date. Older releases — and their git tags — are deleted. To change the
+retention count, edit the `.[2:]` slice in the `Keep only the latest 2
+releases` step (e.g. `.[5:]` to keep the most recent 5).
+
+If you ever need to bring an old release back, you'll have to rebuild it from
+the corresponding commit — once `gh release delete --cleanup-tag` runs, both
+the release and the tag are gone.
 
 ### Important: signing
 
@@ -499,4 +547,7 @@ git push -u origin android-deploy
 | `ANDROID_KEY_PASSWORD` | same | same |
 | `ANDROID_KEY_ALIAS` | same | same |
 | `PLAY_STORE_JSON_KEY` | `android-deploy.yml` | Only if uploading to Play |
+| `MAIL_USERNAME` | `release.yml` | Yes (for email notification step) |
+| `MAIL_PASSWORD` | `release.yml` | Yes — Gmail **App Password**, not account password |
+| `MAIL_TO` | `release.yml` | Yes — comma-separated list of recipients |
 | `GITHUB_TOKEN` | `release.yml` | Provided automatically |
