@@ -21,7 +21,7 @@ extension UserMessages on Failure {
     // Server-side errors
     ServerError(message: final msg)                => msg ?? Translation.error_server.tr,
     CustomServerError(error: final apiError)       => switch (apiError) {
-      ApiErrorType.INVALID_CODE || _               => apiError?.message ?? DEFAULT_ERROR_MESSAGE,
+      ApiErrorType.UNAUTHORIZED || _               => apiError?.message ?? DEFAULT_ERROR_MESSAGE,
     },
 
     // Unexpected errors

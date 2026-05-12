@@ -210,12 +210,7 @@ enum DioErrorType {
 /// you should add it here. The `_handleResponseError` will automatically parse it
 /// and return it as a [CustomServerError].
 enum ApiErrorType {
-  USER_NOT_CONFIRMED(401, "User is not confirmed."),
-  UNAUTHORIZED(401, "غير مصرح"),
-  EMAIL_TAKEN(400, "An account with the given email already exists."),
-  INCORRECT_PASSWORD_OR_EMAIL(401, "Incorrect username or password."),
-  INVALID_CODE(400, "Invalid code provided, please request a code again."),
-  INVALID_REFRESH_TOKEN(400, "Invalid Refresh Token");
+  UNAUTHORIZED(401, "Unauthorized");
 
   final dynamic statusCode;
   final String message;
