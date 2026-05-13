@@ -6,7 +6,7 @@ import 'package:jar/app/ui_components/error_widget.dart';
 import 'package:jar/app/utils/state_render.dart';
 import 'package:jar/presentation/common/fast_state_render.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/home/riverpod/tap_home_contaroller.dart';
 import 'package:jar/presentation/views/home/view/widgets/categories_section.dart';
@@ -56,7 +56,7 @@ class Body extends StatelessWidget {
           subtitle: Translation.quick_choices.tr,
           onViewAllTap: () {
             context.pushNamed(
-              RoutesManager.products.route,
+              Routes.products,
               arguments: ProductsViewArgs(title: "الخضار"),
             );
           },
@@ -97,7 +97,7 @@ class Body extends StatelessWidget {
           subtitle: Translation.quick_choices.tr,
           onViewAllTap: () {
             context.pushNamed(
-              RoutesManager.products.route,
+              Routes.products,
               arguments: ProductsViewArgs(
                 title: Translation.snacks_and_packaged.tr,
               ),

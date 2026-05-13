@@ -9,7 +9,7 @@ import 'package:jar/app/ui_components/otp_field.dart';
 import 'package:jar/app/utils/after_layout.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/auth/riverpod/verify_otp_controller.dart';
@@ -53,10 +53,9 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
 
   void onVerifyOtp() {
     if (_otp.length == 5) {
-      Navigator.pushReplacementNamed(
-        context,
-        RoutesManager.authSuccess.route,
-        arguments: AuthSuccessArgs(successViewType: SuccessViewType.auth),
+      context.pushReplacementNamed(
+        Routes.authSuccess,
+        arguments: const AuthSuccessArgs(successViewType: SuccessViewType.auth),
       );
     }
   }

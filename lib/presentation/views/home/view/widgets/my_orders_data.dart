@@ -11,7 +11,7 @@ import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/riverpod/my_orders_tab_controller.dart';
 import 'package:jar/presentation/views/home/view/widgets/order_card.dart';
 
-import '../../../../res/routes_manager.dart';
+import '../../../../res/router/app_router.dart';
 
 enum MyOrdersDataType { current, previous }
 
@@ -80,7 +80,7 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
           separatorBuilder: (context, index) => 16.verticalSpace,
           itemBuilder: (context, index) => OrderCard(
             step: (index % 3) + 1,
-            onTapDetails: () => context.pushNamed(RoutesManager.orderDetails.route,),//TODO
+            onTapDetails: () => context.pushNamed(Routes.orderDetails,),//TODO
           ).premiumAppear(index: (index % 3)),
         ),
       ),

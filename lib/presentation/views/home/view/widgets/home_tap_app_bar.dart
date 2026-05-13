@@ -9,7 +9,7 @@ import 'package:jar/app/ui_components/gradient_border_side.dart';
 import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -133,7 +133,7 @@ class BottomAppBarContent extends StatelessWidget {
       ),
       child: CustomInkButton(
         onTap: () {
-          context.pushNamed(RoutesManager.search.route);
+          context.pushNamed(Routes.search);
         },
         height: 45.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w),

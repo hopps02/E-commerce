@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Context7__query-docs",
+      "Bash(flutter pub *)",
+      "Bash(git restore *)",
+      "Bash(rmdir /s /q \"lib\\\\presentation\\\\res\\\\router\")",
+      "Bash(flutter analyze *)"
+    ]
+  }
+}

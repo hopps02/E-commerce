@@ -8,7 +8,7 @@ import 'package:jar/app/ui_components/flex_text.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 
@@ -87,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
     return InkWell(
       onTap: () {
         context.pushNamed(
-          RoutesManager.productDetails.route,
+          Routes.productDetails,
           arguments: ProductDetailsViewArgs(productId: ""),
         );
       },

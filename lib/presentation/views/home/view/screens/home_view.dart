@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/bottom_navigation.dart';
@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView>
         svgPath: Assets.svg.borderBag.path,
         selectedSvgPath: Assets.svg.borderBag.path,
         onTap: () {
-          context.pushNamed(RoutesManager.cart.route);
+          context.pushNamed(Routes.cart);
         },
       ),
       NavigationItem(

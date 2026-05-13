@@ -6,7 +6,7 @@ import 'package:jar/presentation/res/gen/assets.gen.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/delete_account_bottom_sheet.dart';
 import 'package:jar/presentation/views/home/view/widgets/profile_menu_item.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({
@@ -30,7 +30,7 @@ class ProfileSettings extends StatelessWidget {
             ),
             title: Translation.edit_profile.tr,
             onTap: () {
-              context.pushNamed(RoutesManager.editProfile.route);
+              context.pushNamed(Routes.editProfile);
             },
           ),
           ProfileMenuItem(
@@ -44,7 +44,7 @@ class ProfileSettings extends StatelessWidget {
             ),
             title: Translation.languages.tr,
             onTap: () {
-              context.pushNamed(RoutesManager.language.route);
+              context.pushNamed(Routes.language);
             },
           ),
           ProfileMenuItem(
@@ -58,7 +58,7 @@ class ProfileSettings extends StatelessWidget {
             ),
             title: Translation.help_and_support.tr,
             onTap: () {
-              context.pushNamed(RoutesManager.helpSupport.route);
+              context.pushNamed(Routes.helpSupport);
             },
           ),
           ProfileMenuItem(
@@ -72,7 +72,7 @@ class ProfileSettings extends StatelessWidget {
             ),
             title: Translation.legal_and_policies.tr,
             onTap: () {
-              context.pushNamed(RoutesManager.legalPolicies.route);
+              context.pushNamed(Routes.legalPolicies);
             },
           ),
           ProfileMenuItem(

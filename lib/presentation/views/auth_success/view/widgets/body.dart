@@ -5,7 +5,7 @@ import 'package:jar/app/extensions/theme_extensions.dart';
 import 'package:jar/app/ui_components/custom_ink_button.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/common/general_padding.dart';
 import 'package:jar/app/enums/enums.dart';
@@ -48,15 +48,11 @@ class Body extends StatelessWidget {
           // Start Shopping Button
           CustomInkButton(
             onTap: () {
-              if(successViewType.isOrder){
-                 context.popUntilNamed(RoutesManager.home.route);
-              }else{
-                context.pushNamedAndRemoveUntil(
-                  RoutesManager.home.route,
-                  (route) => false,
-                );
+              if (successViewType.isOrder) {
+                context.popUntilNamed(Routes.home);
+              } else {
+                context.goNamed(Routes.home);
               }
-              
             },
             borderRadius: 12.r,
             height: 50.h,
@@ -66,10 +62,7 @@ class Body extends StatelessWidget {
             alignment: Alignment.center,
             side: successViewType.isAuth
                 ? GradientBorderSide.none
-                : GradientBorderSide(
-                    color: ColorM.white,
-                    width: 1.r,
-                  ),
+                : GradientBorderSide(color: ColorM.white, width: 1.r),
             child: Text(
               successViewType.isAuth
                   ? Translation.start_shopping.tr

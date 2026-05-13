@@ -8,7 +8,7 @@ import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/app/ui_components/customized_smart_refresh.dart';
 import 'package:jar/app/utils/state_render.dart';
 import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
 import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
@@ -59,7 +59,7 @@ class ProductsData extends ConsumerWidget {
               return GestureDetector(
                 onTap: () {
                   context.pushNamed(
-                    RoutesManager.productDetails.route,
+                    Routes.productDetails,
                     arguments: ProductDetailsViewArgs(
                       productId: '',
                     ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jar/app/di/dependency_injection.dart';
 import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/onboarding/view/widgets/image_background.dart';
 import 'package:jar/presentation/views/onboarding/view/widgets/gradient_background.dart';
@@ -36,14 +36,11 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   Future<void> _handleOnboardingComplete() async {
     await DI().storageService.setSkippedOnBoarding();
-    if(mounted) context.pushNamedAndRemoveUntil(RoutesManager.auth.route, (route) => false);
+    if (mounted) context.goNamed(Routes.auth);
   }
 
   Future<void> _handleOnNext() async {
     await DI().storageService.setSkippedOnBoarding();
-    if(mounted) context.pushNamedAndRemoveUntil(RoutesManager.home.route, (route) => false);
+    if (mounted) context.goNamed(Routes.home);
   }
 }
-
-
-

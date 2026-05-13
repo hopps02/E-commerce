@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/navigation_extension.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/category_card.dart';
 import 'package:jar/presentation/views/products/view/screens/products_view.dart';
@@ -25,7 +25,7 @@ class TopCategory extends StatelessWidget {
             subtitle: Translation.fresh_daily.tr,
             imagePath: Assets.tempImages.image1.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.grocery.tr));
+              context.pushNamed(Routes.products, arguments: ProductsViewArgs(title: Translation.grocery.tr));
             },
           ),
           CategoryCard(
@@ -33,7 +33,7 @@ class TopCategory extends StatelessWidget {
             subtitle: Translation.save_more_today.tr,
             imagePath: Assets.tempImages.image2.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.best_offers.tr));
+              context.pushNamed(Routes.products, arguments: ProductsViewArgs(title: Translation.best_offers.tr));
             },
           ),
           CategoryCard(
@@ -41,7 +41,7 @@ class TopCategory extends StatelessWidget {
             subtitle: Translation.carefully_selected_fresh.tr,
             imagePath: Assets.tempImages.image3.path,
             onTap: () {
-              context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: Translation.daily_needs.tr));
+              context.pushNamed(Routes.products, arguments: ProductsViewArgs(title: Translation.daily_needs.tr));
             },
           ),
         ],

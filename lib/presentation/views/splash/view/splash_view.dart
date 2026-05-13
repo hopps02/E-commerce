@@ -13,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/config/constants.dart';
 import 'package:jar/app/di/dependency_injection.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -38,10 +38,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
         child: AnimatedOnAppear(
           animationTypes: {AnimationType.fade, AnimationType.pulse},
           animationDuration: Duration(seconds: 1),
-          child: SvgPicture.asset(
-            Assets.svg.appLogo.path,
-            width: 155.w,
-          ),
+          child: SvgPicture.asset(Assets.svg.appLogo.path, width: 155.w),
         ),
       ),
     );
@@ -51,11 +48,11 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
   Future<void> afterLayout(BuildContext context) async {
     Timer(Duration(seconds: Constants.splashTimer), () async {
       if (!DI().storageService.isSkippedOnBoarding) {
-        context.pushNamedAndRemoveUntil(RoutesManager.onboarding.route, (_) => false);
+        context.goNamed(Routes.onboarding);
       } else if (await DI().storageService.isUserRegistered) {
-        if (context.mounted) context.pushNamedAndRemoveUntil(RoutesManager.home.route, (_) => false);
+        if (context.mounted) context.goNamed(Routes.home);
       } else {
-        if (context.mounted) context.pushNamedAndRemoveUntil(RoutesManager.auth.route, (_) => false);
+        if (context.mounted) context.goNamed(Routes.auth);
       }
     });
   }

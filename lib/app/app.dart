@@ -5,15 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:jar/app/extensions/view_extensions.dart';
 import 'package:jar/app/utils/global_keyboard_dismissal.dart';
 
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/theme_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: non_constant_identifier_names
 GlobalKey<ScaffoldMessengerState> SCAFFOLD_MESSENGER_KEY =
     GlobalKey<ScaffoldMessengerState>();
+
+/// Global navigator key exposed for services/notifications that need to
+/// navigate from outside the widget tree. It resolves to the root navigator
+/// owned by go_router.
 // ignore: non_constant_identifier_names
-GlobalKey<NavigatorState> NAVIGATOR_KEY = GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> get NAVIGATOR_KEY =>
+    appRouter.routerDelegate.navigatorKey;
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -31,7 +36,6 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     SCAFFOLD_MESSENGER_KEY = GlobalKey<ScaffoldMessengerState>();
-    NAVIGATOR_KEY = GlobalKey<NavigatorState>();
     super.initState();
   }
 
@@ -48,17 +52,15 @@ class MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: designSize,
       builder: (context, details) {
-        return MaterialApp(
+        return MaterialApp.router(
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
-          navigatorKey: NAVIGATOR_KEY,
           debugShowCheckedModeBanner: false,
-          initialRoute: RoutesManager.splash.route,
           theme: ThemeManager.lightTheme(context),
           themeMode: ThemeMode.light,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          onGenerateRoute: RoutesGeneratorManager.getRoute,
+          routerConfig: appRouter,
           builder: (context, child) {
             return GlobalKeyboardDismissal(
               child: Stack(

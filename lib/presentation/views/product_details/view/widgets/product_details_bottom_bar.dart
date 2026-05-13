@@ -8,7 +8,7 @@ import 'package:jar/app/ui_components/direction.dart';
 import 'package:jar/presentation/res/color_manager.dart';
 import 'package:jar/presentation/res/fonts_manager.dart';
 import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/product_details/riverpod/product_details_controller.dart';
 
@@ -111,7 +111,7 @@ class ProductDetailsBottomBar extends ConsumerWidget {
         16.verticalSpace,
         CustomInkButton(
           onTap: () {
-            context.pushNamed(RoutesManager.cart.route);
+            context.pushNamed(Routes.cart);
           },
           width: double.infinity,
           height: 56.h,

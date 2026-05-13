@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/res/sizes_manager.dart';
 import 'package:jar/presentation/res/translations_manager.dart';
 import 'package:jar/presentation/views/home/view/widgets/section_header.dart';
@@ -31,7 +31,7 @@ class CategoriesSection extends StatelessWidget {
           child: SectionHeader(
             title: Translation.categories.tr,
             onViewAllTap: () {
-              context.pushNamed(RoutesManager.sections.route);
+              context.pushNamed(Routes.sections);
             },
           ),
         ),
@@ -46,7 +46,7 @@ class CategoriesSection extends StatelessWidget {
               title: cat['title']!,
               imageUrl: cat['image']!,
               onTap: () {
-                context.pushNamed(RoutesManager.products.route, arguments: ProductsViewArgs(title: cat['title']!));
+                context.pushNamed(Routes.products, arguments: ProductsViewArgs(title: cat['title']!));
               },
             );
           }).toList(),

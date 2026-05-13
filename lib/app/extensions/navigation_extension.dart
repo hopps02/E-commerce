@@ -1,61 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 
 // ---------------------------------------------------------------------------
-// Navigation Extensions
-// Use these when inside a widget where you have a BuildContext.
-// Use NAVIGATOR_KEY.currentState when navigating outside a widget (services,
-// DI, notification callbacks, etc.).
+// Navigation Extensions (go_router)
+// Use inside widgets where you have a BuildContext.
+// Outside the widget tree (services, DI, notification callbacks), use
+// `appRouter` directly from `lib/presentation/res/router/app_router.dart`.
 // ---------------------------------------------------------------------------
 extension NavigationExtension on BuildContext {
-  NavigatorState get navigator => Navigator.of(this);
-
   // ── Push ──────────────────────────────────────────────────────────────────
 
-  /// Push a named route.
-  Future<T?> pushNamed<T>(String route, {Object? arguments}) =>
-      navigator.pushNamed<T>(route, arguments: arguments);
+  /// Push a named route on top of the current stack.
+  Future<T?> pushNamed<T>(Routes route, {Object? arguments}) =>
+      GoRouter.of(this).pushNamed<T>(route.name, extra: arguments);
 
-  /// Push a named route and remove all previous routes.
-  Future<T?> pushNamedAndRemoveAll<T>(String route, {Object? arguments}) =>
-      navigator.pushNamedAndRemoveUntil<T>(
-        route,
-        (_) => false,
-        arguments: arguments,
-      );
+  /// Replace the entire stack with [name]. Equivalent of the old
+  /// `pushNamedAndRemoveUntil(name, (_) => false)`.
+  void goNamed(Routes route, {Object? arguments}) =>
+      GoRouter.of(this).goNamed(route.name, extra: arguments);
 
-  /// Push a named route and remove routes until [predicate] returns true.
-  Future<T?> pushNamedAndRemoveUntil<T>(
-    String route,
-    RoutePredicate predicate, {
+  /// Push [name]; on back press, the user lands on the route named
+  /// [keepUntilName] (the surviving route at the bottom of the stack).
+  /// Use this when you want to clear intermediate routes but preserve
+  /// a specific destination below the new screen.
+  Future<T?> pushNamedAndKeepUntil<T>(
+    Routes route, {
+    required Routes keepUntilName,
     Object? arguments,
-  }) => navigator.pushNamedAndRemoveUntil<T>(
-        route,
-        predicate,
-        arguments: arguments,
-      );
+  }) {
+    final router = GoRouter.of(this);
+    router.goNamed(keepUntilName.name);
+    return router.pushNamed<T>(route.name, extra: arguments);
+  }
 
-  /// Push a named route and replace the current route.
-  Future<T?> pushReplacementNamed<T>(String route, {Object? arguments}) =>
-      navigator.pushReplacementNamed<T, dynamic>(
-        route,
-        arguments: arguments,
-      );
+  /// Replace the current route with [name].
+  Future<T?> pushReplacementNamed<T>(Routes route, {Object? arguments}) =>
+      GoRouter.of(this).pushReplacementNamed<T>(route.name, extra: arguments);
 
   // ── Pop ───────────────────────────────────────────────────────────────────
 
   /// Pop the current route.
-  void pop<T>([T? result]) => navigator.pop<T>(result);
+  void pop<T>([T? result]) => GoRouter.of(this).pop<T>(result);
 
-  /// Pop if the navigator can (safe pop).
-  void maybePop<T>([T? result]) => navigator.maybePop<T>(result);
+  /// Pop if the navigator can.
+  void maybePop<T>([T? result]) {
+    final router = GoRouter.of(this);
+    if (router.canPop()) router.pop<T>(result);
+  }
 
-  /// Pop until the route matches [predicate].
-  void popUntil(RoutePredicate predicate) => navigator.popUntil(predicate);
-
-  /// Pop until a named route.
-  void popUntilNamed(String route) =>
-      navigator.popUntil(ModalRoute.withName(route));
+  /// Go back to a specific named route (clears anything above it).
+  void popUntilNamed(Routes route) => GoRouter.of(this).goNamed(route.name);
 
   /// Whether the navigator can pop.
-  bool get canPop => navigator.canPop();
+  bool get canPop => GoRouter.of(this).canPop();
 }

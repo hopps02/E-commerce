@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jar/app/extensions/extensions.dart';
 import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/routes_manager.dart';
+import 'package:jar/presentation/res/router/app_router.dart';
 import 'package:jar/presentation/views/cart/riverpod/cart_controller.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_app_bar.dart';
 import 'package:jar/presentation/views/cart/view/widgets/cart_data.dart';
@@ -43,7 +43,7 @@ class CartView extends ConsumerWidget {
               shippingCost: 10,
               discount: 30,
               onCheckout: () {
-                context.pushNamed(RoutesManager.confirmOrder.route);
+                context.pushNamed(Routes.confirmOrder);
               },
             ).containerSlideUp()
           : null,
