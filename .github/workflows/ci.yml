@@ -1,7 +1,10 @@
-name: Release APK
+name: CI
 
 on:
   push:
+    branches:
+      - master
+  pull_request:
     branches:
       - master
 
@@ -9,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  build-and-release:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +32,31 @@ jobs:
         with:
           flutter-version: '3.41.6'
           channel: 'stable'
+          cache: true
 
       - name: Get Flutter packages
         run: flutter pub get
 
+      - name: Run code generation (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+        continue-on-error: true
+
+      - name: Run tests with coverage
+        run: flutter test --coverage
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/lcov.info
+          if-no-files-found: ignore
+
       - name: Read app version
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         id: version
         shell: bash
         run: |
@@ -42,17 +65,19 @@ jobs:
           echo "tag=v${VERSION%+*}-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
 
       - name: Build release APK (split per ABI)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: flutter build apk --release --split-per-abi
 
       - name: Build universal release APK
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: flutter build apk --release
 
       - name: Create GitHub Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           name: Release ${{ steps.version.outputs.tag }}
-          # generate_release_notes: true
           files: |
             build/app/outputs/flutter-apk/app-release.apk
             build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
@@ -60,6 +85,7 @@ jobs:
             build/app/outputs/flutter-apk/app-x86_64-release.apk
 
       - name: Keep only the latest 2 releases
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,6 +98,7 @@ jobs:
               done
 
       - name: Send release email
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
