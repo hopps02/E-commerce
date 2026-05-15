@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -254,6 +255,12 @@ class CustomInkButton extends StatefulWidget {
   final bool enableHapticFeedback;
   final Clip clipBehavior;
 
+  /// Sigma for the backdrop blur applied behind the button (frosted-glass
+  /// effect). When `null`, no blur is applied. Typical Figma values are 10–30.
+  /// Pair with a translucent [backgroundColor] / [gradient] and a subtle
+  /// [side] for the classic glass look.
+  final double? glassBlur;
+
   /// Animation played when the button is tapped.
   final ButtonAnimationSettings tap;
 
@@ -296,6 +303,7 @@ class CustomInkButton extends StatefulWidget {
     this.boxShadow,
     this.enableHapticFeedback = false,
     this.clipBehavior = Clip.hardEdge,
+    this.glassBlur,
     this.tap = ButtonAnimationSettings.none,
     this.longPress = ButtonAnimationSettings.none,
     this.pressEffect = ButtonAnimationSettings.none,
@@ -564,8 +572,52 @@ class _CustomInkButtonState extends State<CustomInkButton>
 
   @override
   Widget build(BuildContext context) {
+    final Widget materialLayer = Material(
+      color: Colors.transparent,
+      elevation: widget.elevation ?? 0,
+      shadowColor: widget.shadowColor,
+      animationDuration:
+          widget.animationDuration ?? const Duration(milliseconds: 200),
+      child: InkWell(
+        onTap: widget.enabled && widget.onTap != null ? _handleTap : null,
+        onLongPress: widget.enabled && widget.onLongPress != null
+            ? _handleLongPress
+            : null,
+        splashColor: widget.splashColor,
+        highlightColor: widget.highlightColor,
+        child: Container(
+          constraints: BoxConstraints(
+            minWidth: widget.width ?? 0,
+            minHeight: widget.height ?? 0,
+            maxWidth: widget.maxWidth ?? widget.width ?? double.infinity,
+            maxHeight: widget.maxHeight ?? widget.height ?? double.infinity,
+          ),
+          padding: widget.padding,
+          alignment: widget.alignment,
+          child: widget.child,
+        ),
+      ),
+    );
+
+    final double? blur = widget.glassBlur;
+    final Widget containerChild = blur == null
+        ? materialLayer
+        : Stack(
+            children: [
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                  child: const SizedBox.expand(),
+                ),
+              ),
+              materialLayer,
+            ],
+          );
+
     Widget inner = Container(
-      clipBehavior: widget.clipBehavior,
+      clipBehavior: widget.clipBehavior == Clip.none && blur != null
+          ? Clip.antiAlias
+          : widget.clipBehavior,
       decoration: ShapeDecoration(
         color:
             widget.backgroundColor ??
@@ -582,32 +634,7 @@ class _CustomInkButtonState extends State<CustomInkButton>
           side: widget.side,
         ),
       ),
-      child: Material(
-        color: Colors.transparent,
-        elevation: widget.elevation ?? 0,
-        shadowColor: widget.shadowColor,
-        animationDuration:
-            widget.animationDuration ?? const Duration(milliseconds: 200),
-        child: InkWell(
-          onTap: widget.enabled && widget.onTap != null ? _handleTap : null,
-          onLongPress: widget.enabled && widget.onLongPress != null
-              ? _handleLongPress
-              : null,
-          splashColor: widget.splashColor,
-          highlightColor: widget.highlightColor,
-          child: Container(
-            constraints: BoxConstraints(
-              minWidth: widget.width ?? 0,
-              minHeight: widget.height ?? 0,
-              maxWidth: widget.maxWidth ?? widget.width ?? double.infinity,
-              maxHeight: widget.maxHeight ?? widget.height ?? double.infinity,
-            ),
-            padding: widget.padding,
-            alignment: widget.alignment,
-            child: widget.child,
-          ),
-        ),
-      ),
+      child: containerChild,
     );
 
     Widget result = inner;
