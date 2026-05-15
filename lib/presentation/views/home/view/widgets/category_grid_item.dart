@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_cached_image.dart';
-import 'package:jar/presentation/res/color_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_cached_image.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
 
 class CategoryGridItem extends StatelessWidget {
   final String title;

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/bottom_navigation.dart';
-import 'package:jar/presentation/views/home/view/widgets/bottom_navigation_bar.dart';
-import 'package:jar/presentation/views/home/view/widgets/gradient_background.dart';
-import 'package:jar/presentation/views/home/view/widgets/page_slider.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/bottom_navigation.dart';
+import 'package:for_u/presentation/views/home/view/widgets/bottom_navigation_bar.dart';
+import 'package:for_u/presentation/views/home/view/widgets/gradient_background.dart';
+import 'package:for_u/presentation/views/home/view/widgets/page_slider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -66,7 +66,9 @@ class _HomeViewState extends State<HomeView>
 
               GradientBackground(),
 
-              BottomNavigation(bottomNavItems: bottomNavItems).containerSlideUp(),
+              BottomNavigation(
+                bottomNavItems: bottomNavItems,
+              ).containerSlideUp(),
             ],
           ),
         );

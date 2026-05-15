@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/animations/animated_on_appear.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart';
-import 'package:jar/presentation/common/general_padding.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/animations/animated_on_appear.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/presentation/common/riverpod/location_controller.dart';
-import 'package:jar/presentation/views/home/view/widgets/location_picker_dialog.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
+import 'package:for_u/presentation/views/home/view/widgets/location_picker_dialog.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});
@@ -45,7 +45,9 @@ class TopAppBarContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locationCity = ref.watch(locationController.select((s) => s.locationCity));
+    final locationCity = ref.watch(
+      locationController.select((s) => s.locationCity),
+    );
 
     return GeneralPadding(
       child: Align(
@@ -139,10 +141,7 @@ class BottomAppBarContent extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         backgroundColor: ColorM.white,
         borderRadius: 14.r,
-        side: GradientBorderSide(
-          color: ColorM.gray300,
-          width: 1.w,
-        ),
+        side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
         child: Row(
           spacing: 8.w,
           children: [

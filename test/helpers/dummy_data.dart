@@ -1,5 +1,5 @@
-import 'package:jar/data/request/request.dart';
-import 'package:jar/data/responses/responses.dart';
+import 'package:for_u/data/request/request.dart';
+import 'package:for_u/data/responses/responses.dart';
 
 class DummyData {
   static final DateTime fixedBirthDate = DateTime.utc(1995, 6, 15);

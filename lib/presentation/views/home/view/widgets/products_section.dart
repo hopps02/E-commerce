@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
-import 'package:jar/presentation/views/home/view/widgets/section_header.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/product_card.dart';
+import 'package:for_u/presentation/views/home/view/widgets/section_header.dart';
 
 class ProductsSection extends StatelessWidget {
   final String title;
@@ -39,7 +39,9 @@ class ProductsSection extends StatelessWidget {
                 height: 200.h,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeM.pagePadding.w,
+                  ),
                   itemCount: products.length,
                   separatorBuilder: (context, index) => 12.horizontalSpace,
                   itemBuilder: (context, index) {

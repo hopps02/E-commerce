@@ -2,14 +2,13 @@ import 'dart:io';
 import 'dart:async';
 import 'package:async/async.dart';
 
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:jar/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/extensions.dart';
 import 'package:nice_text_form/nice_text_form.dart';
 import '../../utils/after_layout.dart';
 
@@ -1319,30 +1318,30 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                         onChanged: (value) async {
                           _value = value;
                           _characterCount = value.length;
-                      
+
                           // Handle debounced text change
                           if (widget.debounceTime != null) {
                             _handleDebouncedTextChange(value);
                           } else if (widget.onTextChanged != null) {
                             widget.onTextChanged!(value);
                           }
-                      
+
                           // Handle password strength check
                           if (widget.enablePasswordStrength) {
                             _checkPasswordStrength(value);
                           }
-                      
+
                           // Handle auto-complete and suggestions
                           if (widget.enableAutoComplete &&
                               widget.suggestions != null) {
                             // Auto-complete logic here
                           }
-                      
+
                           // Handle spell check
                           if (widget.enableSpellCheck) {
                             // Spell check logic here
                           }
-                      
+
                           // Handle custom validation
                           if (widget.enableCustomValidation &&
                               widget.customValidators != null) {
@@ -1350,37 +1349,37 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                               validator?.call(value);
                             }
                           }
-                      
+
                           // Handle text analysis features
                           if (widget.enableReadabilityScore) {
                             // Readability score calculation
                           }
-                      
+
                           if (widget.enableSentimentAnalysis) {
                             // Sentiment analysis
                           }
-                      
+
                           if (widget.enableKeywordExtraction) {
                             // Keyword extraction
                           }
-                      
+
                           if (widget.enableLanguageDetection) {
                             // Language detection
                           }
-                      
+
                           // Update UI state
                           setState(() {
                             _showClearButton = value.isNotEmpty;
                             _showCharacterCount = widget.showCharacterCount;
                           });
-                      
+
                           // Add to history
                           if (widget.enableHistory) {
                             _addToHistory(value);
                           }
-                      
+
                           _cancelabelOperation?.cancel();
-                      
+
                           if (widget.searchResultsBuilder != null) {
                             _cancelabelOperation =
                                 CancelableOperation.fromFuture(
@@ -1393,7 +1392,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                             _searchWidget = searchW;
                             handleShowingSearchWidget();
                           }
-                      
+
                           String? msg = widget.validator != null
                               ? widget.validator!(value)
                               : null;

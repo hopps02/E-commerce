@@ -1,7 +1,7 @@
-import 'package:jar/app/extensions/theme_extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/theme_extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

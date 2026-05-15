@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/delete_account_bottom_sheet.dart';
-import 'package:jar/presentation/views/home/view/widgets/profile_menu_item.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/delete_account_bottom_sheet.dart';
+import 'package:for_u/presentation/views/home/view/widgets/profile_menu_item.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 
 class ProfileSettings extends StatelessWidget {
-  const ProfileSettings({
-    super.key,
-  });
+  const ProfileSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +77,7 @@ class ProfileSettings extends StatelessWidget {
             icon: Assets.svg.deleteAccount.svg(
               width: 22.w,
               height: 22.w,
-              colorFilter: const ColorFilter.mode(
-                ColorM.red,
-                BlendMode.srcIn,
-              ),
+              colorFilter: const ColorFilter.mode(ColorM.red, BlendMode.srcIn),
             ),
             title: Translation.delete_account.tr,
             isDestructive: true,

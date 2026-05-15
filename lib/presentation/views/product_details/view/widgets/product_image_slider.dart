@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/ui_components/custom_cached_image.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/views/product_details/riverpod/product_details_controller.dart';
+import 'package:for_u/app/ui_components/custom_cached_image.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/views/product_details/riverpod/product_details_controller.dart';
 
 class ProductImageSlider extends ConsumerStatefulWidget {
   final List<String> imageUrls;
@@ -29,7 +29,6 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
 
   @override
   Widget build(BuildContext context) {
-
     final images = widget.imageUrls;
 
     return SizedBox(
@@ -56,7 +55,8 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
             top: 0.h,
             end: 16.w,
             child: CustomInkButton(
-              onTap: () => ref.read(productDetailsController.notifier).toggleFavorite(),
+              onTap: () =>
+                  ref.read(productDetailsController.notifier).toggleFavorite(),
               width: 32.w,
               height: 32.w,
               borderRadius: 99999,
@@ -68,7 +68,9 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                     : Assets.svg.borderHeart.path,
                 width: 14.w,
                 colorFilter: ColorFilter.mode(
-                  ref.watch(productDetailsController.select((s) => s.isFavorite))
+                  ref.watch(
+                        productDetailsController.select((s) => s.isFavorite),
+                      )
                       ? Colors.red
                       : ColorM.gray700,
                   BlendMode.srcIn,

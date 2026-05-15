@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/direction.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/product_details/riverpod/product_details_controller.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/direction.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/product_details/riverpod/product_details_controller.dart';
 
 /// Bottom bar: item count + "عرض السلة" button with price — matches Figma
 class ProductDetailsBottomBar extends ConsumerWidget {
@@ -25,8 +25,9 @@ class ProductDetailsBottomBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quantity =
-        ref.watch(productDetailsController.select((s) => s.quantity));
+    final quantity = ref.watch(
+      productDetailsController.select((s) => s.quantity),
+    );
 
     return AnimatedSize(
       duration: const Duration(milliseconds: 300),
@@ -86,7 +87,10 @@ class ProductDetailsBottomBar extends ConsumerWidget {
   }
 
   Widget _buildCartInfoAndViewButton(
-      BuildContext context, WidgetRef ref, int quantity) {
+    BuildContext context,
+    WidgetRef ref,
+    int quantity,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -136,8 +140,8 @@ class ProductDetailsBottomBar extends ConsumerWidget {
                     Icons.arrow_back_ios,
                     textDirection:
                         Directionality.of(context) == TextDirection.rtl
-                            ? TextDirection.ltr
-                            : TextDirection.rtl,
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
                     size: 20.sp,
                     color: ColorM.white,
                   ),

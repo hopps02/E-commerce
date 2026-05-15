@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/app/ui_components/error_widget.dart';
-import 'package:jar/app/utils/state_render.dart';
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/riverpod/tap_home_contaroller.dart';
-import 'package:jar/presentation/views/home/view/widgets/categories_section.dart';
-import 'package:jar/presentation/views/home/view/widgets/new_arrivals_banner.dart';
-import 'package:jar/presentation/views/home/view/widgets/offer_banner.dart';
-import 'package:jar/presentation/views/home/view/widgets/products_section.dart';
-import 'package:jar/presentation/views/home/view/widgets/top_category.dart';
-import 'package:jar/presentation/views/products/view/screens/products_view.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/app/ui_components/error_widget.dart';
+import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/riverpod/tap_home_contaroller.dart';
+import 'package:for_u/presentation/views/home/view/widgets/categories_section.dart';
+import 'package:for_u/presentation/views/home/view/widgets/new_arrivals_banner.dart';
+import 'package:for_u/presentation/views/home/view/widgets/offer_banner.dart';
+import 'package:for_u/presentation/views/home/view/widgets/products_section.dart';
+import 'package:for_u/presentation/views/home/view/widgets/top_category.dart';
+import 'package:for_u/presentation/views/products/view/screens/products_view.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class ContentBody extends ConsumerWidget {
   final double bottomSafeAreaPadding;

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/logout_bottom_sheet.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/logout_bottom_sheet.dart';
 
 class LogoutButton extends StatelessWidget {
-  const LogoutButton({
-    super.key,
-  });
+  const LogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,10 @@ class LogoutButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: ColorM.red.withOpacity(0.05),
               borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: ColorM.red.withOpacity(0.3), width: 1.5),
+              border: Border.all(
+                color: ColorM.red.withOpacity(0.3),
+                width: 1.5,
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

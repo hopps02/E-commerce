@@ -1,8 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/app/utils/snackbar_helper.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class LocationService {
   LocationService._();
@@ -21,11 +21,11 @@ class LocationService {
 
       if (permission == LocationPermission.deniedForever) {
         DI().snackBarHelper.showMessage(
-              Translation.location_permissions_permanently_denied.tr,
-              ErrorMessage.snackBar,
-              isError: true,
-              snackbarSeconds: 6
-            );
+          Translation.location_permissions_permanently_denied.tr,
+          ErrorMessage.snackBar,
+          isError: true,
+          snackbarSeconds: 6,
+        );
         return null;
       }
 
@@ -42,13 +42,17 @@ class LocationService {
 
   Future<String?> getAddressFromLatLng(Position latLng) async {
     try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        latLng.latitude,
+        latLng.longitude,
+      );
 
-      Placemark placemark =
-          placemarks.length > 1 ? placemarks[1] : placemarks.first;
+      Placemark placemark = placemarks.length > 1
+          ? placemarks[1]
+          : placemarks.first;
 
-      String cityName = placemark.locality ??
+      String cityName =
+          placemark.locality ??
           placemark.subAdministrativeArea ??
           placemark.administrativeArea ??
           placemark.thoroughfare ??

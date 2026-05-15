@@ -1,6 +1,6 @@
-import 'package:jar/data/network/error_handler/error_handler.dart';
-import 'package:jar/data/network/error_handler/failure.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/data/network/error_handler/error_handler.dart';
+import 'package:for_u/data/network/error_handler/failure.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 /// **Important Note:** This extension provides user-friendly error messages for different types of failures.
 ///

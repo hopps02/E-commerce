@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/ui_components/customized_smart_refresh.dart';
-import 'package:jar/app/utils/state_render.dart';
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
-import 'package:jar/presentation/views/search/riverpod/search_controller.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/ui_components/customized_smart_refresh.dart';
+import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/product_card.dart';
+import 'package:for_u/presentation/views/search/riverpod/search_controller.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class SearchData extends ConsumerWidget {
   const SearchData({super.key});
@@ -25,7 +25,9 @@ class SearchData extends ConsumerWidget {
         child: CustomizedSmartRefresh(
           enableLoading: true,
           controller: searchNotifier.searchRefreshController,
-          classicFooterPadding: EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
+          classicFooterPadding: EdgeInsets.only(
+            bottom: context.bottomSafeAreaPadding,
+          ),
           onRefresh: () {
             Timer(const Duration(seconds: 2), () {
               searchNotifier.searchRefreshController.refreshCompleted();
@@ -59,7 +61,7 @@ class SearchData extends ConsumerWidget {
                 isFavorite: false,
                 onFavTap: () {},
                 onQuantityChanged: (_) {},
-              ).premiumAppear(index: (index % 2)+ 1);
+              ).premiumAppear(index: (index % 2) + 1);
             },
           ),
         ),

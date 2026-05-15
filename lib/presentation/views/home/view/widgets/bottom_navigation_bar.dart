@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/theme_extensions.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/home/riverpod/bottom_navigation_controller.dart';
+import 'package:for_u/app/extensions/theme_extensions.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/home/riverpod/bottom_navigation_controller.dart';
 
 class NavigationItem {
   final String title;
@@ -113,9 +113,7 @@ class Button extends StatelessWidget {
     return GestureDetector(
       onTap: () => item.onTap != null
           ? item.onTap!()
-          : ref
-              .read(bottomNavigationController.notifier)
-              .onBottomNavTap(index),
+          : ref.read(bottomNavigationController.notifier).onBottomNavTap(index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class OfferBanner extends StatelessWidget {
   const OfferBanner({super.key});
@@ -23,10 +23,7 @@ class OfferBanner extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            ColorM.primary550,
-            ColorM.primary900,
-          ],
+          colors: [ColorM.primary550, ColorM.primary900],
         ),
       ),
       child: Stack(
@@ -44,10 +41,14 @@ class OfferBanner extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Content - Positioned on the RIGHT (start in RTL)
           Padding(
-            padding: EdgeInsetsDirectional.only(top: 18.h, start: 10.w, bottom: 28.h),
+            padding: EdgeInsetsDirectional.only(
+              top: 18.h,
+              start: 10.w,
+              bottom: 28.h,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

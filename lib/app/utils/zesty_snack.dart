@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:jar/app/app.dart';
+import 'package:for_u/app/app.dart';
 
 class ZestySnack {
   static ZestySnack? _instance;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class NewArrivalsBanner extends StatelessWidget {
   final VoidCallback? onShopNowTap;
@@ -32,7 +32,7 @@ class NewArrivalsBanner extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
               ),
             ),
-      
+
             // ── Text + button column ───────────────────────────────────
             Positioned(
               top: 24.h,
@@ -75,9 +75,7 @@ class NewArrivalsBanner extends StatelessWidget {
                         borderRadius: 23.r,
                         // width: 127.w,
                         height: 36.h,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 23.w,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 23.w),
                         alignment: Alignment.center,
                         child: Text(
                           Translation.start_shopping_now.tr,

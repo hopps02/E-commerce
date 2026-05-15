@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
@@ -63,11 +63,7 @@ class CategoryCard extends StatelessWidget {
             bottom: 0.h,
             start: 0,
             end: -30.w,
-            child: Image.asset(
-              imagePath,
-              height: 55.h,
-              fit: BoxFit.contain,
-            ),
+            child: Image.asset(imagePath, height: 55.h, fit: BoxFit.contain),
           ),
         ],
       ),

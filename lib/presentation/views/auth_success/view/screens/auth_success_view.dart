@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jar/app/enums/enums.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/auth_success/view/widgets/body.dart';
-import 'package:jar/presentation/views/auth_success/view/widgets/loading.dart';
+import 'package:for_u/app/enums/enums.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/auth_success/view/widgets/body.dart';
+import 'package:for_u/presentation/views/auth_success/view/widgets/loading.dart';
 
-
-class AuthSuccessArgs{
+class AuthSuccessArgs {
   final SuccessViewType successViewType;
   const AuthSuccessArgs({required this.successViewType});
 }
@@ -17,7 +16,9 @@ class AuthSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: args.successViewType.isOrder ? ColorM.greenPrimary : ColorM.white,
+      backgroundColor: args.successViewType.isOrder
+          ? ColorM.greenPrimary
+          : ColorM.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,9 +29,7 @@ class AuthSuccessView extends StatelessWidget {
 
             const Spacer(),
 
-            Body(
-              successViewType: args.successViewType,
-            ),
+            Body(successViewType: args.successViewType),
 
             const Spacer(flex: 2),
           ],

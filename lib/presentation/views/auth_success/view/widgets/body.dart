@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/app/extensions/theme_extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/common/general_padding.dart';
-import 'package:jar/app/enums/enums.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/app/extensions/theme_extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/app/enums/enums.dart';
 
 import '../../../../../app/ui_components/gradient_border_side.dart';
 

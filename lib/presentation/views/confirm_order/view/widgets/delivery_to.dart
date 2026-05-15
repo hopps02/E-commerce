@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jar/app/extensions/theme_extensions.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/theme_extensions.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class DeliveryTo extends StatelessWidget {
-  const DeliveryTo({
-    super.key,
-  });
+  const DeliveryTo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +32,9 @@ class DeliveryTo extends StatelessWidget {
         children: [
           Text(
             Translation.deliver_to.tr,
-            style: context.labelLarge.copyWith(
-              fontWeight: FontWeightM.medium,
-            ),
+            style: context.labelLarge.copyWith(fontWeight: FontWeightM.medium),
           ),
-    
+
           Row(
             children: [
               SvgPicture.asset(

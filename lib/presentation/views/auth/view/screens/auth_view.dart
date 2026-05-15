@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/app/utils/snackbar_helper.dart';
-import 'package:jar/app/utils/validator.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/common/general_padding.dart';
-import 'package:jar/presentation/views/auth/riverpod/sign_up_controller.dart';
-import 'package:jar/presentation/views/auth/view/widgets/content.dart';
-import 'package:jar/presentation/views/auth/view/widgets/logo.dart';
-import 'package:jar/presentation/views/auth/view/widgets/otp_bottom_sheet.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/app/utils/validator.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/presentation/views/auth/riverpod/sign_up_controller.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/content.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/logo.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/otp_bottom_sheet.dart';
 
 class AuthView extends ConsumerStatefulWidget {
   const AuthView({super.key});

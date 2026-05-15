@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class CustomCachedImage extends StatelessWidget {

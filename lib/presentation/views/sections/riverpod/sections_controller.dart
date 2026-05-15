@@ -1,11 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jar/app/utils/state_render.dart';
+import 'package:for_u/app/utils/state_render.dart';
 
 class SectionsState extends Equatable {
   final ReqState reqState;
   final String errorMessage;
-  const SectionsState({this.reqState = ReqState.loading, this.errorMessage = ""});
+  const SectionsState({
+    this.reqState = ReqState.loading,
+    this.errorMessage = "",
+  });
 
   SectionsState copyWith({ReqState? reqState, String? errorMessage}) {
     return SectionsState(
@@ -19,7 +22,6 @@ class SectionsState extends Equatable {
 }
 
 class SectionsNotifier extends Notifier<SectionsState> {
-
   @override
   SectionsState build() {
     return const SectionsState();

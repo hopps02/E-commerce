@@ -1,7 +1,7 @@
-// import 'package:jar/app/user_messages.dart';
-// import 'package:jar/data/network/error_handler/failure.dart';
-// import 'package:jar/presentation/common/utils/state_render.dart';
-// import 'package:jar/presentation/res/translations_manager.dart';
+// import 'package:for_u/app/user_messages.dart';
+// import 'package:for_u/data/network/error_handler/failure.dart';
+// import 'package:for_u/presentation/common/utils/state_render.dart';
+// import 'package:for_u/presentation/res/translations_manager.dart';
 // import 'package:bloc/bloc.dart';
 // import 'package:dartz/dartz.dart';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';

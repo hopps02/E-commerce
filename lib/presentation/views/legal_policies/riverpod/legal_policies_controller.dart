@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/app/utils/state_render.dart';
+import 'package:for_u/app/utils/state_render.dart';
 
 class LegalPoliciesState extends Equatable {
   final ReqState reqState;
   final String errorMessage;
-  
+
   const LegalPoliciesState({
     this.reqState = ReqState.loading,
     this.errorMessage = "",
@@ -25,9 +25,7 @@ class LegalPoliciesState extends Equatable {
 class LegalPoliciesNotifier extends Notifier<LegalPoliciesState> {
   @override
   LegalPoliciesState build() {
-    return const LegalPoliciesState(
-      reqState: ReqState.success,
-    );
+    return const LegalPoliciesState(reqState: ReqState.success);
   }
 }
 

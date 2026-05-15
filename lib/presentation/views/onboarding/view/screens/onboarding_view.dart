@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/onboarding/view/widgets/image_background.dart';
-import 'package:jar/presentation/views/onboarding/view/widgets/gradient_background.dart';
-import 'package:jar/presentation/views/onboarding/view/widgets/onboarding_content.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/onboarding/view/widgets/image_background.dart';
+import 'package:for_u/presentation/views/onboarding/view/widgets/gradient_background.dart';
+import 'package:for_u/presentation/views/onboarding/view/widgets/onboarding_content.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});

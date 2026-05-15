@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/section_header.dart';
-import 'package:jar/presentation/views/home/view/widgets/category_grid_item.dart';
-import 'package:jar/presentation/views/products/view/screens/products_view.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/section_header.dart';
+import 'package:for_u/presentation/views/home/view/widgets/category_grid_item.dart';
+import 'package:for_u/presentation/views/products/view/screens/products_view.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({super.key});
@@ -46,7 +46,10 @@ class CategoriesSection extends StatelessWidget {
               title: cat['title']!,
               imageUrl: cat['image']!,
               onTap: () {
-                context.pushNamed(Routes.products, arguments: ProductsViewArgs(title: cat['title']!));
+                context.pushNamed(
+                  Routes.products,
+                  arguments: ProductsViewArgs(title: cat['title']!),
+                );
               },
             );
           }).toList(),

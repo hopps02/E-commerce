@@ -2,21 +2,17 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/app/services/location_service.dart';
-import 'package:jar/app/utils/snackbar_helper.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/services/location_service.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class LocationState extends Equatable {
   final String? locationCity;
   final double? latitude;
   final double? longitude;
 
-  const LocationState({
-    this.locationCity,
-    this.latitude,
-    this.longitude,
-  });
+  const LocationState({this.locationCity, this.latitude, this.longitude});
 
   LocationState copyWith({
     String? locationCity,
@@ -39,7 +35,7 @@ class LocationNotifier extends Notifier<LocationState> {
   LocationState build() {
     // Initialize location city from storage if available
     final storage = DI().storageService;
-    
+
     Future.microtask(() async {
       final data = await storage.getLocationData();
       if (data.address != null) {
@@ -74,13 +70,17 @@ class LocationNotifier extends Notifier<LocationState> {
 
   Future<String?> getAddressFromLatLng(Position latLng) async {
     try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        latLng.latitude,
+        latLng.longitude,
+      );
 
-      Placemark placemark =
-          placemarks.length > 1 ? placemarks[1] : placemarks.first;
+      Placemark placemark = placemarks.length > 1
+          ? placemarks[1]
+          : placemarks.first;
 
-      String cityName = placemark.locality ??
+      String cityName =
+          placemark.locality ??
           placemark.subAdministrativeArea ??
           placemark.administrativeArea ??
           placemark.thoroughfare ??
@@ -90,7 +90,9 @@ class LocationNotifier extends Notifier<LocationState> {
       return cityName;
     } catch (e) {
       DI().snackBarHelper.showMessage(
-          Translation.something_is_wrong.tr, ErrorMessage.snackBar);
+        Translation.something_is_wrong.tr,
+        ErrorMessage.snackBar,
+      );
       return null;
     }
   }
@@ -106,14 +108,13 @@ class LocationNotifier extends Notifier<LocationState> {
       longitude: longitude,
     );
     await DI().storageService.saveLocationData(
-          latitude: latitude,
-          longitude: longitude,
-          address: address,
-        );
+      latitude: latitude,
+      longitude: longitude,
+      address: address,
+    );
   }
 }
 
-final locationController =
-    NotifierProvider<LocationNotifier, LocationState>(
+final locationController = NotifierProvider<LocationNotifier, LocationState>(
   LocationNotifier.new,
 );

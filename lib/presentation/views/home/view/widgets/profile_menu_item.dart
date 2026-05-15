@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final Widget icon;
@@ -47,7 +47,9 @@ class ProfileMenuItem extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.dg),
               decoration: BoxDecoration(
-                color: isDestructive ? ColorM.red.withOpacity(0.08) : ColorM.primary50,
+                color: isDestructive
+                    ? ColorM.red.withOpacity(0.08)
+                    : ColorM.primary50,
                 shape: BoxShape.circle,
               ),
               child: icon,

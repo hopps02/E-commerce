@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/ui_components/animations/animated_on_appear.dart';
-import 'package:jar/presentation/views/home/view/widgets/bottom_navigation_bar.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/ui_components/animations/animated_on_appear.dart';
+import 'package:for_u/presentation/views/home/view/widgets/bottom_navigation_bar.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key, required this.bottomNavItems});

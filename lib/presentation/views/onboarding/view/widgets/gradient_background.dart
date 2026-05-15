@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jar/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
 
 class GradientBackground extends StatelessWidget {
-  const GradientBackground({
-    super.key,
-  });
+  const GradientBackground({super.key});
 
   @override
   Widget build(BuildContext context) {

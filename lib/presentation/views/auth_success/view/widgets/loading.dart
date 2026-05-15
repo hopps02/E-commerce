@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:lottie/lottie.dart';
 
 class Loading extends StatelessWidget {
-  const Loading({
-    super.key,
-  });
+  const Loading({super.key});
 
   @override
   Widget build(BuildContext context) {

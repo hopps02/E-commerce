@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/ui_components/custom_form_field/simple_form.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/default_app_bar.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/default_app_bar.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class SearchBarSection extends StatelessWidget {
   final TextEditingController controller;

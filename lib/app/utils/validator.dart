@@ -1,6 +1,6 @@
-import 'package:jar/app/utils/fast_function.dart';
-import 'package:jar/app/validation/phone_number_validator.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/utils/fast_function.dart';
+import 'package:for_u/app/validation/phone_number_validator.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 abstract class ValidatorMediator {
   void addValidator(Validator validator);

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:jar/data/network/api/api.dart';
-import 'package:jar/data/request/request.dart';
-import 'package:jar/domain/repository/repository.dart';
+import 'package:for_u/data/network/api/api.dart';
+import 'package:for_u/data/request/request.dart';
+import 'package:for_u/domain/repository/repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockRepository extends Mock implements RepositoryAbs {}

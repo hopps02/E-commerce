@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class OrderDeliveryAddress extends StatelessWidget {
   const OrderDeliveryAddress({super.key});
@@ -37,7 +37,10 @@ class OrderDeliveryAddress extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 Assets.svg.borderLocation.path,
-                colorFilter: ColorFilter.mode(ColorM.greenSecondary, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                  ColorM.greenSecondary,
+                  BlendMode.srcIn,
+                ),
               ),
               8.horizontalSpace,
               Text(

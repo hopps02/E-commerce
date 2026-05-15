@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jar/app/utils/validator.dart';
+import 'package:for_u/app/utils/validator.dart';
 
 void main() {
   group('FieldsValidator', () {
@@ -10,10 +10,7 @@ void main() {
 
       var doneCalled = false;
       var invalidCalled = false;
-      fields.validate(
-        (_, __) => invalidCalled = true,
-        () => doneCalled = true,
-      );
+      fields.validate((_, __) => invalidCalled = true, () => doneCalled = true);
 
       expect(doneCalled, isTrue);
       expect(invalidCalled, isFalse);
@@ -26,10 +23,7 @@ void main() {
 
       Validator? failed;
       var doneCalled = false;
-      fields.validate(
-        (_, v) => failed = v,
-        () => doneCalled = true,
-      );
+      fields.validate((_, v) => failed = v, () => doneCalled = true);
 
       expect(failed, same(name));
       expect(doneCalled, isFalse);

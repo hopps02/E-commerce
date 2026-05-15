@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jar/app/validation/phone_number_validator.dart';
+import 'package:for_u/app/validation/phone_number_validator.dart';
 
 void main() {
   group('Country', () {
@@ -32,8 +32,10 @@ void main() {
     });
 
     test('keeps the leading +', () {
-      expect(CountryUtils.normalizePhoneNumber('+44 20 7946 0958'),
-          '+442079460958');
+      expect(
+        CountryUtils.normalizePhoneNumber('+44 20 7946 0958'),
+        '+442079460958',
+      );
     });
   });
 
@@ -78,17 +80,13 @@ void main() {
 
     test('wrong length is invalid', () {
       final egypt = CountryUtils.getCountryByIsoCode('EG')!;
-      expect(
-        CountryUtils.validatePhoneNumberByCountry('123', egypt),
-        isFalse,
-      );
+      expect(CountryUtils.validatePhoneNumberByCountry('123', egypt), isFalse);
     });
   });
 
   group('CountryUtils.validateFullPhoneNumber', () {
     test('valid US number passes', () {
-      final result =
-          CountryUtils.validateFullPhoneNumber('+1', '5551234567');
+      final result = CountryUtils.validateFullPhoneNumber('+1', '5551234567');
       expect(result.isValid, isTrue);
       expect(result.phoneNumber, isNotNull);
       expect(result.phoneNumber!.country.isoCode, isNotNull);
@@ -101,15 +99,13 @@ void main() {
     });
 
     test('missing + prefix is invalid', () {
-      final result =
-          CountryUtils.validateFullPhoneNumber('1', '5551234567');
+      final result = CountryUtils.validateFullPhoneNumber('1', '5551234567');
       expect(result.isValid, isFalse);
       expect(result.error, contains('+'));
     });
 
     test('unknown country code is invalid', () {
-      final result =
-          CountryUtils.validateFullPhoneNumber('+999999', '12345');
+      final result = CountryUtils.validateFullPhoneNumber('+999999', '12345');
       expect(result.isValid, isFalse);
     });
   });

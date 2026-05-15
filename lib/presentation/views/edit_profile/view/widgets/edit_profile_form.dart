@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_form_field/simple_form.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/edit_profile/view/widgets/profile_phone_field.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/edit_profile/view/widgets/profile_phone_field.dart';
 
 class EditProfileForm extends StatefulWidget {
   const EditProfileForm({super.key});
@@ -16,8 +16,12 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class _EditProfileFormState extends State<EditProfileForm> {
-  final TextEditingController nameController = TextEditingController(text: 'Leonardo');
-  final TextEditingController phoneController = TextEditingController(text: '799999999');
+  final TextEditingController nameController = TextEditingController(
+    text: 'Leonardo',
+  );
+  final TextEditingController phoneController = TextEditingController(
+    text: '799999999',
+  );
 
   @override
   void dispose() {
@@ -34,12 +38,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           24.verticalSpace,
-          
+
           Text(
             Translation.name.tr,
-            style: context.bodyMedium.copyWith(
-              fontWeight: FontWeightM.medium,
-            ),
+            style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
           ),
           8.verticalSpace,
           SimpleForm(
@@ -47,9 +49,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
             keyboardType: TextInputType.name,
             controller: nameController,
           ),
-          
+
           24.verticalSpace,
-          
+
           ProfilePhoneField(
             phoneNumberController: phoneController,
             initialCountryCode: 'SA',

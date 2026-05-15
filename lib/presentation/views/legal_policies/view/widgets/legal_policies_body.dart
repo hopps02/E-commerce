@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_scrollbar.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/views/legal_policies/view/widgets/policy_section.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_scrollbar.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/legal_policies/view/widgets/policy_section.dart';
 
 class LegalPoliciesBody extends ConsumerStatefulWidget {
   const LegalPoliciesBody({super.key});
@@ -42,10 +42,11 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
       ),
       child: ListView(
         controller: scrollController,
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeM.pagePadding.w,
-          vertical: SizeM.pagePadding.h,
-        ) +
+        padding:
+            EdgeInsets.symmetric(
+              horizontal: SizeM.pagePadding.w,
+              vertical: SizeM.pagePadding.h,
+            ) +
             EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
         children: [
           const PolicySection(

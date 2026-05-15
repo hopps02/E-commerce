@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:jar/app/extensions/navigation_extension.dart';
-import 'package:jar/app/ui_components/animations/animated_on_appear.dart';
-import 'package:jar/app/ui_components/animations/animations_enum.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/app/ui_components/animations/animated_on_appear.dart';
+import 'package:for_u/app/ui_components/animations/animations_enum.dart';
 import 'package:flutter/material.dart';
 
-import 'package:jar/app/utils/after_layout.dart';
-import 'package:jar/presentation/res/color_manager.dart';
+import 'package:for_u/app/utils/after_layout.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:jar/app/config/constants.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
+import 'package:for_u/app/config/constants.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

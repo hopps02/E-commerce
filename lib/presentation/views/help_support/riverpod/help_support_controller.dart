@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/app/utils/state_render.dart';
+import 'package:for_u/app/utils/state_render.dart';
 
 class HelpSupportState extends Equatable {
   final ReqState reqState;
   final String errorMessage;
-  
+
   const HelpSupportState({
-    this.reqState = ReqState.loading, // Default to success as per your mock logic, or loading if API
+    this.reqState = ReqState
+        .loading, // Default to success as per your mock logic, or loading if API
     this.errorMessage = "",
   });
 
@@ -25,9 +26,7 @@ class HelpSupportState extends Equatable {
 class HelpSupportNotifier extends Notifier<HelpSupportState> {
   @override
   HelpSupportState build() {
-    return const HelpSupportState(
-      reqState: ReqState.success,
-    );
+    return const HelpSupportState(reqState: ReqState.success);
   }
 }
 

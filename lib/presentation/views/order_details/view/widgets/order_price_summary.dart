@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
 class OrderPriceSummary extends StatelessWidget {
   final double totalProducts;
@@ -66,7 +66,10 @@ class OrderPriceSummary extends StatelessWidget {
                 SvgPicture.asset(
                   Assets.svg.saudiRiyalSymbol.path,
                   width: 14.w,
-                  colorFilter: const ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(
+                    ColorM.primary700,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ],
             ),
@@ -88,10 +91,7 @@ class _SummaryRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: context.bodyMedium.copyWith(color: ColorM.gray600),
-        ),
+        Text(title, style: context.bodyMedium.copyWith(color: ColorM.gray600)),
         Row(
           mainAxisSize: MainAxisSize.min,
           spacing: 3.w,
@@ -106,7 +106,10 @@ class _SummaryRow extends StatelessWidget {
             SvgPicture.asset(
               Assets.svg.saudiRiyalSymbol.path,
               width: 12.w,
-              colorFilter: const ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                ColorM.gray600,
+                BlendMode.srcIn,
+              ),
             ),
           ],
         ),

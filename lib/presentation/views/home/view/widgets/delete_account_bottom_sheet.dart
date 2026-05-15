@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border;
+import 'package:for_u/app/ui_components/gradient_border_side.dart'
+    as gradient_border;
 
 class DeleteAccountBottomSheet extends StatelessWidget {
   const DeleteAccountBottomSheet({super.key});
@@ -26,8 +27,11 @@ class DeleteAccountBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(SizeM.pagePadding.dg) +
-          EdgeInsets.only(bottom: context.bottomViewInsets + context.bottomSafeAreaPadding),
+      padding:
+          EdgeInsets.all(SizeM.pagePadding.dg) +
+          EdgeInsets.only(
+            bottom: context.bottomViewInsets + context.bottomSafeAreaPadding,
+          ),
       width: double.infinity,
       decoration: ShapeDecoration(
         color: Colors.white,
@@ -51,7 +55,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(100.r),
             ),
           ),
-          
+
           32.verticalSpace,
 
           Container(

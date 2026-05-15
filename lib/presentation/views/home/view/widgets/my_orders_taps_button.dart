@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/riverpod/my_orders_tab_controller.dart';
-import 'package:jar/presentation/views/home/view/widgets/my_order_tap_button.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/riverpod/my_orders_tab_controller.dart';
+import 'package:for_u/presentation/views/home/view/widgets/my_order_tap_button.dart';
 
 class MyOrdersTapsButton extends ConsumerWidget {
-  const MyOrdersTapsButton({
-    super.key,
-  });
+  const MyOrdersTapsButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

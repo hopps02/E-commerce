@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/confirm_order/view/widgets/order_item.dart';
-import 'package:jar/presentation/views/order_details/view/widgets/order_delivery_address.dart';
-import 'package:jar/presentation/views/order_details/view/widgets/order_price_summary.dart';
-import 'package:jar/presentation/views/order_details/view/widgets/order_status_section.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/confirm_order/view/widgets/order_item.dart';
+import 'package:for_u/presentation/views/order_details/view/widgets/order_delivery_address.dart';
+import 'package:for_u/presentation/views/order_details/view/widgets/order_price_summary.dart';
+import 'package:for_u/presentation/views/order_details/view/widgets/order_status_section.dart';
 
 class OrderDetailsBody extends StatelessWidget {
-  const OrderDetailsBody({
-    super.key,
-  });
+  const OrderDetailsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +29,7 @@ class OrderDetailsBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const OrderStatusSection(
-              step: 2,
-            ).premiumAppear(index: 0),
+            const OrderStatusSection(step: 2).premiumAppear(index: 0),
             24.verticalSpace,
             const OrderDeliveryAddress().premiumAppear(index: 1),
             24.verticalSpace,

@@ -5,9 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart'
-    as s;
-import 'package:jar/app/extensions/theme_extensions.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart' as s;
+import 'package:for_u/app/extensions/theme_extensions.dart';
 
 class OtpField extends StatefulWidget {
   final int length;

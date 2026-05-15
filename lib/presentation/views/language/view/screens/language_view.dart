@@ -1,15 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/config/supported_locales.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/default_app_bar.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart' as gradient_border;
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/app/config/supported_locales.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/default_app_bar.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart'
+    as gradient_border;
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
@@ -37,9 +38,12 @@ class LanguageView extends StatelessWidget {
                     locale: SupportedLocales.EN.locale,
                     currentLocale: currentLocale,
                     icon: Assets.svg.language.svg(
-                      width: 24.w, 
+                      width: 24.w,
                       height: 24.w,
-                      colorFilter: const ColorFilter.mode(ColorM.gray900, BlendMode.srcIn),
+                      colorFilter: const ColorFilter.mode(
+                        ColorM.gray900,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ).premiumAppear(index: 1),
                   16.verticalSpace,
@@ -48,9 +52,12 @@ class LanguageView extends StatelessWidget {
                     locale: SupportedLocales.AR.locale,
                     currentLocale: currentLocale,
                     icon: Assets.svg.language.svg(
-                      width: 24.w, 
+                      width: 24.w,
                       height: 24.w,
-                      colorFilter: const ColorFilter.mode(ColorM.gray900, BlendMode.srcIn),
+                      colorFilter: const ColorFilter.mode(
+                        ColorM.gray900,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ).premiumAppear(index: 2),
                 ],

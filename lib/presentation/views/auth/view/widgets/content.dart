@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/auth/view/widgets/auth_title.dart';
-import 'package:jar/presentation/views/auth/view/widgets/phone_field.dart';
-import 'package:jar/presentation/views/auth/view/widgets/sent_otp_button.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/auth_title.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/phone_field.dart';
+import 'package:for_u/presentation/views/auth/view/widgets/sent_otp_button.dart';
 
 class Content extends StatelessWidget {
   final TextEditingController phoneNumberController;
@@ -35,8 +35,12 @@ class Content extends StatelessWidget {
             phoneNumberController: phoneNumberController,
             phoneNumberFocusNode: phoneNumberFocusNode,
           ).premiumAppear(index: 2),
-          Container(height: 1.w, color: ColorM.white, width: double.infinity,).premiumAppear(index: 3),
-          SentOtpButton(onSendOtpCode: onSendOtpCode).premiumAppear(index: 4)
+          Container(
+            height: 1.w,
+            color: ColorM.white,
+            width: double.infinity,
+          ).premiumAppear(index: 3),
+          SentOtpButton(onSendOtpCode: onSendOtpCode).premiumAppear(index: 4),
         ],
       ),
     ).containerSlideUp(delay: 50);

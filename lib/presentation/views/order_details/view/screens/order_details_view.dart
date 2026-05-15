@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/order_details/riverpod/order_details_controller.dart';
-import 'package:jar/presentation/views/order_details/view/widgets/order_details_app_bar.dart';
-import 'package:jar/presentation/views/order_details/view/widgets/order_details_body.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/order_details/riverpod/order_details_controller.dart';
+import 'package:for_u/presentation/views/order_details/view/widgets/order_details_app_bar.dart';
+import 'package:for_u/presentation/views/order_details/view/widgets/order_details_body.dart';
 
 import '../../../../../app/extensions/widget_extensions.dart';
-
 
 class OrderDetailsView extends ConsumerStatefulWidget {
   const OrderDetailsView({super.key});

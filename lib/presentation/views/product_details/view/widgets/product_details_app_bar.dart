@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/app/ui_components/default_app_bar.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart';
-
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/default_app_bar.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart';
 
 class ProductDetailsAppBar extends StatelessWidget {
   const ProductDetailsAppBar({super.key});
@@ -22,9 +21,7 @@ class ProductDetailsAppBar extends StatelessWidget {
       child: DefaultAppBar(
         title: Translation.product_details.tr,
         titleAlignment: .center,
-        actionButtons: [
-          _CartIconButton(),
-        ],
+        actionButtons: [_CartIconButton()],
       ),
     );
   }

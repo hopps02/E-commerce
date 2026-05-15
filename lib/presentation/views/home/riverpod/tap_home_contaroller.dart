@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jar/app/utils/state_render.dart';
+import 'package:for_u/app/utils/state_render.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TapHomeState extends Equatable {
@@ -12,10 +12,7 @@ class TapHomeState extends Equatable {
     this.errorMessage = "",
   });
 
-  TapHomeState copyWith({
-    ReqState? reqState,
-    String? errorMessage,
-  }) {
+  TapHomeState copyWith({ReqState? reqState, String? errorMessage}) {
     return TapHomeState(
       reqState: reqState ?? this.reqState,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -41,5 +38,5 @@ class TapHomeNotifier extends Notifier<TapHomeState> {
 
 final tapHomeController =
     NotifierProvider.autoDispose<TapHomeNotifier, TapHomeState>(
-  TapHomeNotifier.new,
-);
+      TapHomeNotifier.new,
+    );

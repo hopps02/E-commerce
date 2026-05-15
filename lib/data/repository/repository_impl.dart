@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:jar/data/network/error_handler/error_handler.dart';
-import 'package:jar/data/network/error_handler/failure.dart';
-import 'package:jar/data/responses/responses.dart';
-import 'package:jar/domain/repository/repository.dart';
+import 'package:for_u/data/network/error_handler/error_handler.dart';
+import 'package:for_u/data/network/error_handler/failure.dart';
+import 'package:for_u/data/responses/responses.dart';
+import 'package:for_u/domain/repository/repository.dart';
 
 import '../network/api/api.dart';
 import '../request/request.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/app/services/storage_services/secure_storage_service.dart';
-import 'package:jar/app/services/storage_services/shared_prefrences_service.dart';
-import 'package:jar/app/services/storage_services/storage_service.dart';
-import 'package:jar/app/utils/overlay_loading/overlay_loading_manager.dart';
-import 'package:jar/app/utils/snackbar_helper.dart';
-import 'package:jar/data/network/api/api.dart';
-import 'package:jar/data/network/dio_factory.dart';
-import 'package:jar/data/repository/repository_impl.dart';
-import 'package:jar/domain/usecase/auth_init_usecase.dart';
+import 'package:for_u/app/services/storage_services/secure_storage_service.dart';
+import 'package:for_u/app/services/storage_services/shared_prefrences_service.dart';
+import 'package:for_u/app/services/storage_services/storage_service.dart';
+import 'package:for_u/app/utils/overlay_loading/overlay_loading_manager.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/data/network/api/api.dart';
+import 'package:for_u/data/network/dio_factory.dart';
+import 'package:for_u/data/repository/repository_impl.dart';
+import 'package:for_u/domain/usecase/auth_init_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off

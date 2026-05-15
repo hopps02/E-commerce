@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/edit_profile/view/widgets/edit_profile_app_bar.dart';
-import 'package:jar/presentation/views/edit_profile/view/widgets/edit_profile_form.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/edit_profile/view/widgets/edit_profile_app_bar.dart';
+import 'package:for_u/presentation/views/edit_profile/view/widgets/edit_profile_form.dart';
 
 class EditProfileView extends ConsumerStatefulWidget {
   const EditProfileView({super.key});

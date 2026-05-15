@@ -1,24 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:jar/data/responses/responses.dart';
+import 'package:for_u/data/responses/responses.dart';
 import 'failure.dart';
 
 /// A universal wrapper for executing network requests safely and cleanly.
-/// 
-/// This function acts as the main safety boundary between your remote data sources (API) 
+///
+/// This function acts as the main safety boundary between your remote data sources (API)
 /// and your repository layer. It automatically handles:
-/// 
+///
 /// 1. **Execution**: Runs the asynchronous API [request].
-/// 2. **Success Parsing**: If the request succeeds and `response.success` is true, 
+/// 2. **Success Parsing**: If the request succeeds and `response.success` is true,
 ///    it returns the data wrapped in a [Right].
-/// 3. **Logical Backend Errors**: If the HTTP request succeeds (200 OK) but the backend 
-///    explicitly marks it as a failure (`success` == false), it extracts the backend 
+/// 3. **Logical Backend Errors**: If the HTTP request succeeds (200 OK) but the backend
+///    explicitly marks it as a failure (`success` == false), it extracts the backend
 ///    message and returns it as a [Left(ServerError)].
-/// 4. **Exception Catching**: It catches **ALL** thrown exceptions (e.g., Dio timeouts, 
-///    `400 Bad Request`, `401 Unauthorized`, `500 Server Crashes`, No Internet) and 
-///    safely passes them to the `e.handle` [ErrorHandler] extension. This guarantees 
+/// 4. **Exception Catching**: It catches **ALL** thrown exceptions (e.g., Dio timeouts,
+///    `400 Bad Request`, `401 Unauthorized`, `500 Server Crashes`, No Internet) and
+///    safely passes them to the `e.handle` [ErrorHandler] extension. This guarantees
 ///    your UI will always receive a structured [Failure] object, never an app crash.
-/// 
+///
 /// Usage in Repository:
 /// ```dart
 /// return fastHandler(
@@ -103,8 +103,8 @@ extension ErrorHandler on dynamic {
 }
 
 /// Parses the raw error response from the backend and maps it to a structured [Failure] object.
-/// 
-/// Enhancement: This function now gracefully falls back to default HTTP status messages 
+///
+/// Enhancement: This function now gracefully falls back to default HTTP status messages
 /// (e.g., "Bad Request" for 400) if the backend fails to provide a clear [message] or [error] string.
 Failure _handleResponseError(dynamic status, String? message, String? error) {
   final fallbackMessage = message ?? error;
@@ -132,14 +132,20 @@ Failure _handleResponseError(dynamic status, String? message, String? error) {
       case 403:
         return ServerError(message: "Forbidden: You don't have access.");
       case 404:
-        return ServerError(message: "Not Found: The requested resource does not exist.");
+        return ServerError(
+          message: "Not Found: The requested resource does not exist.",
+        );
       case 429:
-        return ServerError(message: "Too Many Requests: Please try again later.");
+        return ServerError(
+          message: "Too Many Requests: Please try again later.",
+        );
       case 500:
       case 502:
       case 503:
       case 504:
-        return ServerError(message: "Server Error: Something went wrong on our end.");
+        return ServerError(
+          message: "Server Error: Something went wrong on our end.",
+        );
       default:
         return ServerError(message: "Server Error: Code $status.");
     }
@@ -150,8 +156,8 @@ Failure _handleResponseError(dynamic status, String? message, String? error) {
 }
 
 /// Represents connection-level and protocol-level errors thrown by the Dio HTTP client.
-/// 
-/// Use this enum to handle things like request timeouts, lack of internet connection, 
+///
+/// Use this enum to handle things like request timeouts, lack of internet connection,
 /// or bad SSL certificates. These happen BEFORE or DURING the request, not based on backend logic.
 enum DioErrorType {
   CANCEL("CANCEL", "Request was cancelled", "CANCEL"),
@@ -205,8 +211,8 @@ enum DioErrorType {
 }
 
 /// Represents known business-logic errors specifically returned by your backend API.
-/// 
-/// Whenever the backend team defines a new standard error (e.g., "USER_BANNED"), 
+///
+/// Whenever the backend team defines a new standard error (e.g., "USER_BANNED"),
 /// you should add it here. The `_handleResponseError` will automatically parse it
 /// and return it as a [CustomServerError].
 enum ApiErrorType {

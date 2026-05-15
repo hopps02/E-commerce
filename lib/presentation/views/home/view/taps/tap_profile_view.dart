@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/delete_account_bottom_sheet.dart';
-import 'package:jar/presentation/views/home/view/widgets/logout_bottom_sheet.dart';
-import 'package:jar/presentation/views/home/view/widgets/logout_button.dart';
-import 'package:jar/presentation/views/home/view/widgets/profile_info.dart';
-import 'package:jar/presentation/views/home/view/widgets/profile_menu_item.dart';
-import 'package:jar/presentation/views/home/view/widgets/profile_settings.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/delete_account_bottom_sheet.dart';
+import 'package:for_u/presentation/views/home/view/widgets/logout_bottom_sheet.dart';
+import 'package:for_u/presentation/views/home/view/widgets/logout_button.dart';
+import 'package:for_u/presentation/views/home/view/widgets/profile_info.dart';
+import 'package:for_u/presentation/views/home/view/widgets/profile_menu_item.dart';
+import 'package:for_u/presentation/views/home/view/widgets/profile_settings.dart';
 
 class TapProfileView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;

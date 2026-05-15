@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/app/di/dependency_injection.dart';
-import 'package:jar/app/utils/after_layout.dart';
-import 'package:jar/presentation/common/riverpod/location_controller.dart';
-import 'package:jar/presentation/views/home/view/widgets/content_body.dart';
-import 'package:jar/presentation/views/home/view/widgets/home_tap_app_bar.dart';
-import 'package:jar/presentation/views/home/view/widgets/location_picker_dialog.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/utils/after_layout.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
+import 'package:for_u/presentation/views/home/view/widgets/content_body.dart';
+import 'package:for_u/presentation/views/home/view/widgets/home_tap_app_bar.dart';
+import 'package:for_u/presentation/views/home/view/widgets/location_picker_dialog.dart';
 
 class TapHomeView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;

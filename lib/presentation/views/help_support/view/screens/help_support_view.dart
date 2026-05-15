@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/default_app_bar.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/default_app_bar.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/views/help_support/riverpod/help_support_controller.dart';
-import 'package:jar/presentation/views/help_support/view/widgets/help_support_app_bar.dart';
-import 'package:jar/presentation/views/help_support/view/widgets/help_support_body.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/views/help_support/riverpod/help_support_controller.dart';
+import 'package:for_u/presentation/views/help_support/view/widgets/help_support_app_bar.dart';
+import 'package:for_u/presentation/views/help_support/view/widgets/help_support_body.dart';
 
 class HelpSupportView extends ConsumerWidget {
   const HelpSupportView({super.key});

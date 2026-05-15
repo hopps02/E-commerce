@@ -3,17 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/ui_components/customized_smart_refresh.dart';
-import 'package:jar/app/utils/state_render.dart';
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/views/home/view/widgets/product_card.dart';
-import 'package:jar/presentation/views/product_details/view/screens/product_details_view.dart';
-import 'package:jar/presentation/views/products/riverpod/products_controller.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/ui_components/customized_smart_refresh.dart';
+import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/home/view/widgets/product_card.dart';
+import 'package:for_u/presentation/views/product_details/view/screens/product_details_view.dart';
+import 'package:for_u/presentation/views/products/riverpod/products_controller.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class ProductsData extends ConsumerWidget {
   const ProductsData({super.key});
@@ -60,9 +60,7 @@ class ProductsData extends ConsumerWidget {
                 onTap: () {
                   context.pushNamed(
                     Routes.productDetails,
-                    arguments: ProductDetailsViewArgs(
-                      productId: '',
-                    ),
+                    arguments: ProductDetailsViewArgs(productId: ''),
                   );
                 },
                 child: ProductCard(
@@ -76,7 +74,7 @@ class ProductsData extends ConsumerWidget {
                   onFavTap: () {},
                   onQuantityChanged: (_) {},
                 ),
-              ).premiumAppear(index: (index % 2) +1);
+              ).premiumAppear(index: (index % 2) + 1);
             },
           ),
         ),

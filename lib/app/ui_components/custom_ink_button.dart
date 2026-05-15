@@ -2,12 +2,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jar/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/extensions.dart';
 
 import 'gradient_border_side.dart';
 
 /// Available animation presets for [CustomInkButton].
-///       
+///
 /// Wrap one in [ButtonAnimationSettings] to control duration/curve/intensity,
 /// then pass it to:
 ///  - [CustomInkButton.tap]         — fires after a tap is recognized
@@ -184,47 +184,47 @@ class CustomInkButtonController extends ChangeNotifier {
 
   // Convenience one-shots with sensible defaults.
   void shake({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.shake,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.shake,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
   void pulse({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.pulse,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.pulse,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
   void jump({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.jump,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.jump,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
   void bounce({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.bounce,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.bounce,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
   void wiggle({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.wiggle,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.wiggle,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
   void tilt({Duration? duration, double intensity = 1.0}) => play(
-        ButtonAnimationSettings(
-          ButtonAnimation.tilt,
-          duration: duration,
-          intensity: intensity,
-        ),
-      );
+    ButtonAnimationSettings(
+      ButtonAnimation.tilt,
+      duration: duration,
+      intensity: intensity,
+    ),
+  );
 }
 
 class CustomInkButton extends StatefulWidget {
@@ -413,9 +413,8 @@ class _CustomInkButtonState extends State<CustomInkButton>
     // Total animation length splits in half: half on press, half on release.
     // Scale the press-down duration by how far we still have to travel so
     // re-presses mid-release feel snappy instead of slogging from 0.
-    final totalMs =
-        (effect.duration ?? _defaultDurationFor(effect.animation))
-            .inMilliseconds;
+    final totalMs = (effect.duration ?? _defaultDurationFor(effect.animation))
+        .inMilliseconds;
     final pressMs = (totalMs / 2).round().clamp(40, 1200);
     final remaining = (0.5 - _hold.value).clamp(0.0, 0.5);
     final scaledMs = (pressMs * (remaining / 0.5)).round().clamp(40, pressMs);
@@ -430,26 +429,28 @@ class _CustomInkButtonState extends State<CustomInkButton>
   void _onPointerRelease() {
     if (_hold.value <= 0 && !_hold.isAnimating) return;
 
-    final totalMs = (_holdSettings.duration ??
-            _defaultDurationFor(_holdSettings.animation))
-        .inMilliseconds;
+    final totalMs =
+        (_holdSettings.duration ?? _defaultDurationFor(_holdSettings.animation))
+            .inMilliseconds;
     final releaseMs = (totalMs / 2).round().clamp(40, 1500);
     final distance = (1.0 - _hold.value).clamp(0.0, 1.0);
-    final scaledMs =
-        (releaseMs * (distance / 0.5)).round().clamp(40, releaseMs);
+    final scaledMs = (releaseMs * (distance / 0.5)).round().clamp(
+      40,
+      releaseMs,
+    );
 
     _hold
         .animateTo(
-      1.0,
-      duration: Duration(milliseconds: scaledMs),
-      curve: Curves.linear,
-    )
+          1.0,
+          duration: Duration(milliseconds: scaledMs),
+          curve: Curves.linear,
+        )
         .whenComplete(() {
-      if (!mounted) return;
-      // Snap back to rest. At t = 1.0 every animation already renders rest
-      // state (sin(π)=0, elastic returns to 0, etc.), so this is invisible.
-      _hold.value = 0;
-    });
+          if (!mounted) return;
+          // Snap back to rest. At t = 1.0 every animation already renders rest
+          // state (sin(π)=0, elastic returns to 0, etc.), so this is invisible.
+          _hold.value = 0;
+        });
   }
 
   void _handleTap() {
@@ -548,8 +549,7 @@ class _CustomInkButtonState extends State<CustomInkButton>
     }
 
     // One-shot effect: _oneShot drives t from 0 → 1 over its duration.
-    if (_oneShot.isAnimating ||
-        (_oneShot.value > 0 && _oneShot.value < 1.0)) {
+    if (_oneShot.isAnimating || (_oneShot.value > 0 && _oneShot.value < 1.0)) {
       _applyAnimation(_oneShot.value, _oneShotSettings, b);
     }
 
@@ -567,10 +567,12 @@ class _CustomInkButtonState extends State<CustomInkButton>
     Widget inner = Container(
       clipBehavior: widget.clipBehavior,
       decoration: ShapeDecoration(
-        color: widget.backgroundColor ??
+        color:
+            widget.backgroundColor ??
             (widget.gradient == null
-                ? context.theme.textButtonTheme.style?.backgroundColor
-                    ?.resolve({})
+                ? context.theme.textButtonTheme.style?.backgroundColor?.resolve(
+                    {},
+                  )
                 : null),
         gradient: widget.gradient,
         shadows: widget.boxShadow,
@@ -587,8 +589,7 @@ class _CustomInkButtonState extends State<CustomInkButton>
         animationDuration:
             widget.animationDuration ?? const Duration(milliseconds: 200),
         child: InkWell(
-          onTap:
-              widget.enabled && widget.onTap != null ? _handleTap : null,
+          onTap: widget.enabled && widget.onTap != null ? _handleTap : null,
           onLongPress: widget.enabled && widget.onLongPress != null
               ? _handleLongPress
               : null,
@@ -599,8 +600,7 @@ class _CustomInkButtonState extends State<CustomInkButton>
               minWidth: widget.width ?? 0,
               minHeight: widget.height ?? 0,
               maxWidth: widget.maxWidth ?? widget.width ?? double.infinity,
-              maxHeight:
-                  widget.maxHeight ?? widget.height ?? double.infinity,
+              maxHeight: widget.maxHeight ?? widget.height ?? double.infinity,
             ),
             padding: widget.padding,
             alignment: widget.alignment,

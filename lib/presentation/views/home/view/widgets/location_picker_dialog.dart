@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_ink_button.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class LocationPickerDialog extends StatefulWidget {
@@ -151,8 +151,9 @@ class _LocationPickerContentState extends State<LocationPickerContent> {
                           ? null
                           : () async {
                               setState(() => isLoadingLocation = true);
-                              bool success = await (widget.onEnablePressed?.call() ??
-                                  Future.value(false));
+                              bool success =
+                                  await (widget.onEnablePressed?.call() ??
+                                      Future.value(false));
                               if (success) {
                                 isSuccess = true;
                                 if (context.mounted) context.pop();

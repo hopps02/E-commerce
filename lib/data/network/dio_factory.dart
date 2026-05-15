@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:jar/app/config/constants.dart';
-import 'package:jar/app/services/storage_services/storage_service.dart';
-import 'package:jar/data/network/interceptors/auth_interceptor.dart';
-import 'package:jar/data/network/interceptors/language_interceptor.dart';
+import 'package:for_u/app/config/constants.dart';
+import 'package:for_u/app/services/storage_services/storage_service.dart';
+import 'package:for_u/data/network/interceptors/auth_interceptor.dart';
+import 'package:for_u/data/network/interceptors/language_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Dio buildDio(StorageService storageService) {

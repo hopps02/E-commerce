@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/views/search/view/widgets/search_bar_section.dart';
-import 'package:jar/presentation/views/search/view/widgets/search_data.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/search/view/widgets/search_bar_section.dart';
+import 'package:for_u/presentation/views/search/view/widgets/search_data.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});

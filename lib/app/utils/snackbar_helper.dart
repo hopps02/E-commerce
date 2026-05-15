@@ -2,12 +2,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jar/app/app.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/utils/zesty_snack.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/app/ui_components/gradient_border_side.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
+import 'package:for_u/app/app.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/zesty_snack.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
 
 // error message
 enum ErrorMessage {
@@ -55,10 +55,7 @@ class SnackbarHelper {
                   shape: SmoothRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     smoothness: 1,
-                    side: GradientBorderSide(
-                      color: ColorM.primary,
-                      width: 1.w,
-                    ),
+                    side: GradientBorderSide(color: ColorM.primary, width: 1.w),
                   ),
                 ),
                 alignment: AlignmentDirectional.centerStart,

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/utils/state_render.dart';
-import 'package:jar/presentation/common/fast_state_render.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/sizes_manager.dart';
-import 'package:jar/presentation/views/product_details/riverpod/product_details_controller.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_description.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_details_app_bar.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_details_bottom_bar.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_image_slider.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_info_section.dart';
-import 'package:jar/presentation/views/product_details/view/widgets/product_weight_selector.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/product_details/riverpod/product_details_controller.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_description.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_details_app_bar.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_details_bottom_bar.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_image_slider.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_info_section.dart';
+import 'package:for_u/presentation/views/product_details/view/widgets/product_weight_selector.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class ProductDetailsViewArgs {
   final String productId;
@@ -55,7 +55,9 @@ class ProductDetailsView extends ConsumerWidget {
                     16.verticalSpace,
 
                     // Product image with favorite + dots
-                    ProductImageSlider(imageUrls: ["", "", "", ""]).premiumAppear(index: 0),
+                    ProductImageSlider(
+                      imageUrls: ["", "", "", ""],
+                    ).premiumAppear(index: 0),
 
                     14.verticalSpace,
 

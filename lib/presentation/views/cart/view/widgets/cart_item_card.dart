@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/custom_cached_image.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/custom_cached_image.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 
 class CartItemCard extends StatefulWidget {
   final String title;
@@ -75,9 +75,7 @@ class _CartItemCardState extends State<CartItemCard> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: ColorM.white,
-      ),
+      decoration: const BoxDecoration(color: ColorM.white),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,7 +93,7 @@ class _CartItemCardState extends State<CartItemCard> {
               fit: BoxFit.contain,
             ),
           ),
-          
+
           12.horizontalSpace,
 
           // Middle & Left Side in RTL (End): Info, Delete, Price, Counter
@@ -124,9 +122,15 @@ class _CartItemCardState extends State<CartItemCard> {
                           6.verticalSpace,
                           // Weight badge
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 4.h,
+                            ),
                             decoration: BoxDecoration(
-                              border: Border.all(color: ColorM.gray200, width: 1.w),
+                              border: Border.all(
+                                color: ColorM.gray200,
+                                width: 1.w,
+                              ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Text(
@@ -140,12 +144,15 @@ class _CartItemCardState extends State<CartItemCard> {
                         ],
                       ),
                     ),
-                    
+
                     // Delete Button (Far Left in RTL)
                     GestureDetector(
                       onTap: widget.onDelete,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.only(start: 8.w, bottom: 8.h),
+                        padding: EdgeInsetsDirectional.only(
+                          start: 8.w,
+                          bottom: 8.h,
+                        ),
                         child: SvgPicture.asset(
                           Assets.svg.bin.path,
                           width: 20.w,
@@ -154,7 +161,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     ),
                   ],
                 ),
-                
+
                 12.verticalSpace,
 
                 // Bottom Row: Price & Counter
@@ -190,7 +197,10 @@ class _CartItemCardState extends State<CartItemCard> {
                       padding: EdgeInsets.all(2.w),
                       decoration: BoxDecoration(
                         color: ColorM.primary50,
-                        border: Border.all(color: ColorM.primary50, width: 0.5.w),
+                        border: Border.all(
+                          color: ColorM.primary50,
+                          width: 0.5.w,
+                        ),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(

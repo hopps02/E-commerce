@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jar/app/utils/state_render.dart';
+import 'package:for_u/app/utils/state_render.dart';
 
 class OrderDetailsState extends Equatable {
   final ReqState reqState;
@@ -24,9 +24,7 @@ class OrderDetailsState extends Equatable {
 class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
   @override
   OrderDetailsState build() {
-    return const OrderDetailsState(
-      reqState: ReqState.success,
-    );
+    return const OrderDetailsState(reqState: ReqState.success);
   }
 }
 

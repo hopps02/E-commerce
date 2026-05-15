@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jar/app/extensions/extensions.dart';
-import 'package:jar/app/ui_components/country_code_button.dart';
-import 'package:jar/app/ui_components/custom_form_field/simple_form.dart';
-import 'package:jar/presentation/res/color_manager.dart';
-import 'package:jar/presentation/res/fonts_manager.dart';
-import 'package:jar/presentation/res/translations_manager.dart';
+import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_components/country_code_button.dart';
+import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:nice_text_form/nice_text_form.dart';
 
 class ProfilePhoneField extends StatelessWidget {
@@ -29,9 +29,7 @@ class ProfilePhoneField extends StatelessWidget {
       children: [
         Text(
           Translation.mobile_number.tr,
-          style: context.bodyMedium.copyWith(
-            fontWeight: FontWeightM.medium
-          ),
+          style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
         ),
         SimpleForm(
           hintText: Translation.your_mobile_number.tr,

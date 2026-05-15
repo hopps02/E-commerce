@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jar/app/extensions/widget_extensions.dart';
-import 'package:jar/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key});

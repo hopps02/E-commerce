@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jar/app/extensions/view_extensions.dart';
-import 'package:jar/app/utils/global_keyboard_dismissal.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/app/utils/global_keyboard_dismissal.dart';
 
-import 'package:jar/presentation/res/router/app_router.dart';
-import 'package:jar/presentation/res/theme_manager.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/theme_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: non_constant_identifier_names
@@ -32,7 +32,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     SCAFFOLD_MESSENGER_KEY = GlobalKey<ScaffoldMessengerState>();
@@ -42,13 +41,13 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = View.of(context);
-        final aspectRatio = mediaQuery.physicalSize.aspectRatio;
+    final aspectRatio = mediaQuery.physicalSize.aspectRatio;
 
-        final designSize = (aspectRatio > 0.5)
-            // some designes are not working with the default design size
-            // so for 16:9 dimensions we use 375, 667
-            ? const Size(375, 667) // 16:9 (iPhone SE)
-            : const Size(375, 812); // 20:9 (Android base)
+    final designSize = (aspectRatio > 0.5)
+        // some designes are not working with the default design size
+        // so for 16:9 dimensions we use 375, 667
+        ? const Size(375, 667) // 16:9 (iPhone SE)
+        : const Size(375, 812); // 20:9 (Android base)
     return ScreenUtilInit(
       designSize: designSize,
       builder: (context, details) {
@@ -75,9 +74,7 @@ class MyAppState extends State<MyApp> {
                       child: ClipRect(
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                          child: Container(
-                            color: Colors.transparent,
-                          ),
+                          child: Container(color: Colors.transparent),
                         ),
                       ),
                     ),

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' hide DioErrorType;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jar/data/network/error_handler/error_handler.dart';
-import 'package:jar/data/network/error_handler/failure.dart';
+import 'package:for_u/data/network/error_handler/error_handler.dart';
+import 'package:for_u/data/network/error_handler/failure.dart';
 
 import '../../../helpers/dummy_data.dart';
 
@@ -14,25 +14,20 @@ void main() {
       final result = await fastHandler(request: () async => response);
 
       expect(result, isA<Right>());
-      result.fold(
-        (l) => fail('Expected Right'),
-        (r) => expect(r, response),
-      );
+      result.fold((l) => fail('Expected Right'), (r) => expect(r, response));
     });
 
     test('returns Left(ServerError) when response.success is false', () async {
-      final response =
-          DummyData.authInitResponseLogicalFailure(message: 'denied');
+      final response = DummyData.authInitResponseLogicalFailure(
+        message: 'denied',
+      );
 
       final result = await fastHandler(request: () async => response);
 
-      result.fold(
-        (l) {
-          expect(l, isA<ServerError>());
-          expect((l as ServerError).message, 'denied');
-        },
-        (r) => fail('Expected Left'),
-      );
+      result.fold((l) {
+        expect(l, isA<ServerError>());
+        expect((l as ServerError).message, 'denied');
+      }, (r) => fail('Expected Left'));
     });
 
     test('catches thrown DioException and returns mapped Failure', () async {
@@ -80,26 +75,21 @@ void main() {
     });
 
     test(
-        'badResponse 401 UNAUTHORIZED maps to CustomServerError(UNAUTHORIZED)',
-        () {
-      final failure = DioException(
-        type: DioExceptionType.badResponse,
-        requestOptions: RequestOptions(path: '/x'),
-        response: Response(
+      'badResponse 401 UNAUTHORIZED maps to CustomServerError(UNAUTHORIZED)',
+      () {
+        final failure = DioException(
+          type: DioExceptionType.badResponse,
           requestOptions: RequestOptions(path: '/x'),
-          statusCode: 401,
-          data: const {
-            'message': 'Unauthorized',
-            'error': 'Unauthorized',
-          },
-        ),
-      ).handle;
-      expect(failure, isA<CustomServerError>());
-      expect(
-        (failure as CustomServerError).error,
-        ApiErrorType.UNAUTHORIZED,
-      );
-    });
+          response: Response(
+            requestOptions: RequestOptions(path: '/x'),
+            statusCode: 401,
+            data: const {'message': 'Unauthorized', 'error': 'Unauthorized'},
+          ),
+        ).handle;
+        expect(failure, isA<CustomServerError>());
+        expect((failure as CustomServerError).error, ApiErrorType.UNAUTHORIZED);
+      },
+    );
 
     test('badResponse with unknown 403 status -> Forbidden fallback', () {
       final failure = DioException(
@@ -123,10 +113,7 @@ void main() {
 
   group('ApiErrorType.from', () {
     test('matches by status + message (case insensitive)', () {
-      expect(
-        ApiErrorType.from(401, 'Unauthorized'),
-        ApiErrorType.UNAUTHORIZED,
-      );
+      expect(ApiErrorType.from(401, 'Unauthorized'), ApiErrorType.UNAUTHORIZED);
     });
 
     test('returns null on mismatched status', () {

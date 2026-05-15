@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:jar/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
 
 class RateWidget extends StatefulWidget {
   final Function(double rate) onRateChange;
