@@ -5,7 +5,12 @@
       "Bash(flutter pub *)",
       "Bash(git restore *)",
       "Bash(rmdir /s /q \"lib\\\\presentation\\\\res\\\\router\")",
-      "Bash(flutter analyze *)"
+      "Bash(flutter analyze *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git merge *)",
+      "Bash(git push *)"
     ]
   }
 }

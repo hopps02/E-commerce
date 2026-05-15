@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/sections/view/widgets/app_bar.dart';
+import 'package:for_u/presentation/views/user/sections/view/widgets/sections_data.dart';
+import 'package:for_u/app/extensions/widget_extensions.dart';
+
+class SectionsView extends StatefulWidget {
+  const SectionsView({super.key});
+
+  @override
+  State<SectionsView> createState() => _SectionsViewState();
+}
+
+class _SectionsViewState extends State<SectionsView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(height: context.topSafeAreaPadding),
+          TopAppBar(title: Translation.categories.tr).premiumAppear(index: 0),
+          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+          SectionsData(),
+        ],
+      ),
+    );
+  }
+}
