@@ -8,7 +8,7 @@ import 'package:for_u/app/extensions/theme_extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/user/home/riverpod/bottom_navigation_controller.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 
 class NavigationItem {
   final String title;

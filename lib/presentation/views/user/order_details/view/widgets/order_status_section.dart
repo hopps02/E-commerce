@@ -4,7 +4,7 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/order_card.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.dart';
 
 class OrderStatusSection extends StatelessWidget {
   final int step;

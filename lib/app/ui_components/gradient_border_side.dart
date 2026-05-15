@@ -260,6 +260,27 @@ class GradientBorderSide with Diagnosticable {
     );
   }
 
+
+  static GradientBorderSide glassyOutline({double width = 1}) => GradientBorderSide(
+        width: width,
+        gradient: SweepGradient(
+          colors: [
+            Colors.white.withValues(alpha: .5),  // 0°    right edge mid
+            Colors.white.withValues(alpha: .35),  // 45°   BR — bright
+            Colors.white.withValues(alpha: 0.25),  // 90°   bottom edge mid
+            Colors.white.withValues(alpha: 0.13),  // 135°  BL — transparent
+            Colors.white.withValues(alpha: 0.13),  // 180°  left edge mid
+            Colors.white.withValues(alpha: .5),  // 225°  TL — bright
+            Colors.white.withValues(alpha: .25),  // 270°  top edge mid
+            Colors.white.withValues(alpha: 0.13),  // 315°  TR — transparent
+            Colors.white.withValues(alpha: 0.13),  // 360°  wrap
+          ],
+          stops: [0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0],
+        ),
+      );
+
+
+
   /// Get the amount of the stroke width that lies inside of the [GradientBorderSide].
   ///
   /// For example, this will return the [width] for a [strokeAlign] of -1, half

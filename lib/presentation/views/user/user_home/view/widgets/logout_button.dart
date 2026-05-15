@@ -5,7 +5,7 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/logout_bottom_sheet.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});

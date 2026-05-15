@@ -261,6 +261,13 @@ class CustomInkButton extends StatefulWidget {
   /// [side] for the classic glass look.
   final double? glassBlur;
 
+  /// When true (default), [side] is painted *on top of* the [glassBlur] so the
+  /// border stays sharp. When false, the border is painted with the rest of
+  /// the box decoration and the backdrop filter samples through it, blurring
+  /// the border. Only meaningful when both [glassBlur] and a non-none [side]
+  /// are set.
+  final bool keepBorderCrisp;
+
   /// Animation played when the button is tapped.
   final ButtonAnimationSettings tap;
 
@@ -304,6 +311,7 @@ class CustomInkButton extends StatefulWidget {
     this.enableHapticFeedback = false,
     this.clipBehavior = Clip.hardEdge,
     this.glassBlur,
+    this.keepBorderCrisp = true,
     this.tap = ButtonAnimationSettings.none,
     this.longPress = ButtonAnimationSettings.none,
     this.pressEffect = ButtonAnimationSettings.none,
@@ -614,6 +622,16 @@ class _CustomInkButtonState extends State<CustomInkButton>
             ],
           );
 
+    // When a glass blur is on and the caller wants a crisp border, paint the
+    // border via `foregroundDecoration` so it lands on top of the blur layer
+    // instead of being sampled through it.
+    final bool liftBorder =
+        blur != null &&
+        widget.keepBorderCrisp &&
+        widget.side != GradientBorderSide.none;
+
+    final BorderRadius radius = BorderRadius.circular(widget.borderRadius ?? 6);
+
     Widget inner = Container(
       clipBehavior: widget.clipBehavior == Clip.none && blur != null
           ? Clip.antiAlias
@@ -630,10 +648,19 @@ class _CustomInkButtonState extends State<CustomInkButton>
         shadows: widget.boxShadow,
         shape: SmoothRectangleBorder(
           smoothness: widget.smoothness,
-          borderRadius: BorderRadius.circular(widget.borderRadius ?? 6),
-          side: widget.side,
+          borderRadius: radius,
+          side: liftBorder ? GradientBorderSide.none : widget.side,
         ),
       ),
+      foregroundDecoration: liftBorder
+          ? ShapeDecoration(
+              shape: SmoothRectangleBorder(
+                smoothness: widget.smoothness,
+                borderRadius: radius,
+                side: widget.side,
+              ),
+            )
+          : null,
       child: containerChild,
     );
 

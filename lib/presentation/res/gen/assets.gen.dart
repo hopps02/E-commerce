@@ -80,6 +80,10 @@ class $AssetsSvgGen {
   SvgGenImage get arrowLeftLong =>
       const SvgGenImage('assets/svg/arrow-left-long.svg');
 
+  /// File path: assets/svg/background-of-shaps.svg
+  SvgGenImage get backgroundOfShaps =>
+      const SvgGenImage('assets/svg/background-of-shaps.svg');
+
   /// File path: assets/svg/bag-plus.svg
   SvgGenImage get bagPlus => const SvgGenImage('assets/svg/bag-plus.svg');
 
@@ -144,14 +148,23 @@ class $AssetsSvgGen {
   /// File path: assets/svg/language.svg
   SvgGenImage get language => const SvgGenImage('assets/svg/language.svg');
 
+  /// File path: assets/svg/language2.svg
+  SvgGenImage get language2 => const SvgGenImage('assets/svg/language2.svg');
+
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
 
   /// File path: assets/svg/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
 
+  /// File path: assets/svg/logout2.svg
+  SvgGenImage get logout2 => const SvgGenImage('assets/svg/logout2.svg');
+
   /// File path: assets/svg/man-profile.svg
   SvgGenImage get manProfile => const SvgGenImage('assets/svg/man-profile.svg');
+
+  /// File path: assets/svg/messages.svg
+  SvgGenImage get messages => const SvgGenImage('assets/svg/messages.svg');
 
   /// File path: assets/svg/minus-square.svg
   SvgGenImage get minusSquare =>
@@ -176,6 +189,7 @@ class $AssetsSvgGen {
     addSquare,
     appLogo,
     arrowLeftLong,
+    backgroundOfShaps,
     bagPlus,
     bell,
     bin,
@@ -195,9 +209,12 @@ class $AssetsSvgGen {
     infoNote,
     info,
     language,
+    language2,
     location,
     logout,
+    logout2,
     manProfile,
+    messages,
     minusSquare,
     saudiRiyalSymbol,
     search,

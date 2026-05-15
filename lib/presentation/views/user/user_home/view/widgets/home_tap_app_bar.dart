@@ -14,7 +14,7 @@ import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/location_picker_dialog.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/location_picker_dialog.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});

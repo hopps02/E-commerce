@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:for_u/app/app.dart';
+import 'package:for_u/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:for_u/app/enums/enums.dart';
@@ -8,7 +10,7 @@ import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm_order_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
 import 'package:for_u/presentation/views/user/help_support/view/screens/help_support_view.dart';
-import 'package:for_u/presentation/views/user/home/view/screens/home_view.dart';
+import 'package:for_u/presentation/views/user/user_home/view/screens/user_home_view.dart';
 import 'package:for_u/presentation/views/user/language/view/screens/language_view.dart';
 import 'package:for_u/presentation/views/user/legal_policies/view/screens/legal_policies_view.dart';
 import 'package:for_u/presentation/views/user/onboarding/view/screens/onboarding_view.dart';
@@ -24,22 +26,29 @@ import 'package:for_u/presentation/views/shared/splash/view/splash_view.dart';
 ///
 // dart format off
 enum Routes {
+
+  // Shared routes
   splash         ('splash'),
-  onboarding     ('onboarding'),
   auth           ('auth'),
-  authSuccess    ('authSuccess'),
+
+  // User routes
+  onboarding     ('onboarding'),
+  authSuccess    ('auth-success'),
   home           ('home'),
   search         ('search'),
   sections       ('sections'),
   products       ('products'),
-  productDetails ('productDetails'),
+  productDetails ('product-details'),
   cart           ('cart'),
-  confirmOrder   ('confirmOrder'),
-  orderDetails   ('orderDetails'),
+  confirmOrder   ('confirm-order'),
+  orderDetails   ('order-details'),
   language       ('language'),
-  editProfile    ('editProfile'),
-  legalPolicies  ('legalPolicies'),
-  helpSupport    ('helpSupport');
+  editProfile    ('edit-profile'),
+  legalPolicies  ('legal-policies'),
+  helpSupport    ('help-support'),
+
+  // Cashier routes
+  cashierHome    ('cashier-home');
 
   final String name;
   const Routes(this.name);
@@ -58,17 +67,32 @@ Widget _slideFadeTransition(
   Animation<double> secondaryAnimation,
   Widget child,
 ) {
-  final curved = CurvedAnimation(
+  // Incoming screen: slide in from the right + fade in.
+  final inCurve = CurvedAnimation(
     parent: animation,
-    curve: Curves.fastLinearToSlowEaseIn,
+    curve: Curves.linearToEaseOut,
+    reverseCurve: Curves.linearToEaseOut,
   );
-  return Opacity(
-    opacity: curved.value,
+
+  // Outgoing screen (the one being covered by the new route): drifts to the
+  // left ~25% and fades down to 60% opacity. Plays in reverse on pop, so the
+  // returning screen slides back in and fades up to full.
+  final outCurve = CurvedAnimation(
+    parent: secondaryAnimation,
+    curve: Curves.linearToEaseOut,
+    reverseCurve: Curves.linearToEaseOut,
+  );
+
+  return SlideTransition(
+    position: Tween<Offset>(
+      begin: const Offset(1, 0),
+      end: Offset.zero,
+    ).animate(inCurve),
     child: SlideTransition(
       position: Tween<Offset>(
-        begin: const Offset(1, 0),
-        end: Offset.zero,
-      ).animate(curved),
+        begin: Offset.zero,
+        end: const Offset(-0.3, 0),
+      ).animate(outCurve),
       child: child,
     ),
   );
@@ -86,13 +110,14 @@ GoRoute _r({
     name: name,
     child: builder(context, state),
     transitionDuration: const Duration(milliseconds: 400),
-    reverseTransitionDuration: const Duration(milliseconds: 300),
+    reverseTransitionDuration: const Duration(milliseconds: 400),
     transitionsBuilder: _slideFadeTransition,
   ),
 );
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: Routes.splash.path,
+  navigatorKey: NAVIGATOR_KEY,
+  initialLocation: Routes.cashierHome.path,
   routes: [
     _r(
       name: Routes.splash.name,
@@ -121,7 +146,7 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.home.name,
       path: Routes.home.path,
-      builder: (_, __) => HomeView(),
+      builder: (_, __) => UserHomeView(),
     ),
     _r(
       name: Routes.search.name,
@@ -185,6 +210,11 @@ final GoRouter appRouter = GoRouter(
       name: Routes.helpSupport.name,
       path: Routes.helpSupport.path,
       builder: (_, __) => const HelpSupportView(),
+    ),
+    _r(
+      name: Routes.cashierHome.name,
+      path: Routes.cashierHome.path,
+      builder: (_, __) => const CashierHomeView(),
     ),
   ],
 );

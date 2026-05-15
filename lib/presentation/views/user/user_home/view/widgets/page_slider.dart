@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/presentation/views/user/home/riverpod/bottom_navigation_controller.dart';
-import 'package:for_u/presentation/views/user/home/view/taps/tap_home_view.dart';
-import 'package:for_u/presentation/views/user/home/view/taps/tap_my_orders_view.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:for_u/presentation/views/user/user_home/view/taps/tap_user_home_view.dart';
+import 'package:for_u/presentation/views/user/user_home/view/taps/tap_my_orders_view.dart';
 
-import 'package:for_u/presentation/views/user/home/view/taps/tap_profile_view.dart';
+import 'package:for_u/presentation/views/user/user_home/view/taps/tap_profile_view.dart';
 
 class PageSlider extends ConsumerWidget {
   const PageSlider({super.key, required this.bottomSafeAreaPadding});

@@ -4,8 +4,8 @@ import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/delete_account_bottom_sheet.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/profile_menu_item.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 
 class ProfileSettings extends StatelessWidget {

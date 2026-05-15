@@ -4,8 +4,8 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/section_header.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/category_grid_item.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/section_header.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
 import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
 
 class CategoriesSection extends StatelessWidget {

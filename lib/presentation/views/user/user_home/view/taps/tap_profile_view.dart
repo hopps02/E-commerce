@@ -6,12 +6,12 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/delete_account_bottom_sheet.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/logout_bottom_sheet.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/logout_button.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/profile_info.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/profile_menu_item.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/profile_settings.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_button.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_info.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_settings.dart';
 
 class TapProfileView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;

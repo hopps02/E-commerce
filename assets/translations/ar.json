@@ -189,5 +189,6 @@
   "back_to_home": "العودة للرئيسية",
   "customer_refused_receipt": "رفض العميل الاستلام",
   "other_reason": "سبب آخر",
-  "mention_reason_hint": "اذكر السبب..."
+  "mention_reason_hint": "اذكر السبب...",
+  "support": "الدعم"
 }

@@ -192,7 +192,7 @@ enum Translation {
   back_to_home,
   customer_refused_receipt,
   other_reason,
-  mention_reason_hint,
+  mention_reason_hint, support,
 }
 
 extension Tra on Translation {

@@ -189,5 +189,6 @@
   "back_to_home": "Back to Home",
   "customer_refused_receipt": "Customer refused receipt",
   "other_reason": "Other reason",
-  "mention_reason_hint": "Mention the reason..."
+  "mention_reason_hint": "Mention the reason...",
+  "support" : "Support"
 }

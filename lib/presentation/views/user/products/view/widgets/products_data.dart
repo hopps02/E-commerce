@@ -10,7 +10,7 @@ import 'package:for_u/app/utils/state_render.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/product_card.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/products/riverpod/products_controller.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';

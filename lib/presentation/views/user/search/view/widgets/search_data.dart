@@ -8,7 +8,7 @@ import 'package:for_u/app/ui_components/customized_smart_refresh.dart';
 import 'package:for_u/app/utils/state_render.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/product_card.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:for_u/presentation/views/user/search/riverpod/search_controller.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
 

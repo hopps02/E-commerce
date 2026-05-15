@@ -5,19 +5,19 @@ import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/bottom_navigation.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/bottom_navigation_bar.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/gradient_background.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/page_slider.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation_bar.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/gradient_background.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/page_slider.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class UserHomeView extends StatefulWidget {
+  const UserHomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<UserHomeView> createState() => _UserHomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>
+class _UserHomeViewState extends State<UserHomeView>
     with AutomaticKeepAliveClientMixin {
   late List<NavigationItem> bottomNavItems;
 

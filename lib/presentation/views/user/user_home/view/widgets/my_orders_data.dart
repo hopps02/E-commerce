@@ -8,8 +8,8 @@ import 'package:for_u/app/extensions/widget_extensions.dart';
 import 'package:for_u/app/ui_components/customized_smart_refresh.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/home/riverpod/my_orders_tab_controller.dart';
-import 'package:for_u/presentation/views/user/home/view/widgets/order_card.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
+import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.dart';
 
 import '../../../../../res/router/app_router.dart';
 
@@ -80,7 +80,7 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
           separatorBuilder: (context, index) => 16.verticalSpace,
           itemBuilder: (context, index) => OrderCard(
             step: (index % 3) + 1,
-            onTapDetails: () => context.pushNamed(Routes.orderDetails), //TODO
+            onTapDetails: () => context.pushNamed(Routes.orderDetails),
           ).premiumAppear(index: (index % 3)),
         ),
       ),

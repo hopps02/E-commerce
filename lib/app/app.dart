@@ -9,16 +9,11 @@ import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/theme_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// dart format off
 // ignore: non_constant_identifier_names
-GlobalKey<ScaffoldMessengerState> SCAFFOLD_MESSENGER_KEY =
-    GlobalKey<ScaffoldMessengerState>();
-
-/// Global navigator key exposed for services/notifications that need to
-/// navigate from outside the widget tree. It resolves to the root navigator
-/// owned by go_router.
-// ignore: non_constant_identifier_names
-GlobalKey<NavigatorState> get NAVIGATOR_KEY =>
-    appRouter.routerDelegate.navigatorKey;
+GlobalKey<ScaffoldMessengerState> SCAFFOLD_MESSENGER_KEY = GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<NavigatorState>   NAVIGATOR_KEY          = GlobalKey<NavigatorState>();
+// dart format on
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
