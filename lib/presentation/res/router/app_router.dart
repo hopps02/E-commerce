@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/presentation/views/auth/view/screens/auth_view.dart';
-import 'package:for_u/presentation/views/auth_success/view/screens/auth_success_view.dart';
-import 'package:for_u/presentation/views/cart/view/screens/cart_view.dart';
-import 'package:for_u/presentation/views/confirm_order/view/screens/confirm_order_view.dart';
-import 'package:for_u/presentation/views/edit_profile/view/screens/edit_profile_view.dart';
-import 'package:for_u/presentation/views/help_support/view/screens/help_support_view.dart';
-import 'package:for_u/presentation/views/home/view/screens/home_view.dart';
-import 'package:for_u/presentation/views/language/view/screens/language_view.dart';
-import 'package:for_u/presentation/views/legal_policies/view/screens/legal_policies_view.dart';
-import 'package:for_u/presentation/views/onboarding/view/screens/onboarding_view.dart';
-import 'package:for_u/presentation/views/order_details/view/screens/order_details_view.dart';
-import 'package:for_u/presentation/views/product_details/view/screens/product_details_view.dart';
-import 'package:for_u/presentation/views/products/view/screens/products_view.dart';
-import 'package:for_u/presentation/views/search/view/screens/search_view.dart';
-import 'package:for_u/presentation/views/sections/view/screens/sections_view.dart';
-import 'package:for_u/presentation/views/splash/view/splash_view.dart';
+import 'package:for_u/presentation/views/shared/auth/view/screens/auth_view.dart';
+import 'package:for_u/presentation/views/user/auth_success/view/screens/auth_success_view.dart';
+import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
+import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm_order_view.dart';
+import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
+import 'package:for_u/presentation/views/user/help_support/view/screens/help_support_view.dart';
+import 'package:for_u/presentation/views/user/home/view/screens/home_view.dart';
+import 'package:for_u/presentation/views/user/language/view/screens/language_view.dart';
+import 'package:for_u/presentation/views/user/legal_policies/view/screens/legal_policies_view.dart';
+import 'package:for_u/presentation/views/user/onboarding/view/screens/onboarding_view.dart';
+import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
+import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
+import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:for_u/presentation/views/user/search/view/screens/search_view.dart';
+import 'package:for_u/presentation/views/user/sections/view/screens/sections_view.dart';
+import 'package:for_u/presentation/views/shared/splash/view/splash_view.dart';
 
 /// Centralized path/name constants — pass these to `context.pushNamed` /
 /// `context.go` so we never typo a route name and IDE rename works.
