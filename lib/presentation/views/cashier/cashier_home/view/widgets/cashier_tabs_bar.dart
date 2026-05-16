@@ -6,11 +6,16 @@ import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_tab_button.dart';
 
-class CashierTabsBar extends ConsumerWidget {
+class CashierTabsBar extends ConsumerStatefulWidget {
   const CashierTabsBar({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CashierTabsBar> createState() => _CashierTabsBarState();
+}
+
+class _CashierTabsBarState extends ConsumerState<CashierTabsBar> {
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(cashierTabController);
     final notifier = ref.read(cashierTabController.notifier);
 

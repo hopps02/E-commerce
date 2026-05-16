@@ -21,7 +21,7 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [const TopAppBar()];
+          return [TopAppBar()];
         },
         body: const CashierOrdersSlider(),
       ),
