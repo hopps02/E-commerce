@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +27,7 @@ class TopAppBar extends StatelessWidget {
       flexibleSpace: const _TopSection(),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(128.h),
-        child: const _BottomSection(),
+        child: _BottomSection(),
       ),
     );
   }
@@ -96,11 +97,17 @@ class _BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Subscribe to easy_localization's inherited widget so this section
+    // rebuilds when the user changes language. Without this line the parent
+    // SliverAppBar's `bottom` slot keeps handing us the same const child and
+    // Flutter skips the rebuild — leaving the tabs / search hint stale.
+    context.locale;
+
     return GeneralPadding(
       child: Column(
         children: [
           16.verticalSpace,
-          const CashierTabsBar(),
+          CashierTabsBar(),
           16.verticalSpace,
           SimpleForm(
             height: 44.h,

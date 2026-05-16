@@ -142,14 +142,14 @@ class SimpleForm extends StatelessWidget {
       keyboardType: keyboardType,
       hintText: hintText,
       validator: validator,
-      textStyle: context.labelLarge.copyWith(
+      textStyle: context.labelMedium.copyWith(
         fontSize: fontSize ?? context.labelMedium.fontSize!,
       ),
       hintStyle:
           hintStyle ??
-          context.labelLarge.copyWith(
+          context.labelMedium.copyWith(
             color: ColorM.gray600,
-            fontSize: fontSize ?? context.labelSmall.fontSize!,
+            fontSize: fontSize ?? context.labelMedium.fontSize!,
           ),
       textEditingController: controller,
       sufixWidget: suffixWidget,

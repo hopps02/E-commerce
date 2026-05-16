@@ -122,6 +122,10 @@ class $AssetsSvgGen {
   SvgGenImage get circleCheck =>
       const SvgGenImage('assets/svg/circle-check.svg');
 
+  /// File path: assets/svg/colored-arrow.svg
+  SvgGenImage get coloredArrow =>
+      const SvgGenImage('assets/svg/colored-arrow.svg');
+
   /// File path: assets/svg/delete-account.svg
   SvgGenImage get deleteAccount =>
       const SvgGenImage('assets/svg/delete-account.svg');
@@ -201,6 +205,7 @@ class $AssetsSvgGen {
     borderUser,
     bubbleCheck,
     circleCheck,
+    coloredArrow,
     deleteAccount,
     fillHeart,
     fillHome,

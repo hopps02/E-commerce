@@ -78,7 +78,6 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
           itemCount: itemCount,
           separatorBuilder: (_, _) => 16.verticalSpace,
           itemBuilder: (context, index) {
-            print("rebuild ${widget.type} $index");
             if (widget.type.isPreparation) {
               return CashierPreparationCard(
                 requiresCaptain: index % 2 == 1,

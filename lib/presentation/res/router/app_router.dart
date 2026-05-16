@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/app.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
+import 'package:for_u/presentation/views/cashier/support/view/screens/cashier_support_view.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:for_u/app/enums/enums.dart';
@@ -48,7 +49,8 @@ enum Routes {
   helpSupport    ('help-support'),
 
   // Cashier routes
-  cashierHome    ('cashier-home');
+  cashierHome    ('cashier-home'),
+  cashierSupport ('cashier-support');
 
   final String name;
   const Routes(this.name);
@@ -117,7 +119,7 @@ GoRoute _r({
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: NAVIGATOR_KEY,
-  initialLocation: Routes.splash.path,
+  initialLocation: Routes.cashierHome.path,
   routes: [
     _r(
       name: Routes.splash.name,
@@ -215,6 +217,11 @@ final GoRouter appRouter = GoRouter(
       name: Routes.cashierHome.name,
       path: Routes.cashierHome.path,
       builder: (_, __) => const CashierHomeView(),
+    ),
+    _r(
+      name: Routes.cashierSupport.name,
+      path: Routes.cashierSupport.path,
+      builder: (_, __) => const CashierSupportView(),
     ),
   ],
 );
