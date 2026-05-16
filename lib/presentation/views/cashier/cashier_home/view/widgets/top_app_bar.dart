@@ -13,9 +13,7 @@ import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashi
 import 'package:smooth_corner/smooth_corner.dart';
 
 class TopAppBar extends StatelessWidget {
-  const TopAppBar({
-    super.key,
-  });
+  const TopAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +23,17 @@ class TopAppBar extends StatelessWidget {
       expandedHeight: 255.h,
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
-      flexibleSpace: _TopSection(),
+      flexibleSpace: const _TopSection(),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(128.h),
-        child: _BottomSection(),
+        child: const _BottomSection(),
       ),
     );
   }
 }
 
 class _TopSection extends StatelessWidget {
-  const _TopSection({
-    super.key,
-  });
+  const _TopSection();
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +59,18 @@ class _TopSection extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: SvgPicture.asset(
-                  Assets.svg.backgroundOfShaps.path,
-                ),
+                child: SvgPicture.asset(Assets.svg.backgroundOfShaps.path),
               ),
               Align(
-                alignment: .topCenter,
+                alignment: Alignment.topCenter,
                 child: GeneralPadding(
                   child: Column(
-                    crossAxisAlignment: .start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: context.topSafeAreaPadding),
                       22.verticalSpace,
                       Text(
-                        Translation.welcome_back.trNamed({
-                          "name": "Ahmed",
-                        }),
+                        Translation.welcome_back.trNamed({"name": "Ahmed"}),
                         style: context.labelMedium.copyWith(
                           color: ColorM.white,
                           fontWeight: FontWeightM.semiBold,
@@ -86,7 +78,7 @@ class _TopSection extends StatelessWidget {
                         ),
                       ),
                       21.verticalSpace,
-                      const CashierHeaderActions()
+                      const CashierHeaderActions(),
                     ],
                   ),
                 ),
@@ -100,9 +92,7 @@ class _TopSection extends StatelessWidget {
 }
 
 class _BottomSection extends StatelessWidget {
-  const _BottomSection({
-    super.key,
-  });
+  const _BottomSection();
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +115,7 @@ class _BottomSection extends StatelessWidget {
               Assets.svg.search.path,
               width: 18.w,
               height: 18.w,
-              colorFilter: ColorFilter.mode(
+              colorFilter: const ColorFilter.mode(
                 ColorM.gray600,
                 BlendMode.srcIn,
               ),

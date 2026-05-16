@@ -32,7 +32,7 @@ class CashierTabsBar extends ConsumerWidget {
           4.horizontalSpace,
           CashierTabButton(
             title: Translation.on_the_way_to_customer.tr,
-            count: 3, 
+            count: 3,
             isSelected: state.selectedIndex == 1,
             onTap: () => notifier.onTabChange(1),
           ),

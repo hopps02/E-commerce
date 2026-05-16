@@ -96,6 +96,11 @@ class AnimatedOnAppear extends StatefulWidget {
   /// not [LoopMode.none]).
   final int loopRepeatCount;
 
+  /// Whether this widget should be kept alive when scrolled off-screen inside
+  /// a lazy list. Defaults to `false` so list items are properly disposed and
+  /// the surrounding `ListView` can stay lazy.
+  final bool wantKeepAlive;
+
   const AnimatedOnAppear({
     super.key,
     required this.child,
@@ -141,6 +146,7 @@ class AnimatedOnAppear extends StatefulWidget {
     this.loopMode = LoopMode.none,
     this.loopDuration = const Duration(seconds: 2),
     this.loopRepeatCount = 0,
+    this.wantKeepAlive = false,
   }) : assert(
          shaderSoftness >= 0 && shaderSoftness <= 1,
          'shaderSoftness must be between 0 and 1',
@@ -736,7 +742,7 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => widget.wantKeepAlive;
 }
 
 /// Extension to easily trigger exit animations

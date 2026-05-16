@@ -18,7 +18,16 @@ extension PulseAnimation on Widget {
 }
 
 extension PremiumAppearAnimation on Widget {
-  Widget premiumAppear({int index = 0, int baseDelay = 100}) {
+  /// Premium entrance animation.
+  ///
+  /// Set [wantKeepAlive] to `true` if you want the animated widget to survive
+  /// being scrolled off-screen inside a lazy list. Defaults to `false` so the
+  /// child is disposed like any other lazy list item.
+  Widget premiumAppear({
+    int index = 0,
+    int baseDelay = 100,
+    bool wantKeepAlive = false,
+  }) {
     return AnimatedOnAppear(
       delay: baseDelay + (index * 80),
       slideDistance: 30.0,
@@ -30,7 +39,8 @@ extension PremiumAppearAnimation on Widget {
         AnimationType.fade,
         AnimationType.scale,
       },
-      scaleSize: 0.96, // Just a tiny bit smaller to pop up smoothly
+      scaleSize: 0.96,
+      wantKeepAlive: wantKeepAlive,
       child: this,
     );
   }
