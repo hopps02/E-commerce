@@ -41,9 +41,9 @@ class CartData extends StatelessWidget {
               initialQuantity: 1,
               onQuantityChanged: (newQty) {},
               onDelete: () {},
-            ).premiumAppear(index: index % 5);
+            );
           },
-        ),
+        ).premiumAppear(wantKeepAlive: true),
       ),
     );
   }

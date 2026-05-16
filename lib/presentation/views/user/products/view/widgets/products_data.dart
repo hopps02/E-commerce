@@ -74,10 +74,10 @@ class ProductsData extends ConsumerWidget {
                   onFavTap: () {},
                   onQuantityChanged: (_) {},
                 ),
-              ).premiumAppear(index: (index % 2) + 1);
+              );
             },
           ),
-        ),
+        ).premiumAppear(),
       ),
     );
   }

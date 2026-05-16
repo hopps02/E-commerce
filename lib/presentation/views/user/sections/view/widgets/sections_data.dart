@@ -36,10 +36,10 @@ class SectionsData extends ConsumerWidget {
                   title: "مواد البقالة",
                   imageUrl: "",
                   onTap: () {},
-                ).premiumAppear(index: 3),
+                ),
             ],
           ),
-        ),
+        ).premiumAppear(),
       ),
     );
   }

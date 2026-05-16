@@ -34,9 +34,9 @@ class Orders extends StatelessWidget {
                     title: "خيار طازج",
                     price: "15.00",
                     count: "2",
-                  ).premiumAppear(index: (index % 5) + 2);
+                  );
                 },
-              ),
+              ).premiumAppear(),
             ),
           ],
         ),

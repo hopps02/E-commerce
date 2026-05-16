@@ -81,9 +81,9 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
           itemBuilder: (context, index) => OrderCard(
             step: (index % 3) + 1,
             onTapDetails: () => context.pushNamed(Routes.orderDetails),
-          ).premiumAppear(index: (index % 3)),
+          ),
         ),
-      ),
+      ).premiumAppear(),
     );
   }
 }

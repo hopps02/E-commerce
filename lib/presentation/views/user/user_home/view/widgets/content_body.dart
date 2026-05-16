@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/ui_components/error_widget.dart';
 import 'package:for_u/app/utils/state_render.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/tap_home_contaroller.dart';
@@ -45,11 +43,11 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
       children: [
         10.verticalSpace,
-        TopCategory().premiumAppear(index: 0),
+        TopCategory().premiumAppear(index: 0, wantKeepAlive: true),
         18.verticalSpace,
-        const OfferBanner().premiumAppear(index: 1),
+        const OfferBanner().premiumAppear(index: 1, wantKeepAlive: true),
         18.verticalSpace,
-        CategoriesSection().premiumAppear(index: 2),
+        CategoriesSection().premiumAppear(index: 2, wantKeepAlive: true),
         18.verticalSpace,
         ProductsSection(
           title: Translation.vegetables.tr,
@@ -86,10 +84,10 @@ class Body extends StatelessWidget {
               "quantity": 1,
             },
           ],
-        ).premiumAppear(index: 3),
+        ).premiumAppear(index: 3, wantKeepAlive: true),
         18.verticalSpace,
         // New Arrivals Banner
-        NewArrivalsBanner(onShopNowTap: () {}).premiumAppear(index: 4),
+        NewArrivalsBanner(onShopNowTap: () {}).premiumAppear(index: 4, wantKeepAlive: true),
         18.verticalSpace,
         // Snacks & Packaged Section
         ProductsSection(
@@ -129,7 +127,7 @@ class Body extends StatelessWidget {
               "quantity": 0,
             },
           ],
-        ).premiumAppear(index: 5),
+        ).premiumAppear(index: 5, wantKeepAlive: true),
         18.verticalSpace,
       ],
     );

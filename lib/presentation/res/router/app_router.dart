@@ -70,8 +70,8 @@ Widget _slideFadeTransition(
   // Incoming screen: slide in from the right + fade in.
   final inCurve = CurvedAnimation(
     parent: animation,
-    curve: Curves.linearToEaseOut,
-    reverseCurve: Curves.linearToEaseOut,
+    curve: Curves.easeInOut,
+    reverseCurve: Curves.easeInOut,
   );
 
   // Outgoing screen (the one being covered by the new route): drifts to the
@@ -79,8 +79,8 @@ Widget _slideFadeTransition(
   // returning screen slides back in and fades up to full.
   final outCurve = CurvedAnimation(
     parent: secondaryAnimation,
-    curve: Curves.linearToEaseOut,
-    reverseCurve: Curves.linearToEaseOut,
+    curve: Curves.easeInOut,
+    reverseCurve: Curves.easeInOut,
   );
 
   return SlideTransition(
@@ -109,15 +109,15 @@ GoRoute _r({
     key: state.pageKey,
     name: name,
     child: builder(context, state),
-    transitionDuration: const Duration(milliseconds: 400),
-    reverseTransitionDuration: const Duration(milliseconds: 400),
+    transitionDuration: const Duration(milliseconds: 300),
+    reverseTransitionDuration: const Duration(milliseconds: 300),
     transitionsBuilder: _slideFadeTransition,
   ),
 );
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: NAVIGATOR_KEY,
-  initialLocation: Routes.cashierHome.path,
+  initialLocation: Routes.splash.path,
   routes: [
     _r(
       name: Routes.splash.name,
