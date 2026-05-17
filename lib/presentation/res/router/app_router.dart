@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/app.dart';
+import 'package:for_u/presentation/views/captain/captain_home/view/screens/captain_home_view.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
-import 'package:for_u/presentation/views/cashier/support/view/screens/cashier_support_view.dart';
+import 'package:for_u/presentation/views/shared/support/view/screens/support_view.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:for_u/app/enums/enums.dart';
@@ -52,8 +53,13 @@ enum Routes {
 
   // Cashier routes
   cashierHome           ('cashier-home'),
-  cashierSupport        ('cashier-support'),
-  cashierOrderDetails   ('cashier-order-details');
+  cashierOrderDetails   ('cashier-order-details'),
+
+  // Captain routes
+  captainHome           ('captain-home'),
+
+  // Shared (cashier + captain)
+  support               ('support');
 
   final String name;
   const Routes(this.name);
@@ -72,16 +78,13 @@ Widget _slideFadeTransition(
   Animation<double> secondaryAnimation,
   Widget child,
 ) {
-  // Incoming screen: slide in from the right + fade in.
+
   final inCurve = CurvedAnimation(
     parent: animation,
     curve: Curves.easeInOut,
     reverseCurve: Curves.easeInOut,
   );
 
-  // Outgoing screen (the one being covered by the new route): drifts to the
-  // left ~25% and fades down to 60% opacity. Plays in reverse on pop, so the
-  // returning screen slides back in and fades up to full.
   final outCurve = CurvedAnimation(
     parent: secondaryAnimation,
     curve: Curves.easeInOut,
@@ -122,7 +125,7 @@ GoRoute _r({
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: NAVIGATOR_KEY,
-  initialLocation: Routes.cashierHome.path,
+  initialLocation: Routes.captainHome.path,
   routes: [
     _r(
       name: Routes.splash.name,
@@ -222,9 +225,9 @@ final GoRouter appRouter = GoRouter(
       builder: (_, __) => const CashierHomeView(),
     ),
     _r(
-      name: Routes.cashierSupport.name,
-      path: Routes.cashierSupport.path,
-      builder: (_, __) => const CashierSupportView(),
+      name: Routes.support.name,
+      path: Routes.support.path,
+      builder: (_, __) => const SupportView(),
     ),
     _r(
       name: Routes.cashierOrderDetails.name,
@@ -234,6 +237,11 @@ final GoRouter appRouter = GoRouter(
             ? state.extra as CashierOrderStatus
             : CashierOrderStatus.preparing,
       ),
+    ),
+    _r(
+      name: Routes.captainHome.name,
+      path: Routes.captainHome.path,
+      builder: (_, __) => const CaptainHomeView(),
     ),
   ],
 );

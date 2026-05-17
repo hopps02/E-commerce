@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 
-class CashierSupportIcon extends StatelessWidget {
-  const CashierSupportIcon({super.key});
+class SupportIcon extends StatelessWidget {
+  const SupportIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

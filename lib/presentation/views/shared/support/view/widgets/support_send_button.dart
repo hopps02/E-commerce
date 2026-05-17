@@ -8,10 +8,10 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/support/riverpod/cashier_support_controller.dart';
+import 'package:for_u/presentation/views/shared/support/riverpod/support_controller.dart';
 
-class CashierSupportSendButton extends ConsumerWidget {
-  const CashierSupportSendButton({super.key});
+class SupportSendButton extends ConsumerWidget {
+  const SupportSendButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +43,7 @@ class CashierSupportSendButton extends ConsumerWidget {
   }
 
   void _onSend(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(cashierSupportController.notifier);
+    final notifier = ref.read(supportController.notifier);
 
     if (notifier.nameController.text.trim().isEmpty) {
       notifier.nameFocusNode.requestFocus();

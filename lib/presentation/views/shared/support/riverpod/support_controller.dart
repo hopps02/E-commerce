@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 
-class CashierSupportNotifier extends Notifier<bool> {
+class SupportNotifier extends Notifier<bool> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
@@ -34,7 +34,7 @@ class CashierSupportNotifier extends Notifier<bool> {
 
 // true for success sending request
 // and with true state should close the page
-final cashierSupportController =
-    NotifierProvider.autoDispose<CashierSupportNotifier, bool>(
-      CashierSupportNotifier.new,
+final supportController =
+    NotifierProvider.autoDispose<SupportNotifier, bool>(
+      SupportNotifier.new,
     );

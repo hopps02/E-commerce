@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_components/custom_ink_button.dart';
 import 'package:for_u/app/ui_components/gradient_border_side.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
@@ -9,11 +9,11 @@ import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_language_bottom_sheet.dart';
+import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_language_bottom_sheet.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 
-class CashierHeaderActions extends StatelessWidget {
-  const CashierHeaderActions({super.key});
+class CaptainHeaderActions extends StatelessWidget {
+  const CaptainHeaderActions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class CashierHeaderActions extends StatelessWidget {
           child: _GlassButton(
             title: Translation.language.tr,
             iconPath: Assets.svg.language2.path,
-            onTap: () => CashierLanguageBottomSheet.show(context),
+            onTap: () => CaptainLanguageBottomSheet.show(context),
           ),
         ),
         8.horizontalSpace,
