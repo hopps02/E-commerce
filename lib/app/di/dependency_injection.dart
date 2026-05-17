@@ -19,24 +19,21 @@ class DI {
 
   static final _secureStorage             = Provider((ref) => SecureStorageService());
 
-  static final _sharedPrefsService        = Provider((ref) => SharedPrefsService(ref.watch(_sharedPreferences)));
+  static final _sharedPrefsService        = Provider((ref) => SharedPrefsService(ref.read(_sharedPreferences)));
 
-  static final _storageService            = Provider((ref) => StorageService(ref.watch(_secureStorage), ref.watch(_sharedPrefsService)));
+  static final _storageService            = Provider((ref) => StorageService(ref.read(_secureStorage), ref.read(_sharedPrefsService)));
 
   // --- Network ---
-  static final _dio                       = Provider((ref) => buildDio(ref.watch(_storageService)));
+  static final _dio                       = Provider((ref) => buildDio(ref.read(_storageService)));
 
-  static final _appServices               = Provider((ref) => AppServices(ref.watch(_dio)));
+  static final _appServices               = Provider((ref) => AppServices(ref.read(_dio)));
   // --- Domain & Data ---
-  static final _repository                = Provider((ref) => Repository(ref.watch(_appServices)));
+  static final _repository                = Provider((ref) => Repository(ref.read(_appServices)));
 
   // --- snack bar Helper
   static final _snackBarHelper            = Provider((ref) => SnackbarHelper());
 
   static final _loadingService            = Provider<LoadingManager>((ref) => OverlayLoadingManager());
-
-  // --- Use Cases ---
-  static final _authInitUseCase           = Provider.autoDispose((ref) => AuthInitUseCase(ref.watch(_repository)));
 
   /// Call this in your main.dart before runApp()
   static Future<void> init({ProviderContainer? container}) async {
@@ -58,7 +55,7 @@ extension DICoreServicesExtension on DI {
 }
 
 extension DIUseCasesExtension on DI {
-  AuthInitUseCase     get authInitUseCase  => DI.container.read(DI._authInitUseCase);
+  AuthInitUseCase     get authInitUseCase  => AuthInitUseCase(DI.container.read(DI._repository));
 }
 
 // dart format on
