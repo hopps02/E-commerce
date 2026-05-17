@@ -3,12 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_components/customized_smart_refresh.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assign_captain_bottom_sheet.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_order_card.dart';
+import 'package:for_u/app/enums/enums.dart';
 
 enum CashierOrdersDataType {
   preparation,
@@ -79,12 +83,26 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
           separatorBuilder: (_, _) => 16.verticalSpace,
           itemBuilder: (context, index) {
             if (widget.type.isPreparation) {
+              final requiresCaptain = index % 2 == 1;
               return CashierPreparationCard(
-                requiresCaptain: index % 2 == 1,
-                onTapAction: () {},
+                requiresCaptain: requiresCaptain,
+                onTapAction: requiresCaptain
+                    ? () => AssignCaptainBottomSheet.show(context)
+                    : () => context.pushNamed(
+                          Routes.cashierOrderDetails,
+                          arguments: CashierOrderStatus.preparing,
+                        ),
               );
             }
-            return CashierOnTheWayCard(onTapDetails: () {});
+            final delivered = index % 2 == 1;
+            return CashierOnTheWayCard(
+              onTapDetails: () => context.pushNamed(
+                Routes.cashierOrderDetails,
+                arguments: delivered
+                    ? CashierOrderStatus.delivered
+                    : CashierOrderStatus.inDelivery,
+              ),
+            );
           },
         ),
       ),

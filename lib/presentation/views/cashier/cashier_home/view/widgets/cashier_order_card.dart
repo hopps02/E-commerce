@@ -25,6 +25,7 @@ class CashierPreparationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     return _CardShell(
       children: [
         const _OrderHeader(),
@@ -254,7 +255,7 @@ class _LocationRow extends StatelessWidget {
     return Row(
       children: [
         SvgPicture.asset(
-          Assets.svg.location.path,
+          Assets.svg.borderLocation.path,
           width: 18.w,
           height: 18.w,
           colorFilter: const ColorFilter.mode(ColorM.gray950, BlendMode.srcIn),
@@ -441,7 +442,7 @@ class _LeadingArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      Icons.arrow_circle_left_rounded,
+      context.isLTR ? Icons.arrow_circle_right_rounded : Icons.arrow_circle_left_rounded,
       size: 18.w,
       color: color,
     );

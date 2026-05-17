@@ -118,6 +118,9 @@ class $AssetsSvgGen {
   SvgGenImage get bubbleCheck =>
       const SvgGenImage('assets/svg/bubble-check.svg');
 
+  /// File path: assets/svg/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/svg/calendar.svg');
+
   /// File path: assets/svg/circle-check.svg
   SvgGenImage get circleCheck =>
       const SvgGenImage('assets/svg/circle-check.svg');
@@ -204,6 +207,7 @@ class $AssetsSvgGen {
     borderReceipt,
     borderUser,
     bubbleCheck,
+    calendar,
     circleCheck,
     coloredArrow,
     deleteAccount,
