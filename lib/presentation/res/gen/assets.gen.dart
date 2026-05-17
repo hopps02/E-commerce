@@ -96,6 +96,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/border-bag.svg
   SvgGenImage get borderBag => const SvgGenImage('assets/svg/border-bag.svg');
 
+  /// File path: assets/svg/border-circle-check.svg
+  SvgGenImage get borderCircleCheck =>
+      const SvgGenImage('assets/svg/border-circle-check.svg');
+
   /// File path: assets/svg/border-heart.svg
   SvgGenImage get borderHeart =>
       const SvgGenImage('assets/svg/border-heart.svg');
@@ -114,12 +118,22 @@ class $AssetsSvgGen {
   /// File path: assets/svg/border-user.svg
   SvgGenImage get borderUser => const SvgGenImage('assets/svg/border-user.svg');
 
+  /// File path: assets/svg/box.svg
+  SvgGenImage get box => const SvgGenImage('assets/svg/box.svg');
+
   /// File path: assets/svg/bubble-check.svg
   SvgGenImage get bubbleCheck =>
       const SvgGenImage('assets/svg/bubble-check.svg');
 
   /// File path: assets/svg/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/svg/calendar.svg');
+
+  /// File path: assets/svg/call-calling.svg
+  SvgGenImage get callCalling =>
+      const SvgGenImage('assets/svg/call-calling.svg');
+
+  /// File path: assets/svg/car.svg
+  SvgGenImage get car => const SvgGenImage('assets/svg/car.svg');
 
   /// File path: assets/svg/circle-check.svg
   SvgGenImage get circleCheck =>
@@ -191,6 +205,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/user-pen.svg
   SvgGenImage get userPen => const SvgGenImage('assets/svg/user-pen.svg');
 
+  /// File path: assets/svg/user.svg
+  SvgGenImage get user => const SvgGenImage('assets/svg/user.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     addSquare,
@@ -201,13 +218,17 @@ class $AssetsSvgGen {
     bell,
     bin,
     borderBag,
+    borderCircleCheck,
     borderHeart,
     borderHome,
     borderLocation,
     borderReceipt,
     borderUser,
+    box,
     bubbleCheck,
     calendar,
+    callCalling,
+    car,
     circleCheck,
     coloredArrow,
     deleteAccount,
@@ -229,6 +250,7 @@ class $AssetsSvgGen {
     search,
     shoppingBasket,
     userPen,
+    user,
   ];
 }
 

@@ -5,11 +5,11 @@ import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/support/view/widgets/cashier_support_form.dart';
-import 'package:for_u/presentation/views/cashier/support/view/widgets/cashier_support_icon.dart';
+import 'package:for_u/presentation/views/shared/support/view/widgets/support_form.dart';
+import 'package:for_u/presentation/views/shared/support/view/widgets/support_icon.dart';
 
-class CashierSupportBody extends StatelessWidget {
-  const CashierSupportBody({super.key});
+class SupportBody extends StatelessWidget {
+  const SupportBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CashierSupportBody extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const CashierSupportIcon().premiumAppear(index: 1),
+          const SupportIcon().premiumAppear(index: 1),
           18.verticalSpace,
           Text(
             Translation.request_support.tr,
@@ -32,7 +32,7 @@ class CashierSupportBody extends StatelessWidget {
             ),
           ).premiumAppear(index: 2),
           40.verticalSpace,
-          const GeneralPadding(child: CashierSupportForm()).premiumAppear(index: 3),
+          const GeneralPadding(child: SupportForm()).premiumAppear(index: 3),
         ],
       ),
     );

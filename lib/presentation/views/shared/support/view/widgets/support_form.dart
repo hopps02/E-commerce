@@ -4,15 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/support/riverpod/cashier_support_controller.dart';
-import 'package:for_u/presentation/views/cashier/support/view/widgets/labeled_field.dart';
+import 'package:for_u/presentation/views/shared/support/riverpod/support_controller.dart';
+import 'package:for_u/presentation/views/shared/support/view/widgets/labeled_field.dart';
 
-class CashierSupportForm extends ConsumerWidget {
-  const CashierSupportForm({super.key});
+class SupportForm extends ConsumerWidget {
+  const SupportForm({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(cashierSupportController.notifier);
+    final notifier = ref.watch(supportController.notifier);
     return Column(
       children: [
         LabeledField(
