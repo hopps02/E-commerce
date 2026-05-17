@@ -17,7 +17,7 @@ import 'package:for_u/presentation/views/shared/auth/view/widgets/otp.dart';
 import 'package:for_u/presentation/views/shared/auth/view/widgets/resend_otp.dart';
 import 'package:for_u/presentation/views/shared/auth/view/widgets/otp_bottom_sheet_title.dart';
 import 'package:for_u/presentation/views/shared/auth/view/widgets/verify_otp_button.dart';
-import 'package:for_u/presentation/views/user/auth_success/view/screens/auth_success_view.dart';
+import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:for_u/app/ui_components/gradient_border_side.dart'
     as gradient_border;
@@ -67,7 +67,7 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
       padding:
           EdgeInsets.all(SizeM.pagePadding.dg) +
           EdgeInsets.only(
-            bottom: context.bottomViewInsets + context.bottomSafeAreaPadding,
+            bottom: context.bottomViewInsetsMedia + context.bottomSafeAreaPadding,
           ),
       width: double.infinity,
       decoration: ShapeDecoration(

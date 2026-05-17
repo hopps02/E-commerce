@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/app.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/screens/captain_home_view.dart';
+import 'package:for_u/presentation/views/captain/delivery_outcome/view/screens/captain_delivery_outcome_view.dart';
+import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
@@ -9,7 +11,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/presentation/views/shared/auth/view/screens/auth_view.dart';
-import 'package:for_u/presentation/views/user/auth_success/view/screens/auth_success_view.dart';
+import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm_order_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
@@ -17,7 +19,7 @@ import 'package:for_u/presentation/views/user/help_support/view/screens/help_sup
 import 'package:for_u/presentation/views/user/user_home/view/screens/user_home_view.dart';
 import 'package:for_u/presentation/views/user/language/view/screens/language_view.dart';
 import 'package:for_u/presentation/views/user/legal_policies/view/screens/legal_policies_view.dart';
-import 'package:for_u/presentation/views/user/onboarding/view/screens/onboarding_view.dart';
+import 'package:for_u/presentation/views/shared/onboarding/view/screens/onboarding_view.dart';
 import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
@@ -56,7 +58,9 @@ enum Routes {
   cashierOrderDetails   ('cashier-order-details'),
 
   // Captain routes
-  captainHome           ('captain-home'),
+  captainHome             ('captain-home'),
+  captainOrderDetails     ('captain-order-details'),
+  captainDeliveryOutcome  ('captain-delivery-outcome'),
 
   // Shared (cashier + captain)
   support               ('support');
@@ -125,7 +129,7 @@ GoRoute _r({
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: NAVIGATOR_KEY,
-  initialLocation: Routes.captainHome.path,
+  initialLocation: Routes.splash.path,
   routes: [
     _r(
       name: Routes.splash.name,
@@ -242,6 +246,27 @@ final GoRouter appRouter = GoRouter(
       name: Routes.captainHome.name,
       path: Routes.captainHome.path,
       builder: (_, __) => const CaptainHomeView(),
+    ),
+    _r(
+      name: Routes.captainOrderDetails.name,
+      path: Routes.captainOrderDetails.path,
+      builder: (_, state) => CaptainOrderDetailsView(
+        args: state.extra is CaptainOrderDetailsArgs
+            ? state.extra as CaptainOrderDetailsArgs
+            : const CaptainOrderDetailsArgs(),
+      ),
+    ),
+    _r(
+      name: Routes.captainDeliveryOutcome.name,
+      path: Routes.captainDeliveryOutcome.path,
+      builder: (_, state) => CaptainDeliveryOutcomeView(
+        args: state.extra is CaptainDeliveryOutcomeArgs
+            ? state.extra as CaptainDeliveryOutcomeArgs
+            : const CaptainDeliveryOutcomeArgs(
+                kind: CaptainDeliveryOutcomeKind.success,
+                orderId: '',
+              ),
+      ),
     ),
   ],
 );

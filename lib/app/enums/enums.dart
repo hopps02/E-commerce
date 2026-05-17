@@ -39,3 +39,42 @@ enum CashierOrderStatus {
   /// Bottom action button is hidden once the order has been handed off.
   bool get showsActionButton => isPreparing || isReadyForCaptain;
 }
+
+/// States for the captain order-details screen. Drives which footer buttons
+/// are visible, whether the status pill on the customer card shows up, and
+/// whether the cancellation-reason box is rendered.
+enum CaptainOrderStatus {
+  /// Just-arrived order. Footer: single "قبول واستلام الطلب" CTA.
+  upcoming,
+
+  /// Captain accepted but hasn't started delivery. Footer: green "بدء التوصيل"
+  /// + red-tinted "تعذر التوصيل".
+  received,
+
+  /// Out for delivery. Status pill on customer card. Footer: green
+  /// "تأكيد تسليم الطلب" + red-tinted "تعذر التوصيل".
+  inDelivery,
+
+  /// Delivered to customer. Read-only. Green pill on customer card.
+  delivered,
+
+  /// Failed delivery. Read-only. Red pill + cancellation-reason box at bottom.
+  cancelled;
+
+  bool get isUpcoming => this == upcoming;
+  bool get isReceived => this == received;
+  bool get isInDelivery => this == inDelivery;
+  bool get isDelivered => this == delivered;
+  bool get isCancelled => this == cancelled;
+
+  bool get isReadOnly => isDelivered || isCancelled;
+  bool get showsStatusPill => isInDelivery || isReadOnly;
+}
+
+enum CaptainDeliveryOutcomeKind {
+  success,
+  failure;
+
+  bool get isSuccess => this == success;
+  bool get isFailure => this == failure;
+}
