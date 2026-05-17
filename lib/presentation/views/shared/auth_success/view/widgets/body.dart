@@ -6,6 +6,7 @@ import 'package:for_u/app/ui_components/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/common/role_entry_dialog.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/app/enums/enums.dart';
@@ -47,11 +48,14 @@ class Body extends StatelessWidget {
           31.verticalSpace,
           // Start Shopping Button
           CustomInkButton(
-            onTap: () {
+            onTap: () async {
               if (successViewType.isOrder) {
                 context.popUntilNamed(Routes.home);
-              } else {
-                context.goNamed(Routes.home);
+                return;
+              }
+              final picked = await RoleEntryDialog.show(context);
+              if (picked != null && context.mounted) {
+                context.goNamed(picked);
               }
             },
             borderRadius: 12.r,

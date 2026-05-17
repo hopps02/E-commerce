@@ -4,7 +4,7 @@ import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/views/user/auth_success/view/screens/auth_success_view.dart';
+import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/widgets/confirm_order_app_bar.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/widgets/delivery_to.dart';

@@ -35,7 +35,7 @@ class AssignCaptainBottomSheet extends ConsumerWidget {
     return Container(
       width: double.infinity,
       height: 668.h,
-      margin: EdgeInsets.only(bottom: context.bottomViewInsets, top: 10.h),
+      margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia, top: 10.h),
       decoration: BoxDecoration(
         color: ColorM.white,
         borderRadius: BorderRadius.only(

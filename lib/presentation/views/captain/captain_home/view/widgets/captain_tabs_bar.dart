@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ class CaptainTabsBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    context.locale;
     final state = ref.watch(captainHomeController);
     final notifier = ref.read(captainHomeController.notifier);
 
@@ -30,7 +32,7 @@ class CaptainTabsBar extends ConsumerWidget {
           ),
           4.horizontalSpace,
           CaptainTabButton(
-            title: Translation.out_for_delivery.tr,
+            title: Translation.on_the_way_to_customer.tr,
             isSelected: state.selectedIndex == 1,
             onTap: () => notifier.onTabChange(1),
           ),
