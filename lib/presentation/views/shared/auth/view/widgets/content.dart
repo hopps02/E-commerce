@@ -23,7 +23,7 @@ class Content extends StatelessWidget {
       padding: EdgeInsets.all(12.r),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorM.lightPurple,
+        color: ColorM.lightGreen,
         borderRadius: BorderRadius.circular(24.r),
       ),
       child: Column(

@@ -38,7 +38,11 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
         child: AnimatedOnAppear(
           animationTypes: {AnimationType.fade, AnimationType.pulse},
           animationDuration: Duration(seconds: 1),
-          child: SvgPicture.asset(Assets.svg.appLogo.path, width: 155.w),
+          child: SvgPicture.asset(
+            Assets.svg.appLogo.path,
+            width: 155.w,
+            colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
+          ),
         ),
       ),
     );
