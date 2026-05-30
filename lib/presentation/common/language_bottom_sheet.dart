@@ -10,8 +10,9 @@ import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
-class CaptainLanguageBottomSheet extends StatefulWidget {
-  const CaptainLanguageBottomSheet({super.key});
+/// App language picker bottom sheet, shared across roles (cashier, captain, …).
+class LanguageBottomSheet extends StatefulWidget {
+  const LanguageBottomSheet({super.key});
 
   static Future<void> show(BuildContext context) async {
     return showModalBottomSheet<void>(
@@ -19,17 +20,15 @@ class CaptainLanguageBottomSheet extends StatefulWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       useSafeArea: true,
-      builder: (_) => const CaptainLanguageBottomSheet(),
+      builder: (_) => const LanguageBottomSheet(),
     );
   }
 
   @override
-  State<CaptainLanguageBottomSheet> createState() =>
-      _CaptainLanguageBottomSheetState();
+  State<LanguageBottomSheet> createState() => _LanguageBottomSheetState();
 }
 
-class _CaptainLanguageBottomSheetState
-    extends State<CaptainLanguageBottomSheet> {
+class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
   Locale? _selected;
 
   @override
