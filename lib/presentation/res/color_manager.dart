@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 // dart format off
 abstract class ColorM{
-  static const Color primary                = Color(0xFF5130EC);
-  static const Color primary50              = Color(0xFFF3F0FF);
-  static const Color primary100             = Color(0xFFE0DBFF);
-  static const Color primary200             = Color(0xFFC2B8FF);
-  static const Color primary400             = Color(0xFF7A63F5);
-  static const Color primary500             = Color(0xFF5130EC);
-  static const Color primary550             = Color(0xFF4526C9);
-  static const Color primary600             = Color(0xFF4526C9);
-  static const Color primary700             = Color(0xFF371DA3);
-  static const Color primary800             = Color(0xFF2A157D);
-  static const Color primary900             = Color(0xFF1E0F57);
-  static const Color lightPurple            = Color(0xFFF3F0FF);
-  static const Color secondary              = Color(0xFF5F5CA4);
+  static const Color primary                = Color(0xFF25D366);
+  static const Color primary50              = Color(0xFFE7F9EE);
+  static const Color primary100             = Color(0xFFC8F2D5);
+  static const Color primary200             = Color(0xFF9DE8B6);
+  static const Color primary400             = Color(0xFF4ADE80);
+  static const Color primary500             = Color(0xFF25D366);
+  static const Color primary550             = Color(0xFF128C7E);
+  static const Color primary600             = Color(0xFF128C7E);
+  static const Color primary700             = Color(0xFF0E7569);
+  static const Color primary800             = Color(0xFF075E54);
+  static const Color primary900             = Color(0xFF054640);
+  static const Color lightGreen             = Color(0xFFE7F9EE);
+  static const Color secondary              = Color(0xFFA45C5C);
   static const Color greenSecondary         = Color(0xFF2A9C64);
   static const Color greenPrimary           = Color(0xFF00422B);
-  
+
   static const Color gray50                 = Color(0xFFF4F4F4);
   static const Color gray100                = Color(0xFFF9FAFB);
   static const Color gray150                = Color(0xFFF7F7F7);
@@ -37,4 +37,5 @@ abstract class ColorM{
   static const Color transparent            = Colors.transparent;
   static const Color red                    = Color(0xFFEF4444);
 }
+
 
