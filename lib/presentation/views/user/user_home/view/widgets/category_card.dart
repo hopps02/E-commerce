@@ -24,7 +24,7 @@ class CategoryCard extends StatelessWidget {
       onTap: onTap,
       width: 109.w,
       height: 112.h,
-      backgroundColor: ColorM.lightPurple,
+      backgroundColor: ColorM.lightGreen,
       borderRadius: 12.r,
       child: Stack(
         children: [

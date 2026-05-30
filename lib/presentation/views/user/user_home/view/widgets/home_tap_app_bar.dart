@@ -114,6 +114,7 @@ class TopAppBarContent extends ConsumerWidget {
                 Assets.svg.appLogo.path,
                 width: 39.w,
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
               ),
             ],
           ),
