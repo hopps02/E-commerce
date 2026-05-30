@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:for_u/presentation/common/home_header_actions.dart';
+import 'package:for_u/presentation/common/home_top_app_bar.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_orders_slider.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/top_app_bar.dart';
+import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_tabs_bar.dart';
 
 class CashierHomeView extends ConsumerStatefulWidget {
   const CashierHomeView({super.key});
@@ -21,7 +23,13 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [TopAppBar()];
+          return const [
+            HomeTopAppBar(
+              headerActions: HomeHeaderActions(),
+              tabsBar: CashierTabsBar(),
+              tabsAboveSearch: true,
+            ),
+          ];
         },
         body: const CashierOrdersSlider(),
       ),

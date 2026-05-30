@@ -3,17 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_components/flex_text.dart';
 import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/presentation/common/language_bottom_sheet.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_language_bottom_sheet.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 
-class CaptainHeaderActions extends StatelessWidget {
-  const CaptainHeaderActions({super.key});
+/// The glass action buttons (support / language / log out) shown under the
+/// welcome text on the cashier and captain home headers.
+class HomeHeaderActions extends StatelessWidget {
+  const HomeHeaderActions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class CaptainHeaderActions extends StatelessWidget {
           child: _GlassButton(
             title: Translation.language.tr,
             iconPath: Assets.svg.language2.path,
-            onTap: () => CaptainLanguageBottomSheet.show(context),
+            onTap: () => LanguageBottomSheet.show(context),
           ),
         ),
         8.horizontalSpace,
@@ -69,6 +72,9 @@ class _GlassButton extends StatelessWidget {
       borderRadius: 14.r,
       backgroundColor: ColorM.white.withValues(alpha: 0.12),
       glassBlur: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: 5.w
+      ),
       keepBorderCrisp: true,
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
@@ -87,7 +93,7 @@ class _GlassButton extends StatelessWidget {
             colorFilter: const ColorFilter.mode(ColorM.white, BlendMode.srcIn),
           ),
           5.horizontalSpace,
-          Flexible(
+          FlexText(
             child: Text(
               title,
               overflow: TextOverflow.ellipsis,

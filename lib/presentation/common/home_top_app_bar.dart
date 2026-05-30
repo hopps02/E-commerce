@@ -9,13 +9,35 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_availability_switch.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_header_actions.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_tabs_bar.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
-class TopAppBar extends StatelessWidget {
-  const TopAppBar({super.key});
+/// Shared sliver app bar for the cashier and captain home screens.
+///
+/// The shell (clipped primary header, background shapes, welcome text and the
+/// search field) is identical between roles; the role-specific parts are passed
+/// in as slots:
+/// - [headerActions]: the actions row under the welcome text
+///   (e.g. the shared HomeHeaderActions).
+/// - [tabsBar]: the tabs row (e.g. CashierTabsBar / CaptainTabsBar).
+/// - [headerTrailing]: optional widget shown next to the welcome text
+///   (the captain's availability switch); omit it for the cashier.
+/// - [tabsAboveSearch]: whether the tabs sit above the search field
+///   (cashier) or below it (captain).
+class HomeTopAppBar extends StatelessWidget {
+  const HomeTopAppBar({
+    super.key,
+    this.welcomeName = "Ahmed",
+    required this.headerActions,
+    required this.tabsBar,
+    this.headerTrailing,
+    this.tabsAboveSearch = true,
+  });
+
+  final String welcomeName;
+  final Widget headerActions;
+  final Widget tabsBar;
+  final Widget? headerTrailing;
+  final bool tabsAboveSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +47,32 @@ class TopAppBar extends StatelessWidget {
       expandedHeight: 255.h,
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
-      flexibleSpace: const _TopSection(),
+      flexibleSpace: _TopSection(
+        welcomeName: welcomeName,
+        headerActions: headerActions,
+        headerTrailing: headerTrailing,
+      ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(128.h),
-        child: const _BottomSection(),
+        child: _BottomSection(
+          tabsBar: tabsBar,
+          tabsAboveSearch: tabsAboveSearch,
+        ),
       ),
     );
   }
 }
 
 class _TopSection extends StatelessWidget {
-  const _TopSection();
+  const _TopSection({
+    required this.welcomeName,
+    required this.headerActions,
+    this.headerTrailing,
+  });
+
+  final String welcomeName;
+  final Widget headerActions;
+  final Widget? headerTrailing;
 
   @override
   Widget build(BuildContext context) {
@@ -76,24 +113,23 @@ class _TopSection extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              Translation.welcome_back.trNamed({
-                                "name":
-                                    "Ahmed",
-                              }),
-                              maxLines: 1,
+                              Translation.welcome_back
+                                  .trNamed({"name": welcomeName}),
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: context.labelMedium.copyWith(
                                 color: ColorM.white,
                                 fontWeight: FontWeightM.semiBold,
                                 fontSize: 18.sp,
+                                height: 1.1
                               ),
                             ),
                           ),
-                          const CaptainAvailabilitySwitch(),
+                          ?headerTrailing,
                         ],
                       ),
                       21.verticalSpace,
-                      const CaptainHeaderActions(),
+                      headerActions,
                     ],
                   ),
                 ),
@@ -107,41 +143,56 @@ class _TopSection extends StatelessWidget {
 }
 
 class _BottomSection extends StatelessWidget {
-  const _BottomSection();
+  const _BottomSection({
+    required this.tabsBar,
+    required this.tabsAboveSearch,
+  });
+
+  final Widget tabsBar;
+  final bool tabsAboveSearch;
 
   @override
   Widget build(BuildContext context) {
-    // Subscribe to easy_localization's inherited widget so this section rebuilds
-    // when the user changes language. Without this line the SliverAppBar's
-    // `bottom` slot keeps handing us the same const child and Flutter skips the
-    // rebuild — leaving the tabs / search hint stale.
+    // Subscribe to easy_localization's inherited widget so this section
+    // rebuilds when the user changes language. Without this line the parent
+    // SliverAppBar's `bottom` slot keeps handing us the same const child and
+    // Flutter skips the rebuild — leaving the tabs / search hint stale.
     context.locale;
+
+    final search = SimpleForm(
+      height: 44.h,
+      fontSize: 14.sp,
+      borderRadius: 99999,
+      removeBorders: false,
+      borderColor: ColorM.gray300,
+      hintText: Translation.search_hint.tr,
+      keyboardType: TextInputType.text,
+      controller: TextEditingController(),
+      prefixWidget: SvgPicture.asset(
+        Assets.svg.search.path,
+        width: 18.w,
+        height: 18.w,
+        colorFilter: const ColorFilter.mode(
+          ColorM.gray600,
+          BlendMode.srcIn,
+        ),
+      ),
+    );
 
     return GeneralPadding(
       child: Column(
-        children: [
-          SimpleForm(
-            height: 44.h,
-            fontSize: 14.sp,
-            borderRadius: 99999,
-            removeBorders: false,
-            borderColor: ColorM.gray300,
-            hintText: Translation.search_hint.tr,
-            keyboardType: TextInputType.text,
-            controller: TextEditingController(),
-            prefixWidget: SvgPicture.asset(
-              Assets.svg.search.path,
-              width: 18.w,
-              height: 18.w,
-              colorFilter: const ColorFilter.mode(
-                ColorM.gray600,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          14.verticalSpace,
-          const CaptainTabsBar(),
-        ],
+        children: tabsAboveSearch
+            ? [
+                16.verticalSpace,
+                tabsBar,
+                16.verticalSpace,
+                search,
+              ]
+            : [
+                search,
+                14.verticalSpace,
+                tabsBar,
+              ],
       ),
     );
   }
