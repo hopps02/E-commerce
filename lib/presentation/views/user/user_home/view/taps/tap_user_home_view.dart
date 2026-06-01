@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/utils/after_layout.dart';
+import 'package:for_u/app/utils/mixins/after_layout.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/content_body.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/home_tap_app_bar.dart';

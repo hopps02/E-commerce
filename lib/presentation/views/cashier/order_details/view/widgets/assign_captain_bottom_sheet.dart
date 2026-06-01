@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';

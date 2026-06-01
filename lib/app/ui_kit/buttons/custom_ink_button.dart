@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 
-import 'gradient_border_side.dart';
+import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 
 /// Available animation presets for [CustomInkButton].
 ///

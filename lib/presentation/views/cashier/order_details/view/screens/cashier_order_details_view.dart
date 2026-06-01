@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/default_app_bar.dart';
+import 'package:for_u/app/ui_kit/default_app_bar.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';

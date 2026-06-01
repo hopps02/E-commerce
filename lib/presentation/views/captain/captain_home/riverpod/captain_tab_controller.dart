@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // dart format off

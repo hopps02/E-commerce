@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 
 import 'custom_form_field.dart';

@@ -40,7 +40,7 @@ Overall, the flow is designed to be quick, mobile-friendly, and aligned with sho
 ## 🔁 Data Flow
 
 1. User enters phone number in `AuthView`
-2. `AuthNotifier` validates the input using `FieldsValidator`
+2. `AuthView` validates the input using `validatePhoneNumber` (libphonenumber)
 3. On submit, `AuthNotifier` calls `AuthInitUseCase`
 4. `AuthInitUseCase` triggers `Repository.authInit()`
 5. Repository sends a POST request to `/auth/init` using `fastHandler`

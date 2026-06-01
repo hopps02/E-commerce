@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/utils/global_keyboard_dismissal.dart';
+import 'package:for_u/app/ui_kit/global_keyboard_dismissal.dart';
 
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/theme_manager.dart';

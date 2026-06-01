@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/theme_extensions.dart';
-import 'package:for_u/app/ui_components/custom_ink_button.dart';
+import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -11,7 +11,7 @@ import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/app/enums/enums.dart';
 
-import '../../../../../../app/ui_components/gradient_border_side.dart';
+import '../../../../../../app/ui_kit/shapes/gradient_border_side.dart';
 
 class Body extends StatelessWidget {
   final SuccessViewType successViewType;

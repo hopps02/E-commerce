@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/shared/support/riverpod/support_controller.dart';

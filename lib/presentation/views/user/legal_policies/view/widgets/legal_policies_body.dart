@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/custom_scrollbar.dart';
+import 'package:for_u/app/ui_kit/custom_scrollbar.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/views/user/legal_policies/view/widgets/policy_section.dart';

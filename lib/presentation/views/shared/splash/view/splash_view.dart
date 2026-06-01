@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/ui_components/animations/animated_on_appear.dart';
-import 'package:for_u/app/ui_components/animations/animations_enum.dart';
+import 'package:for_u/app/ui_kit/animations/animated_on_appear.dart';
+import 'package:for_u/app/ui_kit/animations/animations_enum.dart';
 import 'package:flutter/material.dart';
 
-import 'package:for_u/app/utils/after_layout.dart';
+import 'package:for_u/app/utils/mixins/after_layout.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

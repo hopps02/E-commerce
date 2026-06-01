@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 
 class OrderDetailsState extends Equatable {
   final ReqState reqState;

@@ -17,7 +17,7 @@ class CustomPopupMenu<T> extends StatelessWidget {
   final BorderSide side;
 
   const CustomPopupMenu({
-    Key? key,
+    super.key,
     required this.child,
     required this.items,
     this.onSelected,
@@ -28,7 +28,7 @@ class CustomPopupMenu<T> extends StatelessWidget {
     this.menuPadding,
     this.constraints,
     this.side = BorderSide.none,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

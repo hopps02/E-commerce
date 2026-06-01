@@ -5,8 +5,8 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
-import 'package:for_u/app/ui_components/custom_action_tile.dart';
-import 'package:for_u/app/ui_components/support_contact_card.dart';
+import 'package:for_u/app/ui_kit/custom_action_tile.dart';
+import 'package:for_u/app/ui_kit/support_contact_card.dart';
 
 class HelpSupportBody extends ConsumerWidget {
   const HelpSupportBody({super.key});

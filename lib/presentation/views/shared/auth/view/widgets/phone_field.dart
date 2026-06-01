@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/country_code_button.dart';
-import 'package:for_u/app/ui_components/custom_form_field/simple_form.dart';
+import 'package:for_u/app/ui_kit/buttons/country_code_button.dart';
+import 'package:for_u/app/utils/formatters/phone_input_formatter.dart';
+import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
@@ -41,6 +42,7 @@ class PhoneField extends StatelessWidget {
               keyboardType: TextInputType.number,
               controller: phoneNumberController,
               focusNode: phoneNumberFocusNode,
+              inputFormatters: phoneInputFormatters(authState.countryCode),
               onChanged: (value) {
                 authNotifier.onTextFieldChanged(value.isNotEmpty);
               },

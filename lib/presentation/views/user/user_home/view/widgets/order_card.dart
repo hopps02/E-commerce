@@ -7,8 +7,8 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/app/ui_components/custom_ink_button.dart';
-import 'package:for_u/app/ui_components/custom_cached_image.dart';
+import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/app/ui_kit/custom_cached_image.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class OrderCard extends StatelessWidget {

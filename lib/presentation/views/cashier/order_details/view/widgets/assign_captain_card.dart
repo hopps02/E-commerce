@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/custom_cached_image.dart';
-import 'package:for_u/app/ui_components/custom_ink_button.dart';
-import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/app/ui_kit/custom_cached_image.dart';
+import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';

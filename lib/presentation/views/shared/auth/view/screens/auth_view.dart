@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/app/utils/validator.dart';
+import 'package:for_u/app/validation/validate_phone_field.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
@@ -21,45 +20,24 @@ class AuthView extends ConsumerStatefulWidget {
 class _AuthViewState extends ConsumerState<AuthView> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusNode = FocusNode();
-  final FieldsValidator validatorMediator = FieldsValidator();
-  late EmptyPhoneValidator emptyPhoneValidator;
-  late InvalidPhoneValidator invalidPhoneValidator;
 
-  void onSendOtpCode(String dialCode) {
-    emptyPhoneValidator.text = phoneNumberController.text;
-    invalidPhoneValidator.text = phoneNumberController.text;
-    invalidPhoneValidator.countryCode = dialCode;
-    validatorMediator.validate(
-      (msg, validator) {
-        if (validator is EmptyPhoneValidator) {
-          phoneNumberFocusNode.requestFocus();
-        } else if (validator is InvalidPhoneValidator) {
-          DI().snackBarHelper.showMessage(
-            validator.errorMessage,
-            ErrorMessage.snackBar,
-          );
-        }
-      },
-      () {
-        DI().loadingService.show();
-        Future.delayed(Duration(seconds: 3), () {
-          DI().loadingService.hide();
-          if (mounted) {
-            OtpBottomSheet.show(
-              context,
-              mobileNumber: phoneNumberController.text,
-            );
-          }
-        });
-      },
+  Future<void> onSendOtpCode(String dialCode) async {
+    final isValid = await validatePhoneField(
+      dialCode: dialCode,
+      number: phoneNumberController.text,
+      focusNode: phoneNumberFocusNode,
     );
+    if (isValid) _sendOtp();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    emptyPhoneValidator = EmptyPhoneValidator(validatorMediator);
-    invalidPhoneValidator = InvalidPhoneValidator(validatorMediator);
+  void _sendOtp() {
+    DI().loadingService.show();
+    Future.delayed(const Duration(seconds: 3), () {
+      DI().loadingService.hide();
+      if (mounted) {
+        OtpBottomSheet.show(context, mobileNumber: phoneNumberController.text);
+      }
+    });
   }
 
   @override

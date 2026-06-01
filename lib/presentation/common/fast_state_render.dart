@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/error_widget.dart';
-import 'package:for_u/app/utils/state_render.dart';
+import 'package:for_u/app/ui_kit/indicators/error_widget.dart';
+import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';

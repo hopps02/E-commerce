@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:nice_text_form/nice_text_form.dart';
-import '../../utils/after_layout.dart';
+import '../../utils/mixins/after_layout.dart';
 
 class SecurityController {
   late Function() _refresher;

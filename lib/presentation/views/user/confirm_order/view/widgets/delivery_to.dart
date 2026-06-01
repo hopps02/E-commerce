@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:for_u/app/extensions/theme_extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/ui_components/gradient_border_side.dart';
+import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';

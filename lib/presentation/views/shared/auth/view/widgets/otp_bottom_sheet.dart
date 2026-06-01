@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_components/custom_ink_button.dart';
-import 'package:for_u/app/ui_components/otp_field.dart';
-import 'package:for_u/app/utils/after_layout.dart';
+import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/app/ui_kit/forms/otp_field.dart';
+import 'package:for_u/app/utils/mixins/after_layout.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -19,7 +19,7 @@ import 'package:for_u/presentation/views/shared/auth/view/widgets/otp_bottom_she
 import 'package:for_u/presentation/views/shared/auth/view/widgets/verify_otp_button.dart';
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:smooth_corner/smooth_corner.dart';
-import 'package:for_u/app/ui_components/gradient_border_side.dart'
+import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart'
     as gradient_border;
 
 class OtpBottomSheet extends ConsumerStatefulWidget {
