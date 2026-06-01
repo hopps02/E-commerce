@@ -32,14 +32,15 @@ extension PremiumAppearAnimation on Widget {
       delay: baseDelay + (index * 80),
       slideDistance: 30.0,
       slideDirection: SlideDirection.up,
-      animationDuration: const Duration(milliseconds: 700),
-      animationCurve: Curves.easeOutCubic,
+      animationDuration: const Duration(milliseconds: 500),
+      animationCurve: Curves.fastEaseInToSlowEaseOut ,//Curves.easeOutCirc, // easeInOutCirc
+      exitCurve: Curves.fastEaseInToSlowEaseOut,
       animationTypes: const {
         AnimationType.slide,
         AnimationType.fade,
         AnimationType.scale,
       },
-      scaleSize: 0.96,
+      scaleSize: 0.98,
       wantKeepAlive: wantKeepAlive,
       child: this,
     );

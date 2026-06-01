@@ -1,8 +1,7 @@
 import 'dart:async';
 
+import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/ui_kit/animations/animated_on_appear.dart';
-import 'package:for_u/app/ui_kit/animations/animations_enum.dart';
 import 'package:flutter/material.dart';
 
 import 'package:for_u/app/utils/mixins/after_layout.dart';
@@ -35,15 +34,11 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
           ),
         ),
         alignment: Alignment.center,
-        child: AnimatedOnAppear(
-          animationTypes: {AnimationType.fade, AnimationType.pulse},
-          animationDuration: Duration(seconds: 1),
-          child: SvgPicture.asset(
-            Assets.svg.appLogo.path,
-            width: 155.w,
-            colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
-          ),
-        ),
+        child: SvgPicture.asset(
+          Assets.svg.appLogo.path,
+          width: 155.w,
+          colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
+        ).premiumAppear(),
       ),
     );
   }
