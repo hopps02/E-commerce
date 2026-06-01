@@ -42,6 +42,7 @@ class PhoneField extends StatelessWidget {
               keyboardType: TextInputType.number,
               controller: phoneNumberController,
               focusNode: phoneNumberFocusNode,
+              textDirection: TextDirection.ltr,
               inputFormatters: phoneInputFormatters(authState.countryCode),
               onChanged: (value) {
                 authNotifier.onTextFieldChanged(value.isNotEmpty);

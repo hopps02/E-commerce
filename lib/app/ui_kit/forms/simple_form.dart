@@ -47,6 +47,7 @@ class SimpleForm extends StatelessWidget {
   final bool enableActiveBorder;
   final TextAlign textAlign;
   final Color? borderColor;
+  final TextDirection? textDirection;
 
   const SimpleForm({
     super.key,
@@ -85,6 +86,7 @@ class SimpleForm extends StatelessWidget {
     this.enableActiveBorder = false,
     this.textAlign = TextAlign.start,
     this.borderColor,
+    this.textDirection,
   });
 
   @override
@@ -96,6 +98,7 @@ class SimpleForm extends StatelessWidget {
       enableCustomValidation: enableCustomValidation,
       customValidators: customValidators,
       textAlign: textAlign,
+      textDirection: textDirection,
       prefixWidget: prefixWidget,
       height: height ?? 52.h,
       width: double.infinity,

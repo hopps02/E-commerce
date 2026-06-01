@@ -4,6 +4,8 @@ import 'package:for_u/app/utils/overlay_loading/overlay_loading.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../presentation/res/color_manager.dart';
+
 abstract class LoadingManager {
   void show({
     LoadingType loadingType,

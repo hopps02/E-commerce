@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/utils/logger/app_logger.dart';
 import 'package:for_u/app/validation/validate_phone_field.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/common/general_padding.dart';

@@ -24,6 +24,11 @@ class AppLogger {
     // DevelopmentFilter silences all logs in release, regardless of level.)
     filter: ProductionFilter(),
     printer: PrettyPrinter(
+      // Drop this class's wrapper frames so the printed location points at the
+      // real caller (e.g. auth_view.dart), not app_logger.dart. Unlike
+      // stackTraceBeginIndex, this filters the frame out entirely, so explicit
+      // error stack traces stay intact.
+      excludePaths: const ['package:for_u/app/utils/logger/'],
       methodCount: 1,
       errorMethodCount: 8,
       lineLength: 100,
