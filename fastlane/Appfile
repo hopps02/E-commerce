@@ -1,14 +1,7 @@
-app_identifier "com.azsystem.fouru" # your bundle id
+app_identifier "com.utr.foryou" # iOS bundle id
 
-# You should put the email of the person who owns 
-# the Apple Developer account or has "Admin" 
-# or "App Manager" access to this specific app.
-apple_id "qeqweq"     # example placeholder
-
-# To find your Team ID:
-# 1. Go to https://appstoreconnect.apple.com
-# 2. Click on "Users and Access" > "Membership"
-# 3. Your Team ID will be displayed there
-# 4. It is a string of letters and numbers (e.g., X12345678)
-itc_team_id "12312312"                # App Store Connect team id
-team_id "asdasdad"                    # Development team id
+# Apple account that owns the app (Admin / App Manager on UTR's account).
+# Fill these with UTR's real Apple Developer values before uploading:
+apple_id ENV["APPLE_ID"]              # e.g. "dev@utr.sa"
+itc_team_id ENV["ITC_TEAM_ID"]        # App Store Connect team id (Users and Access > Membership)
+team_id ENV["DEV_TEAM_ID"]            # Apple Developer (signing) team id, e.g. "X12345678"
