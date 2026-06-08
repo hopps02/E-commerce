@@ -105,6 +105,13 @@
   "order_now": "طلب الآن",
   "orders": "الطلبات",
   "order_details": "تفاصيل الطلب",
+  "rate": "تقييم",
+  "how_was_your_experience": "كيف كانت تجربتك ؟",
+  "share_your_experience": "شاركنا تجربتك",
+  "rating_delivery_rep": "مندوب التوصيل",
+  "rating_order_match": "مطابقة الطلب",
+  "rating_delivery_speed": "سرعة التوصيل",
+  "share_experience_hint": "شاركنا تفاصيل تجربتك....",
   "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي.",
 
   "_comment_profile": "===== Profile =====",
@@ -134,6 +141,9 @@
   "location_permissions_permanently_denied": "تم رفض الوصول للموقع بشكل دائم. يرجى تفعيله يدوياً من إعدادات الهاتف لنتمكن من التوصيل لموقعك.",
   "unknown_location": "موقع غير معروف",
   "something_is_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى.",
+  "service_unavailable_in_area": "الخدمة غير متاحة حالياً في منطقتك",
+  "out_of_delivery_range": "خارج نطاق التوصيل",
+  "out_of_delivery_range_desc": "لا نوصل إلى هذا العنوان حالياً. نعمل على توسيع تغطيتنا قريباً، ويمكنك المحاولة مرة أخرى أو اختيار موقع مختلف.",
 
   "_comment_merchant_orders": "===== Merchant / Orders Flow =====",
   "welcome_back": "أهلاً بعودتك، {name}",

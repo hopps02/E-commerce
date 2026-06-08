@@ -27,6 +27,10 @@ class ContentBody extends ConsumerWidget {
       reqState: ReqState.success /* tapHomeState.reqState */,
       alignment: Alignment(0, -0.2),
       errorMessage: tapHomeState.errorMessage,
+      isOutOfCoverage: true,//tapHomeState.isOutOfCoverage,
+      onRetry: () {
+
+      },
       child: Body(bottomSafeAreaPadding: bottomSafeAreaPadding),
     );
   }

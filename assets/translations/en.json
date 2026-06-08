@@ -105,6 +105,13 @@
   "order_now": "Order Now",
   "orders": "Orders",
   "order_details": "Order Details",
+  "rate": "Rate",
+  "how_was_your_experience": "How was your experience?",
+  "share_your_experience": "Share your experience",
+  "rating_delivery_rep": "Delivery rep",
+  "rating_order_match": "Order match",
+  "rating_delivery_speed": "Delivery speed",
+  "share_experience_hint": "Share the details of your experience....",
   "no_data_found": "Oops, there's no data to show right now.",
 
   "_comment_profile": "===== Profile =====",
@@ -134,6 +141,9 @@
   "location_permissions_permanently_denied": "Location access is permanently denied. Please enable it manually from your phone settings to allow us to deliver to your location.",
   "unknown_location": "Unknown Location",
   "something_is_wrong": "Something went wrong, please try again.",
+  "service_unavailable_in_area": "The service is currently unavailable in your area",
+  "out_of_delivery_range": "Out of delivery range",
+  "out_of_delivery_range_desc": "We don't deliver to this address yet. We're working on expanding our coverage soon — you can try again or choose a different location.",
 
   "_comment_merchant_orders": "===== Merchant / Orders Flow =====",
   "welcome_back": "Welcome back, {name}",

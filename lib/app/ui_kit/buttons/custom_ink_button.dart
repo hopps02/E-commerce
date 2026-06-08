@@ -134,10 +134,13 @@ class CustomInkButtonController extends ChangeNotifier {
   ButtonAnimationSettings? _pressEffectOverride;
 
   ButtonAnimationSettings get pending => _pending;
+
   int get tick => _tick;
 
   ButtonAnimationSettings? get tap => _tapOverride;
+
   ButtonAnimationSettings? get longPress => _longPressOverride;
+
   ButtonAnimationSettings? get pressEffect => _pressEffectOverride;
 
   /// Plays [settings] as a one-shot. Calling again replays from the start.
@@ -191,6 +194,7 @@ class CustomInkButtonController extends ChangeNotifier {
       intensity: intensity,
     ),
   );
+
   void pulse({Duration? duration, double intensity = 1.0}) => play(
     ButtonAnimationSettings(
       ButtonAnimation.pulse,
@@ -198,6 +202,7 @@ class CustomInkButtonController extends ChangeNotifier {
       intensity: intensity,
     ),
   );
+
   void jump({Duration? duration, double intensity = 1.0}) => play(
     ButtonAnimationSettings(
       ButtonAnimation.jump,
@@ -205,6 +210,7 @@ class CustomInkButtonController extends ChangeNotifier {
       intensity: intensity,
     ),
   );
+
   void bounce({Duration? duration, double intensity = 1.0}) => play(
     ButtonAnimationSettings(
       ButtonAnimation.bounce,
@@ -212,6 +218,7 @@ class CustomInkButtonController extends ChangeNotifier {
       intensity: intensity,
     ),
   );
+
   void wiggle({Duration? duration, double intensity = 1.0}) => play(
     ButtonAnimationSettings(
       ButtonAnimation.wiggle,
@@ -219,6 +226,7 @@ class CustomInkButtonController extends ChangeNotifier {
       intensity: intensity,
     ),
   );
+
   void tilt({Duration? duration, double intensity = 1.0}) => play(
     ButtonAnimationSettings(
       ButtonAnimation.tilt,
@@ -415,8 +423,10 @@ class _CustomInkButtonState extends State<CustomInkButton>
 
   ButtonAnimationSettings get _effectiveTap =>
       widget.controller?.tap ?? widget.tap;
+
   ButtonAnimationSettings get _effectiveLongPress =>
       widget.controller?.longPress ?? widget.longPress;
+
   ButtonAnimationSettings get _effectivePressEffect =>
       widget.controller?.pressEffect ?? widget.pressEffect;
 
@@ -630,7 +640,10 @@ class _CustomInkButtonState extends State<CustomInkButton>
         widget.keepBorderCrisp &&
         widget.side != GradientBorderSide.none;
 
-    final BorderRadius radius = BorderRadius.circular(widget.borderRadius ?? 6);
+    final BorderRadius radius =
+        widget.borderRadius == null && widget.customBorderRadius != null
+        ? widget.customBorderRadius!
+        : BorderRadius.circular(widget.borderRadius ?? 6);
 
     Widget inner = Container(
       clipBehavior: widget.clipBehavior == Clip.none && blur != null

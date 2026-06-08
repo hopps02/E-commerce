@@ -106,6 +106,13 @@ enum Translation {
   order_now,
   orders,
   order_details,
+  rate,
+  how_was_your_experience,
+  share_your_experience,
+  rating_delivery_rep,
+  rating_order_match,
+  rating_delivery_speed,
+  share_experience_hint,
 
   // Profile
   name,
@@ -137,6 +144,9 @@ enum Translation {
   unknown_location,
   something_is_wrong,
   add_to_cart,
+  service_unavailable_in_area,
+  out_of_delivery_range,
+  out_of_delivery_range_desc,
 
   // Merchant / Orders Flow
   welcome_back,

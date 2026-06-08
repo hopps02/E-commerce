@@ -36,7 +36,7 @@ class Otp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
             side: GradientBorderSide(
               gradient: LinearGradient(
-                colors: [ColorM.primary, ColorM.secondary],
+                colors: [ColorM.primary, ColorM.greenPrimary],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),

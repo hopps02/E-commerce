@@ -4,6 +4,7 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/indicators/error_widget.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/presentation/common/out_of_coverage_body.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -26,6 +27,11 @@ class FastStateRender extends StatelessWidget {
   /// Error retry function
   final VoidCallback? onRetry;
 
+  /// When true, the out-of-delivery-coverage UI is shown instead of any other
+  /// state. Driven by the selected location, so it can be flipped on from any
+  /// screen without touching [reqState].
+  final bool isOutOfCoverage;
+
   /// alignment of loading, error, empty states
   final AlignmentGeometry alignment;
 
@@ -34,6 +40,7 @@ class FastStateRender extends StatelessWidget {
     required this.reqState,
     this.errorMessage = "",
     this.onRetry,
+    this.isOutOfCoverage = false,
     this.alignment = Alignment.center,
     this.idleChild,
     required this.child,
@@ -42,6 +49,10 @@ class FastStateRender extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isOutOfCoverage) {
+      return OutOfCoverageBody(onRetry: onRetry);
+    }
+
     return StateRender(
       reqState: reqState,
       loading: (context) {

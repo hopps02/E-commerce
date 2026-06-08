@@ -212,6 +212,7 @@ class _CartItemCardState extends State<CartItemCard> {
                             child: SvgPicture.asset(
                               Assets.svg.addSquare.path,
                               width: 20.w,
+                              colorFilter: ColorFilter.mode(ColorM.primary550, BlendMode.srcIn),
                             ),
                           ),
                           Text(

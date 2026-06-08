@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 // dart format off
 abstract class ColorM{
   static const Color primary                = Color(0xFF25D366);
-  static const Color primary50              = Color(0xFFE7F9EE);
-  static const Color primary100             = Color(0xFFC8F2D5);
-  static const Color primary200             = Color(0xFF9DE8B6);
-  static const Color primary400             = Color(0xFF4ADE80);
+  static const Color primary50              = Color(0xFFD7F4E4);
+  static const Color primary100             = Color(0xFFB6ECCE);
+  static const Color primary200             = Color(0xFF85E0AE);
+  static const Color primary300             = Color(0xFF54D490);
+  static const Color primary400             = Color(0xFF34CF7C);
   static const Color primary500             = Color(0xFF25D366);
-  static const Color primary550             = Color(0xFF128C7E);
+  static const Color primary550             = Color(0xFF1AAE6E);
   static const Color primary600             = Color(0xFF128C7E);
   static const Color primary700             = Color(0xFF0E7569);
   static const Color primary800             = Color(0xFF075E54);
   static const Color primary900             = Color(0xFF054640);
   static const Color lightGreen             = Color(0xFFE7F9EE);
   static const Color secondary              = Color(0xFFA45C5C);
+  static const Color orange                 = Color(0xFFE1712A);
+  static const Color gold                   = Color(0xFFFFC120);
+  static const Color darkNavy               = Color(0xFF2B2E48);
+  static const Color offWhite               = Color(0xFFFAFAFA);
+  static const Color slate                  = Color(0xFFB3BECD);
   static const Color greenSecondary         = Color(0xFF2A9C64);
   static const Color greenPrimary           = Color(0xFF00422B);
 

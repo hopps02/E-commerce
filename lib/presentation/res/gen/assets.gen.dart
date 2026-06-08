@@ -172,6 +172,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/language2.svg
   SvgGenImage get language2 => const SvgGenImage('assets/svg/language2.svg');
 
+  /// File path: assets/svg/location-map.svg
+  SvgGenImage get locationMap =>
+      const SvgGenImage('assets/svg/location-map.svg');
+
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
 
@@ -201,6 +205,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/shopping-basket.svg
   SvgGenImage get shoppingBasket =>
       const SvgGenImage('assets/svg/shopping-basket.svg');
+
+  /// File path: assets/svg/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/svg/star.svg');
 
   /// File path: assets/svg/user-pen.svg
   SvgGenImage get userPen => const SvgGenImage('assets/svg/user-pen.svg');
@@ -240,6 +247,7 @@ class $AssetsSvgGen {
     info,
     language,
     language2,
+    locationMap,
     location,
     logout,
     logout2,
@@ -249,6 +257,7 @@ class $AssetsSvgGen {
     saudiRiyalSymbol,
     search,
     shoppingBasket,
+    star,
     userPen,
     user,
   ];

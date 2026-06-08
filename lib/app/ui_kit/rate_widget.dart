@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:flutter_svg/svg.dart';
 
 class RateWidget extends StatefulWidget {
   final Function(double rate) onRateChange;
@@ -14,6 +14,11 @@ class RateWidget extends StatefulWidget {
   final IconData filledIcon;
   final IconData halfFilledIcon;
   final IconData unfilledIcon;
+
+  /// Optional SVG asset used to render each star instead of [filledIcon] /
+  /// [unfilledIcon]. The asset is tinted with [activeColor] when selected and
+  /// [inactiveColor] otherwise. Half ratings are not supported with an asset.
+  final String? starAsset;
   final bool readonly;
   final MainAxisAlignment alignment;
   final EdgeInsets padding;
@@ -30,6 +35,7 @@ class RateWidget extends StatefulWidget {
     this.filledIcon = Icons.star,
     this.halfFilledIcon = Icons.star_half,
     this.unfilledIcon = Icons.star_border,
+    this.starAsset,
     this.readonly = false,
     this.alignment = MainAxisAlignment.center,
     this.padding = EdgeInsets.zero,
@@ -109,6 +115,15 @@ class _RateWidgetState extends State<RateWidget> {
     } else {
       icon = widget.unfilledIcon;
       color = inactiveColor;
+    }
+
+    if (widget.starAsset != null) {
+      return SvgPicture.asset(
+        widget.starAsset!,
+        width: widget.size,
+        height: widget.size,
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      );
     }
 
     return Icon(icon, color: color, size: widget.size);
