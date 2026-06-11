@@ -1,0 +1,31 @@
+# Finish: JAR-000385 is ready_for_pickup -> its card action opens the assign
+# sheet directly -> pick the available captain -> real assignment.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*JAR-000385.*"
+    timeout: 20000
+- takeScreenshot: /tmp/qa-c6b-ready-card
+- tapOn:
+    point: 50%,67%
+- extendedWaitUntil:
+    visible: ".*اكتمل اليوم.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-c7-captains-sheet
+- tapOn: ".*ناصر.*"
+- waitForAnimationToEnd
+- tapOn:
+    point: 50%,95%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*للتوصيل.*"
+    timeout: 15000
+- tapOn: ".*للتوصيل.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*JAR-000385.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-c8-assigned-ontheway

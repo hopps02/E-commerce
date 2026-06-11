@@ -90,6 +90,7 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
             return CaptainOrderCard(
               status: _cardStatusFor(order),
               orderId: '#${order.orderNumber}',
+              createdAt: order.createdAt,
               address: order.addressLine,
               customerName: order.customer?.name ?? '',
               onTapOpen: () => _openDetails(order),

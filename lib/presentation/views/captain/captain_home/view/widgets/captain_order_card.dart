@@ -25,6 +25,7 @@ enum CaptainOrderStatus {
 class CaptainOrderCard extends StatelessWidget {
   final CaptainOrderStatus status;
   final String orderId;
+  final DateTime? createdAt;
   final String address;
   final String customerName;
   final VoidCallback onTapOpen;
@@ -34,6 +35,7 @@ class CaptainOrderCard extends StatelessWidget {
     super.key,
     required this.status,
     required this.orderId,
+    required this.createdAt,
     required this.address,
     required this.customerName,
     required this.onTapOpen,
@@ -56,7 +58,7 @@ class CaptainOrderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _OrderHeader(orderId: orderId),
+          _OrderHeader(orderId: orderId, createdAt: createdAt),
           10.verticalSpace,
           const _Divider(),
           10.verticalSpace,
@@ -84,7 +86,8 @@ class _Divider extends StatelessWidget {
 
 class _OrderHeader extends StatelessWidget {
   final String orderId;
-  const _OrderHeader({required this.orderId});
+  final DateTime? createdAt;
+  const _OrderHeader({required this.orderId, required this.createdAt});
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +130,12 @@ class _OrderHeader extends StatelessWidget {
           ],
         ),
         Text(
-          easy.DateFormat(
-            "MMMM d, yyyy h:mm a",
-            context.locale.languageCode,
-          ).format(DateTime.now()),
+          createdAt == null
+              ? ''
+              : easy.DateFormat(
+                  "MMMM d, yyyy h:mm a",
+                  context.locale.languageCode,
+                ).format(createdAt!.toLocal()),
           style: context.labelMedium.copyWith(color: ColorM.gray600),
         ),
       ],
