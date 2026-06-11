@@ -1,0 +1,22 @@
+# Continuation: the captain session is live and JAR-000386 is out_for_delivery.
+# Open it from the in-delivery tab and confirm the REAL delivery.
+appId: com.utr.foryou
+---
+- launchApp
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*ناصر.*"
+    timeout: 20000
+- tapOn: "للتوصيل"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*JAR-.*"
+    timeout: 15000
+- tapOn: ".*فتح.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*تأكيد تسليم الطلب.*"
+    timeout: 15000
+- tapOn: ".*تأكيد تسليم الطلب.*"
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/4u-p3-delivered-final

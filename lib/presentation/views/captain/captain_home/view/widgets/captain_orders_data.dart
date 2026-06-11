@@ -1,18 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/enums/enums.dart' as enums;
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
+import 'package:for_u/data/models/captain/captain_models.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_order_card.dart';
 import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum CaptainOrdersDataType {
   upcoming,
@@ -22,6 +21,12 @@ enum CaptainOrdersDataType {
   bool get isUpcoming => this == upcoming;
   bool get isInDelivery => this == inDelivery;
   bool get isCompleted => this == completed;
+
+  String get queue => switch (this) {
+    CaptainOrdersDataType.upcoming => CaptainHomeNotifier.upcomingQueue,
+    CaptainOrdersDataType.inDelivery => CaptainHomeNotifier.inDeliveryQueue,
+    CaptainOrdersDataType.completed => CaptainHomeNotifier.completedQueue,
+  };
 }
 
 class CaptainOrdersData extends ConsumerStatefulWidget {
@@ -57,13 +62,11 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
       CaptainOrdersDataType.completed => notifier.completedRefreshController,
     };
 
-    final itemCount = widget.type.isCompleted ? 12 : 8;
-
     return FastStateRender(
       reqState: state.reqState,
       errorMessage: state.msgError,
       alignment: const Alignment(0, -0.4),
-      onRetry: () {},
+      onRetry: () => notifier.refreshQueue(widget.type.queue),
       child: CustomizedSmartRefresh(
         controller: refreshController,
         enableLoading: true,
@@ -71,16 +74,8 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
         classicFooterPadding: EdgeInsets.only(
           bottom: context.bottomSafeAreaPadding + 16.h,
         ),
-        onLoading: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.loadComplete();
-          });
-        },
-        onRefresh: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.refreshCompleted();
-          });
-        },
+        onLoading: () => notifier.loadMore(widget.type.queue),
+        onRefresh: () => notifier.refreshQueue(widget.type.queue),
         child: ListView.separated(
           padding: EdgeInsets.only(
             left: SizeM.pagePadding.w,
@@ -88,29 +83,17 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
             top: 12.h,
             bottom: 16.h,
           ),
-          itemCount: itemCount,
+          itemCount: state.orders.length,
           separatorBuilder: (_, _) => 16.verticalSpace,
           itemBuilder: (context, index) {
-            final status = switch (widget.type) {
-              CaptainOrdersDataType.upcoming => CaptainOrderStatus.upcoming,
-              CaptainOrdersDataType.inDelivery => CaptainOrderStatus.inDelivery,
-              CaptainOrdersDataType.completed =>
-                index.isEven
-                    ? CaptainOrderStatus.delivered
-                    : CaptainOrderStatus.cancelled,
-            };
+            final order = state.orders[index];
             return CaptainOrderCard(
-              status: status,
-              orderId: '#${6757 + index}',
-              address: 'شارع 14 , تبوك',
-              customerName: 'فاطمة علي',
-              onTapOpen: () => context.pushNamed(
-                Routes.captainOrderDetails,
-                arguments: CaptainOrderDetailsArgs(
-                  initialStatus: _detailsStatusFor(widget.type, status),
-                ),
-              ),
-              onTapCall: () {},
+              status: _cardStatusFor(order),
+              orderId: '#${order.orderNumber}',
+              address: order.addressLine,
+              customerName: order.customer?.name ?? '',
+              onTapOpen: () => _openDetails(order),
+              onTapCall: () => _callCustomer(order.customer?.phone),
             );
           },
         ),
@@ -118,22 +101,31 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
     );
   }
 
-  /// Maps a home-tab + card-status combination to the order-details initial
-  /// status. Upcoming-tab cards open in `upcoming`; in-delivery cards open in
-  /// `inDelivery`; completed cards open either `delivered` or `cancelled`.
-  enums.CaptainOrderStatus _detailsStatusFor(
-    CaptainOrdersDataType tab,
-    CaptainOrderStatus cardStatus,
-  ) {
-    switch (tab) {
-      case CaptainOrdersDataType.upcoming:
-        return enums.CaptainOrderStatus.upcoming;
-      case CaptainOrdersDataType.inDelivery:
-        return enums.CaptainOrderStatus.inDelivery;
-      case CaptainOrdersDataType.completed:
-        return cardStatus.isCancelled
-            ? enums.CaptainOrderStatus.cancelled
-            : enums.CaptainOrderStatus.delivered;
-    }
+  Future<void> _openDetails(CaptainOrder order) async {
+    await context.pushNamed(
+      Routes.captainOrderDetails,
+      arguments: CaptainOrderDetailsArgs(orderId: order.id),
+    );
+    // The captain may have moved the order forward inside; reload the queues.
+    if (mounted) ref.read(captainHomeController.notifier).loadInitial();
   }
+
+  /// The phone is the only contact channel (no in-app chat in v1).
+  Future<void> _callCustomer(String? phone) async {
+    if (phone == null || phone.isEmpty) return;
+    await launchUrl(Uri(scheme: 'tel', path: phone));
+  }
+
+  /// The card's own status enum drives its footer; received orders still
+  /// show as upcoming work in the queue card.
+  CaptainOrderStatus _cardStatusFor(CaptainOrder order) =>
+      switch (order.uiStatus) {
+        null => CaptainOrderStatus.upcoming,
+        final status => switch (status.name) {
+          'upcoming' || 'received' => CaptainOrderStatus.upcoming,
+          'inDelivery' => CaptainOrderStatus.inDelivery,
+          'delivered' => CaptainOrderStatus.delivered,
+          _ => CaptainOrderStatus.cancelled,
+        },
+      };
 }

@@ -75,19 +75,18 @@ class CaptainOrderDetailsFooter extends ConsumerWidget {
             onTap: notifier.startDelivery,
           ),
           12.verticalSpace,
-          _FailureButton(orderId: _orderIdFromState(ref)),
+          const _FailureButton(),
         ];
       case CaptainOrderStatus.inDelivery:
-        final orderId = _orderIdFromState(ref);
         return [
           _PrimaryButton(
             label: Translation.confirm_order_delivery.tr,
             backgroundColor: const Color(0xFF109642),
             icon: Icons.check_circle_outline_rounded,
-            onTap: () => _onConfirmDelivery(context, notifier, orderId),
+            onTap: () => _onConfirmDelivery(context, ref, notifier),
           ),
           12.verticalSpace,
-          _FailureButton(orderId: orderId),
+          const _FailureButton(),
         ];
       case CaptainOrderStatus.delivered:
       case CaptainOrderStatus.cancelled:
@@ -95,22 +94,22 @@ class CaptainOrderDetailsFooter extends ConsumerWidget {
     }
   }
 
-  String _orderIdFromState(WidgetRef ref) =>
-      ref.read(captainOrderDetailsController).orderId;
-
   Future<void> _onConfirmDelivery(
     BuildContext context,
+    WidgetRef ref,
     CaptainOrderDetailsNotifier notifier,
-    String orderId,
   ) async {
-    notifier.markDelivered();
-    await context.pushNamed(
-      Routes.captainDeliveryOutcome,
-      arguments: CaptainDeliveryOutcomeArgs(
-        kind: CaptainDeliveryOutcomeKind.success,
-        orderId: orderId,
-      ),
-    );
+    final orderNumber = ref.read(captainOrderDetailsController).orderNumber;
+    final delivered = await notifier.markDelivered();
+    if (delivered && context.mounted) {
+      await context.pushNamed(
+        Routes.captainDeliveryOutcome,
+        arguments: CaptainDeliveryOutcomeArgs(
+          kind: CaptainDeliveryOutcomeKind.success,
+          orderId: orderNumber,
+        ),
+      );
+    }
   }
 }
 
@@ -162,8 +161,7 @@ class _PrimaryButton extends StatelessWidget {
 }
 
 class _FailureButton extends ConsumerWidget {
-  final String orderId;
-  const _FailureButton({required this.orderId});
+  const _FailureButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -203,15 +201,21 @@ class _FailureButton extends ConsumerWidget {
   }
 
   Future<void> _onTap(BuildContext context, WidgetRef ref) async {
-    final reason = await DeliveryFailureReasonSheet.show(context);
-    if (reason == null || !context.mounted) return;
-    ref.read(captainOrderDetailsController.notifier).markCancelled(reason);
-    await context.pushNamed(
-      Routes.captainDeliveryOutcome,
-      arguments: CaptainDeliveryOutcomeArgs(
-        kind: CaptainDeliveryOutcomeKind.failure,
-        orderId: orderId,
-      ),
-    );
+    final picked = await DeliveryFailureReasonSheet.show(context);
+    if (picked == null || !context.mounted) return;
+
+    final orderNumber = ref.read(captainOrderDetailsController).orderNumber;
+    final failed = await ref
+        .read(captainOrderDetailsController.notifier)
+        .markFailed(picked.reason, picked.note);
+    if (failed && context.mounted) {
+      await context.pushNamed(
+        Routes.captainDeliveryOutcome,
+        arguments: CaptainDeliveryOutcomeArgs(
+          kind: CaptainDeliveryOutcomeKind.failure,
+          orderId: orderNumber,
+        ),
+      );
+    }
   }
 }

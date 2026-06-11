@@ -16,12 +16,17 @@ class DeliveryFailureReasonState extends Equatable {
   /// `null` until the user taps a row.
   final int? selectedIndex;
   final TextEditingController otherReasonController;
+
+  /// Mirrors the controller's text so widgets depending on it rebuild
+  /// (the send button is disabled while `other` has an empty note).
+  final String otherNote;
   final ReqState reqState;
   final String msgError;
 
   DeliveryFailureReasonState({
     this.selectedIndex,
     TextEditingController? otherReasonController,
+    this.otherNote = '',
     this.reqState = ReqState.loading,
     this.msgError = '',
   }) : otherReasonController = otherReasonController ?? TextEditingController();
@@ -33,19 +38,21 @@ class DeliveryFailureReasonState extends Equatable {
 
   DeliveryFailureReasonState copyWith({
     int? selectedIndex,
+    String? otherNote,
     ReqState? reqState,
     String? msgError,
   }) {
     return DeliveryFailureReasonState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       otherReasonController: otherReasonController,
+      otherNote: otherNote ?? this.otherNote,
       reqState: reqState ?? this.reqState,
       msgError: msgError ?? this.msgError,
     );
   }
 
   @override
-  List<Object?> get props => [selectedIndex, reqState, msgError];
+  List<Object?> get props => [selectedIndex, otherNote, reqState, msgError];
 }
 
 class DeliveryFailureReasonNotifier
@@ -59,6 +66,10 @@ class DeliveryFailureReasonNotifier
 
   void selectReason(int index) {
     state = state.copyWith(selectedIndex: index);
+  }
+
+  void onOtherNoteChanged(String note) {
+    state = state.copyWith(otherNote: note);
   }
 
   /// Hook for the future API fetch of failure reasons. Today the list is

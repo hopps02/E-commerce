@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/flex_text.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
@@ -17,6 +19,17 @@ import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bott
 /// welcome text on the cashier and captain home headers.
 class HomeHeaderActions extends StatelessWidget {
   const HomeHeaderActions({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    final confirmed = await LogoutBottomSheet.show(context);
+    if (confirmed != true || !context.mounted) return;
+
+    DI().loadingService.show();
+    await DI().sessionService.logout();
+    DI().loadingService.hide();
+
+    if (context.mounted) context.goNamed(Routes.auth);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +58,7 @@ class HomeHeaderActions extends StatelessWidget {
           child: _GlassButton(
             title: Translation.log_out.tr,
             iconPath: Assets.svg.logout2.path,
-            onTap: () => LogoutBottomSheet.show(context),
+            onTap: () => _logout(context),
           ),
         ),
       ],

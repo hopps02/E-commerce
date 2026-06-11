@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -11,12 +12,12 @@ import 'package:smooth_corner/smooth_corner.dart';
 
 class CaptainProductsCard extends StatelessWidget {
   final List<CaptainOrderItem> items;
-  final double totalAmount;
+  final int totalHalalas;
 
   const CaptainProductsCard({
     super.key,
     required this.items,
-    required this.totalAmount,
+    required this.totalHalalas,
   });
 
   @override
@@ -44,7 +45,7 @@ class CaptainProductsCard extends StatelessWidget {
           8.verticalSpace,
           _Divider(),
           8.verticalSpace,
-          _TotalRow(total: totalAmount),
+          _TotalRow(totalHalalas: totalHalalas),
         ],
       ),
     );
@@ -166,7 +167,7 @@ class _ProductRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              item.price.toStringAsFixed(0),
+              Money.amount(item.priceHalalas),
               style: context.labelSmall.copyWith(
                 color: ColorM.gray700,
                 fontWeight: FontWeightM.semiBold,
@@ -192,8 +193,8 @@ class _ProductRow extends StatelessWidget {
 }
 
 class _TotalRow extends StatelessWidget {
-  final double total;
-  const _TotalRow({required this.total});
+  final int totalHalalas;
+  const _TotalRow({required this.totalHalalas});
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +214,7 @@ class _TotalRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              total.toStringAsFixed(0),
+              Money.amount(totalHalalas),
               style: context.bodyLarge.copyWith(
                 color: ColorM.primary700,
                 fontWeight: FontWeightM.semiBold,

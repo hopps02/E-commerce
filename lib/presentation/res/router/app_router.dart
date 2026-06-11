@@ -263,7 +263,7 @@ final GoRouter appRouter = GoRouter(
       builder: (_, state) => CaptainOrderDetailsView(
         args: state.extra is CaptainOrderDetailsArgs
             ? state.extra as CaptainOrderDetailsArgs
-            : const CaptainOrderDetailsArgs(),
+            : const CaptainOrderDetailsArgs(orderId: 0),
       ),
     ),
     _r(

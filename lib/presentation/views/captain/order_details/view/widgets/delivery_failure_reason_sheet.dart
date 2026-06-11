@@ -15,12 +15,16 @@ import 'package:smooth_corner/smooth_corner.dart';
 
 import '../../../../../res/gen/assets.gen.dart';
 
+/// What the captain picked: the BACKEND reason value plus the free-text note
+/// (required when the reason is `other`).
+typedef PickedFailureReason = ({String reason, String? note});
+
 class DeliveryFailureReasonSheet extends ConsumerWidget {
   const DeliveryFailureReasonSheet({super.key});
 
-  /// Returns the reason string the user picked, or `null` if dismissed.
-  static Future<String?> show(BuildContext context) {
-    return showModalBottomSheet<String>(
+  /// Returns the picked reason + note, or `null` if dismissed.
+  static Future<PickedFailureReason?> show(BuildContext context) {
+    return showModalBottomSheet<PickedFailureReason>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -32,7 +36,6 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("object");
     final state = ref.watch(deliveryFailureReasonController);
     final notifier = ref.read(deliveryFailureReasonController.notifier);
 
@@ -102,6 +105,7 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
                           4.verticalSpace,
                           _OtherReasonField(
                             controller: state.otherReasonController,
+                            onChanged: notifier.onOtherNoteChanged,
                           ),
                           8.verticalSpace,
                         ],
@@ -114,8 +118,12 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
             16.verticalSpace,
             Container(height: 1.h, color: ColorM.primary50),
             16.verticalSpace,
+            // `other` needs the free text — the backend rejects it without
+            // a note, so don't let the captain submit an empty one.
             _SendButton(
-              enabled: state.selectedIndex != null,
+              enabled:
+                  state.selectedIndex != null &&
+                  (!state.isOtherSelected || state.otherNote.trim().isNotEmpty),
               onTap: () => _onSend(context, state),
             ),
           ],
@@ -143,23 +151,21 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
     final idx = state.selectedIndex;
     if (idx == null) return;
     final picked = DeliveryFailureReason.values[idx];
-    final reason = picked == DeliveryFailureReason.other
-        ? state.otherReasonController.text.trim().isEmpty
-              ? Translation.other_reason.tr
-              : state.otherReasonController.text.trim()
-        : _labelText(picked);
-    Navigator.of(context).pop(reason);
+    final note = state.otherReasonController.text.trim();
+
+    Navigator.of(
+      context,
+    ).pop((reason: _backendValue(picked), note: note.isEmpty ? null : note));
   }
 
-  String _labelText(DeliveryFailureReason reason) => switch (reason) {
-    DeliveryFailureReason.customerNotAvailable =>
-      Translation.customer_not_available.tr,
-    DeliveryFailureReason.notAnsweringPhone =>
-      Translation.not_answering_phone.tr,
-    DeliveryFailureReason.incorrectAddress => Translation.incorrect_address.tr,
-    DeliveryFailureReason.customerRefused =>
-      Translation.customer_refused_receipt.tr,
-    DeliveryFailureReason.other => Translation.other_reason.tr,
+  /// The backend's DeliveryFailureReason enum values — what mark-failed
+  /// actually accepts; localized labels are display-only.
+  String _backendValue(DeliveryFailureReason reason) => switch (reason) {
+    DeliveryFailureReason.customerNotAvailable => 'customer_not_available',
+    DeliveryFailureReason.notAnsweringPhone => 'no_answer',
+    DeliveryFailureReason.incorrectAddress => 'wrong_address',
+    DeliveryFailureReason.customerRefused => 'customer_refused',
+    DeliveryFailureReason.other => 'other',
   };
 }
 
@@ -315,12 +321,14 @@ class _RadioDot extends StatelessWidget {
 
 class _OtherReasonField extends StatelessWidget {
   final TextEditingController controller;
-  const _OtherReasonField({required this.controller});
+  final ValueChanged<String> onChanged;
+  const _OtherReasonField({required this.controller, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return SimpleForm(
       controller: controller,
+      onChanged: onChanged,
       hintText: Translation.mention_reason_hint.tr,
       height: 70.h,
       maxLines: 3,

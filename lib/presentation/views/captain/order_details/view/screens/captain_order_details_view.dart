@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/views/captain/order_details/riverpod/captain_order_details_controller.dart';
@@ -14,11 +14,9 @@ import 'package:for_u/presentation/views/captain/order_details/view/widgets/capt
 import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_products_card.dart';
 
 class CaptainOrderDetailsArgs {
-  final CaptainOrderStatus initialStatus;
+  final int orderId;
 
-  const CaptainOrderDetailsArgs({
-    this.initialStatus = CaptainOrderStatus.upcoming,
-  });
+  const CaptainOrderDetailsArgs({required this.orderId});
 }
 
 class CaptainOrderDetailsView extends ConsumerStatefulWidget {
@@ -39,8 +37,14 @@ class _CaptainOrderDetailsViewState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(captainOrderDetailsController.notifier)
-          .seed(widget.args.initialStatus);
+          .load(widget.args.orderId);
     });
+  }
+
+  /// The phone is the only contact channel (no in-app chat in v1).
+  Future<void> _callCustomer(String phone) async {
+    if (phone.isEmpty) return;
+    await launchUrl(Uri(scheme: 'tel', path: phone));
   }
 
   @override
@@ -58,7 +62,7 @@ class _CaptainOrderDetailsViewState
             child: FastStateRender(
               reqState: state.reqState,
               errorMessage: state.msgError,
-              onRetry: notifier.retry,
+              onRetry: () => notifier.load(widget.args.orderId),
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(top: 12.h, bottom: 24.h),
                 child: GeneralPadding(
@@ -69,12 +73,12 @@ class _CaptainOrderDetailsViewState
                         customerName: state.customerName,
                         address: state.address,
                         status: state.status,
-                        onTapCall: () {},
+                        onTapCall: () => _callCustomer(state.customerPhone),
                       ).premiumAppear(index: 1),
                       12.verticalSpace,
                       CaptainProductsCard(
                         items: state.items,
-                        totalAmount: state.totalAmount,
+                        totalHalalas: state.totalHalalas,
                       ).premiumAppear(index: 2),
                       if (state.status.isCancelled &&
                           state.cancellationReason != null) ...[
