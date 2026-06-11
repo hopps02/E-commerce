@@ -82,9 +82,8 @@ class OrderDetailsBody extends StatelessWidget {
               ),
             ),
           ),
-          // Rating is a delivered-order action; the backend rejects it earlier.
-          if (state.isDelivered)
-            const RateOrderButton().premiumAppear(index: 7),
+          // Eligibility comes from the backend: delivered, unrated, in window.
+          if (state.canRate) const RateOrderButton().premiumAppear(index: 7),
         ],
       ),
     );

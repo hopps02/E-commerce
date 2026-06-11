@@ -58,6 +58,8 @@ void main() {
         order.activeItems.single.imageUrl,
         'https://cdn.4u.test/bread.png',
       );
+      // List rows omit can_rate — eligibility is a detail-only field.
+      expect(order.canRate, isFalse);
     });
 
     test('parses a DETAIL payload (nested totals + address)', () {
@@ -85,12 +87,14 @@ void main() {
             'removed': false,
           },
         ],
+        'can_rate': true,
         'created_at': '2026-06-10T06:06:00+03:00',
       });
 
       expect(order.displayTotalHalalas, 8550);
       expect(order.timelineStep, 3);
       expect(order.isDelivered, isTrue);
+      expect(order.canRate, isTrue);
       expect(order.addressLine, 'حي العليا، الرياض');
       expect(order.activeItems.single.unitPriceHalalas, 1200);
     });

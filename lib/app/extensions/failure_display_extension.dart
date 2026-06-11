@@ -28,6 +28,9 @@ extension FailureDisplay on Failure {
     'otp_max_attempts' => Translation.error_otp_expired.tr,
     'otp_resend_cooldown' => Translation.error_otp_cooldown.tr,
     'account_suspended' => Translation.error_account_suspended.tr,
+    'order_already_rated' => Translation.error_order_already_rated.tr,
+    'rating_window_closed' => Translation.error_rating_window_closed.tr,
+    'order_not_rateable' => Translation.error_order_not_rateable.tr,
     'unauthenticated' => Translation.unauthorized.tr,
     _ => null,
   };

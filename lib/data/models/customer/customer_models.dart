@@ -86,6 +86,7 @@ abstract class CustomerOrder with _$CustomerOrder {
     CustomerOrderTotals? totals,
     @JsonKey(name: 'total_halalas') int? totalHalalas,
     @JsonKey(name: 'failure_reason') String? failureReason,
+    @JsonKey(name: 'can_rate') @Default(false) bool canRate,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _CustomerOrder;
 

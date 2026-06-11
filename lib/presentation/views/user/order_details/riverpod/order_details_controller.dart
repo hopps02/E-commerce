@@ -19,6 +19,9 @@ class OrderDetailsState extends Equatable {
   final CustomerOrderTotals totals;
   final bool isDelivered;
 
+  /// Backend-owned eligibility (delivered, unrated, inside the rating window).
+  final bool canRate;
+
   const OrderDetailsState({
     this.reqState = ReqState.loading,
     this.errorMessage = "",
@@ -29,9 +32,14 @@ class OrderDetailsState extends Equatable {
     this.items = const [],
     this.totals = const CustomerOrderTotals(),
     this.isDelivered = false,
+    this.canRate = false,
   });
 
-  OrderDetailsState copyWith({ReqState? reqState, String? errorMessage}) {
+  OrderDetailsState copyWith({
+    ReqState? reqState,
+    String? errorMessage,
+    bool? canRate,
+  }) {
     return OrderDetailsState(
       reqState: reqState ?? this.reqState,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -42,6 +50,7 @@ class OrderDetailsState extends Equatable {
       items: items,
       totals: totals,
       isDelivered: isDelivered,
+      canRate: canRate ?? this.canRate,
     );
   }
 
@@ -56,6 +65,7 @@ class OrderDetailsState extends Equatable {
     items,
     totals,
     isDelivered,
+    canRate,
   ];
 }
 
@@ -103,7 +113,11 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
         ErrorMessage.snackBar,
       );
       return false;
-    }, (_) => true);
+    }, (_) {
+      // One rating per order — retire the CTA without a refetch.
+      state = state.copyWith(canRate: false);
+      return true;
+    });
   }
 
   void _applyOrder(CustomerOrder order) {
@@ -116,6 +130,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
       items: order.activeItems,
       totals: order.totals ?? const CustomerOrderTotals(),
       isDelivered: order.isDelivered,
+      canRate: order.canRate,
     );
   }
 }

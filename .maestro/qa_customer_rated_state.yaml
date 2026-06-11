@@ -1,0 +1,62 @@
+# CUSTOMER RATED-STATE CHECK: a rated order's details must NOT offer the
+# rate CTA anymore (can_rate=false), and the price summary must render.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الدخول"
+    commands:
+      - tapOn: "أدخل رقم جوالك"
+      - inputText: "500003006"
+      - tapOn: "تسجيل الدخول"
+      - tapOn: "إرسال رمز التحقق"
+      - extendedWaitUntil:
+          visible: "تأكيد"
+          timeout: 15000
+      - tapOn:
+          text: "_"
+          index: 0
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - tapOn: "تأكيد"
+      - extendedWaitUntil:
+          visible: "ابدأ التسوق"
+          timeout: 15000
+      - tapOn: "ابدأ التسوق"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+- tapOn:
+    point: 29%,92%
+- waitForAnimationToEnd
+- tapOn: "السابقة"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*JAR-000385.*"
+    timeout: 15000
+- tapOn:
+    point: 81%,54%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*JAR-000385.*"
+    timeout: 15000
+# already rated -> the CTA must be gone
+- assertNotVisible: ".*تقييم.*"
+- takeScreenshot: /tmp/qa-e9-details-no-rate
+- scrollUntilVisible:
+    element:
+      text: ".*تكلفة الشحن.*"
+    direction: DOWN
+- takeScreenshot: /tmp/qa-e10-price-summary-rows
