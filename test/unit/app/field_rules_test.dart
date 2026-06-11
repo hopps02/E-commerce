@@ -68,11 +68,7 @@ void main() {
       addTearDown(node.dispose);
 
       final error = validateOnSubmit([
-        SubmitField(
-          value: 'Ahmed',
-          focusNode: node,
-          rule: Rules.required('n'),
-        ),
+        SubmitField(value: 'Ahmed', focusNode: node, rule: Rules.required('n')),
       ]);
 
       expect(error, isNull);

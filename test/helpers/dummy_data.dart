@@ -1,58 +1,82 @@
-import 'package:for_u/data/request/request.dart';
-import 'package:for_u/data/responses/responses.dart';
+import 'package:for_u/data/models/auth/auth_models.dart';
 
+/// Canonical fixtures mirroring REAL backend payloads (MobileAuthResource /
+/// MobilePresenter / OtpService) — keep them in sync with the API, not with
+/// what the app would like to receive.
 class DummyData {
-  static final DateTime fixedBirthDate = DateTime.utc(1995, 6, 15);
-  static final DateTime fixedCreatedAt = DateTime.utc(2026, 1, 1, 12, 0, 0);
-  static final DateTime fixedLastLoginAt = DateTime.utc(2026, 5, 1, 9, 30, 0);
+  static const String customerPhone = '+966512345678';
+  static const String fakeOtpCode = '000000';
 
-  static const String validEmail = 'test.user@example.com';
-  static const String invalidEmail = 'not-an-email';
+  // ---- request-otp ----
 
-  static AuthInitRequest authInitRequest({
-    String email = validEmail,
-    DateTime? birthDate,
-  }) {
-    return AuthInitRequest(
-      email: email,
-      birthDate: birthDate ?? fixedBirthDate,
-    );
-  }
-
-  static AuthInitResponse authInitResponseSuccess({
-    bool registered = false,
-    String message = 'ok',
-  }) {
-    return AuthInitResponse(
-      success: true,
-      message: message,
-      registered: registered,
-      createdAt: fixedCreatedAt,
-      lastLoginAt: fixedLastLoginAt,
-    );
-  }
-
-  static AuthInitResponse authInitResponseLogicalFailure({
-    String message = 'Invalid credentials',
-  }) {
-    return AuthInitResponse(
-      success: false,
-      message: message,
-      registered: false,
-      createdAt: fixedCreatedAt,
-    );
-  }
-
-  static const Map<String, dynamic> authInitRequestJson = {
-    'email': validEmail,
-    'birth_date': '1995-06-15T00:00:00.000Z',
+  static const Map<String, dynamic> otpRequestedJson = {
+    'expires_in_seconds': 300,
+    'resend_after_seconds': 60,
+    'masked_phone': '+966******678',
   };
 
-  static const Map<String, dynamic> authInitResponseJson = {
-    'success': true,
-    'message': 'ok',
-    'registered': true,
-    'created_at': '2026-01-01T12:00:00.000Z',
-    'last_login_at': '2026-05-01T09:30:00.000Z',
+  static OtpRequested otpRequested() =>
+      const OtpRequested(expiresInSeconds: 300, resendAfterSeconds: 60);
+
+  // ---- verify-otp ----
+
+  static const Map<String, dynamic> customerAccountJson = {
+    'id': 7,
+    'phone': customerPhone,
+    'role': 'customer',
+    'status': 'active',
+    'preferred_locale': 'ar',
+  };
+
+  /// Full happy-path verify-otp `data` block for a customer.
+  static const Map<String, dynamic> customerSessionJson = {
+    'access_token': 'jwt-token-value',
+    'token_type': 'bearer',
+    'account': customerAccountJson,
+    'active_role': 'customer',
+    'profile': {
+      'id': 3,
+      'customer_number': 'C345678',
+      'name': 'سعيد',
+      'phone': customerPhone,
+    },
+    'scopes': <String, dynamic>{},
+    'next_screen': 'home',
+    'blocked': false,
+  };
+
+  /// Suspended account: no token is issued and `blocked` is true.
+  static const Map<String, dynamic> blockedSessionJson = {
+    'access_token': null,
+    'token_type': null,
+    'account': {
+      'id': 8,
+      'phone': '+966512345679',
+      'role': 'customer',
+      'status': 'suspended',
+      'preferred_locale': 'ar',
+    },
+    'active_role': 'customer',
+    'profile': null,
+    'scopes': <String, dynamic>{},
+    'next_screen': 'blocked',
+    'blocked': true,
+  };
+
+  static AuthSession customerSession() =>
+      AuthSession.fromJson(customerSessionJson);
+
+  // ---- backend error envelope ----
+
+  static Map<String, dynamic> errorJson(
+    String code,
+    String message, {
+    Map<String, dynamic>? details,
+  }) => {
+    'error': {
+      'code': code,
+      'message': message,
+      if (details != null) 'details': details,
+    },
   };
 }

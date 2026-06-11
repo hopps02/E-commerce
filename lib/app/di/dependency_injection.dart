@@ -4,10 +4,11 @@ import 'package:for_u/app/services/storage_services/shared_prefrences_service.da
 import 'package:for_u/app/services/storage_services/storage_service.dart';
 import 'package:for_u/app/utils/overlay_loading/overlay_loading_manager.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/network/api/api.dart';
+import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/dio_factory.dart';
-import 'package:for_u/data/repository/repository_impl.dart';
-import 'package:for_u/domain/usecase/auth_init_usecase.dart';
+import 'package:for_u/data/repository/auth_repository_impl.dart';
+import 'package:for_u/domain/repository/auth_repository.dart';
+import 'package:for_u/domain/usecase/auth_usecases.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off
@@ -26,9 +27,9 @@ class DI {
   // --- Network ---
   static final _dio                       = Provider((ref) => buildDio(ref.read(_storageService)));
 
-  static final _appServices               = Provider((ref) => AppServices(ref.read(_dio)));
+  static final _authApi                   = Provider((ref) => AuthApi(ref.read(_dio)));
   // --- Domain & Data ---
-  static final _repository                = Provider((ref) => Repository(ref.read(_appServices)));
+  static final _authRepository            = Provider<AuthRepository>((ref) => AuthRepositoryImpl(ref.read(_authApi)));
 
   // --- snack bar Helper
   static final _snackBarHelper            = Provider((ref) => SnackbarHelper());
@@ -55,7 +56,11 @@ extension DICoreServicesExtension on DI {
 }
 
 extension DIUseCasesExtension on DI {
-  AuthInitUseCase     get authInitUseCase  => AuthInitUseCase(DI.container.read(DI._repository));
+  RequestOtpUseCase     get requestOtpUseCase     => RequestOtpUseCase(DI.container.read(DI._authRepository));
+  VerifyOtpUseCase      get verifyOtpUseCase      => VerifyOtpUseCase(DI.container.read(DI._authRepository));
+  GetMeUseCase          get getMeUseCase          => GetMeUseCase(DI.container.read(DI._authRepository));
+  LogoutUseCase         get logoutUseCase         => LogoutUseCase(DI.container.read(DI._authRepository));
+  RegisterDeviceUseCase get registerDeviceUseCase => RegisterDeviceUseCase(DI.container.read(DI._authRepository));
 }
 
 // dart format on
