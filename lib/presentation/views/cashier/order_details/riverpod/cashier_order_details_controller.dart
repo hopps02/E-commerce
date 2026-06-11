@@ -1,13 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/enums/enums.dart';
+import 'package:for_u/app/extensions/failure_display_extension.dart';
+import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 
 class CashierOrderProduct extends Equatable {
-  final String id;
+  final int id;
   final String name;
   final String imageUrl;
   final int quantity;
-  final double price;
+  final int priceHalalas;
   final bool isPrepared;
 
   const CashierOrderProduct({
@@ -15,7 +21,7 @@ class CashierOrderProduct extends Equatable {
     required this.name,
     required this.imageUrl,
     required this.quantity,
-    required this.price,
+    required this.priceHalalas,
     this.isPrepared = false,
   });
 
@@ -25,16 +31,27 @@ class CashierOrderProduct extends Equatable {
       name: name,
       imageUrl: imageUrl,
       quantity: quantity,
-      price: price,
+      priceHalalas: priceHalalas,
       isPrepared: isPrepared ?? this.isPrepared,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, imageUrl, quantity, price, isPrepared];
+  List<Object?> get props => [
+    id,
+    name,
+    imageUrl,
+    quantity,
+    priceHalalas,
+    isPrepared,
+  ];
 }
 
 class CashierOrderDetailsState extends Equatable {
+  final ReqState reqState;
+  final String msgError;
+  final int orderId;
+  final String orderNumber;
   final CashierOrderStatus status;
   final List<CashierOrderProduct> products;
   final String? captainName;
@@ -42,83 +59,173 @@ class CashierOrderDetailsState extends Equatable {
   final String location;
   final DateTime orderTime;
 
+  /// Backend-authoritative order total — never recomputed client-side.
+  final int totalHalalas;
+
   const CashierOrderDetailsState({
-    required this.status,
-    required this.products,
-    required this.location,
+    this.reqState = ReqState.loading,
+    this.msgError = '',
+    this.orderId = 0,
+    this.orderNumber = '',
+    this.status = CashierOrderStatus.preparing,
+    this.products = const [],
+    this.location = '',
     required this.orderTime,
     this.captainName,
     this.captainAvatarUrl,
+    this.totalHalalas = 0,
   });
 
-  bool get allPrepared => products.every((p) => p.isPrepared);
+  bool get allPrepared =>
+      products.isNotEmpty && products.every((p) => p.isPrepared);
 
   int get productsCount => products.fold(0, (sum, p) => sum + p.quantity);
 
-  double get totalAmount =>
-      products.fold(0, (sum, p) => sum + p.quantity * p.price);
-
   CashierOrderDetailsState copyWith({
+    ReqState? reqState,
+    String? msgError,
+    int? orderId,
+    String? orderNumber,
     CashierOrderStatus? status,
     List<CashierOrderProduct>? products,
     String? captainName,
     String? captainAvatarUrl,
     String? location,
     DateTime? orderTime,
+    int? totalHalalas,
   }) {
     return CashierOrderDetailsState(
+      reqState: reqState ?? this.reqState,
+      msgError: msgError ?? this.msgError,
+      orderId: orderId ?? this.orderId,
+      orderNumber: orderNumber ?? this.orderNumber,
       status: status ?? this.status,
       products: products ?? this.products,
       captainName: captainName ?? this.captainName,
       captainAvatarUrl: captainAvatarUrl ?? this.captainAvatarUrl,
       location: location ?? this.location,
       orderTime: orderTime ?? this.orderTime,
+      totalHalalas: totalHalalas ?? this.totalHalalas,
     );
   }
 
   @override
   List<Object?> get props => [
+    reqState,
+    msgError,
+    orderId,
+    orderNumber,
     status,
     products,
     captainName,
     captainAvatarUrl,
     location,
     orderTime,
+    totalHalalas,
   ];
 }
 
 class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
   @override
   CashierOrderDetailsState build() {
-    return _stateFor(CashierOrderStatus.preparing);
+    return CashierOrderDetailsState(orderTime: DateTime.now());
   }
 
-  void seed(CashierOrderStatus initialStatus) {
-    state = _stateFor(initialStatus);
+  Future<void> load(int orderId) async {
+    state = state.copyWith(reqState: ReqState.loading, orderId: orderId);
+    final result = await DI().cashierRepository.orderDetail(orderId);
+    result.fold(
+      (failure) => state = state.copyWith(
+        reqState: ReqState.error,
+        msgError: failure.displayMessage,
+      ),
+      _applyOrder,
+    );
   }
 
-  void togglePrepared(String productId) {
+  /// Optimistic check-off; the backend write follows and the row rolls back
+  /// (with the failure shown) when it is rejected.
+  Future<void> togglePrepared(int productId) async {
     if (!state.status.isProductsEditable) return;
+
+    final before = state.products;
+    final target = before.firstWhere((p) => p.id == productId);
+    final prepared = !target.isPrepared;
+
     state = state.copyWith(
       products: [
-        for (final p in state.products)
-          if (p.id == productId) p.copyWith(isPrepared: !p.isPrepared) else p,
+        for (final p in before)
+          if (p.id == productId) p.copyWith(isPrepared: prepared) else p,
+      ],
+    );
+
+    final result = await DI().cashierRepository.markItemPrepared(
+      state.orderId,
+      productId,
+      prepared: prepared,
+    );
+    result.fold((failure) {
+      state = state.copyWith(products: before);
+      DI().snackBarHelper.showMessage(
+        failure.displayMessage,
+        ErrorMessage.snackBar,
+      );
+    }, (_) {});
+  }
+
+  Future<void> confirmReadiness() async {
+    if (!state.status.isPreparing || !state.allPrepared) return;
+
+    DI().loadingService.show();
+    final result = await DI().cashierRepository.confirmReady(state.orderId);
+    DI().loadingService.hide();
+
+    result.fold(
+      (failure) => DI().snackBarHelper.showMessage(
+        failure.displayMessage,
+        ErrorMessage.snackBar,
+      ),
+      _applyOrder,
+    );
+  }
+
+  /// Called by the assign sheet after the backend accepted the assignment.
+  void applyAssigned(CashierOrder order) => _applyOrder(order);
+
+  void _applyOrder(CashierOrder order) {
+    final status = order.uiStatus;
+    if (status == null) {
+      // The order left the cashier queues (rejected/cancelled meanwhile).
+      state = state.copyWith(reqState: ReqState.error, msgError: order.state);
+      return;
+    }
+
+    state = CashierOrderDetailsState(
+      reqState: ReqState.success,
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      status: status,
+      location: order.addressLine,
+      orderTime: order.createdAt ?? DateTime.now(),
+      captainName: order.captain?.name,
+      captainAvatarUrl: null,
+      totalHalalas: order.totals.totalHalalas,
+      products: [
+        for (final item in order.activeItems)
+          CashierOrderProduct(
+            id: item.id,
+            name: item.name(_isArabic()),
+            imageUrl: item.imageUrl ?? '',
+            quantity: item.quantity,
+            priceHalalas: item.unitPriceHalalas,
+            isPrepared: item.prepared,
+          ),
       ],
     );
   }
 
-  void confirmReadiness() {
-    if (!state.status.isPreparing || !state.allPrepared) return;
-    state = state.copyWith(status: CashierOrderStatus.readyForCaptain);
-  }
-
-  void assignCaptain({required String name, required String avatarUrl}) {
-    state = state.copyWith(
-      captainName: name,
-      captainAvatarUrl: avatarUrl,
-      status: CashierOrderStatus.inDelivery,
-    );
-  }
+  bool _isArabic() =>
+      (DI().storageService.language ?? const Locale('ar')).languageCode == 'ar';
 }
 
 final cashierOrderDetailsController =
@@ -126,41 +233,3 @@ final cashierOrderDetailsController =
       CashierOrderDetailsNotifier,
       CashierOrderDetailsState
     >(CashierOrderDetailsNotifier.new);
-
-CashierOrderDetailsState _stateFor(CashierOrderStatus status) {
-  final preparedByDefault = !status.isPreparing;
-  final showsCaptain = status.showsCaptainRow;
-  return CashierOrderDetailsState(
-    status: status,
-    location: 'مكة المكرمة، المملكة العربية السعودية',
-    orderTime: DateTime(2026, 3, 18),
-    captainName: showsCaptain ? 'عماد مجدي' : null,
-    captainAvatarUrl: showsCaptain ? 'https://i.pravatar.cc/200?img=12' : null,
-    products: [
-      CashierOrderProduct(
-        id: 'p1',
-        name: 'جزر أصفر (Hills Farm) · جزر شانتينيه',
-        imageUrl: 'https://picsum.photos/id/102/100/100',
-        quantity: 21,
-        price: 12,
-        isPrepared: preparedByDefault,
-      ),
-      CashierOrderProduct(
-        id: 'p2',
-        name: 'جزر أصفر (Hills Farm) · جزر شانتينيه',
-        imageUrl: 'https://picsum.photos/id/103/100/100',
-        quantity: 21,
-        price: 12,
-        isPrepared: preparedByDefault,
-      ),
-      CashierOrderProduct(
-        id: 'p3',
-        name: 'جزر أصفر (Hills Farm) · جزر شانتينيه',
-        imageUrl: 'https://picsum.photos/id/104/100/100',
-        quantity: 21,
-        price: 12,
-        isPrepared: preparedByDefault,
-      ),
-    ],
-  );
-}

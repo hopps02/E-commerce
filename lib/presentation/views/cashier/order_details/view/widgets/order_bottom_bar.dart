@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
@@ -39,11 +40,12 @@ class OrderBottomBar extends StatelessWidget {
             children: [
               _TotalsPanel(
                 productsCount: state.productsCount,
-                totalAmount: state.totalAmount,
+                totalHalalas: state.totalHalalas,
               ),
               if (state.status.showsActionButton) ...[
                 10.verticalSpace,
                 _ActionButton(
+                  orderId: state.orderId,
                   status: state.status,
                   allPrepared: state.allPrepared,
                 ),
@@ -58,9 +60,9 @@ class OrderBottomBar extends StatelessWidget {
 
 class _TotalsPanel extends StatelessWidget {
   final int productsCount;
-  final double totalAmount;
+  final int totalHalalas;
 
-  const _TotalsPanel({required this.productsCount, required this.totalAmount});
+  const _TotalsPanel({required this.productsCount, required this.totalHalalas});
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +121,7 @@ class _TotalsPanel extends StatelessWidget {
                 ),
                 3.horizontalSpace,
                 Text(
-                  totalAmount.toStringAsFixed(0),
+                  Money.amount(totalHalalas),
                   style: context.bodyLarge.copyWith(
                     color: ColorM.primary700,
                     fontWeight: FontWeightM.semiBold,
@@ -137,10 +139,15 @@ class _TotalsPanel extends StatelessWidget {
 }
 
 class _ActionButton extends ConsumerWidget {
+  final int orderId;
   final CashierOrderStatus status;
   final bool allPrepared;
 
-  const _ActionButton({required this.status, required this.allPrepared});
+  const _ActionButton({
+    required this.orderId,
+    required this.status,
+    required this.allPrepared,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -175,12 +182,13 @@ class _ActionButton extends ConsumerWidget {
   Future<void> _onTap(BuildContext context, WidgetRef ref) async {
     final notifier = ref.read(cashierOrderDetailsController.notifier);
     if (status.isPreparing) {
-      notifier.confirmReadiness();
+      await notifier.confirmReadiness();
       return;
     }
-    final picked = await AssignCaptainBottomSheet.show(context);
-    if (picked != null) {
-      notifier.assignCaptain(name: picked.name, avatarUrl: picked.avatarUrl);
-    }
+    final order = await AssignCaptainBottomSheet.show(
+      context,
+      orderId: orderId,
+    );
+    if (order != null) notifier.applyAssigned(order);
   }
 }

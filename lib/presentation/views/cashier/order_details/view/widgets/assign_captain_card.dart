@@ -6,11 +6,11 @@ import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/order_details/riverpod/assign_captain_controller.dart';
 
 class AssignCaptainCard extends StatelessWidget {
-  final PickedCaptain captain;
+  final AvailableCaptain captain;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -42,11 +42,9 @@ class AssignCaptainCard extends StatelessWidget {
         crossAxisAlignment: .start,
         children: [
           ClipOval(
-            child: CustomCachedImage(
-              imageUrl: captain.avatarUrl,
-              width: 45.w,
-              height: 45.w,
-            ),
+            // No captain avatars exist in the backend; the cached image's
+            // own placeholder renders for the empty URL.
+            child: CustomCachedImage(imageUrl: '', width: 45.w, height: 45.w),
           ),
           6.horizontalSpace,
           Expanded(
@@ -58,7 +56,7 @@ class AssignCaptainCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        captain.name,
+                        captain.name ?? '',
                         style: context.labelLarge.copyWith(
                           color: const Color(0xFF231F20),
                           fontWeight: FontWeightM.semiBold,
@@ -83,7 +81,7 @@ class AssignCaptainCard extends StatelessWidget {
           ),
           8.horizontalSpace,
           Text(
-            captain.phone,
+            captain.phone ?? '',
             textDirection: TextDirection.ltr,
             style: context.labelMedium.copyWith(
               color: const Color(0xFF6A7282),

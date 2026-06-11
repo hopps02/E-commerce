@@ -4,9 +4,11 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/custom_cached_image.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -14,32 +16,38 @@ import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class CashierPreparationCard extends StatelessWidget {
-  final bool requiresCaptain;
+  final CashierOrder order;
   final VoidCallback onTapAction;
 
   const CashierPreparationCard({
     super.key,
-    required this.requiresCaptain,
+    required this.order,
     required this.onTapAction,
   });
+
+  bool get _requiresCaptain =>
+      order.uiStatus == CashierOrderStatus.readyForCaptain;
 
   @override
   Widget build(BuildContext context) {
     context.locale;
     return _CardShell(
       children: [
-        const _OrderHeader(),
+        _OrderHeader(
+          orderNumber: order.orderNumber,
+          createdAt: order.createdAt,
+        ),
         12.verticalSpace,
         const _Divider(),
         12.verticalSpace,
-        const _ProductsRow(),
+        _ProductsRow(order: order),
         12.verticalSpace,
-        const _LocationRow(),
+        _LocationRow(address: order.addressLine),
         12.verticalSpace,
         const _Divider(),
         12.verticalSpace,
         _PrimaryActionButton(
-          title: requiresCaptain
+          title: _requiresCaptain
               ? Translation.assign_captain.tr
               : Translation.prepare_order.tr,
           onTap: onTapAction,
@@ -50,25 +58,39 @@ class CashierPreparationCard extends StatelessWidget {
 }
 
 class CashierOnTheWayCard extends StatelessWidget {
+  final CashierOrder order;
   final VoidCallback onTapDetails;
 
-  const CashierOnTheWayCard({super.key, required this.onTapDetails});
+  const CashierOnTheWayCard({
+    super.key,
+    required this.order,
+    required this.onTapDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
     return _CardShell(
       children: [
-        const _OrderHeader(),
+        _OrderHeader(
+          orderNumber: order.orderNumber,
+          createdAt: order.createdAt,
+        ),
         12.verticalSpace,
         const _Divider(),
         12.verticalSpace,
-        const _ProductsRow(),
+        _ProductsRow(order: order),
         12.verticalSpace,
-        const _CaptainAndLocationRow(),
+        _CaptainAndLocationRow(
+          address: order.addressLine,
+          captainName: order.captain?.name ?? '',
+        ),
         12.verticalSpace,
         const _Divider(),
         12.verticalSpace,
-        _OnTheWayFooter(onTapDetails: onTapDetails),
+        _OnTheWayFooter(
+          delivered: order.uiStatus == CashierOrderStatus.delivered,
+          onTapDetails: onTapDetails,
+        ),
       ],
     );
   }
@@ -99,7 +121,10 @@ class _CardShell extends StatelessWidget {
 }
 
 class _OrderHeader extends StatelessWidget {
-  const _OrderHeader();
+  final String orderNumber;
+  final DateTime? createdAt;
+
+  const _OrderHeader({required this.orderNumber, required this.createdAt});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +132,7 @@ class _OrderHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '#6757',
+          '#$orderNumber',
           textDirection: TextDirection.ltr,
           style: context.bodyMedium.copyWith(
             fontWeight: FontWeightM.medium,
@@ -116,10 +141,12 @@ class _OrderHeader extends StatelessWidget {
         ),
 
         Text(
-          easy.DateFormat(
-            "MMMM d, yyyy h:mm a",
-            context.locale.languageCode,
-          ).format(DateTime.now()),
+          createdAt == null
+              ? ''
+              : easy.DateFormat(
+                  "MMMM d, yyyy h:mm a",
+                  context.locale.languageCode,
+                ).format(createdAt!.toLocal()),
           style: context.labelMedium.copyWith(color: ColorM.gray600),
         ),
       ],
@@ -137,10 +164,16 @@ class _Divider extends StatelessWidget {
 }
 
 class _ProductsRow extends StatelessWidget {
-  const _ProductsRow();
+  final CashierOrder order;
+  const _ProductsRow({required this.order});
 
   @override
   Widget build(BuildContext context) {
+    final arabic = context.locale.languageCode == 'ar';
+    final items = order.activeItems;
+    final summary = items.map((item) => item.name(arabic)).join(' · ');
+    final count = order.itemsCount ?? items.length;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
       decoration: ShapeDecoration(
@@ -158,14 +191,14 @@ class _ProductsRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  Translation.product_count.trNamed({'count': '2'}),
+                  Translation.product_count.trNamed({'count': '$count'}),
                   style: context.bodyMedium.copyWith(
                     color: ColorM.gray900,
                     fontWeight: FontWeightM.medium,
                   ),
                 ),
                 Text(
-                  'جزر أصفر (Hills Farm) · جزر شانتينيه',
+                  summary,
                   style: context.labelLarge.copyWith(color: ColorM.gray700),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -173,7 +206,9 @@ class _ProductsRow extends StatelessWidget {
             ),
           ),
           12.horizontalSpace,
-          const _ProductImagesStack(),
+          _ProductImagesStack(
+            imageUrls: [for (final item in items.take(3)) item.imageUrl ?? ''],
+          ),
         ],
       ),
     );
@@ -181,7 +216,10 @@ class _ProductsRow extends StatelessWidget {
 }
 
 class _ProductImagesStack extends StatelessWidget {
-  const _ProductImagesStack();
+  final List<String> imageUrls;
+  const _ProductImagesStack({required this.imageUrls});
+
+  String _url(int index) => index < imageUrls.length ? imageUrls[index] : '';
 
   @override
   Widget build(BuildContext context) {
@@ -191,30 +229,26 @@ class _ProductImagesStack extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
-            right: 21.w,
-            child: Transform.rotate(
-              angle: -19 * (math.pi / 180),
-              child: _productThumb(
-                'https://picsum.photos/100',
-                offset: Offset(-5, 10),
+          if (imageUrls.length > 1)
+            Positioned(
+              right: 21.w,
+              child: Transform.rotate(
+                angle: -19 * (math.pi / 180),
+                child: _productThumb(_url(1), offset: Offset(-5, 10)),
               ),
             ),
-          ),
-          Positioned(
-            right: 4.w,
-            top: 6.h,
-            child: Transform.rotate(
-              angle: 15 * (math.pi / 180),
-              child: _productThumb(
-                'https://picsum.photos/400',
-                offset: Offset(5, 10),
+          if (imageUrls.length > 2)
+            Positioned(
+              right: 4.w,
+              top: 6.h,
+              child: Transform.rotate(
+                angle: 15 * (math.pi / 180),
+                child: _productThumb(_url(2), offset: Offset(5, 10)),
               ),
             ),
-          ),
           Positioned(
             child: CustomCachedImage(
-              imageUrl: 'https://picsum.photos/300',
+              imageUrl: _url(0),
               width: 38.w,
               height: 42.h,
               borderRadius: BorderRadius.circular(6.r),
@@ -248,7 +282,8 @@ class _ProductImagesStack extends StatelessWidget {
 }
 
 class _LocationRow extends StatelessWidget {
-  const _LocationRow();
+  final String address;
+  const _LocationRow({required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +298,7 @@ class _LocationRow extends StatelessWidget {
         6.horizontalSpace,
         Expanded(
           child: Text(
-            'شارع 14 , تبوك',
+            address,
             style: context.labelLarge.copyWith(color: ColorM.gray950),
             overflow: TextOverflow.ellipsis,
           ),
@@ -274,7 +309,13 @@ class _LocationRow extends StatelessWidget {
 }
 
 class _CaptainAndLocationRow extends StatelessWidget {
-  const _CaptainAndLocationRow();
+  final String address;
+  final String captainName;
+
+  const _CaptainAndLocationRow({
+    required this.address,
+    required this.captainName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +339,7 @@ class _CaptainAndLocationRow extends StatelessWidget {
               6.horizontalSpace,
               Flexible(
                 child: Text(
-                  'شارع 14 , تبوك',
+                  address,
                   style: context.labelLarge.copyWith(color: ColorM.gray950),
                 ),
               ),
@@ -316,7 +357,7 @@ class _CaptainAndLocationRow extends StatelessWidget {
               6.horizontalSpace,
               ClipOval(
                 child: CustomCachedImage(
-                  imageUrl: 'https://i.pravatar.cc/100?img=12',
+                  imageUrl: '',
                   width: 21.w,
                   height: 21.w,
                 ),
@@ -324,7 +365,7 @@ class _CaptainAndLocationRow extends StatelessWidget {
               6.horizontalSpace,
               Flexible(
                 child: Text(
-                  'عماد مجدي ',
+                  captainName,
                   style: context.labelLarge.copyWith(color: ColorM.gray700),
                 ),
               ),
@@ -374,11 +415,19 @@ class _PrimaryActionButton extends StatelessWidget {
 }
 
 class _OnTheWayFooter extends StatelessWidget {
+  final bool delivered;
   final VoidCallback onTapDetails;
-  const _OnTheWayFooter({required this.onTapDetails});
+  const _OnTheWayFooter({required this.delivered, required this.onTapDetails});
 
   @override
   Widget build(BuildContext context) {
+    final statusColor = delivered
+        ? const Color(0xFF10B981)
+        : const Color(0xFFF59E0B);
+    final statusLabel = delivered
+        ? Translation.delivered.tr
+        : Translation.out_for_delivery.tr;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -388,16 +437,16 @@ class _OnTheWayFooter extends StatelessWidget {
             Container(
               width: 7.w,
               height: 7.w,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF59E0B),
+              decoration: BoxDecoration(
+                color: statusColor,
                 shape: BoxShape.circle,
               ),
             ),
             6.horizontalSpace,
             Text(
-              Translation.out_for_delivery.tr,
+              statusLabel,
               style: context.labelLarge.copyWith(
-                color: const Color(0xFFF59E0B),
+                color: statusColor,
                 fontWeight: FontWeightM.medium,
               ),
             ),

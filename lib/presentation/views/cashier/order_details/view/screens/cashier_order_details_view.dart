@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/default_app_bar.dart';
+import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
@@ -14,13 +14,16 @@ import 'package:for_u/presentation/views/cashier/order_details/view/widgets/orde
 import 'package:for_u/presentation/views/cashier/order_details/view/widgets/order_info_panel.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/widgets/order_products_table.dart';
 
-class CashierOrderDetailsView extends ConsumerStatefulWidget {
-  final CashierOrderStatus initialStatus;
+class CashierOrderDetailsArgs {
+  final int orderId;
 
-  const CashierOrderDetailsView({
-    super.key,
-    this.initialStatus = CashierOrderStatus.preparing,
-  });
+  const CashierOrderDetailsArgs({required this.orderId});
+}
+
+class CashierOrderDetailsView extends ConsumerStatefulWidget {
+  final CashierOrderDetailsArgs args;
+
+  const CashierOrderDetailsView({super.key, required this.args});
 
   @override
   ConsumerState<CashierOrderDetailsView> createState() =>
@@ -35,7 +38,7 @@ class _CashierOrderDetailsViewState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(cashierOrderDetailsController.notifier)
-          .seed(widget.initialStatus);
+          .load(widget.args.orderId);
     });
   }
 
@@ -46,26 +49,33 @@ class _CashierOrderDetailsViewState
     return Scaffold(
       backgroundColor: ColorM.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            CashierOrderTopAppBar().premiumAppear(index: 0),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 24.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    OrderInfoPanel(state: state).premiumAppear(index: 1),
-                    16.verticalSpace,
-                    GeneralPadding(
-                      child: OrderProductsTable(state: state),
-                    ).premiumAppear(index: 2),
-                  ],
+        child: FastStateRender(
+          reqState: state.reqState,
+          errorMessage: state.msgError,
+          onRetry: () => ref
+              .read(cashierOrderDetailsController.notifier)
+              .load(widget.args.orderId),
+          child: Column(
+            children: [
+              CashierOrderTopAppBar().premiumAppear(index: 0),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 24.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      OrderInfoPanel(state: state).premiumAppear(index: 1),
+                      16.verticalSpace,
+                      GeneralPadding(
+                        child: OrderProductsTable(state: state),
+                      ).premiumAppear(index: 2),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            OrderBottomBar(state: state).premiumAppear(index: 3),
-          ],
+              OrderBottomBar(state: state).premiumAppear(index: 3),
+            ],
+          ),
         ),
       ),
     );

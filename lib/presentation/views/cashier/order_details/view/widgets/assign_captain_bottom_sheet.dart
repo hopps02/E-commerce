@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/forms/simple_form.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -13,22 +14,50 @@ import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assi
 import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assign_captain_confirm_button.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assign_captain_header.dart';
 
-class AssignCaptainBottomSheet extends ConsumerWidget {
-  const AssignCaptainBottomSheet({super.key});
+class AssignCaptainBottomSheet extends ConsumerStatefulWidget {
+  final int orderId;
+  const AssignCaptainBottomSheet({super.key, required this.orderId});
 
-  static Future<PickedCaptain?> show(BuildContext context) {
-    return showModalBottomSheet<PickedCaptain>(
+  /// Picks a captain and ASSIGNS them to [orderId] against the backend.
+  /// Resolves with the updated order, or null when dismissed / refused.
+  static Future<CashierOrder?> show(
+    BuildContext context, {
+    required int orderId,
+  }) {
+    return showModalBottomSheet<CashierOrder>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.black.withValues(alpha: 0.32),
       useSafeArea: true,
-      builder: (_) => const AssignCaptainBottomSheet(),
+      builder: (_) => AssignCaptainBottomSheet(orderId: orderId),
     );
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AssignCaptainBottomSheet> createState() =>
+      _AssignCaptainBottomSheetState();
+}
+
+class _AssignCaptainBottomSheetState
+    extends ConsumerState<AssignCaptainBottomSheet> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(assignCaptainController.notifier).load(widget.orderId);
+    });
+  }
+
+  Future<void> _confirm() async {
+    final order = await ref
+        .read(assignCaptainController.notifier)
+        .confirm(widget.orderId);
+    if (order != null && mounted) Navigator.of(context).pop(order);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(assignCaptainController);
     final notifier = ref.read(assignCaptainController.notifier);
 
@@ -64,7 +93,7 @@ class AssignCaptainBottomSheet extends ConsumerWidget {
               child: FastStateRender(
                 reqState: state.displayState,
                 errorMessage: state.errorMessage,
-                onRetry: () {},
+                onRetry: () => notifier.load(widget.orderId),
                 child: Column(
                   children: [
                     8.verticalSpace,
@@ -114,8 +143,7 @@ class AssignCaptainBottomSheet extends ConsumerWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: AssignCaptainConfirmButton(
                         selected: state.selectedCaptain,
-                        onConfirm: () =>
-                            Navigator.of(context).pop(state.selectedCaptain),
+                        onConfirm: _confirm,
                       ),
                     ),
                     SizedBox(height: 24.h),

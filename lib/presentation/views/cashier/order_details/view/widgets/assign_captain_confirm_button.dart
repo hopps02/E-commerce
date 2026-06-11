@@ -5,11 +5,11 @@ import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/order_details/riverpod/assign_captain_controller.dart';
 
 class AssignCaptainConfirmButton extends StatelessWidget {
-  final PickedCaptain? selected;
+  final AvailableCaptain? selected;
   final VoidCallback onConfirm;
 
   const AssignCaptainConfirmButton({
@@ -35,7 +35,7 @@ class AssignCaptainConfirmButton extends StatelessWidget {
       ),
       child: Text(
         enabled
-            ? Translation.assign_name.trNamed({'name': selected!.name})
+            ? Translation.assign_name.trNamed({'name': selected!.name ?? ''})
             : Translation.select_captain.tr,
         style: context.bodyLarge.copyWith(
           color: ColorM.white,

@@ -247,9 +247,9 @@ final GoRouter appRouter = GoRouter(
       name: Routes.cashierOrderDetails.name,
       path: Routes.cashierOrderDetails.path,
       builder: (_, state) => CashierOrderDetailsView(
-        initialStatus: state.extra is CashierOrderStatus
-            ? state.extra as CashierOrderStatus
-            : CashierOrderStatus.preparing,
+        args: state.extra is CashierOrderDetailsArgs
+            ? state.extra as CashierOrderDetailsArgs
+            : const CashierOrderDetailsArgs(orderId: 0),
       ),
     ),
     _r(

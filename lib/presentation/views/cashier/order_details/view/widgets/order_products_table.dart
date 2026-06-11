@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/custom_cached_image.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -129,7 +130,7 @@ class _ProductRow extends StatelessWidget {
                         ),
                         2.horizontalSpace,
                         Text(
-                          product.price.toStringAsFixed(0),
+                          Money.amount(product.priceHalalas),
                           style: context.labelSmall.copyWith(
                             color: ColorM.primary700,
                             fontWeight: FontWeightM.semiBold,

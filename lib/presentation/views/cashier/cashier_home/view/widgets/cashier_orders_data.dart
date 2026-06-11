@@ -1,18 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
+import 'package:for_u/data/models/cashier/cashier_models.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assign_captain_bottom_sheet.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
 import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_order_card.dart';
-import 'package:for_u/app/enums/enums.dart';
 
 enum CashierOrdersDataType {
   preparation,
@@ -20,6 +20,8 @@ enum CashierOrdersDataType {
 
   bool get isPreparation => this == CashierOrdersDataType.preparation;
   bool get isOnTheWay => this == CashierOrdersDataType.onTheWay;
+
+  String get queue => isPreparation ? 'preparation' : 'on_the_way';
 }
 
 class CashierOrdersData extends ConsumerStatefulWidget {
@@ -36,6 +38,25 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
   @override
   bool get wantKeepAlive => false;
 
+  Future<void> _openDetails(CashierOrder order) async {
+    await context.pushNamed(
+      Routes.cashierOrderDetails,
+      arguments: CashierOrderDetailsArgs(orderId: order.id),
+    );
+    // The cashier may have changed the order inside; reload both queues.
+    if (mounted) ref.read(cashierTabController.notifier).loadInitial();
+  }
+
+  Future<void> _assignCaptain(CashierOrder order) async {
+    final updated = await AssignCaptainBottomSheet.show(
+      context,
+      orderId: order.id,
+    );
+    if (updated != null && mounted) {
+      ref.read(cashierTabController.notifier).loadInitial();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -49,13 +70,11 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
         ? notifier.preparationRefreshController
         : notifier.onTheWayRefreshController;
 
-    final itemCount = widget.type.isPreparation ? 10 : 20;
-
     return FastStateRender(
       reqState: state.reqState,
       errorMessage: state.msgError,
       alignment: const Alignment(0, -0.4),
-      onRetry: () {},
+      onRetry: () => notifier.refreshQueue(widget.type.queue),
       child: CustomizedSmartRefresh(
         controller: refreshController,
         enableLoading: true,
@@ -63,16 +82,8 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
         classicFooterPadding: EdgeInsets.only(
           bottom: context.bottomSafeAreaPadding + 16.h,
         ),
-        onLoading: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.loadComplete();
-          });
-        },
-        onRefresh: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.refreshCompleted();
-          });
-        },
+        onLoading: () => notifier.loadMore(widget.type.queue),
+        onRefresh: () => notifier.refreshQueue(widget.type.queue),
         child: ListView.separated(
           padding: EdgeInsets.only(
             left: SizeM.pagePadding.w,
@@ -80,29 +91,23 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
             top: 12.h,
             bottom: 16.h,
           ),
-          itemCount: itemCount,
+          itemCount: state.orders.length,
           separatorBuilder: (_, _) => 16.verticalSpace,
           itemBuilder: (context, index) {
+            final order = state.orders[index];
             if (widget.type.isPreparation) {
-              final requiresCaptain = index % 2 == 1;
+              final requiresCaptain =
+                  order.uiStatus == CashierOrderStatus.readyForCaptain;
               return CashierPreparationCard(
-                requiresCaptain: requiresCaptain,
+                order: order,
                 onTapAction: requiresCaptain
-                    ? () => AssignCaptainBottomSheet.show(context)
-                    : () => context.pushNamed(
-                        Routes.cashierOrderDetails,
-                        arguments: CashierOrderStatus.preparing,
-                      ),
+                    ? () => _assignCaptain(order)
+                    : () => _openDetails(order),
               );
             }
-            final delivered = index % 2 == 1;
             return CashierOnTheWayCard(
-              onTapDetails: () => context.pushNamed(
-                Routes.cashierOrderDetails,
-                arguments: delivered
-                    ? CashierOrderStatus.delivered
-                    : CashierOrderStatus.inDelivery,
-              ),
+              order: order,
+              onTapDetails: () => _openDetails(order),
             );
           },
         ),
