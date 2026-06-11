@@ -31,10 +31,8 @@ class SupportNotifier extends Notifier<bool> {
   }
 }
 
-
 // true for success sending request
 // and with true state should close the page
-final supportController =
-    NotifierProvider.autoDispose<SupportNotifier, bool>(
-      SupportNotifier.new,
-    );
+final supportController = NotifierProvider.autoDispose<SupportNotifier, bool>(
+  SupportNotifier.new,
+);

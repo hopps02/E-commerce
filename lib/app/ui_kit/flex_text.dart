@@ -8,10 +8,11 @@ class FlexText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-        child: FittedBox(
-      fit: BoxFit.cover,
-      clipBehavior: Clip.hardEdge,
-      child: child,
-    ));
+      child: FittedBox(
+        fit: BoxFit.cover,
+        clipBehavior: Clip.hardEdge,
+        child: child,
+      ),
+    );
   }
 }

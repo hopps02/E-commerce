@@ -429,7 +429,6 @@ class _OnTheWayFooter extends StatelessWidget {
             ],
           ),
         ),
-        
       ],
     );
   }
@@ -442,7 +441,9 @@ class _LeadingArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      context.isLTR ? Icons.arrow_circle_right_rounded : Icons.arrow_circle_left_rounded,
+      context.isLTR
+          ? Icons.arrow_circle_right_rounded
+          : Icons.arrow_circle_left_rounded,
       size: 18.w,
       color: color,
     );

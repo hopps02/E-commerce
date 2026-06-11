@@ -296,26 +296,34 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
 
     _loopPulseAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: widget.pluseScale)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 1.0,
+          end: widget.pluseScale,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: widget.pluseScale, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: widget.pluseScale,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
     ]).animate(_loopController!);
 
     _loopGlowAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.4, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 0.4,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: 0.4)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 1.0,
+          end: 0.4,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
     ]).animate(_loopController!);
@@ -583,8 +591,7 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
         builder: (context, child) {
           final radians =
               widget.flipBeginAngle * _flipAnimation.value * math.pi / 180.0;
-          final m = Matrix4.identity()
-            ..setEntry(3, 2, widget.flipPerspective);
+          final m = Matrix4.identity()..setEntry(3, 2, widget.flipPerspective);
           switch (widget.flipAxis) {
             case FlipAxis.horizontal:
               m.rotateX(radians);

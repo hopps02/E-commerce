@@ -27,10 +27,8 @@ class ContentBody extends ConsumerWidget {
       reqState: ReqState.success /* tapHomeState.reqState */,
       alignment: Alignment(0, -0.2),
       errorMessage: tapHomeState.errorMessage,
-      isOutOfCoverage: true,//tapHomeState.isOutOfCoverage,
-      onRetry: () {
-
-      },
+      isOutOfCoverage: true, //tapHomeState.isOutOfCoverage,
+      onRetry: () {},
       child: Body(bottomSafeAreaPadding: bottomSafeAreaPadding),
     );
   }
@@ -91,7 +89,9 @@ class Body extends StatelessWidget {
         ).premiumAppear(index: 3, wantKeepAlive: true),
         18.verticalSpace,
         // New Arrivals Banner
-        NewArrivalsBanner(onShopNowTap: () {}).premiumAppear(index: 4, wantKeepAlive: true),
+        NewArrivalsBanner(
+          onShopNowTap: () {},
+        ).premiumAppear(index: 4, wantKeepAlive: true),
         18.verticalSpace,
         // Snacks & Packaged Section
         ProductsSection(

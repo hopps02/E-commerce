@@ -52,9 +52,7 @@ class _CaptainOrderDetailsViewState
       backgroundColor: ColorM.white,
       body: Column(
         children: [
-          SizedBox(
-            height: context.topSafeAreaPadding,
-          ),
+          SizedBox(height: context.topSafeAreaPadding),
           const CaptainOrderDetailsAppBar().premiumAppear(index: 0),
           Expanded(
             child: FastStateRender(

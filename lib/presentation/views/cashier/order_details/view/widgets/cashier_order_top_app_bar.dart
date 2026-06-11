@@ -5,9 +5,7 @@ import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class CashierOrderTopAppBar extends StatelessWidget {
-  const CashierOrderTopAppBar({
-    super.key,
-  });
+  const CashierOrderTopAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

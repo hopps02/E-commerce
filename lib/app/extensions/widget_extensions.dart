@@ -33,7 +33,8 @@ extension PremiumAppearAnimation on Widget {
       slideDistance: 30.0,
       slideDirection: SlideDirection.up,
       animationDuration: const Duration(milliseconds: 500),
-      animationCurve: Curves.fastEaseInToSlowEaseOut ,//Curves.easeOutCirc, // easeInOutCirc
+      animationCurve:
+          Curves.fastEaseInToSlowEaseOut, //Curves.easeOutCirc, // easeInOutCirc
       exitCurve: Curves.fastEaseInToSlowEaseOut,
       animationTypes: const {
         AnimationType.slide,

@@ -229,7 +229,10 @@ class _ProductCardState extends State<ProductCard> {
                                 child: SvgPicture.asset(
                                   Assets.svg.addSquare.path,
                                   width: 14.w,
-                                  colorFilter: ColorFilter.mode(ColorM.primary550, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(
+                                    ColorM.primary550,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               ),
                               FlexText(

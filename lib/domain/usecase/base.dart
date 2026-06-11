@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 import '../../data/network/error_handler/failure.dart';
 

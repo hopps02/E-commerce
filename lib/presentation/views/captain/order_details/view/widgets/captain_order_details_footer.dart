@@ -23,7 +23,9 @@ class CaptainOrderDetailsFooter extends ConsumerWidget {
     final notifier = ref.read(captainOrderDetailsController.notifier);
 
     return Container(
-      padding: EdgeInsetsDirectional.only(bottom: context.bottomSafeAreaPadding),
+      padding: EdgeInsetsDirectional.only(
+        bottom: context.bottomSafeAreaPadding,
+      ),
       decoration: BoxDecoration(
         color: ColorM.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),

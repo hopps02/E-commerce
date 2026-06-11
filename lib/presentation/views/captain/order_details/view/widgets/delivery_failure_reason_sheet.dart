@@ -37,91 +37,91 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
     final notifier = ref.read(deliveryFailureReasonController.notifier);
 
     return SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia),
-            padding: EdgeInsets.fromLTRB(24.w, 10.h, 24.w, 24.h),
-            decoration: ShapeDecoration(
-              color: ColorM.white,
-              shape: SmoothRectangleBorder(
-                smoothness: 1,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia),
+        padding: EdgeInsets.fromLTRB(24.w, 10.h, 24.w, 24.h),
+        decoration: ShapeDecoration(
+          color: ColorM.white,
+          shape: SmoothRectangleBorder(
+            smoothness: 1,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 48.w,
+              height: 8.h,
+              decoration: BoxDecoration(
+                color: const Color(0xFFEEEEEE),
+                borderRadius: BorderRadius.circular(100.r),
               ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 48.w,
-                  height: 8.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEEEEEE),
-                    borderRadius: BorderRadius.circular(100.r),
-                  ),
-                ),
-                16.verticalSpace,
-                _Header(onClose: () => Navigator.of(context).maybePop()),
-                22.verticalSpace,
-                Container(height: 1.h, color: ColorM.primary50),
-                16.verticalSpace,
-                // Reasons list is a fixed enum today, but FastStateRender lets us
-                // swap to an API call without restructuring the sheet.
-                ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: 200.h),
-                  child: FastStateRender(
-                    reqState: state.reqState,
-                    errorMessage: state.msgError,
-                    onRetry: notifier.retry,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (
-                          int i = 0;
-                          i < DeliveryFailureReason.values.length;
-                          i++
-                        ) ...[
-                          _ReasonRow(
-                            label: _labelFor(DeliveryFailureReason.values[i]),
-                            isSelected: state.selectedIndex == i,
-                            onTap: () => notifier.selectReason(i),
+            16.verticalSpace,
+            _Header(onClose: () => Navigator.of(context).maybePop()),
+            22.verticalSpace,
+            Container(height: 1.h, color: ColorM.primary50),
+            16.verticalSpace,
+            // Reasons list is a fixed enum today, but FastStateRender lets us
+            // swap to an API call without restructuring the sheet.
+            ConstrainedBox(
+              constraints: BoxConstraints(minHeight: 200.h),
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.msgError,
+                onRetry: notifier.retry,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (
+                      int i = 0;
+                      i < DeliveryFailureReason.values.length;
+                      i++
+                    ) ...[
+                      _ReasonRow(
+                        label: _labelFor(DeliveryFailureReason.values[i]),
+                        isSelected: state.selectedIndex == i,
+                        onTap: () => notifier.selectReason(i),
+                      ),
+                      8.verticalSpace,
+                    ],
+                    AnimatedVisibility(
+                      visible: state.isOtherSelected,
+                      enter:
+                          expandVertically(curve: Curves.ease) +
+                          fadeIn(curve: Curves.ease),
+                      exit:
+                          shrinkVertically(curve: Curves.ease) +
+                          fadeOut(curve: Curves.ease),
+                      enterDuration: const Duration(milliseconds: 200),
+                      exitDuration: const Duration(milliseconds: 200),
+                      child: Column(
+                        children: [
+                          4.verticalSpace,
+                          _OtherReasonField(
+                            controller: state.otherReasonController,
                           ),
                           8.verticalSpace,
                         ],
-                        AnimatedVisibility(
-                          visible: state.isOtherSelected,
-                          enter:
-                              expandVertically(curve: Curves.ease) +
-                              fadeIn(curve: Curves.ease),
-                          exit:
-                              shrinkVertically(curve: Curves.ease) +
-                              fadeOut(curve: Curves.ease),
-                          enterDuration: const Duration(milliseconds: 200),
-                          exitDuration: const Duration(milliseconds: 200),
-                          child: Column(
-                            children: [
-                              4.verticalSpace,
-                              _OtherReasonField(
-                                controller: state.otherReasonController,
-                              ),
-                              8.verticalSpace,
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                16.verticalSpace,
-                Container(height: 1.h, color: ColorM.primary50),
-                16.verticalSpace,
-                _SendButton(
-                  enabled: state.selectedIndex != null,
-                  onTap: () => _onSend(context, state),
-                ),
-              ],
+              ),
             ),
-          ),
-        );
+            16.verticalSpace,
+            Container(height: 1.h, color: ColorM.primary50),
+            16.verticalSpace,
+            _SendButton(
+              enabled: state.selectedIndex != null,
+              onTap: () => _onSend(context, state),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   String _labelFor(DeliveryFailureReason reason) {

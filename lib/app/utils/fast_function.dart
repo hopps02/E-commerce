@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
-
 // Extension on Duration to format as readable time
 extension DurationFormat on Duration {
   /// Formats a duration into a human-readable string like "2 min" or "1:30 hours"
@@ -304,4 +303,3 @@ String formatNotificationTime(DateTime dateTime, Locale locale) {
     return '$dateString$timeString';
   }
 }
-

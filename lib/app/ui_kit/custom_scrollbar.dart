@@ -246,10 +246,13 @@ class _CustomScrollbarState extends State<CustomScrollbar>
     final trackStart = widget.margin.top;
     final trackEnd = trackStart + trackHeight;
 
-    _dragPosition = (details.localPosition.dy - trackStart)
-        .clamp(0.0, trackHeight - thumbHeight);
+    _dragPosition = (details.localPosition.dy - trackStart).clamp(
+      0.0,
+      trackHeight - thumbHeight,
+    );
 
-    final scrollPosition = _dragPosition /
+    final scrollPosition =
+        _dragPosition /
         (trackHeight - thumbHeight) *
         _scrollController.position.maxScrollExtent;
 
@@ -261,7 +264,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
     if (widget.onDragThumb != null) {
       widget.onDragThumb!(
-          scrollPosition / _scrollController.position.maxScrollExtent);
+        scrollPosition / _scrollController.position.maxScrollExtent,
+      );
     }
   }
 
@@ -271,10 +275,13 @@ class _CustomScrollbarState extends State<CustomScrollbar>
     final trackHeight = context.size!.height - 2 * widget.margin.vertical;
     final thumbHeight = _calculateThumbHeight(trackHeight);
 
-    _dragPosition = (_dragPosition + details.delta.dy)
-        .clamp(0.0, trackHeight - thumbHeight);
+    _dragPosition = (_dragPosition + details.delta.dy).clamp(
+      0.0,
+      trackHeight - thumbHeight,
+    );
 
-    final scrollPosition = _dragPosition /
+    final scrollPosition =
+        _dragPosition /
         (trackHeight - thumbHeight) *
         _scrollController.position.maxScrollExtent;
 
@@ -282,7 +289,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
     if (widget.onDragThumb != null) {
       widget.onDragThumb!(
-          scrollPosition / _scrollController.position.maxScrollExtent);
+        scrollPosition / _scrollController.position.maxScrollExtent,
+      );
     }
   }
 
@@ -308,10 +316,13 @@ class _CustomScrollbarState extends State<CustomScrollbar>
     final trackStart = widget.margin.left;
     final trackEnd = trackStart + trackWidth;
 
-    _dragPosition = (details.localPosition.dx - trackStart)
-        .clamp(0.0, trackWidth - thumbWidth);
+    _dragPosition = (details.localPosition.dx - trackStart).clamp(
+      0.0,
+      trackWidth - thumbWidth,
+    );
 
-    final scrollPosition = _dragPosition /
+    final scrollPosition =
+        _dragPosition /
         (trackWidth - thumbWidth) *
         _scrollController.position.maxScrollExtent;
 
@@ -323,7 +334,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
     if (widget.onDragThumb != null) {
       widget.onDragThumb!(
-          scrollPosition / _scrollController.position.maxScrollExtent);
+        scrollPosition / _scrollController.position.maxScrollExtent,
+      );
     }
   }
 
@@ -333,10 +345,13 @@ class _CustomScrollbarState extends State<CustomScrollbar>
     final trackWidth = context.size!.width - 2 * widget.margin.horizontal;
     final thumbWidth = _calculateThumbWidth(trackWidth);
 
-    _dragPosition =
-        (_dragPosition + details.delta.dx).clamp(0.0, trackWidth - thumbWidth);
+    _dragPosition = (_dragPosition + details.delta.dx).clamp(
+      0.0,
+      trackWidth - thumbWidth,
+    );
 
-    final scrollPosition = _dragPosition /
+    final scrollPosition =
+        _dragPosition /
         (trackWidth - thumbWidth) *
         _scrollController.position.maxScrollExtent;
 
@@ -344,7 +359,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
     if (widget.onDragThumb != null) {
       widget.onDragThumb!(
-          scrollPosition / _scrollController.position.maxScrollExtent);
+        scrollPosition / _scrollController.position.maxScrollExtent,
+      );
     }
   }
 
@@ -422,9 +438,7 @@ class _CustomScrollbarState extends State<CustomScrollbar>
       );
     } else {
       content = ScrollConfiguration(
-        behavior: const ScrollBehavior().copyWith(
-          overscroll: false,
-        ),
+        behavior: const ScrollBehavior().copyWith(overscroll: false),
         child: content,
       );
     }
@@ -505,7 +519,7 @@ class _CustomScrollbarState extends State<CustomScrollbar>
                           _scrollController.position.viewportDimension;
                       final contentHeight =
                           _scrollController.position.maxScrollExtent +
-                              viewportHeight;
+                          viewportHeight;
 
                       if (contentHeight <= viewportHeight) {
                         return const SizedBox.shrink();
@@ -516,8 +530,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
                       final scrollFraction = _scrollController.hasClients
                           ? (_scrollController.offset /
-                                  _scrollController.position.maxScrollExtent)
-                              .clamp(0.0, 1.0)
+                                    _scrollController.position.maxScrollExtent)
+                                .clamp(0.0, 1.0)
                           : 0.0;
 
                       final thumbTop =
@@ -533,8 +547,9 @@ class _CustomScrollbarState extends State<CustomScrollbar>
                             child: Container(
                               decoration: BoxDecoration(
                                 color: widget.thumbColor,
-                                borderRadius:
-                                    BorderRadius.circular(widget.thumbRadius),
+                                borderRadius: BorderRadius.circular(
+                                  widget.thumbRadius,
+                                ),
                               ),
                             ),
                           ),
@@ -578,7 +593,7 @@ class _CustomScrollbarState extends State<CustomScrollbar>
                           _scrollController.position.viewportDimension;
                       final contentWidth =
                           _scrollController.position.maxScrollExtent +
-                              viewportWidth;
+                          viewportWidth;
 
                       if (contentWidth <= viewportWidth) {
                         return const SizedBox.shrink();
@@ -589,8 +604,8 @@ class _CustomScrollbarState extends State<CustomScrollbar>
 
                       final scrollFraction = _scrollController.hasClients
                           ? (_scrollController.offset /
-                                  _scrollController.position.maxScrollExtent)
-                              .clamp(0.0, 1.0)
+                                    _scrollController.position.maxScrollExtent)
+                                .clamp(0.0, 1.0)
                           : 0.0;
 
                       final thumbLeft =
@@ -606,8 +621,9 @@ class _CustomScrollbarState extends State<CustomScrollbar>
                             child: Container(
                               decoration: BoxDecoration(
                                 color: widget.thumbColor,
-                                borderRadius:
-                                    BorderRadius.circular(widget.thumbRadius),
+                                borderRadius: BorderRadius.circular(
+                                  widget.thumbRadius,
+                                ),
                               ),
                             ),
                           ),
@@ -641,7 +657,10 @@ class _CustomScrollBehavior extends ScrollBehavior {
 
   @override
   Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) {
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) {
     return GlowingOverscrollIndicator(
       axisDirection: details.direction,
       color: glowColor,

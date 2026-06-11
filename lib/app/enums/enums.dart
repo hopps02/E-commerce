@@ -5,6 +5,7 @@ enum SuccessViewType {
   bool get isOrder => this == order;
   bool get isAuth => this == auth;
 }
+
 /// The four states an order can be in inside the cashier flow. Drives the
 /// order-details screen's bottom action button and whether the products table
 /// + captain row are editable / visible.

@@ -39,7 +39,6 @@ class AssignCaptainCard extends StatelessWidget {
         intensity: 0.15,
       ),
       child: Row(
-
         crossAxisAlignment: .start,
         children: [
           ClipOval(

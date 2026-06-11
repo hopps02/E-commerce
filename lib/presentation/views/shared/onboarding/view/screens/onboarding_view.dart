@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/presentation/common/role_entry_dialog.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/shared/onboarding/view/widgets/image_background.dart';
@@ -35,15 +34,12 @@ class _OnboardingViewState extends State<OnboardingView> {
     );
   }
 
+  /// Both CTAs end at the auth screen — the role is assigned by the backend
+  /// at verify-otp, never picked here.
   Future<void> _handleOnboardingComplete() async {
     await DI().storageService.setSkippedOnBoarding();
     if (mounted) context.goNamed(Routes.auth);
   }
 
-  Future<void> _handleOnNext() async {
-    await DI().storageService.setSkippedOnBoarding();
-    if (!mounted) return;
-    final picked = await RoleEntryDialog.show(context);
-    if (picked != null && mounted) context.goNamed(picked);
-  }
+  Future<void> _handleOnNext() => _handleOnboardingComplete();
 }

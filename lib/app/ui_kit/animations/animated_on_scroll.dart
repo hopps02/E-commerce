@@ -121,9 +121,9 @@ class AnimatedOnScroll extends StatefulWidget {
     this.loopDuration = const Duration(seconds: 2),
     this.loopRepeatCount = 0,
   }) : assert(
-          visibilityThreshold >= 0.0 && visibilityThreshold <= 1.0,
-          'visibilityThreshold must be between 0 and 1',
-        );
+         visibilityThreshold >= 0.0 && visibilityThreshold <= 1.0,
+         'visibilityThreshold must be between 0 and 1',
+       );
 
   double get _rotationInTurns => rotationAngle / 360.0;
 
@@ -162,7 +162,8 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
   void initState() {
     super.initState();
 
-    final totalDuration = widget.animationDuration +
+    final totalDuration =
+        widget.animationDuration +
         (widget.animationDelay ?? Duration(milliseconds: widget.delay));
 
     _animationController = AnimationController(
@@ -172,7 +173,7 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
 
     final double delayFraction =
         (widget.animationDelay?.inMilliseconds ?? widget.delay) /
-            totalDuration.inMilliseconds;
+        totalDuration.inMilliseconds;
     final Interval delayedCurve = Interval(
       delayFraction,
       1.0,
@@ -200,23 +201,28 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
 
     final pulseStart =
         delayFraction + ((1.0 - delayFraction) * widget.pluseInterval);
-    _pulseAnimation = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: widget.pluseScale)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-      TweenSequenceItem(
-        tween: Tween<double>(begin: widget.pluseScale, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-    ]).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(pulseStart, 1.0),
-      ),
-    );
+    _pulseAnimation =
+        TweenSequence<double>([
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: 1.0,
+              end: widget.pluseScale,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+            weight: 50,
+          ),
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: widget.pluseScale,
+              end: 1.0,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+            weight: 50,
+          ),
+        ]).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(pulseStart, 1.0),
+          ),
+        );
 
     _flipAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(parent: _animationController, curve: delayedCurve),
@@ -255,26 +261,34 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
 
     _loopPulseAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: widget.pluseScale)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 1.0,
+          end: widget.pluseScale,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: widget.pluseScale, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: widget.pluseScale,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
     ]).animate(_loopController!);
 
     _loopGlowAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.4, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 0.4,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: 0.4)
-            .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween<double>(
+          begin: 1.0,
+          end: 0.4,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 50,
       ),
     ]).animate(_loopController!);
@@ -320,10 +334,12 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
     final size = renderBox.size;
     final screenSize = MediaQuery.of(context).size;
 
-    final visibleHeight = math.min(position.dy + size.height, screenSize.height) -
+    final visibleHeight =
+        math.min(position.dy + size.height, screenSize.height) -
         math.max(position.dy, 0);
-    final fractionVisible =
-        size.height <= 0 ? 0.0 : (visibleHeight / size.height).clamp(0.0, 1.0);
+    final fractionVisible = size.height <= 0
+        ? 0.0
+        : (visibleHeight / size.height).clamp(0.0, 1.0);
 
     final isVisible = fractionVisible >= widget.visibilityThreshold;
 
@@ -483,8 +499,7 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
         builder: (context, child) {
           final radians =
               widget.flipBeginAngle * _flipAnimation.value * math.pi / 180.0;
-          final m = Matrix4.identity()
-            ..setEntry(3, 2, widget.flipPerspective);
+          final m = Matrix4.identity()..setEntry(3, 2, widget.flipPerspective);
           switch (widget.flipAxis) {
             case FlipAxis.horizontal:
               m.rotateX(radians);
@@ -567,17 +582,17 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
           return ImageFiltered(
             imageFilter: switch (widget.blurDirection) {
               BlurAnimationDirection.x => ImageFilter.blur(
-                  sigmaX: widget.blurIntensity * _blurAnimation.value,
-                  sigmaY: 0,
-                ),
+                sigmaX: widget.blurIntensity * _blurAnimation.value,
+                sigmaY: 0,
+              ),
               BlurAnimationDirection.y => ImageFilter.blur(
-                  sigmaX: 0,
-                  sigmaY: widget.blurIntensity * _blurAnimation.value,
-                ),
+                sigmaX: 0,
+                sigmaY: widget.blurIntensity * _blurAnimation.value,
+              ),
               BlurAnimationDirection.both => ImageFilter.blur(
-                  sigmaX: widget.blurIntensity * _blurAnimation.value,
-                  sigmaY: widget.blurIntensity * _blurAnimation.value,
-                ),
+                sigmaX: widget.blurIntensity * _blurAnimation.value,
+                sigmaY: widget.blurIntensity * _blurAnimation.value,
+              ),
             },
             child: child,
           );
@@ -595,10 +610,7 @@ class _AnimatedOnScrollState extends State<AnimatedOnScroll>
       );
     }
 
-    return Container(
-      key: _key,
-      child: animatedWidget,
-    );
+    return Container(key: _key, child: animatedWidget);
   }
 
   @override

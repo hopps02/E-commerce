@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/app/ui_kit/forms/otp_field.dart';
+import 'package:for_u/data/models/auth/auth_models.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 
@@ -15,13 +16,14 @@ class Otp extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: OtpField(
-        length: 5,
+        length: otpCodeLength,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 5.w,
         mainAxisSize: MainAxisSize.max,
-        fieldWidth: 54.w,
-        fieldHeight: 54.w,
+        // 6 fields (backend code length) need a slimmer field to fit the row.
+        fieldWidth: 48.w,
+        fieldHeight: 48.w,
         unselectedFieldDecoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,

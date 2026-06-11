@@ -71,8 +71,10 @@ class _CustomerRow extends StatelessWidget {
                 Assets.svg.user.path,
                 width: 14.w,
                 height: 14.w,
-                colorFilter:
-                    const ColorFilter.mode(ColorM.gray700, BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(
+                  ColorM.gray700,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
             8.horizontalSpace,
@@ -129,8 +131,10 @@ class _AddressRow extends StatelessWidget {
             Assets.svg.borderLocation.path,
             width: 18.w,
             height: 18.w,
-            colorFilter:
-                const ColorFilter.mode(ColorM.gray950, BlendMode.srcIn),
+            colorFilter: const ColorFilter.mode(
+              ColorM.gray950,
+              BlendMode.srcIn,
+            ),
           ),
           6.horizontalSpace,
           Expanded(
@@ -220,11 +224,8 @@ class _StatusPill extends StatelessWidget {
           label: Translation.cancelled.tr,
           background: const Color(0xFFE7000B),
           foreground: ColorM.white,
-          iconBuilder: () => Icon(
-            Icons.cancel_outlined,
-            size: 16.w,
-            color: ColorM.white,
-          ),
+          iconBuilder: () =>
+              Icon(Icons.cancel_outlined, size: 16.w, color: ColorM.white),
         );
       default:
         return _StatusPillSpec(

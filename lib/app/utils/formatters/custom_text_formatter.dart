@@ -34,11 +34,12 @@ class CreditCardNumberFormatter extends TextInputFormatter {
   }
 }
 
-
 class ExpiryDateFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     String digitsOnly = newValue.text.replaceAll(RegExp(r'\D'), '');
 
     if (digitsOnly.length > 4) {

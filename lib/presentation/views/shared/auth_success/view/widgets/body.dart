@@ -5,8 +5,8 @@ import 'package:for_u/app/extensions/theme_extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/common/role_entry_dialog.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/app/enums/enums.dart';
@@ -53,9 +53,11 @@ class Body extends StatelessWidget {
                 context.popUntilNamed(Routes.home);
                 return;
               }
-              final picked = await RoleEntryDialog.show(context);
-              if (picked != null && context.mounted) {
-                context.goNamed(picked);
+              // The session was established at verify-otp; land on the
+              // home that matches the server-assigned role.
+              final role = await DI().sessionService.storedRole();
+              if (context.mounted) {
+                context.goNamed(role?.homeRoute ?? Routes.auth);
               }
             },
             borderRadius: 12.r,

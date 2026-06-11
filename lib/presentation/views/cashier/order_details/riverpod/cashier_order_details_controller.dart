@@ -78,13 +78,13 @@ class CashierOrderDetailsState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        products,
-        captainName,
-        captainAvatarUrl,
-        location,
-        orderTime,
-      ];
+    status,
+    products,
+    captainName,
+    captainAvatarUrl,
+    location,
+    orderTime,
+  ];
 }
 
 class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
@@ -121,10 +121,11 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
   }
 }
 
-final cashierOrderDetailsController = NotifierProvider.autoDispose<
-    CashierOrderDetailsNotifier, CashierOrderDetailsState>(
-  CashierOrderDetailsNotifier.new,
-);
+final cashierOrderDetailsController =
+    NotifierProvider.autoDispose<
+      CashierOrderDetailsNotifier,
+      CashierOrderDetailsState
+    >(CashierOrderDetailsNotifier.new);
 
 CashierOrderDetailsState _stateFor(CashierOrderStatus status) {
   final preparedByDefault = !status.isPreparing;

@@ -1,6 +1,9 @@
 // 1. Observer Interface
 abstract class FavoritesObserver {
-  void onFavoritesChanged(Map<int, bool> favoriteProviders, Map<int, bool> favoriteProducts);
+  void onFavoritesChanged(
+    Map<int, bool> favoriteProviders,
+    Map<int, bool> favoriteProducts,
+  );
 }
 
 // 2. Observable - FavoritesManager (Singleton)
@@ -30,7 +33,7 @@ class FavoritesManager {
   }
 
   // ========== Provider (Salons, Clinics, etc.) Methods ==========
-  
+
   // Toggle provider favorite
   void toggleProviderFavorite(int providerId) {
     if (_favoriteProviders.containsKey(providerId)) {
@@ -65,7 +68,7 @@ class FavoritesManager {
   }
 
   // ========== Product Methods ==========
-  
+
   // Toggle product favorite
   void toggleProductFavorite(int productId) {
     if (_favoriteProducts.containsKey(productId)) {
@@ -131,6 +134,7 @@ class FavoritesManager {
         .toList();
   }
 }
+
 //
 // // 3. Example Home BLoC Implementation
 // class HomeBloc extends Bloc<HomeEvent, HomeState> implements FavoritesObserver {

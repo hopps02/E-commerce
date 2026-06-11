@@ -11,11 +11,36 @@ typedef PickedCaptain = ({
 });
 
 const List<PickedCaptain> captains = [
-  (name: 'عماد مجدي', phone: '+96542627282', avatarUrl: 'https://i.pravatar.cc/200?img=12', completedToday: 12),
-  (name: 'عماد مجدي', phone: '+96542627282', avatarUrl: 'https://i.pravatar.cc/200?img=13', completedToday: 12),
-  (name: 'عماد مجدي', phone: '+96542627282', avatarUrl: 'https://i.pravatar.cc/200?img=14', completedToday: 12),
-  (name: 'عماد مجدي', phone: '+96542627282', avatarUrl: 'https://i.pravatar.cc/200?img=15', completedToday: 12),
-  (name: 'عماد مجدي', phone: '+96542627282', avatarUrl: 'https://i.pravatar.cc/200?img=16', completedToday: 12),
+  (
+    name: 'عماد مجدي',
+    phone: '+96542627282',
+    avatarUrl: 'https://i.pravatar.cc/200?img=12',
+    completedToday: 12,
+  ),
+  (
+    name: 'عماد مجدي',
+    phone: '+96542627282',
+    avatarUrl: 'https://i.pravatar.cc/200?img=13',
+    completedToday: 12,
+  ),
+  (
+    name: 'عماد مجدي',
+    phone: '+96542627282',
+    avatarUrl: 'https://i.pravatar.cc/200?img=14',
+    completedToday: 12,
+  ),
+  (
+    name: 'عماد مجدي',
+    phone: '+96542627282',
+    avatarUrl: 'https://i.pravatar.cc/200?img=15',
+    completedToday: 12,
+  ),
+  (
+    name: 'عماد مجدي',
+    phone: '+96542627282',
+    avatarUrl: 'https://i.pravatar.cc/200?img=16',
+    completedToday: 12,
+  ),
 ];
 
 class AssignCaptainState extends Equatable {
@@ -67,8 +92,8 @@ class AssignCaptainState extends Equatable {
   /// fetch succeeded.
   ReqState get displayState =>
       reqState.isSuccess && filtered.isEmpty && query.trim().isNotEmpty
-          ? ReqState.empty
-          : reqState;
+      ? ReqState.empty
+      : reqState;
 
   @override
   List<Object?> get props => [selectedIndex, query, reqState, errorMessage];
@@ -80,9 +105,7 @@ class AssignCaptainNotifier extends Notifier<AssignCaptainState> {
   @override
   AssignCaptainState build() {
     ref.onDispose(searchController.dispose);
-    return const AssignCaptainState(
-      reqState: ReqState.success,
-    );
+    return const AssignCaptainState(reqState: ReqState.success);
   }
 
   void setQuery(String q) {

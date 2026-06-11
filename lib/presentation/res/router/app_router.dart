@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/app.dart';
+import 'package:for_u/data/models/auth/auth_models.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/screens/captain_home_view.dart';
 import 'package:for_u/presentation/views/captain/delivery_outcome/view/screens/captain_delivery_outcome_view.dart';
 import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
@@ -70,11 +71,21 @@ enum Routes {
 
 
   String get path => '/$name';
-    
-  
+
+
 }
 
 // dart format on
+
+/// Each role lands on its own home — the role comes from the backend
+/// (verify-otp / stored session), never from user choice.
+extension MobileRoleHome on MobileRole {
+  Routes get homeRoute => switch (this) {
+    MobileRole.customer => Routes.home,
+    MobileRole.cashier => Routes.cashierHome,
+    MobileRole.captain => Routes.captainHome,
+  };
+}
 
 Widget _slideFadeTransition(
   BuildContext context,
@@ -82,7 +93,6 @@ Widget _slideFadeTransition(
   Animation<double> secondaryAnimation,
   Widget child,
 ) {
-
   final inCurve = CurvedAnimation(
     parent: animation,
     curve: Curves.easeInOut,

@@ -60,10 +60,7 @@ class _TotalsPanel extends StatelessWidget {
   final int productsCount;
   final double totalAmount;
 
-  const _TotalsPanel({
-    required this.productsCount,
-    required this.totalAmount,
-  });
+  const _TotalsPanel({required this.productsCount, required this.totalAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -183,10 +180,7 @@ class _ActionButton extends ConsumerWidget {
     }
     final picked = await AssignCaptainBottomSheet.show(context);
     if (picked != null) {
-      notifier.assignCaptain(
-        name: picked.name,
-        avatarUrl: picked.avatarUrl,
-      );
+      notifier.assignCaptain(name: picked.name, avatarUrl: picked.avatarUrl);
     }
   }
 }

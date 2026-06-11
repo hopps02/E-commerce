@@ -2,14 +2,12 @@
   "_static": "===== Static =====",
   "search_country": "بحث",
   "app_name": "موعدك",
-
   "_comment_loading": "===== حالات التحميل =====",
   "loading": "جاري التحميل",
   "no_more": "لا يوجد اكثر",
   "failed_loading": "فشل التحميل",
   "load_more": "تحميل المزيد",
   "retry_button": "إعادة المحاولة",
-
   "_comment_errors": "===== رسائل الخطأ =====",
   "user_not_confirmed": "الحساب غير مؤكد",
   "unauthorized": "يرجي تسجيل الدخول للمتابعة",
@@ -20,7 +18,11 @@
   "error_no_internet": "لا يوجد اتصال بالانترنت",
   "error_invalid_number": "رقم الهاتف غير صالح",
   "error_invalid_email": "البريد الإلكتروني غير صالح",
-
+  "error_generic": "حدث خطأ ما، حاول مرة أخرى",
+  "error_otp_invalid": "الكود غير صحيح، حاول مرة أخرى",
+  "error_otp_expired": "انتهت صلاحية الكود، اطلب كودًا جديدًا",
+  "error_otp_cooldown": "يرجى الانتظار قليلًا قبل طلب كود جديد",
+  "error_account_suspended": "هذا الحساب موقوف، يرجى التواصل مع الدعم",
   "_comment_auth": "===== Auth & Onboarding =====",
   "login": "تسجيل الدخول",
   "enter_mobile_to_continue": "أدخل رقم جوالك للمتابعة",
@@ -34,13 +36,11 @@
   "verification_code_sent_part2": "فضلاً أدخل الرمز أدناه للمتابعة",
   "start_shopping": "ابدأ التسوق",
   "start_shopping_now": "ابدأ التسوق الآن",
-
   "onboarding_grocery_desc": "كل احتياجاتك من السوبر ماركت في مكان واحد — اطلب بسهولة ويوصلك لحد باب البيت بسرعة.",
   "resend_code_question": "لم يصلك الرمز؟",
   "resend_code_action": "أعد الإرسال",
   "confirm": "تأكيد",
   "next": "التالي",
-
   "_comment_home": "===== Home & Shopping =====",
   "deliver_to": "توصيل إلى",
   "categories": "الأقسام",
@@ -74,7 +74,6 @@
   "snacks_and_packaged": "وجبات خفيفة وأطعمة معبأة",
   "quick_choices": "اختيارات سريعة لكل رغباتك",
   "home": "الرئيسية",
-
   "_comment_cart_orders": "===== Cart & Orders =====",
   "product_count": "عدد المنتجات: {count}",
   "weight_gram": "{count} جم",
@@ -113,7 +112,6 @@
   "rating_delivery_speed": "سرعة التوصيل",
   "share_experience_hint": "شاركنا تفاصيل تجربتك....",
   "no_data_found": "عذراً، لا توجد بيانات لعرضها في الوقت الحالي.",
-
   "_comment_profile": "===== Profile =====",
   "name": "الاسم",
   "save": "حفظ",
@@ -144,7 +142,6 @@
   "service_unavailable_in_area": "الخدمة غير متاحة حالياً في منطقتك",
   "out_of_delivery_range": "خارج نطاق التوصيل",
   "out_of_delivery_range_desc": "لا نوصل إلى هذا العنوان حالياً. نعمل على توسيع تغطيتنا قريباً، ويمكنك المحاولة مرة أخرى أو اختيار موقع مختلف.",
-
   "_comment_merchant_orders": "===== Merchant / Orders Flow =====",
   "welcome_back": "أهلاً بعودتك، {name}",
   "location_label": "الموقع :",
@@ -170,7 +167,6 @@
   "send": "إرسال",
   "language": "اللغة",
   "products_count_label": "عدد المنتجات",
-
   "_comment_captain_delivery": "===== Captain Delivery Flow =====",
   "busy": "مشغول",
   "available_status": "متاح",

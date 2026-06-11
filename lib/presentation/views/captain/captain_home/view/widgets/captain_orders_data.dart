@@ -42,11 +42,13 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
   Widget build(BuildContext context) {
     super.build(context);
     final state = ref.watch(
-      captainHomeController.select((s) => switch (widget.type) {
-            CaptainOrdersDataType.upcoming => s.upcomingData,
-            CaptainOrdersDataType.inDelivery => s.inDeliveryData,
-            CaptainOrdersDataType.completed => s.completedData,
-          }),
+      captainHomeController.select(
+        (s) => switch (widget.type) {
+          CaptainOrdersDataType.upcoming => s.upcomingData,
+          CaptainOrdersDataType.inDelivery => s.inDeliveryData,
+          CaptainOrdersDataType.completed => s.completedData,
+        },
+      ),
     );
     final notifier = ref.read(captainHomeController.notifier);
     final refreshController = switch (widget.type) {
@@ -91,11 +93,11 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
           itemBuilder: (context, index) {
             final status = switch (widget.type) {
               CaptainOrdersDataType.upcoming => CaptainOrderStatus.upcoming,
-              CaptainOrdersDataType.inDelivery =>
-                CaptainOrderStatus.inDelivery,
-              CaptainOrdersDataType.completed => index.isEven
-                  ? CaptainOrderStatus.delivered
-                  : CaptainOrderStatus.cancelled,
+              CaptainOrdersDataType.inDelivery => CaptainOrderStatus.inDelivery,
+              CaptainOrdersDataType.completed =>
+                index.isEven
+                    ? CaptainOrderStatus.delivered
+                    : CaptainOrderStatus.cancelled,
             };
             return CaptainOrderCard(
               status: status,

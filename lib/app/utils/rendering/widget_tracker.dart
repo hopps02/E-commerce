@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
@@ -17,10 +14,7 @@ class SizeTrackingRenderObject extends RenderProxyBox {
   final void Function(RenderBox renderBox)? onRenderObjectChange;
   final void Function(RenderBox renderBox)? onRenderedObject;
 
-  SizeTrackingRenderObject({
-    this.onRenderObjectChange,
-    this.onRenderedObject,
-  });
+  SizeTrackingRenderObject({this.onRenderObjectChange, this.onRenderedObject});
 
   @override
   void performLayout() {
@@ -47,7 +41,6 @@ class SizeTrackingRenderObject extends RenderProxyBox {
           }
         });
       }
-
     }
   }
 

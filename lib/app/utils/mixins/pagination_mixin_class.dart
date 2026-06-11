@@ -64,7 +64,8 @@ mixin PaginationMixin {
     required bool isRefresh,
     required void Function(S state) emit,
     required List<T> currentItems,
-    required Future<Either<F, PaginatedResponse<T>>> Function(int page) fetchData,
+    required Future<Either<F, PaginatedResponse<T>>> Function(int page)
+    fetchData,
     required S Function() loadingState,
     required S Function(F failure) errorState,
     required S Function() emptyState,

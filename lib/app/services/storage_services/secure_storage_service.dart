@@ -2,15 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-
 /// Save sensitive data using [flutter_secure_storage] library
 // dart format off
 abstract class SecureStorageServiceBase {
 
   final FlutterSecureStorage _storage;
   static const               _tokenKey    = 'access-token';
+  static const               _roleKey     = 'user-role';
   static const               _mapDataKey = 'user-data';
   String?                     _cachedToken;
+  String?                     _cachedRole;
 
   SecureStorageServiceBase(this._storage);
 
@@ -33,6 +34,19 @@ abstract class SecureStorageServiceBase {
 
   /// check if there is token or not
   Future<bool> isUserRegistered()     async => (await _storage.read(key: _tokenKey)) != null;
+
+  // Role (server-assigned at verify-otp; routing depends on it)
+  Future<void> setRole(String role)   async => {
+    await _storage.write(key: _roleKey, value: role),
+    _cachedRole = role,
+  };
+
+  Future<String?> get role            async => _cachedRole ??= await _storage.read(key: _roleKey);
+
+  Future<void> deleteRole()           async => {
+    await _storage.delete(key: _roleKey),
+    _cachedRole = null,
+  };
 
   // User Data
   Future<void> setSecureMap(Map<String, dynamic> data) async => await _storage.write(key: _mapDataKey, value: jsonEncode(data));

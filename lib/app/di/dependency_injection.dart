@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:for_u/app/services/firebase_messeging_services.dart';
+import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/app/services/storage_services/secure_storage_service.dart';
 import 'package:for_u/app/services/storage_services/shared_prefrences_service.dart';
 import 'package:for_u/app/services/storage_services/storage_service.dart';
@@ -31,6 +33,12 @@ class DI {
   // --- Domain & Data ---
   static final _authRepository            = Provider<AuthRepository>((ref) => AuthRepositoryImpl(ref.read(_authApi)));
 
+  static final _sessionService            = Provider((ref) => SessionService(
+                                              ref.read(_storageService),
+                                              ref.read(_authRepository),
+                                              () => FirebaseMessegingServices.instance.fcmToken,
+                                            ));
+
   // --- snack bar Helper
   static final _snackBarHelper            = Provider((ref) => SnackbarHelper());
 
@@ -51,6 +59,7 @@ class DI {
 
 extension DICoreServicesExtension on DI {
   StorageService      get storageService   => DI.container.read(DI._storageService);
+  SessionService      get sessionService   => DI.container.read(DI._sessionService);
   SnackbarHelper      get snackBarHelper   => DI.container.read(DI._snackBarHelper);
   LoadingManager      get loadingService   => DI.container.read(DI._loadingService);
 }

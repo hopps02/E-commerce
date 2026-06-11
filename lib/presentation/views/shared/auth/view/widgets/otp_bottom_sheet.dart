@@ -7,6 +7,7 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/forms/otp_field.dart';
 import 'package:for_u/app/utils/mixins/after_layout.dart';
+import 'package:for_u/data/models/auth/auth_models.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -24,7 +25,12 @@ import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart'
 
 class OtpBottomSheet extends ConsumerStatefulWidget {
   final String mobileNumber;
-  const OtpBottomSheet({super.key, required this.mobileNumber});
+  final OtpRequested otpRequested;
+  const OtpBottomSheet({
+    super.key,
+    required this.mobileNumber,
+    required this.otpRequested,
+  });
 
   @override
   ConsumerState<OtpBottomSheet> createState() => _OtpBottomSheetState();
@@ -32,13 +38,17 @@ class OtpBottomSheet extends ConsumerStatefulWidget {
   static Future<void> show(
     BuildContext context, {
     required String mobileNumber,
+    required OtpRequested otpRequested,
   }) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       useSafeArea: true,
-      builder: (context) => OtpBottomSheet(mobileNumber: mobileNumber),
+      builder: (context) => OtpBottomSheet(
+        mobileNumber: mobileNumber,
+        otpRequested: otpRequested,
+      ),
     );
   }
 }
@@ -51,8 +61,11 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
     _otp = otp;
   }
 
-  void onVerifyOtp() {
-    if (_otp.length == 5) {
+  Future<void> onVerifyOtp() async {
+    if (_otp.length != otpCodeLength) return;
+
+    final session = await ref.read(verifyOtpController.notifier).verify(_otp);
+    if (session != null && mounted) {
       context.pushReplacementNamed(
         Routes.authSuccess,
         arguments: const AuthSuccessArgs(successViewType: SuccessViewType.auth),
@@ -67,7 +80,8 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
       padding:
           EdgeInsets.all(SizeM.pagePadding.dg) +
           EdgeInsets.only(
-            bottom: context.bottomViewInsetsMedia + context.bottomSafeAreaPadding,
+            bottom:
+                context.bottomViewInsetsMedia + context.bottomSafeAreaPadding,
           ),
       width: double.infinity,
       decoration: ShapeDecoration(
@@ -108,6 +122,8 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
 
   @override
   Future<void> afterLayout(BuildContext context) async {
-    ref.read(verifyOtpController.notifier).startTimer();
+    ref
+        .read(verifyOtpController.notifier)
+        .start(widget.mobileNumber, widget.otpRequested.resendAfterSeconds);
   }
 }

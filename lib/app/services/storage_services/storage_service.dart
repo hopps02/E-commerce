@@ -17,6 +17,11 @@ class StorageService extends StorageServiceBase {
   Future<String?> getToken()                                 async => await _secureStorageService.token;
   Future<void> deleteToken()                                 async => await _secureStorageService.deleteToken();
 
+  // Role (server-assigned)
+  Future<void> setRole(String role)                          async => await _secureStorageService.setRole(role);
+  Future<String?> getRole()                                  async => await _secureStorageService.role;
+  Future<void> deleteRole()                                  async => await _secureStorageService.deleteRole();
+
   // User Data
   Future<void> setSecureMap(Map<String, dynamic> data)       async => await _secureStorageService.setSecureMap(data);
   Future<Map<String, dynamic>?> secureMap()                  async => await _secureStorageService.secureMap;

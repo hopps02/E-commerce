@@ -6,30 +6,30 @@ enum CardType {
   unknown;
 
   String get displayName => switch (this) {
-        visa => 'Visa',
-        mastercard => 'Mastercard',
-        americanExpress => 'American Express',
-        discover => 'Discover',
-        unknown => 'Unknown',
-      };
+    visa => 'Visa',
+    mastercard => 'Mastercard',
+    americanExpress => 'American Express',
+    discover => 'Discover',
+    unknown => 'Unknown',
+  };
 
   String get logoPath => switch (this) {
-        visa => 'assets/images/visa.png',
-        mastercard => 'assets/images/mastercard.png',
-        americanExpress => 'assets/images/amex.png',
-        discover => 'assets/images/discover.png',
-        unknown => 'assets/images/visa.png', // Default fallback
-      };
+    visa => 'assets/images/visa.png',
+    mastercard => 'assets/images/mastercard.png',
+    americanExpress => 'assets/images/amex.png',
+    discover => 'assets/images/discover.png',
+    unknown => 'assets/images/visa.png', // Default fallback
+  };
 
   int get maxLength => switch (this) {
-        americanExpress => 15,
-        _ => 16,
-      };
+    americanExpress => 15,
+    _ => 16,
+  };
 
   int get cvvLength => switch (this) {
-        americanExpress => 4,
-        _ => 3,
-      };
+    americanExpress => 4,
+    _ => 3,
+  };
 }
 
 class CardTypeDetector {
@@ -59,8 +59,9 @@ class CardTypeDetector {
 
     // Discover: starts with 6011, 622126-622925, 644-649, 65
     if (cleanNumber.startsWith('6011') ||
-        RegExp(r'^622(12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[0-1][0-9]|92[0-5])')
-            .hasMatch(cleanNumber) ||
+        RegExp(
+          r'^622(12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[0-1][0-9]|92[0-5])',
+        ).hasMatch(cleanNumber) ||
         RegExp(r'^64[4-9]').hasMatch(cleanNumber) ||
         cleanNumber.startsWith('65')) {
       return CardType.discover;

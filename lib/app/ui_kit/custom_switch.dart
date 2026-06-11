@@ -154,34 +154,22 @@ class _CustomSwitchState extends State<CustomSwitch>
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0),
       end: Offset(maxSlide, 0),
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: widget.curve,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
 
     _rotationAnimation = Tween<double>(
       begin: 0.0,
       end: widget.rotateThumb ? 2 * 3.14159 : 0.0, // Full rotation if enabled
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: widget.curve,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
       end: widget.scaleThumb ? widget.activeThumbScale : 1.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: widget.curve,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
 
     _glowAnimation = Tween<double>(
       begin: 0.0,
       end: widget.enableGlow ? widget.glowIntensity : 0.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: widget.curve,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
   }
 
   @override
@@ -247,7 +235,8 @@ class _CustomSwitchState extends State<CustomSwitch>
         height: widget.height,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: widget.trackBorderRadius ??
+          borderRadius:
+              widget.trackBorderRadius ??
               BorderRadius.circular(widget.height / 2),
           border: widget.trackBorder,
           boxShadow: widget.trackShadow,
@@ -262,18 +251,15 @@ class _CustomSwitchState extends State<CustomSwitch>
                   width: widget.width,
                   height: widget.height,
                   decoration: BoxDecoration(
-                    borderRadius: widget.trackBorderRadius ??
+                    borderRadius:
+                        widget.trackBorderRadius ??
                         BorderRadius.circular(widget.height / 2),
                   ),
                   child: _controller.value > 0.5
                       ? widget.activeTrackWidget ??
-                          Container(
-                            color: widget.activeTrackColor,
-                          )
+                            Container(color: widget.activeTrackColor)
                       : widget.inactiveTrackWidget ??
-                          Container(
-                            color: widget.inactiveTrackColor,
-                          ),
+                            Container(color: widget.inactiveTrackColor),
                 );
               },
             ),
@@ -314,9 +300,7 @@ class _CustomSwitchState extends State<CustomSwitch>
           ),
         ],
       ),
-      child: Center(
-        child: _buildThumb(width, height),
-      ),
+      child: Center(child: _buildThumb(width, height)),
     );
   }
 
@@ -333,7 +317,8 @@ class _CustomSwitchState extends State<CustomSwitch>
             borderRadius:
                 widget.thumbBorderRadius ?? BorderRadius.circular(height / 2),
             border: widget.thumbBorder,
-            boxShadow: widget.thumbShadow ??
+            boxShadow:
+                widget.thumbShadow ??
                 [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
@@ -344,7 +329,8 @@ class _CustomSwitchState extends State<CustomSwitch>
           ),
           child: widget.thumbWidget != null
               ? ClipRRect(
-                  borderRadius: widget.thumbBorderRadius ??
+                  borderRadius:
+                      widget.thumbBorderRadius ??
                       BorderRadius.circular(height / 2),
                   child: widget.thumbWidget,
                 )

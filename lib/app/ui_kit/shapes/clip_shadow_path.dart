@@ -15,10 +15,7 @@ class ClipShadowPath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _ClipShadowShadowPainter(
-        clipper: clipper,
-        shadow: shadow,
-      ),
+      painter: _ClipShadowShadowPainter(clipper: clipper, shadow: shadow),
       child: ClipPath(clipper: clipper, child: child),
     );
   }

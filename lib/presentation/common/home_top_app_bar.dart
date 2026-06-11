@@ -113,15 +113,16 @@ class _TopSection extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              Translation.welcome_back
-                                  .trNamed({"name": welcomeName}),
+                              Translation.welcome_back.trNamed({
+                                "name": welcomeName,
+                              }),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: context.labelMedium.copyWith(
                                 color: ColorM.white,
                                 fontWeight: FontWeightM.semiBold,
                                 fontSize: 18.sp,
-                                height: 1.1
+                                height: 1.1,
                               ),
                             ),
                           ),
@@ -143,10 +144,7 @@ class _TopSection extends StatelessWidget {
 }
 
 class _BottomSection extends StatelessWidget {
-  const _BottomSection({
-    required this.tabsBar,
-    required this.tabsAboveSearch,
-  });
+  const _BottomSection({required this.tabsBar, required this.tabsAboveSearch});
 
   final Widget tabsBar;
   final bool tabsAboveSearch;
@@ -172,27 +170,15 @@ class _BottomSection extends StatelessWidget {
         Assets.svg.search.path,
         width: 18.w,
         height: 18.w,
-        colorFilter: const ColorFilter.mode(
-          ColorM.gray600,
-          BlendMode.srcIn,
-        ),
+        colorFilter: const ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
       ),
     );
 
     return GeneralPadding(
       child: Column(
         children: tabsAboveSearch
-            ? [
-                16.verticalSpace,
-                tabsBar,
-                16.verticalSpace,
-                search,
-              ]
-            : [
-                search,
-                14.verticalSpace,
-                tabsBar,
-              ],
+            ? [16.verticalSpace, tabsBar, 16.verticalSpace, search]
+            : [search, 14.verticalSpace, tabsBar],
       ),
     );
   }

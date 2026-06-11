@@ -4,7 +4,6 @@ import 'dart:ui' as ui show lerpDouble;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 @immutable
 class GradientBorderSide with Diagnosticable {
   /// Creates the side of a border.
@@ -73,7 +72,10 @@ class GradientBorderSide with Diagnosticable {
   final BorderStyle style;
 
   /// A hairline black border that is not rendered.
-  static const GradientBorderSide none = GradientBorderSide(width: 0.0, style: BorderStyle.none);
+  static const GradientBorderSide none = GradientBorderSide(
+    width: 0.0,
+    style: BorderStyle.none,
+  );
 
   /// The relative position of the stroke on a [GradientBorderSide] in an
   /// [OutlinedBorder] or [Border].
@@ -216,7 +218,11 @@ class GradientBorderSide with Diagnosticable {
   /// Linearly interpolate between two border sides.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static GradientBorderSide lerp(GradientBorderSide a, GradientBorderSide b, double t) {
+  static GradientBorderSide lerp(
+    GradientBorderSide a,
+    GradientBorderSide b,
+    double t,
+  ) {
     if (identical(a, b)) {
       return a;
     }
@@ -260,26 +266,24 @@ class GradientBorderSide with Diagnosticable {
     );
   }
 
-
-  static GradientBorderSide glassyOutline({double width = 1}) => GradientBorderSide(
+  static GradientBorderSide glassyOutline({double width = 1}) =>
+      GradientBorderSide(
         width: width,
         gradient: SweepGradient(
           colors: [
-            Colors.white.withValues(alpha: .5),  // 0°    right edge mid
-            Colors.white.withValues(alpha: .35),  // 45°   BR — bright
-            Colors.white.withValues(alpha: 0.25),  // 90°   bottom edge mid
-            Colors.white.withValues(alpha: 0.13),  // 135°  BL — transparent
-            Colors.white.withValues(alpha: 0.13),  // 180°  left edge mid
-            Colors.white.withValues(alpha: .5),  // 225°  TL — bright
-            Colors.white.withValues(alpha: .25),  // 270°  top edge mid
-            Colors.white.withValues(alpha: 0.13),  // 315°  TR — transparent
-            Colors.white.withValues(alpha: 0.13),  // 360°  wrap
+            Colors.white.withValues(alpha: .5), // 0°    right edge mid
+            Colors.white.withValues(alpha: .35), // 45°   BR — bright
+            Colors.white.withValues(alpha: 0.25), // 90°   bottom edge mid
+            Colors.white.withValues(alpha: 0.13), // 135°  BL — transparent
+            Colors.white.withValues(alpha: 0.13), // 180°  left edge mid
+            Colors.white.withValues(alpha: .5), // 225°  TL — bright
+            Colors.white.withValues(alpha: .25), // 270°  top edge mid
+            Colors.white.withValues(alpha: 0.13), // 315°  TR — transparent
+            Colors.white.withValues(alpha: 0.13), // 360°  wrap
           ],
           stops: [0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0],
         ),
       );
-
-
 
   /// Get the amount of the stroke width that lies inside of the [GradientBorderSide].
   ///
@@ -327,11 +331,27 @@ class GradientBorderSide with Diagnosticable {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<Color>('color', color, defaultValue: const Color(0xFF000000)),
+      DiagnosticsProperty<Color>(
+        'color',
+        color,
+        defaultValue: const Color(0xFF000000),
+      ),
     );
     properties.add(DoubleProperty('width', width, defaultValue: 1.0));
-    properties.add(DoubleProperty('strokeAlign', strokeAlign, defaultValue: strokeAlignInside));
-    properties.add(EnumProperty<BorderStyle>('style', style, defaultValue: BorderStyle.solid));
+    properties.add(
+      DoubleProperty(
+        'strokeAlign',
+        strokeAlign,
+        defaultValue: strokeAlignInside,
+      ),
+    );
+    properties.add(
+      EnumProperty<BorderStyle>(
+        'style',
+        style,
+        defaultValue: BorderStyle.solid,
+      ),
+    );
     if (gradient != null) {
       properties.add(DiagnosticsProperty<Gradient>('gradient', gradient));
     }
@@ -423,30 +443,28 @@ class GradientRoundedRectangleBorder extends ShapeBorder {
     }
 
     final RRect borderRect = borderRadius.resolve(textDirection).toRRect(rect);
-    
+
     // If the border has a gradient, we need to paint it specially
     if (side.gradient != null) {
       // Create a path for the border stroke
-      final Path borderPath = Path()
-        ..addRRect(borderRect);
-      
+      final Path borderPath = Path()..addRRect(borderRect);
+
       // Create a path for the inner rect to create the border effect
       final RRect innerRect = borderRect.deflate(side.width);
-      final Path innerPath = Path()
-        ..addRRect(innerRect);
-      
+      final Path innerPath = Path()..addRRect(innerRect);
+
       // Use PathOperation.difference to create the border area
       final Path borderArea = Path.combine(
         PathOperation.difference,
         borderPath,
         innerPath,
       );
-      
+
       // Create paint with gradient shader
       final Paint paint = Paint()
         ..shader = side.gradient!.createShader(rect)
         ..style = PaintingStyle.fill;
-      
+
       canvas.drawPath(borderArea, paint);
     } else {
       // Standard border painting for non-gradient borders
@@ -477,12 +495,11 @@ class GradientRoundedRectangleBorder extends ShapeBorder {
   }
 }
 
-
 enum CornerLocation { tl, tr, bl, br }
 
 /// A rectangular border with variable smoothness transitions between
 /// the straight sides and the rounded corners.
-/// 
+///
 /// Supports gradient borders through the custom [GradientBorderSide] class.
 class SmoothRectangleBorder extends ShapeBorder {
   const SmoothRectangleBorder({
@@ -515,7 +532,8 @@ class SmoothRectangleBorder extends ShapeBorder {
   @override
   Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
     return getPath(
-        borderRadius.resolve(textDirection).toRRect(rect).deflate(side.width));
+      borderRadius.resolve(textDirection).toRRect(rect).deflate(side.width),
+    );
   }
 
   Path getPath(RRect rrect) {
@@ -570,10 +588,7 @@ class SmoothRectangleBorder extends ShapeBorder {
 
       //bottom right
       path
-        ..lineTo(
-          right,
-          top + math.max(height / 2, height - br.p),
-        )
+        ..lineTo(right, top + math.max(height / 2, height - br.p))
         ..cubicTo(
           right,
           bottom - (br.p - br.a),
@@ -613,8 +628,9 @@ class SmoothRectangleBorder extends ShapeBorder {
         )
         ..arcTo(
           Rect.fromCircle(
-              center: Offset(left + bl.radius, bottom - bl.radius),
-              radius: bl.radius),
+            center: Offset(left + bl.radius, bottom - bl.radius),
+            radius: bl.radius,
+          ),
           (90 + bl.angleBezier).toRadian(),
           (90 - bl.angleBezier * 2).toRadian(),
           false,
@@ -641,8 +657,9 @@ class SmoothRectangleBorder extends ShapeBorder {
         )
         ..arcTo(
           Rect.fromCircle(
-              center: Offset(left + tl.radius, top + tl.radius),
-              radius: tl.radius),
+            center: Offset(left + tl.radius, top + tl.radius),
+            radius: tl.radius,
+          ),
           (180 + tl.angleBezier).toRadian(),
           (90 - tl.angleBezier * 2).toRadian(),
           false,
@@ -669,35 +686,34 @@ class SmoothRectangleBorder extends ShapeBorder {
   @override
   void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {
     if (rect.isEmpty || side.style == BorderStyle.none) return;
-    
+
     final RRect borderRRect = borderRadius.resolve(textDirection).toRRect(rect);
-    
+
     // If the border has a gradient, we need to paint it specially
     if (side.gradient != null) {
       // Create paths for outer and inner boundaries
       final Path outerPath = getPath(borderRRect);
       final RRect innerRRect = borderRRect.deflate(side.width);
       final Path innerPath = getPath(innerRRect);
-      
+
       // Use PathOperation.difference to create the border area
       final Path borderArea = Path.combine(
         PathOperation.difference,
         outerPath,
         innerPath,
       );
-      
+
       // Create paint with gradient shader
       final Paint paint = Paint()
         ..shader = side.gradient!.createShader(rect)
         ..style = PaintingStyle.fill
         ..isAntiAlias = true;
-      
+
       canvas.drawPath(borderArea, paint);
     } else {
       // Standard border painting for non-gradient borders
       final Path path = getPath(borderRRect.deflate(side.width / 2));
-      final Paint paint = side.toPaint(rect)
-        ..isAntiAlias = true;
+      final Paint paint = side.toPaint(rect)..isAntiAlias = true;
       canvas.drawPath(path, paint);
     }
   }
@@ -715,8 +731,11 @@ class SmoothRectangleBorder extends ShapeBorder {
     if (a is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
         side: GradientBorderSide.lerp(a.side, side, t),
-        borderRadius:
-            BorderRadiusGeometry.lerp(a.borderRadius, borderRadius, t)!,
+        borderRadius: BorderRadiusGeometry.lerp(
+          a.borderRadius,
+          borderRadius,
+          t,
+        )!,
         smoothness: a.smoothness + (smoothness - a.smoothness) * t,
       );
     }
@@ -728,8 +747,11 @@ class SmoothRectangleBorder extends ShapeBorder {
     if (b is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
         side: GradientBorderSide.lerp(side, b.side, t),
-        borderRadius:
-            BorderRadiusGeometry.lerp(borderRadius, b.borderRadius, t)!,
+        borderRadius: BorderRadiusGeometry.lerp(
+          borderRadius,
+          b.borderRadius,
+          t,
+        )!,
         smoothness: smoothness + (b.smoothness - smoothness) * t,
       );
     }
@@ -751,11 +773,7 @@ class SmoothRectangleBorder extends ShapeBorder {
 
   @override
   int get hashCode {
-    return Object.hash(
-      smoothness,
-      borderRadius,
-      side,
-    );
+    return Object.hash(smoothness, borderRadius, side);
   }
 
   @override
@@ -803,7 +821,10 @@ class Corner {
 
     var dToC = math.tan(angleBezier.toRadian());
     var longest = radius * math.tan(angleBezier.toRadian() / 2);
-    var l = math.sin(angleCircle.toRadian() / 2) * radius * math.pow(2, 0.5).toDouble();
+    var l =
+        math.sin(angleCircle.toRadian() / 2) *
+        radius *
+        math.pow(2, 0.5).toDouble();
     c = longest * math.cos(angleBezier.toRadian());
     d = c * dToC;
     b = ((p - l) - (1 + dToC) * c) / 3;

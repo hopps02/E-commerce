@@ -2,14 +2,12 @@
   "_static": "===== Static =====",
   "search_country": "Search",
   "app_name": "cliniva",
-
   "_comment_loading": "===== Loading States =====",
   "loading": "Loading...",
   "no_more": "No more data",
   "failed_loading": "Failed to load data",
   "load_more": "Load more",
   "retry_button": "Retry",
-
   "_comment_errors": "===== Error Messages =====",
   "user_not_confirmed": "User is not confirmed.",
   "unauthorized": "Please login to continue",
@@ -20,7 +18,11 @@
   "error_no_internet": "No internet connection",
   "error_invalid_number": "Invalid phone number",
   "error_invalid_email": "Invalid email",
-
+  "error_generic": "Something went wrong. Please try again.",
+  "error_otp_invalid": "The code is incorrect. Try again.",
+  "error_otp_expired": "This code is no longer valid. Request a new one.",
+  "error_otp_cooldown": "Please wait a moment before requesting a new code.",
+  "error_account_suspended": "This account is suspended. Please contact support.",
   "_comment_auth": "===== Auth & Onboarding =====",
   "login": "Login",
   "enter_mobile_to_continue": "Enter your mobile number to continue",
@@ -34,13 +36,11 @@
   "verification_code_sent_part2": "Please enter the code below to continue",
   "start_shopping": "Start Shopping",
   "start_shopping_now": "Start Shopping Now",
-
   "onboarding_grocery_desc": "All your supermarket needs in one place — order easily and it will be delivered to your door quickly.",
   "resend_code_question": "Didn't receive the code?",
   "resend_code_action": "Resend",
   "confirm": "Confirm",
   "next": "Next",
-
   "_comment_home": "===== Home & Shopping =====",
   "deliver_to": "Deliver to",
   "categories": "Categories",
@@ -74,7 +74,6 @@
   "snacks_and_packaged": "Snacks and packaged foods",
   "quick_choices": "Quick choices for all your cravings",
   "home": "Home",
-
   "_comment_cart_orders": "===== Cart & Orders =====",
   "product_count": "Number of products: {count}",
   "weight_gram": "{count} g",
@@ -113,7 +112,6 @@
   "rating_delivery_speed": "Delivery speed",
   "share_experience_hint": "Share the details of your experience....",
   "no_data_found": "Oops, there's no data to show right now.",
-
   "_comment_profile": "===== Profile =====",
   "name": "Name",
   "save": "Save",
@@ -144,7 +142,6 @@
   "service_unavailable_in_area": "The service is currently unavailable in your area",
   "out_of_delivery_range": "Out of delivery range",
   "out_of_delivery_range_desc": "We don't deliver to this address yet. We're working on expanding our coverage soon — you can try again or choose a different location.",
-
   "_comment_merchant_orders": "===== Merchant / Orders Flow =====",
   "welcome_back": "Welcome back, {name}",
   "location_label": "Location:",
@@ -170,7 +167,6 @@
   "send": "Send",
   "language": "Language",
   "products_count_label": "Number of Products",
-
   "_comment_captain_delivery": "===== Captain Delivery Flow =====",
   "busy": "Busy",
   "available_status": "Available",
@@ -200,5 +196,5 @@
   "customer_refused_receipt": "Customer refused receipt",
   "other_reason": "Other reason",
   "mention_reason_hint": "Mention the reason...",
-  "support" : "Support"
+  "support": "Support"
 }

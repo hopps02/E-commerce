@@ -20,6 +20,10 @@ enum Translation {
   error_server,
   error_no_internet,
   error_generic,
+  error_otp_invalid,
+  error_otp_expired,
+  error_otp_cooldown,
+  error_account_suspended,
   user_not_confirmed,
   unauthorized,
   email_taken,
@@ -98,7 +102,10 @@ enum Translation {
   shipping_cost,
   discount,
   total_amount,
-  seconds, profile, checkout, no_data_found,
+  seconds,
+  profile,
+  checkout,
+  no_data_found,
   order_placed_successfully,
   order_number,
   view_order,
@@ -202,7 +209,8 @@ enum Translation {
   back_to_home,
   customer_refused_receipt,
   other_reason,
-  mention_reason_hint, support,
+  mention_reason_hint,
+  support,
 }
 
 extension Tra on Translation {

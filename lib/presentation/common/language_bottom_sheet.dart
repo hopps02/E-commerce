@@ -76,20 +76,18 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
           12.verticalSpace,
           _LanguageRow(
             label: Translation.arabic.tr,
-            isSelected: _selected?.languageCode ==
+            isSelected:
+                _selected?.languageCode ==
                 SupportedLocales.AR.locale.languageCode,
-            onTap: () => setState(
-              () => _selected = SupportedLocales.AR.locale,
-            ),
+            onTap: () => setState(() => _selected = SupportedLocales.AR.locale),
           ),
           4.verticalSpace,
           _LanguageRow(
             label: Translation.english.tr,
-            isSelected: _selected?.languageCode ==
+            isSelected:
+                _selected?.languageCode ==
                 SupportedLocales.EN.locale.languageCode,
-            onTap: () => setState(
-              () => _selected = SupportedLocales.EN.locale,
-            ),
+            onTap: () => setState(() => _selected = SupportedLocales.EN.locale),
           ),
           12.verticalSpace,
           Container(height: 1.h, color: ColorM.gray200),

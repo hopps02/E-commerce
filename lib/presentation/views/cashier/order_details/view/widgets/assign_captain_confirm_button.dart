@@ -27,8 +27,7 @@ class AssignCaptainConfirmButton extends StatelessWidget {
       height: 56.h,
       width: double.infinity,
       borderRadius: SizeM.commonBorderRadius.r,
-      backgroundColor:
-          enabled ? ColorM.primary500 : const Color(0xFF9CA3AF),
+      backgroundColor: enabled ? ColorM.primary500 : const Color(0xFF9CA3AF),
       alignment: Alignment.center,
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,

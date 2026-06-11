@@ -23,12 +23,12 @@ abstract final class Rules {
 
   /// Runs [rules] in order and returns the first failure, or `null` if all pass.
   static Rule all(List<Rule> rules) => (value) {
-        for (final rule in rules) {
-          final error = rule(value);
-          if (error != null) return error;
-        }
-        return null;
-      };
+    for (final rule in rules) {
+      final error = rule(value);
+      if (error != null) return error;
+    }
+    return null;
+  };
 }
 
 /// A field to check when a form is submitted: its current [value], the

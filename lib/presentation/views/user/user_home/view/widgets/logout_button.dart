@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    final confirmed = await LogoutBottomSheet.show(context);
+    if (confirmed != true) return;
+
+    DI().loadingService.show();
+    await DI().sessionService.logout();
+    DI().loadingService.hide();
+
+    if (context.mounted) context.goNamed(Routes.auth);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +31,7 @@ class LogoutButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {
-            LogoutBottomSheet.show(context);
-          },
+          onTap: () => _logout(context),
           borderRadius: BorderRadius.circular(20.r),
           child: Container(
             width: double.infinity,

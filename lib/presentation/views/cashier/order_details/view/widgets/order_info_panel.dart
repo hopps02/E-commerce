@@ -86,10 +86,7 @@ class _InfoRow extends StatelessWidget {
           valueIcon,
           width: 16.w,
           height: 16.w,
-          colorFilter: const ColorFilter.mode(
-            ColorM.gray600,
-            BlendMode.srcIn,
-          ),
+          colorFilter: const ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
         ),
         6.horizontalSpace,
         Expanded(
@@ -161,13 +158,13 @@ class _StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final (color, label) = switch (status) {
       CashierOrderStatus.inDelivery => (
-          const Color(0xFFF59E0B),
-          Translation.out_for_delivery.tr,
-        ),
+        const Color(0xFFF59E0B),
+        Translation.out_for_delivery.tr,
+      ),
       CashierOrderStatus.delivered => (
-          const Color(0xFF10B981),
-          Translation.delivered.tr,
-        ),
+        const Color(0xFF10B981),
+        Translation.delivered.tr,
+      ),
       _ => (Colors.transparent, ''),
     };
 

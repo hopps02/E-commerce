@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:for_u/app/config/constants.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 
@@ -48,10 +49,18 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
     Timer(Duration(seconds: Constants.splashTimer), () async {
       if (!DI().storageService.isSkippedOnBoarding) {
         context.goNamed(Routes.onboarding);
-      } else if (await DI().storageService.isUserRegistered) {
-        if (context.mounted) context.goNamed(Routes.home);
-      } else {
-        if (context.mounted) context.goNamed(Routes.auth);
+        return;
+      }
+
+      // Stored session is validated against the backend (dead sessions are
+      // cleared); offline keeps the stored role so nobody gets locked out.
+      final start = await DI().sessionService.resolveStart();
+      if (!context.mounted) return;
+      switch (start) {
+        case StartHome(:final role):
+          context.goNamed(role.homeRoute);
+        case StartAuth():
+          context.goNamed(Routes.auth);
       }
     });
   }

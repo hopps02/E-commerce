@@ -72,9 +72,7 @@ class _GlassButton extends StatelessWidget {
       borderRadius: 14.r,
       backgroundColor: ColorM.white.withValues(alpha: 0.12),
       glassBlur: 10,
-      padding: EdgeInsets.symmetric(
-        horizontal: 5.w
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       keepBorderCrisp: true,
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,

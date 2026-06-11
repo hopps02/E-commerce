@@ -28,8 +28,7 @@ class SupportForm extends ConsumerWidget {
             backgroundColor: ColorM.gray100,
             borderColor: ColorM.gray100,
             textAlign: TextAlign.start,
-            onFieldSubmitted: (_) =>
-                notifier.messageFocusNode.requestFocus(),
+            onFieldSubmitted: (_) => notifier.messageFocusNode.requestFocus(),
           ),
         ),
         18.verticalSpace,

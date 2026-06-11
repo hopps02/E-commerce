@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCircularNotchedRectangle extends NotchedShape {
-  const CustomCircularNotchedRectangle(
-      {this.inverted = false, this.notchTopRadius = 0.0});
+  const CustomCircularNotchedRectangle({
+    this.inverted = false,
+    this.notchTopRadius = 0.0,
+  });
 
   final bool inverted;
   final double notchTopRadius;
@@ -14,7 +16,9 @@ class CustomCircularNotchedRectangle extends NotchedShape {
   @override
   Path getOuterPath(Rect host, Rect? guest_) {
     Rect? guest = Rect.fromCircle(
-        center: Offset(host.center.dx, 0), radius: 60.h / 2 + 5);
+      center: Offset(host.center.dx, 0),
+      radius: 60.h / 2 + 5,
+    );
 
     if (!host.overlaps(guest)) {
       return Path()..addRect(host);
@@ -88,16 +92,19 @@ class NotchedClipper extends CustomClipper<Path> {
   final double circleRadius;
   final double notchMargin;
 
-  const NotchedClipper(
-      {required this.circleRadius,
-      this.notchMargin = 0.0,
-      this.inverted = false,
-      this.notchTopRadius = 0.0});
+  const NotchedClipper({
+    required this.circleRadius,
+    this.notchMargin = 0.0,
+    this.inverted = false,
+    this.notchTopRadius = 0.0,
+  });
 
   @override
   Path getClip(Size size) {
     Rect? guest = Rect.fromCircle(
-        center: Offset(size.width / 2, 0), radius: circleRadius + notchMargin);
+      center: Offset(size.width / 2, 0),
+      radius: circleRadius + notchMargin,
+    );
     Rect? host = Rect.fromLTRB(0, 0, size.width, size.height);
 
     // if (guest == null || !host.overlaps(guest)) {

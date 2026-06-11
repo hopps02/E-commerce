@@ -10,8 +10,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
   String toJson(DateTime object) => object.toUtc().toIso8601String();
 }
 
-class NullableDateTimeConverter
-    implements JsonConverter<DateTime?, String?> {
+class NullableDateTimeConverter implements JsonConverter<DateTime?, String?> {
   const NullableDateTimeConverter();
 
   @override

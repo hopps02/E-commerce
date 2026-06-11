@@ -3,6 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'auth_models.freezed.dart';
 part 'auth_models.g.dart';
 
+/// Login codes are 6 digits — the backend generates them at this length
+/// (config fouru.otp.length) and the UI collects exactly this many.
+const int otpCodeLength = 6;
+
 /// Server-assigned mobile role. The backend resolves it from the phone at
 /// verify-otp; the app never chooses it (the role dialog was dev-only).
 enum MobileRole {

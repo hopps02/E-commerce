@@ -10,10 +10,9 @@ class Direction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-      quarterTurns:
-          init == .ltr
-              ? (Directionality.of(context) == TextDirection.ltr ? 2 : 0)
-              : (Directionality.of(context) == TextDirection.ltr ? 0 : 2),
+      quarterTurns: init == .ltr
+          ? (Directionality.of(context) == TextDirection.ltr ? 2 : 0)
+          : (Directionality.of(context) == TextDirection.ltr ? 0 : 2),
       child: child,
     );
   }

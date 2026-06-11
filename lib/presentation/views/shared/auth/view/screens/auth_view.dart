@@ -23,22 +23,19 @@ class _AuthViewState extends ConsumerState<AuthView> {
   final FocusNode phoneNumberFocusNode = FocusNode();
 
   Future<void> onSendOtpCode(String dialCode) async {
-    final isValid = await validatePhoneField(
+    final phone = await validatePhoneField(
       dialCode: dialCode,
       number: phoneNumberController.text,
       focusNode: phoneNumberFocusNode,
     );
-    if (isValid) _sendOtp();
+    if (phone != null) await _sendOtp(phone);
   }
 
-  void _sendOtp() {
-    DI().loadingService.show();
-    Future.delayed(const Duration(seconds: 3), () {
-      DI().loadingService.hide();
-      if (mounted) {
-        OtpBottomSheet.show(context, mobileNumber: phoneNumberController.text);
-      }
-    });
+  Future<void> _sendOtp(String phone) async {
+    final otp = await ref.read(authController.notifier).requestOtp(phone);
+    if (otp != null && mounted) {
+      OtpBottomSheet.show(context, mobileNumber: phone, otpRequested: otp);
+    }
   }
 
   @override

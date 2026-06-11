@@ -320,21 +320,18 @@ class _StatusLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final (label, color) = switch (status) {
       CaptainOrderStatus.upcoming => (
-          Translation.upcoming_order.tr,
-          const Color(0xFFA394FF),
-        ),
+        Translation.upcoming_order.tr,
+        const Color(0xFFA394FF),
+      ),
       CaptainOrderStatus.inDelivery => (
-          Translation.out_for_delivery.tr,
-          const Color(0xFFF59E0B),
-        ),
+        Translation.out_for_delivery.tr,
+        const Color(0xFFF59E0B),
+      ),
       CaptainOrderStatus.delivered => (
-          Translation.delivered.tr,
-          const Color(0xFF22C55E),
-        ),
-      CaptainOrderStatus.cancelled => (
-          Translation.cancelled.tr,
-          ColorM.red,
-        ),
+        Translation.delivered.tr,
+        const Color(0xFF22C55E),
+      ),
+      CaptainOrderStatus.cancelled => (Translation.cancelled.tr, ColorM.red),
     };
 
     return Row(

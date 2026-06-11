@@ -17,6 +17,7 @@ import 'package:for_u/app/enums/enums.dart';
 enum CashierOrdersDataType {
   preparation,
   onTheWay;
+
   bool get isPreparation => this == CashierOrdersDataType.preparation;
   bool get isOnTheWay => this == CashierOrdersDataType.onTheWay;
 }
@@ -89,9 +90,9 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
                 onTapAction: requiresCaptain
                     ? () => AssignCaptainBottomSheet.show(context)
                     : () => context.pushNamed(
-                          Routes.cashierOrderDetails,
-                          arguments: CashierOrderStatus.preparing,
-                        ),
+                        Routes.cashierOrderDetails,
+                        arguments: CashierOrderStatus.preparing,
+                      ),
               );
             }
             final delivered = index % 2 == 1;

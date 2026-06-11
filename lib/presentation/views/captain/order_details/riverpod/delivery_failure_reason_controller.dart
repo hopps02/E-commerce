@@ -69,7 +69,8 @@ class DeliveryFailureReasonNotifier
   }
 }
 
-final deliveryFailureReasonController = NotifierProvider.autoDispose<
-    DeliveryFailureReasonNotifier, DeliveryFailureReasonState>(
-  DeliveryFailureReasonNotifier.new,
-);
+final deliveryFailureReasonController =
+    NotifierProvider.autoDispose<
+      DeliveryFailureReasonNotifier,
+      DeliveryFailureReasonState
+    >(DeliveryFailureReasonNotifier.new);
