@@ -1,0 +1,39 @@
+# Cashier login against the local backend (OTP_FAKE_IN_LOCAL=true, code 000000).
+# Starts from a fresh install state (onboarding visible): "التالي" must go to
+# auth (the dev role dialog is gone), then the real OTP round-trip runs and the
+# server-assigned role must land on the CASHIER home.
+appId: com.utr.foryou
+---
+- launchApp
+- waitForAnimationToEnd
+# fresh state -> onboarding; "Next" now leads to auth (no role dialog)
+- runFlow:
+    when:
+      visible: "التالي"
+    commands:
+      - tapOn: "التالي"
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+- tapOn: "أدخل رقم جوالك"
+- inputText: "560002000"
+- tapOn: "تسجيل الدخول"
+- tapOn: "إرسال رمز التحقق"
+# OTP bottom sheet appears after the real request-otp round-trip
+- extendedWaitUntil:
+    visible: "تأكيد"
+    timeout: 15000
+- tapOn:
+    text: "_"
+    index: 0
+- inputText: "000000"
+- tapOn: "تأكيد"
+# verify-otp -> session established -> auth success screen
+- extendedWaitUntil:
+    visible: "ابدأ التسوق"
+    timeout: 15000
+- takeScreenshot: /tmp/4u-m1-auth-success
+# CTA routes by the SERVER role -> cashier home
+- tapOn: "ابدأ التسوق"
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/4u-m2-role-home
