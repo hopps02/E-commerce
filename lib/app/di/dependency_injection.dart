@@ -9,13 +9,16 @@ import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/api/captain_api.dart';
 import 'package:for_u/data/network/api/cashier_api.dart';
+import 'package:for_u/data/network/api/customer_api.dart';
 import 'package:for_u/data/network/dio_factory.dart';
 import 'package:for_u/data/repository/auth_repository_impl.dart';
 import 'package:for_u/data/repository/captain_repository_impl.dart';
 import 'package:for_u/data/repository/cashier_repository_impl.dart';
+import 'package:for_u/data/repository/customer_repository_impl.dart';
 import 'package:for_u/domain/repository/auth_repository.dart';
 import 'package:for_u/domain/repository/captain_repository.dart';
 import 'package:for_u/domain/repository/cashier_repository.dart';
+import 'package:for_u/domain/repository/customer_repository.dart';
 import 'package:for_u/domain/usecase/auth_usecases.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,10 +41,12 @@ class DI {
   static final _authApi                   = Provider((ref) => AuthApi(ref.read(_dio)));
   static final _cashierApi                = Provider((ref) => CashierApi(ref.read(_dio)));
   static final _captainApi                = Provider((ref) => CaptainApi(ref.read(_dio)));
+  static final _customerApi               = Provider((ref) => CustomerApi(ref.read(_dio)));
   // --- Domain & Data ---
   static final _authRepository            = Provider<AuthRepository>((ref) => AuthRepositoryImpl(ref.read(_authApi)));
   static final _cashierRepository         = Provider<CashierRepository>((ref) => CashierRepositoryImpl(ref.read(_cashierApi)));
   static final _captainRepository         = Provider<CaptainRepository>((ref) => CaptainRepositoryImpl(ref.read(_captainApi)));
+  static final _customerRepository        = Provider<CustomerRepository>((ref) => CustomerRepositoryImpl(ref.read(_customerApi)));
 
   static final _sessionService            = Provider((ref) => SessionService(
                                               ref.read(_storageService),
@@ -74,6 +79,7 @@ extension DICoreServicesExtension on DI {
   LoadingManager      get loadingService   => DI.container.read(DI._loadingService);
   CashierRepository   get cashierRepository=> DI.container.read(DI._cashierRepository);
   CaptainRepository   get captainRepository=> DI.container.read(DI._captainRepository);
+  CustomerRepository  get customerRepository=> DI.container.read(DI._customerRepository);
 }
 
 extension DIUseCasesExtension on DI {

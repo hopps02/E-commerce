@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/profile_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 
-class ProfileSettings extends StatelessWidget {
+class ProfileSettings extends ConsumerWidget {
   const ProfileSettings({super.key});
 
+  /// Apple-required account deletion: confirm -> server soft delete ->
+  /// local teardown -> auth.
+  Future<void> _deleteAccount(BuildContext context, WidgetRef ref) async {
+    final confirmed = await DeleteAccountBottomSheet.show(context);
+    if (confirmed != true || !context.mounted) return;
+
+    final deleted = await ref.read(profileController.notifier).deleteAccount();
+    if (deleted && context.mounted) context.goNamed(Routes.auth);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
@@ -82,9 +94,7 @@ class ProfileSettings extends StatelessWidget {
             title: Translation.delete_account.tr,
             isDestructive: true,
             showArrow: false,
-            onTap: () {
-              DeleteAccountBottomSheet.show(context);
-            },
+            onTap: () => _deleteAccount(context, ref),
           ),
         ],
       ),

@@ -33,7 +33,12 @@ appId: com.utr.foryou
 - tapOn:
     text: "_"
     index: 0
-- inputText: "000000"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
 - tapOn: "تأكيد"
 - extendedWaitUntil:
     visible: "ابدأ التسوق"

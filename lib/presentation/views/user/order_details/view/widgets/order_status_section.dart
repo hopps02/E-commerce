@@ -8,7 +8,12 @@ import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.
 
 class OrderStatusSection extends StatelessWidget {
   final int step;
-  const OrderStatusSection({super.key, required this.step});
+  final String orderNumber;
+  const OrderStatusSection({
+    super.key,
+    required this.step,
+    required this.orderNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class OrderStatusSection extends StatelessWidget {
               style: context.labelLarge.copyWith(color: ColorM.gray600),
             ),
             Text(
-              '#GOC-23456757',
+              '#$orderNumber',
               textDirection: TextDirection.ltr,
               style: context.bodyMedium.copyWith(
                 fontWeight: FontWeightM.medium,

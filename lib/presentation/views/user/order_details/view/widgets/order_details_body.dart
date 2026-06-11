@@ -1,20 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/widgets/order_item.dart';
+import 'package:for_u/presentation/views/user/order_details/riverpod/order_details_controller.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_delivery_address.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_price_summary.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_status_section.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/rate_order_button.dart';
 
 class OrderDetailsBody extends StatelessWidget {
-  const OrderDetailsBody({super.key});
+  final OrderDetailsState state;
+  const OrderDetailsBody({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
+    final arabic = context.locale.languageCode == 'ar';
+
     return Container(
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
@@ -33,9 +39,14 @@ class OrderDetailsBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const OrderStatusSection(step: 3).premiumAppear(index: 0),
+                  OrderStatusSection(
+                    step: state.step,
+                    orderNumber: state.orderNumber,
+                  ).premiumAppear(index: 0),
                   24.verticalSpace,
-                  const OrderDeliveryAddress().premiumAppear(index: 1),
+                  OrderDeliveryAddress(
+                    address: state.address,
+                  ).premiumAppear(index: 1),
                   24.verticalSpace,
                   Text(
                     Translation.orders.tr,
@@ -48,29 +59,32 @@ class OrderDetailsBody extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
-                    itemCount: 3,
+                    itemCount: state.items.length,
                     separatorBuilder: (context, index) => 16.verticalSpace,
                     itemBuilder: (context, index) {
-                      return const Order(
-                        title: "جزر أصفر (Hills Farm) · جزر شانتينيه",
-                        weight: "2 kg",
-                        price: "12",
-                        count: "2",
-                        image: "",
+                      final item = state.items[index];
+                      return Order(
+                        title: item.name(arabic),
+                        weight: "",
+                        price: Money.amount(item.unitPriceHalalas),
+                        count: "${item.quantity}",
+                        image: item.imageUrl ?? "",
                       ).premiumAppear(index: 3 + index);
                     },
                   ),
                   32.verticalSpace,
-                  const OrderPriceSummary(
-                    totalProducts: 12,
-                    shippingCost: 12,
-                    discount: 12,
+                  OrderPriceSummary(
+                    subtotalHalalas: state.totals.subtotalHalalas,
+                    shippingHalalas: state.totals.deliveryFeeHalalas,
+                    discountHalalas: state.totals.discountHalalas,
                   ).premiumAppear(index: 6),
                 ],
               ),
             ),
           ),
-          const RateOrderButton().premiumAppear(index: 7),
+          // Rating is a delivered-order action; the backend rejects it earlier.
+          if (state.isDelivered)
+            const RateOrderButton().premiumAppear(index: 7),
         ],
       ),
     );

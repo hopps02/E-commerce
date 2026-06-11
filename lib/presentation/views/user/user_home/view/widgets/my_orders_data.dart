@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +6,20 @@ import 'package:for_u/app/extensions/widget_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.dart';
 
 import '../../../../../res/router/app_router.dart';
 
-enum MyOrdersDataType { current, previous }
+enum MyOrdersDataType {
+  current,
+  previous;
+
+  String get group => this == MyOrdersDataType.current
+      ? MyOrdersTabNotifier.currentGroup
+      : MyOrdersTabNotifier.previousGroup;
+}
 
 class MyOrdersData extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
@@ -51,7 +57,7 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
       reqState: state.reqState,
       errorMessage: state.msgError,
       alignment: Alignment(0, -0.4),
-      onRetry: () {},
+      onRetry: () => notifier.refreshGroup(widget.myOrdersDataType.group),
       child: CustomizedSmartRefresh(
         controller: refreshController,
         enableLoading: true,
@@ -59,16 +65,8 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
         classicFooterPadding: EdgeInsets.only(
           bottom: widget.bottomSafeAreaPadding,
         ),
-        onLoading: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.loadComplete();
-          });
-        },
-        onRefresh: () {
-          Timer(const Duration(seconds: 2), () {
-            refreshController.refreshCompleted();
-          });
-        },
+        onLoading: () => notifier.loadMore(widget.myOrdersDataType.group),
+        onRefresh: () => notifier.refreshGroup(widget.myOrdersDataType.group),
         child: ListView.separated(
           padding: EdgeInsets.only(
             left: SizeM.pagePadding.w,
@@ -76,12 +74,18 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
             top: 8.h,
             bottom: SizeM.pagePadding.h,
           ),
-          itemCount: 3,
+          itemCount: state.orders.length,
           separatorBuilder: (context, index) => 16.verticalSpace,
-          itemBuilder: (context, index) => OrderCard(
-            step: (index % 3) + 1,
-            onTapDetails: () => context.pushNamed(Routes.orderDetails),
-          ),
+          itemBuilder: (context, index) {
+            final order = state.orders[index];
+            return OrderCard(
+              order: order,
+              onTapDetails: () => context.pushNamed(
+                Routes.orderDetails,
+                arguments: OrderDetailsArgs(orderId: order.id),
+              ),
+            );
+          },
         ),
       ).premiumAppear(),
     );

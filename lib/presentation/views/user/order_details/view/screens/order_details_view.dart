@@ -8,14 +8,30 @@ import 'package:for_u/presentation/views/user/order_details/view/widgets/order_d
 
 import '../../../../../../app/extensions/widget_extensions.dart';
 
+class OrderDetailsArgs {
+  final int orderId;
+
+  const OrderDetailsArgs({required this.orderId});
+}
+
 class OrderDetailsView extends ConsumerStatefulWidget {
-  const OrderDetailsView({super.key});
+  final OrderDetailsArgs args;
+
+  const OrderDetailsView({super.key, required this.args});
 
   @override
   ConsumerState<OrderDetailsView> createState() => _OrderDetailsViewState();
 }
 
 class _OrderDetailsViewState extends ConsumerState<OrderDetailsView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(orderDetailsController.notifier).load(widget.args.orderId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final orderDetailsState = ref.watch(orderDetailsController);
@@ -27,9 +43,14 @@ class _OrderDetailsViewState extends ConsumerState<OrderDetailsView> {
           Expanded(
             child: FastStateRender(
               reqState: orderDetailsState.reqState,
+              errorMessage: orderDetailsState.errorMessage,
               alignment: const Alignment(0, -0.2),
-              onRetry: () {},
-              child: const OrderDetailsBody().containerSlideUp(),
+              onRetry: () => ref
+                  .read(orderDetailsController.notifier)
+                  .load(widget.args.orderId),
+              child: OrderDetailsBody(
+                state: orderDetailsState,
+              ).containerSlideUp(),
             ),
           ),
         ],

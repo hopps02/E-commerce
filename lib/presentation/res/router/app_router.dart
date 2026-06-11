@@ -211,7 +211,11 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.orderDetails.name,
       path: Routes.orderDetails.path,
-      builder: (_, __) => const OrderDetailsView(),
+      builder: (_, state) => OrderDetailsView(
+        args: state.extra is OrderDetailsArgs
+            ? state.extra as OrderDetailsArgs
+            : const OrderDetailsArgs(orderId: 0),
+      ),
     ),
     _r(
       name: Routes.language.name,

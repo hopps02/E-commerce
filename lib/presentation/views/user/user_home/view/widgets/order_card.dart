@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/money.dart';
+import 'package:for_u/data/models/customer/customer_models.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -12,12 +14,21 @@ import 'package:for_u/app/ui_kit/custom_cached_image.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class OrderCard extends StatelessWidget {
-  final int step;
+  final CustomerOrder order;
   final VoidCallback onTapDetails;
-  const OrderCard({super.key, required this.step, required this.onTapDetails});
+  const OrderCard({super.key, required this.order, required this.onTapDetails});
+
+  String _imageUrl(int index) {
+    final items = order.activeItems;
+    return index < items.length ? (items[index].imageUrl ?? '') : '';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final arabic = context.locale.languageCode == 'ar';
+    final items = order.activeItems;
+    final summary = items.map((item) => item.name(arabic)).join(' · ');
+    final step = order.timelineStep;
     return Container(
       width: 343.w,
       padding: EdgeInsets.all(14.w),
@@ -35,7 +46,7 @@ class OrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '#GOC-23456757',
+                '#${order.orderNumber}',
                 textDirection: TextDirection.ltr,
                 style: context.bodyMedium.copyWith(
                   fontWeight: FontWeightM.medium,
@@ -43,10 +54,12 @@ class OrderCard extends StatelessWidget {
                 ),
               ),
               Text(
-                easy.DateFormat(
-                  "MMMM d, yyyy h:mm a",
-                  context.locale.languageCode,
-                ).format(DateTime.now()),
+                order.createdAt == null
+                    ? ''
+                    : easy.DateFormat(
+                        "MMMM d, yyyy h:mm a",
+                        context.locale.languageCode,
+                      ).format(order.createdAt!.toLocal()),
                 style: context.labelMedium.copyWith(color: ColorM.gray600),
               ),
             ],
@@ -72,14 +85,16 @@ class OrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        Translation.product_count.trNamed({'count': '2'}),
+                        Translation.product_count.trNamed({
+                          'count': '${order.itemsCount ?? items.length}',
+                        }),
                         style: context.bodyMedium.copyWith(
                           color: ColorM.gray900,
                           fontWeight: FontWeightM.medium,
                         ),
                       ),
                       Text(
-                        'جزر أصفر (Hills Farm) · جزر شانتينيه',
+                        summary,
                         style: context.labelLarge.copyWith(
                           color: ColorM.gray700,
                         ),
@@ -94,60 +109,66 @@ class OrderCard extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Positioned(
-                        right: 21.w,
-                        child: Transform.rotate(
-                          angle: -19 * (3.14159 / 180),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorM.gray1000.withValues(alpha: 0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 0,
-                                  offset: Offset(-5, 10),
-                                ),
-                              ],
-                            ),
-                            child: CustomCachedImage(
-                              imageUrl: 'https://picsum.photos/100',
-                              width: 38.w,
-                              height: 42.h,
-                              borderRadius: BorderRadius.circular(6.r),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 4.w,
-                        top: 6.h,
-                        child: Transform.rotate(
-                          angle: 15 * (3.14159 / 180),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorM.gray1000.withValues(alpha: 0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 0,
-                                  offset: Offset(5, 10),
-                                ),
-                              ],
-                            ),
-                            child: CustomCachedImage(
-                              imageUrl: 'https://picsum.photos/400',
-                              width: 38.w,
-                              height: 42.h,
-                              borderRadius: BorderRadius.circular(6.r),
+                      if (items.length > 1)
+                        Positioned(
+                          right: 21.w,
+                          child: Transform.rotate(
+                            angle: -19 * (3.14159 / 180),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorM.gray1000.withValues(
+                                      alpha: 0.1,
+                                    ),
+                                    blurRadius: 3,
+                                    spreadRadius: 0,
+                                    offset: Offset(-5, 10),
+                                  ),
+                                ],
+                              ),
+                              child: CustomCachedImage(
+                                imageUrl: _imageUrl(1),
+                                width: 38.w,
+                                height: 42.h,
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      if (items.length > 2)
+                        Positioned(
+                          right: 4.w,
+                          top: 6.h,
+                          child: Transform.rotate(
+                            angle: 15 * (3.14159 / 180),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorM.gray1000.withValues(
+                                      alpha: 0.1,
+                                    ),
+                                    blurRadius: 3,
+                                    spreadRadius: 0,
+                                    offset: Offset(5, 10),
+                                  ),
+                                ],
+                              ),
+                              child: CustomCachedImage(
+                                imageUrl: _imageUrl(2),
+                                width: 38.w,
+                                height: 42.h,
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
+                            ),
+                          ),
+                        ),
                       Positioned(
                         child: CustomCachedImage(
-                          imageUrl: 'https://picsum.photos/300',
+                          imageUrl: _imageUrl(0),
                           width: 38.w,
                           height: 42.h,
                           borderRadius: BorderRadius.circular(6.r),
@@ -221,7 +242,7 @@ class OrderCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '12',
+                        Money.amount(order.displayTotalHalalas),
                         style: context.titleMedium.copyWith(
                           color: ColorM.primary700,
                           fontWeight: FontWeightM.semiBold,

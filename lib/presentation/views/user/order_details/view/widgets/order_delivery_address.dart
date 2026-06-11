@@ -9,7 +9,8 @@ import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class OrderDeliveryAddress extends StatelessWidget {
-  const OrderDeliveryAddress({super.key});
+  final String address;
+  const OrderDeliveryAddress({super.key, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class OrderDeliveryAddress extends StatelessWidget {
               ),
               8.horizontalSpace,
               Text(
-                "شارع 14 , تبوك",
+                address,
                 style: context.bodyMedium.copyWith(color: ColorM.gray950),
               ),
             ],

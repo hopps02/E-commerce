@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class OrderPriceSummary extends StatelessWidget {
-  final double totalProducts;
-  final double shippingCost;
-  final double discount;
+  final int subtotalHalalas;
+  final int shippingHalalas;
+  final int discountHalalas;
 
   const OrderPriceSummary({
     super.key,
-    required this.totalProducts,
-    required this.shippingCost,
-    required this.discount,
+    required this.subtotalHalalas,
+    required this.shippingHalalas,
+    required this.discountHalalas,
   });
 
-  double get totalAmount => (totalProducts + shippingCost) - discount;
+  int get totalHalalas => (subtotalHalalas + shippingHalalas) - discountHalalas;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,17 @@ class OrderPriceSummary extends StatelessWidget {
           ),
         ),
         16.verticalSpace,
-        _SummaryRow(title: Translation.total_products.tr, price: totalProducts),
+        _SummaryRow(
+          title: Translation.total_products.tr,
+          halalas: subtotalHalalas,
+        ),
         12.verticalSpace,
-        _SummaryRow(title: Translation.shipping_cost.tr, price: shippingCost),
+        _SummaryRow(
+          title: Translation.shipping_cost.tr,
+          halalas: shippingHalalas,
+        ),
         12.verticalSpace,
-        _SummaryRow(title: Translation.discount.tr, price: discount),
+        _SummaryRow(title: Translation.discount.tr, halalas: discountHalalas),
         24.verticalSpace,
         Container(height: 1.h, color: ColorM.gray200),
         24.verticalSpace,
@@ -57,7 +64,7 @@ class OrderPriceSummary extends StatelessWidget {
               spacing: 3.w,
               children: [
                 Text(
-                  "${totalAmount % 1 == 0 ? totalAmount.toInt() : totalAmount}",
+                  Money.amount(totalHalalas),
                   style: context.titleMedium.copyWith(
                     color: ColorM.primary700,
                     fontWeight: FontWeightM.bold,
@@ -82,9 +89,9 @@ class OrderPriceSummary extends StatelessWidget {
 
 class _SummaryRow extends StatelessWidget {
   final String title;
-  final double price;
+  final int halalas;
 
-  const _SummaryRow({required this.title, required this.price});
+  const _SummaryRow({required this.title, required this.halalas});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +104,7 @@ class _SummaryRow extends StatelessWidget {
           spacing: 3.w,
           children: [
             Text(
-              "${price % 1 == 0 ? price.toInt() : price}",
+              Money.amount(halalas),
               style: context.bodyMedium.copyWith(
                 color: ColorM.gray600,
                 fontWeight: FontWeightM.medium,

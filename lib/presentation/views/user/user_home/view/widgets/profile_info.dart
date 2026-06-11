@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/profile_controller.dart';
 
-class ProfileInfo extends StatelessWidget {
+class ProfileInfo extends ConsumerWidget {
   const ProfileInfo({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(profileController);
     return Column(
       mainAxisSize: .min,
       children: [
@@ -46,7 +49,7 @@ class ProfileInfo extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: Text(
-              'A',
+              profile.initial,
               style: context.headlineMedium.copyWith(
                 color: ColorM.primary500,
                 fontWeight: FontWeightM.bold,
@@ -56,7 +59,7 @@ class ProfileInfo extends StatelessWidget {
         ),
         20.verticalSpace,
         Text(
-          'Ahmed Jihad',
+          profile.name,
           style: context.headlineSmall.copyWith(
             fontWeight: FontWeightM.bold,
             color: ColorM.gray900,
@@ -70,7 +73,7 @@ class ProfileInfo extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Text(
-            '+966-596735479',
+            profile.phone,
             textDirection: TextDirection.ltr,
             style: context.bodyLarge.copyWith(
               color: ColorM.gray500,
