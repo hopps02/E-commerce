@@ -21,9 +21,9 @@ void main() {
   });
 
   group('orderIsCancellable', () {
-    test('mirrors the backend cancel guard', () {
+    test('mirrors the backend cancel guard (placed only)', () {
       expect(orderIsCancellable('placed'), isTrue);
-      expect(orderIsCancellable('preparing'), isTrue);
+      expect(orderIsCancellable('preparing'), isFalse);
       expect(orderIsCancellable('ready_for_pickup'), isFalse);
       expect(orderIsCancellable('out_for_delivery'), isFalse);
       expect(orderIsCancellable('delivered'), isFalse);

@@ -1,0 +1,107 @@
+# LIFECYCLE B1 — cashier prepares GOC-00000016 AFTER the banana line was
+# removed (missing item): only 2 lines remain and the total is recalculated.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الخروج"
+    commands:
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "الرئيسية"
+    commands:
+      - tapOn:
+          point: 14%,92%
+      - waitForAnimationToEnd
+      - scrollUntilVisible:
+          element:
+            text: "تسجيل الخروج"
+          direction: DOWN
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+- tapOn: "أدخل رقم جوالك"
+- inputText: "560002000"
+- tapOn:
+    point: 50%,63%
+- extendedWaitUntil:
+    visible: "تأكيد"
+    timeout: 15000
+- tapOn:
+    text: "_"
+    index: 0
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- tapOn: "تأكيد"
+- extendedWaitUntil:
+    visible: "ابدأ التسوق"
+    timeout: 15000
+- tapOn: "ابدأ التسوق"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*فهد.*"
+    timeout: 20000
+- extendedWaitUntil:
+    visible: ".*GOC-00000016.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-h1-cashier-queue-b
+- tapOn:
+    point: 50%,67%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*الكمية.*"
+    timeout: 15000
+# the removed banana line must NOT render; the two bread lines remain
+- assertNotVisible: ".*موز.*"
+- assertVisible: ".*خبز صامولي.*"
+- assertVisible: ".*خبز تورتيلا.*"
+- takeScreenshot: /tmp/qa-h2-cashier-details-after-removal
+# tick the two remaining items
+- tapOn:
+    point: 10%,34%
+- tapOn:
+    point: 10%,41%
+- takeScreenshot: /tmp/qa-h3-cashier-prepared
+- tapOn:
+    point: 50%,91%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*تعيين كابتن.*"
+    timeout: 15000
+- tapOn:
+    point: 50%,91%
+- extendedWaitUntil:
+    visible: ".*اكتمل اليوم.*"
+    timeout: 15000
+- tapOn: ".*ناصر.*"
+- waitForAnimationToEnd
+- tapOn:
+    point: 50%,95%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*جاري التوصيل.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-h4-cashier-assigned-b

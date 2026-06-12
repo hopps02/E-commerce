@@ -14,9 +14,8 @@ int orderTimelineStep(String state) => switch (state) {
   _ => 1, // cancelled_* / rejected_by_merchant never left preparation
 };
 
-/// States the customer can still cancel from (mirrors the backend guard).
-bool orderIsCancellable(String state) =>
-    state == 'placed' || state == 'preparing';
+/// The backend only allows cancelling before preparation starts.
+bool orderIsCancellable(String state) => state == 'placed';
 
 /// GET /mobile/profile data.
 @freezed

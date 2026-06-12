@@ -1,0 +1,88 @@
+# LIFECYCLE B3 — the customer sees GOC-00000016 delivered WITHOUT the
+# removed banana line, with the recalculated total, and rates it.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الخروج"
+    commands:
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+- tapOn: "أدخل رقم جوالك"
+- inputText: "500003008"
+- tapOn:
+    point: 50%,63%
+- extendedWaitUntil:
+    visible: "تأكيد"
+    timeout: 15000
+- tapOn:
+    text: "_"
+    index: 0
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- tapOn: "تأكيد"
+- extendedWaitUntil:
+    visible: "ابدأ التسوق"
+    timeout: 15000
+- tapOn: "ابدأ التسوق"
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+- tapOn:
+    point: 29%,92%
+- waitForAnimationToEnd
+- tapOn: "السابقة"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-00000016.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-h9-customer-delivered-b
+- tapOn:
+    point: 81%,54%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-00000016.*"
+    timeout: 15000
+# the removed line is gone and the bread lines remain
+- assertNotVisible: ".*موز.*"
+- assertVisible: ".*خبز صامولي.*"
+- assertVisible: ".*تقييم.*"
+- takeScreenshot: /tmp/qa-h10-customer-details-b
+- tapOn: ".*تقييم.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*إرسال.*"
+    timeout: 10000
+- tapOn:
+    point: 75%,52%
+- tapOn:
+    point: 25%,60%
+- tapOn:
+    point: 25%,64%
+- tapOn:
+    point: 25%,68%
+- tapOn: ".*إرسال.*"
+- waitForAnimationToEnd
+- assertNotVisible: ".*تقييم.*"
+- takeScreenshot: /tmp/qa-h11-customer-rated-b

@@ -1,0 +1,20 @@
+# LIFECYCLE C2c — leave checkout entirely, reopen the cart: the validate
+# pass must clamp the line to the live stock and explain it.
+appId: com.utr.foryou
+---
+# back from confirm to cart, then to home
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+# open the cart tab fresh (icon position on the home bottom bar)
+- tapOn:
+    point: 46%,92%
+- takeScreenshot: /tmp/qa-i6-clamp-toast
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تكلفة الشحن"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-i7-cart-clamped

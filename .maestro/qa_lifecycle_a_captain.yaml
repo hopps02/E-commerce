@@ -1,0 +1,81 @@
+# LIFECYCLE A2 — captain side for GOC-00000015: accept -> start -> deliver.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الخروج"
+    commands:
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+- tapOn: "أدخل رقم جوالك"
+- inputText: "550001000"
+- tapOn: "تسجيل الدخول"
+- tapOn: "إرسال رمز التحقق"
+- extendedWaitUntil:
+    visible: "تأكيد"
+    timeout: 15000
+- tapOn:
+    text: "_"
+    index: 0
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- tapOn: "تأكيد"
+- extendedWaitUntil:
+    visible: "ابدأ التسوق"
+    timeout: 15000
+- tapOn: "ابدأ التسوق"
+- waitForAnimationToEnd
+# captain home: the assigned order waits in upcoming
+- extendedWaitUntil:
+    visible: ".*ناصر.*"
+    timeout: 20000
+- extendedWaitUntil:
+    visible: ".*GOC-00000015.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-g5-captain-upcoming
+- tapOn: ".*فتح.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*قائمة المنتجات.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-g6-captain-details
+# accept & receive
+- tapOn:
+    point: 50%,88%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*بدء التوصيل.*"
+    timeout: 15000
+# start delivery
+- tapOn:
+    point: 50%,84%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*تأكيد تسليم الطلب.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-g7-captain-in-delivery
+# confirm delivered (by TEXT — points missed this button before)
+- tapOn: ".*تأكيد تسليم الطلب.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*العودة للرئيسية.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-g8-captain-delivered
+- tapOn: ".*العودة للرئيسية.*"
+- waitForAnimationToEnd

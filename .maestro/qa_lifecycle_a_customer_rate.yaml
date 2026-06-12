@@ -1,0 +1,87 @@
+# LIFECYCLE A3 — the customer sees GOC-00000015 delivered and rates it,
+# closing the loop. After submitting, the rate CTA must disappear.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الخروج"
+    commands:
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+- tapOn: "أدخل رقم جوالك"
+- inputText: "500003003"
+- tapOn: "تسجيل الدخول"
+- tapOn: "إرسال رمز التحقق"
+- extendedWaitUntil:
+    visible: "تأكيد"
+    timeout: 15000
+- tapOn:
+    text: "_"
+    index: 0
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- inputText: "0"
+- tapOn: "تأكيد"
+- extendedWaitUntil:
+    visible: "ابدأ التسوق"
+    timeout: 15000
+- tapOn: "ابدأ التسوق"
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+- tapOn:
+    point: 29%,92%
+- waitForAnimationToEnd
+- tapOn: "السابقة"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-00000015.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-g9-customer-delivered
+- tapOn:
+    point: 81%,54%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-00000015.*"
+    timeout: 15000
+- assertVisible: ".*تقييم.*"
+- takeScreenshot: /tmp/qa-g10-details-with-rate
+- tapOn: ".*تقييم.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*إرسال.*"
+    timeout: 10000
+- tapOn:
+    point: 75%,52%
+- tapOn:
+    point: 25%,60%
+- tapOn:
+    point: 25%,64%
+- tapOn:
+    point: 25%,68%
+- takeScreenshot: /tmp/qa-g11-rate-filled
+- tapOn: ".*إرسال.*"
+- waitForAnimationToEnd
+# the loop is closed: the CTA must be gone
+- assertNotVisible: ".*تقييم.*"
+- takeScreenshot: /tmp/qa-g12-rated-closed
