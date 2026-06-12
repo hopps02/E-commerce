@@ -572,6 +572,275 @@ as String?,
 
 
 /// @nodoc
+mixin _$CoverageResult {
+
+@JsonKey(name: 'is_serviceable') bool get isServiceable;@JsonKey(name: 'city_id') int? get cityId;@JsonKey(name: 'delivery_fee_halalas') int? get deliveryFeeHalalas;
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CoverageResultCopyWith<CoverageResult> get copyWith => _$CoverageResultCopyWithImpl<CoverageResult>(this as CoverageResult, _$identity);
+
+  /// Serializes this CoverageResult to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,isServiceable,cityId,deliveryFeeHalalas);
+
+@override
+String toString() {
+  return 'CoverageResult(isServiceable: $isServiceable, cityId: $cityId, deliveryFeeHalalas: $deliveryFeeHalalas)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CoverageResultCopyWith<$Res>  {
+  factory $CoverageResultCopyWith(CoverageResult value, $Res Function(CoverageResult) _then) = _$CoverageResultCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
+});
+
+
+
+
+}
+/// @nodoc
+class _$CoverageResultCopyWithImpl<$Res>
+    implements $CoverageResultCopyWith<$Res> {
+  _$CoverageResultCopyWithImpl(this._self, this._then);
+
+  final CoverageResult _self;
+  final $Res Function(CoverageResult) _then;
+
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? isServiceable = null,Object? cityId = freezed,Object? deliveryFeeHalalas = freezed,}) {
+  return _then(_self.copyWith(
+isServiceable: null == isServiceable ? _self.isServiceable : isServiceable // ignore: cast_nullable_to_non_nullable
+as bool,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,deliveryFeeHalalas: freezed == deliveryFeeHalalas ? _self.deliveryFeeHalalas : deliveryFeeHalalas // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CoverageResult].
+extension CoverageResultPatterns on CoverageResult {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CoverageResult value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CoverageResult() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CoverageResult value)  $default,){
+final _that = this;
+switch (_that) {
+case _CoverageResult():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CoverageResult value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CoverageResult() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CoverageResult() when $default != null:
+return $default(_that.isServiceable,_that.cityId,_that.deliveryFeeHalalas);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)  $default,) {final _that = this;
+switch (_that) {
+case _CoverageResult():
+return $default(_that.isServiceable,_that.cityId,_that.deliveryFeeHalalas);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,) {final _that = this;
+switch (_that) {
+case _CoverageResult() when $default != null:
+return $default(_that.isServiceable,_that.cityId,_that.deliveryFeeHalalas);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CoverageResult implements CoverageResult {
+  const _CoverageResult({@JsonKey(name: 'is_serviceable') this.isServiceable = false, @JsonKey(name: 'city_id') this.cityId, @JsonKey(name: 'delivery_fee_halalas') this.deliveryFeeHalalas});
+  factory _CoverageResult.fromJson(Map<String, dynamic> json) => _$CoverageResultFromJson(json);
+
+@override@JsonKey(name: 'is_serviceable') final  bool isServiceable;
+@override@JsonKey(name: 'city_id') final  int? cityId;
+@override@JsonKey(name: 'delivery_fee_halalas') final  int? deliveryFeeHalalas;
+
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CoverageResultCopyWith<_CoverageResult> get copyWith => __$CoverageResultCopyWithImpl<_CoverageResult>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CoverageResultToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,isServiceable,cityId,deliveryFeeHalalas);
+
+@override
+String toString() {
+  return 'CoverageResult(isServiceable: $isServiceable, cityId: $cityId, deliveryFeeHalalas: $deliveryFeeHalalas)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CoverageResultCopyWith<$Res> implements $CoverageResultCopyWith<$Res> {
+  factory _$CoverageResultCopyWith(_CoverageResult value, $Res Function(_CoverageResult) _then) = __$CoverageResultCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
+});
+
+
+
+
+}
+/// @nodoc
+class __$CoverageResultCopyWithImpl<$Res>
+    implements _$CoverageResultCopyWith<$Res> {
+  __$CoverageResultCopyWithImpl(this._self, this._then);
+
+  final _CoverageResult _self;
+  final $Res Function(_CoverageResult) _then;
+
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? isServiceable = null,Object? cityId = freezed,Object? deliveryFeeHalalas = freezed,}) {
+  return _then(_CoverageResult(
+isServiceable: null == isServiceable ? _self.isServiceable : isServiceable // ignore: cast_nullable_to_non_nullable
+as bool,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,deliveryFeeHalalas: freezed == deliveryFeeHalalas ? _self.deliveryFeeHalalas : deliveryFeeHalalas // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$DeliveryAddress {
 
  int get id; String? get label;@JsonKey(name: 'label_text') String? get labelText;@JsonKey(name: 'display_address') String get displayAddress;@JsonKey(name: 'is_default') bool get isDefault;

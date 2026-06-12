@@ -37,6 +37,16 @@ abstract class CustomerApi {
   @GET('/mobile/addresses')
   Future<Envelope<List<DeliveryAddress>>> addresses();
 
+  @POST('/mobile/addresses')
+  Future<Envelope<DeliveryAddress>> createAddress(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/mobile/location/coverage-check')
+  Future<Envelope<CoverageResult>> coverageCheck(
+    @Body() Map<String, dynamic> body,
+  );
+
   @POST('/mobile/cart/validate')
   Future<Envelope<CartValidationResult>> validateCart(
     @Body() Map<String, dynamic> body,

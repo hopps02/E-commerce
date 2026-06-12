@@ -53,6 +53,32 @@ class CustomerRepositoryImpl implements CustomerRepository {
       fastHandler(request: () async => (await _api.addresses()).data);
 
   @override
+  Future<Either<Failure, DeliveryAddress>> createAddress({
+    required int cityId,
+    required String displayAddress,
+    required double lat,
+    required double lng,
+  }) => fastHandler(
+    request: () async => (await _api.createAddress({
+      'city_id': cityId,
+      'display_address': displayAddress,
+      'lat': lat,
+      'lng': lng,
+      'label': 'home',
+      'is_default': true,
+    })).data,
+  );
+
+  @override
+  Future<Either<Failure, CoverageResult>> coverageCheck({
+    required double lat,
+    required double lng,
+  }) => fastHandler(
+    request: () async =>
+        (await _api.coverageCheck({'lat': lat, 'lng': lng})).data,
+  );
+
+  @override
   Future<Either<Failure, CartValidationResult>> validateCart(
     List<CartLine> lines,
   ) => fastHandler(

@@ -19,7 +19,12 @@ class ProductCard extends StatefulWidget {
   final double? oldPrice;
   final bool isFavorite;
   final int? quantity;
+
+  /// Live stock ceiling: the counter never climbs past it, so the visible
+  /// number always matches what the cart actually holds.
+  final int? maxQuantity;
   final void Function(int)? onQuantityChanged;
+  final VoidCallback? onLimitReached;
   final VoidCallback? onFavTap;
   final VoidCallback? onTap;
   final bool fitForGridList;
@@ -32,7 +37,9 @@ class ProductCard extends StatefulWidget {
     this.oldPrice,
     this.isFavorite = false,
     this.quantity,
+    this.maxQuantity,
     this.onQuantityChanged,
+    this.onLimitReached,
     this.onFavTap,
     this.onTap,
     this.fitForGridList = false,
@@ -54,16 +61,22 @@ class _ProductCardState extends State<ProductCard> {
 
   void _handleQuantityChange(int change) {
     final newQuantity = _currentQuantity + change;
-    if (newQuantity >= 0) {
-      setState(() {
-        _currentQuantity = newQuantity;
-      });
+    if (newQuantity < 0) return;
 
-      _debounceTimer?.cancel();
-      _debounceTimer = Timer(const Duration(milliseconds: 300), () {
-        widget.onQuantityChanged?.call(_currentQuantity);
-      });
+    final max = widget.maxQuantity;
+    if (max != null && newQuantity > max) {
+      widget.onLimitReached?.call();
+      return;
     }
+
+    setState(() {
+      _currentQuantity = newQuantity;
+    });
+
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      widget.onQuantityChanged?.call(_currentQuantity);
+    });
   }
 
   @override

@@ -117,6 +117,7 @@ class Body extends ConsumerWidget {
                 _openProducts(context, section.category, arabic),
             onProductTap: (index) =>
                 _openDetails(context, section.products[index]),
+            onLimitReached: () => cartNotifier.notifyStockLimit(),
             onQuantityChanged: (index, quantity) =>
                 cartNotifier.setQuantity(section.products[index], quantity),
             products: [
@@ -130,6 +131,7 @@ class Body extends ConsumerWidget {
                       ? Money.asRiyals(product.priceHalalas)
                       : null,
                   'quantity': cart.quantityOf(product.id),
+                  'available': product.available,
                 },
             ],
           ).premiumAppear(index: 4 + sectionIndex, wantKeepAlive: true),

@@ -26,7 +26,7 @@ class CartData extends ConsumerWidget {
         reqState: cart.isEmpty ? ReqState.empty : checkout.reqState,
         alignment: const Alignment(0, -0.22),
         errorMessage: checkout.errorMessage,
-        onRetry: () => ref.read(checkoutController.notifier).load(),
+        onRetry: () => ref.read(checkoutController.notifier).retry(),
         child: ListView.separated(
           padding: EdgeInsets.symmetric(
             horizontal: SizeM.pagePadding.w,
@@ -47,6 +47,9 @@ class CartData extends ConsumerWidget {
               price: Money.asRiyals(product?.effectivePriceHalalas ?? 0),
               imageUrl: product?.imageUrl ?? '',
               initialQuantity: line.quantity,
+              maxQuantity: product?.available,
+              onLimitReached: () =>
+                  ref.read(cartController.notifier).notifyStockLimit(),
               onQuantityChanged: (quantity) {
                 if (product == null) return;
                 ref.read(cartController.notifier).setQuantity(

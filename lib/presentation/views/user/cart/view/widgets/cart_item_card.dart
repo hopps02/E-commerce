@@ -14,7 +14,12 @@ class CartItemCard extends StatefulWidget {
   final double price;
   final String imageUrl;
   final int initialQuantity;
+
+  /// Live stock ceiling: the counter never climbs past it, so the visible
+  /// number always matches what the cart actually holds.
+  final int? maxQuantity;
   final ValueChanged<int> onQuantityChanged;
+  final VoidCallback? onLimitReached;
   final VoidCallback onDelete;
 
   const CartItemCard({
@@ -24,7 +29,9 @@ class CartItemCard extends StatefulWidget {
     required this.price,
     required this.imageUrl,
     required this.initialQuantity,
+    this.maxQuantity,
     required this.onQuantityChanged,
+    this.onLimitReached,
     required this.onDelete,
   });
 
@@ -53,16 +60,22 @@ class _CartItemCardState extends State<CartItemCard> {
 
   void _handleQuantityChange(int change) {
     final newQuantity = _quantity + change;
-    if (newQuantity >= 1) {
-      setState(() {
-        _quantity = newQuantity;
-      });
+    if (newQuantity < 1) return;
 
-      _debounceTimer?.cancel();
-      _debounceTimer = Timer(const Duration(milliseconds: 300), () {
-        widget.onQuantityChanged(_quantity);
-      });
+    final max = widget.maxQuantity;
+    if (max != null && newQuantity > max) {
+      widget.onLimitReached?.call();
+      return;
     }
+
+    setState(() {
+      _quantity = newQuantity;
+    });
+
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      widget.onQuantityChanged(_quantity);
+    });
   }
 
   @override

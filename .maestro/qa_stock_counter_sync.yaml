@@ -1,0 +1,60 @@
+# Regression for the phantom-counter bug: with stock 2, hammering + must
+# leave the visible counter at 2 (never 3+), and the confirm screen must
+# show the same quantity the cart shows.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+# search for the bun, add it from its details
+- tapOn: "بحث..."
+- waitForAnimationToEnd
+- tapOn:
+    point: 50%,11%
+- inputText: "صامولي"
+- extendedWaitUntil:
+    visible: ".*خبز صامولي.*"
+    timeout: 15000
+- tapOn: ".*خبز صامولي.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "إضافة للسلة"
+    timeout: 15000
+- tapOn: "إضافة للسلة"
+- extendedWaitUntil:
+    visible: ".*عرض السلة.*"
+    timeout: 10000
+- tapOn: ".*عرض السلة.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تكلفة الشحن"
+    timeout: 15000
+# hammer + five times: 1 -> 2, then the ceiling holds at 2
+- tapOn:
+    point: 19%,25%
+- tapOn:
+    point: 19%,25%
+- tapOn:
+    point: 19%,25%
+- tapOn:
+    point: 19%,25%
+- tapOn:
+    point: 19%,25%
+- takeScreenshot: /tmp/qa-j1-counter-capped
+- waitForAnimationToEnd
+# the visible counter and the summary must both say 2 (4.00 products)
+- assertVisible: "2"
+- tapOn: "طلب الآن"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*حي العليا.*"
+    timeout: 15000
+- assertVisible: ".*x2.*"
+- takeScreenshot: /tmp/qa-j2-confirm-matches

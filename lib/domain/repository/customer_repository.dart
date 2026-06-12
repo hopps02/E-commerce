@@ -32,6 +32,20 @@ abstract class CustomerRepository {
 
   Future<Either<Failure, List<DeliveryAddress>>> addresses();
 
+  /// First-order convenience: persists the customer's picked location as a
+  /// default address (the dedicated addresses screen isn't designed yet).
+  Future<Either<Failure, DeliveryAddress>> createAddress({
+    required int cityId,
+    required String displayAddress,
+    required double lat,
+    required double lng,
+  });
+
+  Future<Either<Failure, CoverageResult>> coverageCheck({
+    required double lat,
+    required double lng,
+  });
+
   Future<Either<Failure, CartValidationResult>> validateCart(
     List<CartLine> lines,
   );

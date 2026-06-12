@@ -61,6 +61,7 @@ class SearchData extends ConsumerWidget {
                     ? Money.asRiyals(product.priceHalalas)
                     : null,
                 quantity: cart.quantityOf(product.id),
+                maxQuantity: product.available,
                 isFavorite: false,
                 onFavTap: () {},
                 onTap: () {
@@ -72,6 +73,7 @@ class SearchData extends ConsumerWidget {
                     ),
                   );
                 },
+                onLimitReached: () => cartNotifier.notifyStockLimit(),
                 onQuantityChanged: (quantity) =>
                     cartNotifier.setQuantity(product, quantity),
               );

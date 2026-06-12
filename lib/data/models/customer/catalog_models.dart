@@ -53,6 +53,19 @@ abstract class ProductCategory with _$ProductCategory {
       (arabic ? nameAr : nameEn) ?? nameAr ?? nameEn ?? '';
 }
 
+/// POST /mobile/location/coverage-check response.
+@freezed
+abstract class CoverageResult with _$CoverageResult {
+  const factory CoverageResult({
+    @JsonKey(name: 'is_serviceable') @Default(false) bool isServiceable,
+    @JsonKey(name: 'city_id') int? cityId,
+    @JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas,
+  }) = _CoverageResult;
+
+  factory CoverageResult.fromJson(Map<String, dynamic> json) =>
+      _$CoverageResultFromJson(json);
+}
+
 /// GET /mobile/addresses row.
 @freezed
 abstract class DeliveryAddress with _$DeliveryAddress {

@@ -6,6 +6,7 @@ import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/models/customer/catalog_models.dart';
 import 'package:for_u/data/models/customer/customer_models.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 
@@ -99,7 +100,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     }
 
     final addresses = await DI().customerRepository.addresses();
-    final address = addresses.fold<DeliveryAddress?>((failure) {
+    var address = addresses.fold<DeliveryAddress?>((failure) {
       state = state.copyWith(
         reqState: ReqState.error,
         errorMessage: failure.displayMessage,
@@ -107,16 +108,15 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       return null;
     }, (list) => list.where((a) => a.isDefault).firstOrNull ?? list.firstOrNull);
     if (state.reqState.isError) return;
+    address ??= await _addressFromPickedLocation();
     if (address == null) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: Translation.error_address_required.tr,
-      );
+      // _addressFromPickedLocation already set the error state.
       return;
     }
+    final resolved = address;
 
     final quote = await DI().customerRepository.checkoutQuote(
-      addressId: address.id,
+      addressId: resolved.id,
       lines: ref.read(cartController).lines,
     );
     quote.fold(
@@ -126,11 +126,74 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       ),
       (q) => state = state.copyWith(
         reqState: ReqState.success,
-        addressId: address.id,
-        addressLine: address.displayAddress,
+        addressId: resolved.id,
+        addressLine: resolved.displayAddress,
         totals: q.totals,
       ),
     );
+  }
+
+  /// New customers have no saved address and no addresses screen exists yet,
+  /// so the first order turns their picked location (the existing location
+  /// feature) into a default address — after a real coverage check.
+  /// Returns null after setting the error state.
+  Future<DeliveryAddress?> _addressFromPickedLocation() async {
+    final location = ref.read(locationController);
+    final lat = location.latitude;
+    final lng = location.longitude;
+    if (lat == null || lng == null) {
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: Translation.error_address_required.tr,
+      );
+      return null;
+    }
+
+    final coverage = await DI().customerRepository.coverageCheck(
+      lat: lat,
+      lng: lng,
+    );
+    final cityId = coverage.fold<int?>((failure) {
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: failure.displayMessage,
+      );
+      return null;
+    }, (c) => c.isServiceable ? c.cityId : null);
+    if (state.reqState.isError) return null;
+    if (cityId == null) {
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: Translation.error_outside_delivery_zone.tr,
+      );
+      return null;
+    }
+
+    final created = await DI().customerRepository.createAddress(
+      cityId: cityId,
+      displayAddress: location.locationCity ?? Translation.unknown_location.tr,
+      lat: lat,
+      lng: lng,
+    );
+    return created.fold((failure) {
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: failure.displayMessage,
+      );
+      return null;
+    }, (address) => address);
+  }
+
+  /// Retry from the cart's error state. When the dead end was a missing
+  /// location, this first walks the existing permission/fetch flow.
+  Future<void> retry() async {
+    final location = ref.read(locationController);
+    if (location.latitude == null || location.longitude == null) {
+      await ref
+          .read(locationController.notifier)
+          .handleLocationPermissionAndFetch();
+    }
+    await load();
   }
 
   /// Places the order. Returns it on success; null means the failure was

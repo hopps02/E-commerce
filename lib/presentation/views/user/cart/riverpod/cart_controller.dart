@@ -38,8 +38,22 @@ class CartState extends Equatable {
 }
 
 class CartNotifier extends Notifier<CartState> {
+  DateTime? _lastStockToastAt;
+
   @override
   CartState build() => const CartState();
+
+  /// One stock toast per burst of taps, not one per tap.
+  void notifyStockLimit() {
+    final now = DateTime.now();
+    final last = _lastStockToastAt;
+    if (last != null && now.difference(last).inMilliseconds < 2500) return;
+    _lastStockToastAt = now;
+    DI().snackBarHelper.showMessage(
+      Translation.stock_limit_reached.tr,
+      ErrorMessage.snackBar,
+    );
+  }
 
   /// Sets a product's quantity, clamped to its live stock; zero removes the
   /// line. Returns the quantity actually applied.
@@ -52,10 +66,7 @@ class CartNotifier extends Notifier<CartState> {
     var applied = quantity;
     if (quantity > product.available) {
       applied = product.available;
-      DI().snackBarHelper.showMessage(
-        Translation.stock_limit_reached.tr,
-        ErrorMessage.snackBar,
-      );
+      notifyStockLimit();
       if (applied <= 0) {
         removeLine(product.id);
         return 0;
