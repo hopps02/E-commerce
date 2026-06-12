@@ -1,0 +1,86 @@
+# ADDRESSES CRUD part 1: list -> add (real GPS + coverage) -> set default.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الدخول"
+    commands:
+      - tapOn: "أدخل رقم جوالك"
+      - inputText: "500009990"
+      - tapOn:
+          point: 50%,63%
+      - extendedWaitUntil:
+          visible: "تأكيد"
+          timeout: 15000
+      - tapOn:
+          text: "_"
+          index: 0
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - tapOn: "تأكيد"
+      - extendedWaitUntil:
+          visible: "ابدأ التسوق"
+          timeout: 15000
+      - tapOn: "ابدأ التسوق"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+# profile -> العناوين
+- tapOn:
+    point: 14%,92%
+- waitForAnimationToEnd
+- tapOn: "العناوين"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*الافتراضي.*"
+    timeout: 15000
+- assertVisible: ".*الرياض.*"
+- takeScreenshot: /tmp/qa-m1-addresses-list
+# add a new address
+- tapOn: "إضافة عنوان"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*استخدم موقعي الحالي.*"
+    timeout: 15000
+- tapOn: ".*استخدم موقعي الحالي.*"
+- extendedWaitUntil:
+    visible: ".*الرياض.*"
+    timeout: 20000
+- takeScreenshot: /tmp/qa-m2-form-located
+# work label + the required details line
+- tapOn: "العمل"
+- tapOn: "الحي، الشارع، وصف المكان..."
+- inputText: "حي النرجس، طريق الملك عبدالعزيز، أمام الحديقة"
+# dismiss the keyboard by tapping the form title, then save
+- tapOn: "إضافة عنوان"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element:
+      text: "حفظ"
+    direction: DOWN
+- tapOn: "حفظ"
+- waitForAnimationToEnd
+# back on the list with both addresses
+- extendedWaitUntil:
+    visible: ".*النرجس.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m3-two-addresses
+# make the new one the default
+- tapOn: ".*تعيين كافتراضي.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*الافتراضي.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m4-default-moved

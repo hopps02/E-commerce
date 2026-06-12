@@ -1,0 +1,30 @@
+# Continue part 1 from the open add-address form: locate, fill, save,
+# then set the new address as default.
+appId: com.utr.foryou
+---
+- tapOn: ".*استخدم موقعي الحالي.*"
+- extendedWaitUntil:
+    visible: ".*الرياض.*"
+    timeout: 25000
+- takeScreenshot: /tmp/qa-m2-form-located
+- tapOn: "العمل"
+- tapOn: "الحي، الشارع، وصف المكان..."
+- inputText: "حي النرجس، طريق الملك عبدالعزيز، أمام الحديقة"
+- tapOn: "إضافة عنوان"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element:
+      text: "حفظ"
+    direction: DOWN
+- tapOn: "حفظ"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*النرجس.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m3-two-addresses
+- tapOn: ".*تعيين كافتراضي.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*الافتراضي.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m4-default-moved

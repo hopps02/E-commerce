@@ -7,6 +7,7 @@ import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
+import 'package:for_u/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
@@ -32,6 +33,12 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
         ref.read(checkoutController.notifier).load();
       }
     });
+  }
+
+  Future<void> _changeAddress() async {
+    final picked = await AddressPickerBottomSheet.show(context);
+    if (picked == null || !mounted) return;
+    await ref.read(checkoutController.notifier).selectAddress(picked);
   }
 
   Future<void> _placeOrder() async {
@@ -63,7 +70,11 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
           // App Bar
           ConfirmOrderAppBar().premiumAppear(index: 0),
 
-          DeliveryTo(address: checkout.addressLine).premiumAppear(index: 1),
+          GestureDetector(
+            onTap: _changeAddress,
+            behavior: HitTestBehavior.opaque,
+            child: DeliveryTo(address: checkout.addressLine),
+          ).premiumAppear(index: 1),
 
           18.verticalSpace,
 

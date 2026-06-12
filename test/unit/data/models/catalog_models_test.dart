@@ -117,12 +117,47 @@ void main() {
         'label': 'home',
         'label_text': 'المنزل',
         'display_address': 'حي العليا، شارع التحلية، الرياض',
+        'street': 'شارع التحلية',
+        'building_number': '12',
+        'floor': '2',
+        'apartment': '4',
+        'landmark': 'بجوار حديقة العليا',
+        'delivery_instructions': 'الرجاء الاتصال عند الوصول',
+        'city_id': 1,
+        'lat': 24.7136,
+        'lng': 46.6753,
         'is_default': true,
       });
 
       expect(address.id, 5);
       expect(address.displayAddress, 'حي العليا، شارع التحلية، الرياض');
       expect(address.isDefault, isTrue);
+      expect(address.cityId, 1);
+      expect(address.lat, 24.7136);
+      expect(address.detailsLine, 'شارع التحلية، 12، 2، 4');
+    });
+
+    test('detailsLine skips blank parts', () {
+      const address = DeliveryAddress(
+        id: 6,
+        displayAddress: 'الرياض',
+        street: 'طريق الملك عبدالعزيز',
+        buildingNumber: '',
+      );
+      expect(address.detailsLine, 'طريق الملك عبدالعزيز');
+    });
+  });
+
+  group('CoverageResult.fromJson', () {
+    test('parses the coverage payload', () {
+      final coverage = CoverageResult.fromJson(const {
+        'is_serviceable': true,
+        'city_id': 1,
+        'delivery_fee_halalas': 1500,
+      });
+      expect(coverage.isServiceable, isTrue);
+      expect(coverage.cityId, 1);
+      expect(coverage.deliveryFeeHalalas, 1500);
     });
   });
 }

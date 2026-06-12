@@ -69,16 +69,35 @@ abstract class CoverageResult with _$CoverageResult {
 /// GET /mobile/addresses row.
 @freezed
 abstract class DeliveryAddress with _$DeliveryAddress {
+  const DeliveryAddress._();
+
   const factory DeliveryAddress({
     required int id,
     String? label,
     @JsonKey(name: 'label_text') String? labelText,
     @JsonKey(name: 'display_address') @Default('') String displayAddress,
+    String? street,
+    @JsonKey(name: 'building_number') String? buildingNumber,
+    String? floor,
+    String? apartment,
+    String? landmark,
+    @JsonKey(name: 'delivery_instructions') String? deliveryInstructions,
+    @JsonKey(name: 'city_id') int? cityId,
+    double? lat,
+    double? lng,
     @JsonKey(name: 'is_default') @Default(false) bool isDefault,
   }) = _DeliveryAddress;
 
   factory DeliveryAddress.fromJson(Map<String, dynamic> json) =>
       _$DeliveryAddressFromJson(json);
+
+  /// Street/building/floor/apartment as one secondary line, skipping blanks.
+  String get detailsLine => [
+    street,
+    buildingNumber,
+    floor,
+    apartment,
+  ].whereType<String>().where((p) => p.trim().isNotEmpty).join('، ');
 }
 
 /// One line the customer is buying. Local cart state AND the wire shape for

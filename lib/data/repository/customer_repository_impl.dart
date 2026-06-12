@@ -58,15 +58,47 @@ class CustomerRepositoryImpl implements CustomerRepository {
     required String displayAddress,
     required double lat,
     required double lng,
+    String label = 'home',
+    String? street,
+    String? buildingNumber,
+    String? floor,
+    String? apartment,
+    String? landmark,
+    String? deliveryInstructions,
+    bool isDefault = true,
   }) => fastHandler(
     request: () async => (await _api.createAddress({
       'city_id': cityId,
       'display_address': displayAddress,
       'lat': lat,
       'lng': lng,
-      'label': 'home',
-      'is_default': true,
+      'label': label,
+      if (street != null && street.isNotEmpty) 'street': street,
+      if (buildingNumber != null && buildingNumber.isNotEmpty)
+        'building_number': buildingNumber,
+      if (floor != null && floor.isNotEmpty) 'floor': floor,
+      if (apartment != null && apartment.isNotEmpty) 'apartment': apartment,
+      if (landmark != null && landmark.isNotEmpty) 'landmark': landmark,
+      if (deliveryInstructions != null && deliveryInstructions.isNotEmpty)
+        'delivery_instructions': deliveryInstructions,
+      'is_default': isDefault,
     })).data,
+  );
+
+  @override
+  Future<Either<Failure, DeliveryAddress>> updateAddress(
+    int id,
+    Map<String, dynamic> changes,
+  ) => fastHandler(
+    request: () async => (await _api.updateAddress(id, changes)).data,
+  );
+
+  @override
+  Future<Either<Failure, Unit>> deleteAddress(int id) => fastHandler(
+    request: () async {
+      await _api.deleteAddress(id);
+      return unit;
+    },
   );
 
   @override

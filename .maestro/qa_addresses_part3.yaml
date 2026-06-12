@@ -1,0 +1,129 @@
+# ADDRESSES part 3 (after the 204 fix): add a throwaway address, delete it
+# (list refreshes), then verify checkout carries the default and the picker
+# sheet opens.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الدخول"
+    commands:
+      - tapOn: "أدخل رقم جوالك"
+      - inputText: "500009990"
+      - tapOn:
+          point: 50%,63%
+      - extendedWaitUntil:
+          visible: "تأكيد"
+          timeout: 15000
+      - tapOn:
+          text: "_"
+          index: 0
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - tapOn: "تأكيد"
+      - extendedWaitUntil:
+          visible: "ابدأ التسوق"
+          timeout: 15000
+      - tapOn: "ابدأ التسوق"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+- tapOn:
+    point: 14%,92%
+- waitForAnimationToEnd
+- tapOn: "العناوين"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*النرجس.*"
+    timeout: 15000
+# add a throwaway address to delete
+- tapOn: "إضافة عنوان"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*استخدم موقعي الحالي.*"
+    timeout: 15000
+- tapOn: ".*استخدم موقعي الحالي.*"
+- extendedWaitUntil:
+    visible: ".*الرياض.*"
+    timeout: 25000
+- tapOn: "الحي، الشارع، وصف المكان..."
+- inputText: "عنوان مؤقت للحذف"
+- tapOn: "إضافة عنوان"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element:
+      text: "حفظ"
+    direction: DOWN
+- tapOn: "حفظ"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*مؤقت.*"
+    timeout: 15000
+# delete it (second card's bin)
+- tapOn:
+    point: 12%,52%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*هل أنت متأكد أنك تريد حذف هذا العنوان.*"
+    timeout: 10000
+- takeScreenshot: /tmp/qa-m5-delete-confirm
+- tapOn: "حذف"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    notVisible: ".*مؤقت.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m6-after-delete
+# checkout integration: the confirm screen carries the default address
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn:
+    point: 86%,92%
+- waitForAnimationToEnd
+- tapOn: "بحث..."
+- waitForAnimationToEnd
+- tapOn:
+    point: 50%,11%
+- inputText: "تورتيلا"
+- extendedWaitUntil:
+    visible: ".*خبز تورتيلا.*"
+    timeout: 15000
+- tapOn: ".*خبز تورتيلا.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "إضافة للسلة"
+    timeout: 15000
+- tapOn: "إضافة للسلة"
+- extendedWaitUntil:
+    visible: ".*عرض السلة.*"
+    timeout: 10000
+- tapOn: ".*عرض السلة.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تكلفة الشحن"
+    timeout: 20000
+- tapOn:
+    point: 50%,91%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*النرجس.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-m7-confirm-new-default
+# the address card opens the picker sheet
+- tapOn: ".*النرجس.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*إضافة عنوان.*"
+    timeout: 10000
+- takeScreenshot: /tmp/qa-m8-picker-sheet

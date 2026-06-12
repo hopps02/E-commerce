@@ -184,6 +184,28 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     }, (address) => address);
   }
 
+  /// Switches the order to another saved address and reprices through the
+  /// backend quote (delivery fee can differ per zone).
+  Future<void> selectAddress(DeliveryAddress address) async {
+    state = state.copyWith(reqState: ReqState.loading);
+    final quote = await DI().customerRepository.checkoutQuote(
+      addressId: address.id,
+      lines: ref.read(cartController).lines,
+    );
+    quote.fold(
+      (failure) => state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: failure.displayMessage,
+      ),
+      (q) => state = state.copyWith(
+        reqState: ReqState.success,
+        addressId: address.id,
+        addressLine: address.displayAddress,
+        totals: q.totals,
+      ),
+    );
+  }
+
   /// Retry from the cart's error state. When the dead end was a missing
   /// location, this first walks the existing permission/fetch flow.
   Future<void> retry() async {

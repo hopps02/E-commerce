@@ -32,14 +32,29 @@ abstract class CustomerRepository {
 
   Future<Either<Failure, List<DeliveryAddress>>> addresses();
 
-  /// First-order convenience: persists the customer's picked location as a
-  /// default address (the dedicated addresses screen isn't designed yet).
   Future<Either<Failure, DeliveryAddress>> createAddress({
     required int cityId,
     required String displayAddress,
     required double lat,
     required double lng,
+    String label,
+    String? street,
+    String? buildingNumber,
+    String? floor,
+    String? apartment,
+    String? landmark,
+    String? deliveryInstructions,
+    bool isDefault,
   });
+
+  /// Partial update; pass `isDefault: true` to make it the default (the
+  /// backend un-defaults the rest — it never silently un-defaults).
+  Future<Either<Failure, DeliveryAddress>> updateAddress(
+    int id,
+    Map<String, dynamic> changes,
+  );
+
+  Future<Either<Failure, Unit>> deleteAddress(int id);
 
   Future<Either<Failure, CoverageResult>> coverageCheck({
     required double lat,

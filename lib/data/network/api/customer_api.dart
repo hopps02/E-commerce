@@ -42,6 +42,16 @@ abstract class CustomerApi {
     @Body() Map<String, dynamic> body,
   );
 
+  @PATCH('/mobile/addresses/{id}')
+  Future<Envelope<DeliveryAddress>> updateAddress(
+    @Path('id') int id,
+    @Body() Map<String, dynamic> body,
+  );
+
+  /// 204 with no body — the return type must not try to parse an envelope.
+  @DELETE('/mobile/addresses/{id}')
+  Future<void> deleteAddress(@Path('id') int id);
+
   @POST('/mobile/location/coverage-check')
   Future<Envelope<CoverageResult>> coverageCheck(
     @Body() Map<String, dynamic> body,

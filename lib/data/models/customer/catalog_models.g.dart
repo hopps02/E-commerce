@@ -68,6 +68,15 @@ _DeliveryAddress _$DeliveryAddressFromJson(Map<String, dynamic> json) =>
       label: json['label'] as String?,
       labelText: json['label_text'] as String?,
       displayAddress: json['display_address'] as String? ?? '',
+      street: json['street'] as String?,
+      buildingNumber: json['building_number'] as String?,
+      floor: json['floor'] as String?,
+      apartment: json['apartment'] as String?,
+      landmark: json['landmark'] as String?,
+      deliveryInstructions: json['delivery_instructions'] as String?,
+      cityId: (json['city_id'] as num?)?.toInt(),
+      lat: (json['lat'] as num?)?.toDouble(),
+      lng: (json['lng'] as num?)?.toDouble(),
       isDefault: json['is_default'] as bool? ?? false,
     );
 
@@ -77,6 +86,15 @@ Map<String, dynamic> _$DeliveryAddressToJson(_DeliveryAddress instance) =>
       'label': instance.label,
       'label_text': instance.labelText,
       'display_address': instance.displayAddress,
+      'street': instance.street,
+      'building_number': instance.buildingNumber,
+      'floor': instance.floor,
+      'apartment': instance.apartment,
+      'landmark': instance.landmark,
+      'delivery_instructions': instance.deliveryInstructions,
+      'city_id': instance.cityId,
+      'lat': instance.lat,
+      'lng': instance.lng,
       'is_default': instance.isDefault,
     };
 

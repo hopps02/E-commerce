@@ -15,6 +15,8 @@ import 'package:for_u/presentation/views/shared/auth/view/screens/auth_view.dart
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm_order_view.dart';
+import 'package:for_u/presentation/views/user/addresses/view/screens/address_form_view.dart';
+import 'package:for_u/presentation/views/user/addresses/view/screens/addresses_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
 import 'package:for_u/presentation/views/user/help_support/view/screens/help_support_view.dart';
 import 'package:for_u/presentation/views/user/user_home/view/screens/user_home_view.dart';
@@ -53,6 +55,8 @@ enum Routes {
   editProfile    ('edit-profile'),
   legalPolicies  ('legal-policies'),
   helpSupport    ('help-support'),
+  addresses      ('addresses'),
+  addressForm    ('address-form'),
 
   // Cashier routes
   cashierHome           ('cashier-home'),
@@ -226,6 +230,20 @@ final GoRouter appRouter = GoRouter(
       name: Routes.editProfile.name,
       path: Routes.editProfile.path,
       builder: (_, __) => const EditProfileView(),
+    ),
+    _r(
+      name: Routes.addresses.name,
+      path: Routes.addresses.path,
+      builder: (_, __) => const AddressesView(),
+    ),
+    _r(
+      name: Routes.addressForm.name,
+      path: Routes.addressForm.path,
+      builder: (_, state) => AddressFormView(
+        args: state.extra is AddressFormArgs
+            ? state.extra as AddressFormArgs
+            : const AddressFormArgs(),
+      ),
     ),
     _r(
       name: Routes.legalPolicies.name,
