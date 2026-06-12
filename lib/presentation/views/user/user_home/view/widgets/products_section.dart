@@ -8,6 +8,8 @@ class ProductsSection extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback? onViewAllTap;
+  final void Function(int index)? onProductTap;
+  final void Function(int index, int quantity)? onQuantityChanged;
 
   final List<Map<String, dynamic>> products;
   const ProductsSection({
@@ -16,6 +18,8 @@ class ProductsSection extends StatelessWidget {
     this.subtitle,
     required this.products,
     this.onViewAllTap,
+    this.onProductTap,
+    this.onQuantityChanged,
   });
 
   @override
@@ -52,9 +56,11 @@ class ProductsSection extends StatelessWidget {
                       oldPrice: products[index]['oldPrice'],
                       quantity: products[index]['quantity'],
                       onFavTap: () {},
-                      onQuantityChanged: (value) {
-                        print("quantity: $value");
-                      },
+                      onTap: onProductTap == null
+                          ? null
+                          : () => onProductTap!(index),
+                      onQuantityChanged: (value) =>
+                          onQuantityChanged?.call(index, value),
                     );
                   },
                 ),

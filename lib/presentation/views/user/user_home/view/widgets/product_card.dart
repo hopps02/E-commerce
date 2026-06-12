@@ -21,6 +21,7 @@ class ProductCard extends StatefulWidget {
   final int? quantity;
   final void Function(int)? onQuantityChanged;
   final VoidCallback? onFavTap;
+  final VoidCallback? onTap;
   final bool fitForGridList;
 
   const ProductCard({
@@ -33,6 +34,7 @@ class ProductCard extends StatefulWidget {
     this.quantity,
     this.onQuantityChanged,
     this.onFavTap,
+    this.onTap,
     this.fitForGridList = false,
   });
 
@@ -85,12 +87,13 @@ class _ProductCardState extends State<ProductCard> {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return InkWell(
-      onTap: () {
-        context.pushNamed(
-          Routes.productDetails,
-          arguments: ProductDetailsViewArgs(productId: ""),
-        );
-      },
+      onTap: widget.onTap ??
+          () {
+            context.pushNamed(
+              Routes.productDetails,
+              arguments: const ProductDetailsViewArgs(productId: 0),
+            );
+          },
       hoverColor: ColorM.transparent,
       splashColor: ColorM.transparent,
       child: SizedBox(

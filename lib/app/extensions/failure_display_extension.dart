@@ -31,6 +31,14 @@ extension FailureDisplay on Failure {
     'order_already_rated' => Translation.error_order_already_rated.tr,
     'rating_window_closed' => Translation.error_rating_window_closed.tr,
     'order_not_rateable' => Translation.error_order_not_rateable.tr,
+    'address_required' => Translation.error_address_required.tr,
+    'outside_delivery_zone' ||
+    'address_city_mismatch' => Translation.error_outside_delivery_zone.tr,
+    'branch_unavailable' ||
+    'merchant_unavailable' => Translation.error_branch_unavailable.tr,
+    'item_unavailable' ||
+    'insufficient_stock' => Translation.error_item_unavailable.tr,
+    'empty_cart' => Translation.error_empty_cart.tr,
     'unauthenticated' => Translation.unauthorized.tr,
     _ => null,
   };

@@ -119,28 +119,31 @@ class _CartItemCardState extends State<CartItemCard> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          6.verticalSpace,
-                          // Weight badge
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorM.gray200,
-                                width: 1.w,
+                          // Weight badge (only when a size is provided —
+                          // sizes normally live inside the product name)
+                          if (widget.weight.isNotEmpty) ...[
+                            6.verticalSpace,
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 4.h,
                               ),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Text(
-                              widget.weight,
-                              style: context.labelSmall.copyWith(
-                                color: ColorM.gray600,
-                                fontWeight: FontWeightM.regular,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: ColorM.gray200,
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Text(
+                                widget.weight,
+                                style: context.labelSmall.copyWith(
+                                  color: ColorM.gray600,
+                                  fontWeight: FontWeightM.regular,
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ],
                       ),
                     ),

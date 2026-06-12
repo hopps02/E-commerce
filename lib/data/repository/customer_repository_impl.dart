@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
 import 'package:for_u/data/models/customer/customer_models.dart';
 import 'package:for_u/data/network/api/customer_api.dart';
 import 'package:for_u/data/network/error_handler/error_handler.dart';
@@ -10,9 +11,79 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
   CustomerRepositoryImpl(this._api);
 
+  /// Validate/quote/create all send the same wire lines.
+  static List<Map<String, int>> _wireLines(List<CartLine> lines) => lines
+      .map((l) => {'branch_item_id': l.branchItemId, 'quantity': l.quantity})
+      .toList();
+
   @override
   Future<Either<Failure, CustomerProfile>> profile() =>
       fastHandler(request: () async => (await _api.profile()).data);
+
+  @override
+  Future<Either<Failure, ProductsPage>> products({
+    required int branchId,
+    int? categoryId,
+    String? search,
+    required int page,
+    int pageSize = 20,
+  }) => fastHandler(
+    request: () async {
+      final envelope = await _api.products(
+        branchId,
+        categoryId,
+        (search ?? '').trim().isEmpty ? null : search!.trim(),
+        page,
+        pageSize,
+      );
+      return (products: envelope.data, meta: envelope.meta);
+    },
+  );
+
+  @override
+  Future<Either<Failure, BranchProduct>> productDetail(int id) =>
+      fastHandler(request: () async => (await _api.productDetail(id)).data);
+
+  @override
+  Future<Either<Failure, List<ProductCategory>>> categories() =>
+      fastHandler(request: () async => (await _api.categories()).data);
+
+  @override
+  Future<Either<Failure, List<DeliveryAddress>>> addresses() =>
+      fastHandler(request: () async => (await _api.addresses()).data);
+
+  @override
+  Future<Either<Failure, CartValidationResult>> validateCart(
+    List<CartLine> lines,
+  ) => fastHandler(
+    request: () async =>
+        (await _api.validateCart({'items': _wireLines(lines)})).data,
+  );
+
+  @override
+  Future<Either<Failure, CheckoutQuote>> checkoutQuote({
+    required int addressId,
+    required List<CartLine> lines,
+  }) => fastHandler(
+    request: () async => (await _api.checkoutQuote({
+      'address_id': addressId,
+      'items': _wireLines(lines),
+    })).data,
+  );
+
+  @override
+  Future<Either<Failure, CustomerOrder>> createOrder({
+    required String idempotencyKey,
+    required int addressId,
+    required List<CartLine> lines,
+    String? notes,
+  }) => fastHandler(
+    request: () async => (await _api.createOrder(idempotencyKey, {
+      'address_id': addressId,
+      'items': _wireLines(lines),
+      if (notes != null && notes.trim().isNotEmpty) 'notes': notes.trim(),
+    })).data,
+  );
 
   @override
   Future<Either<Failure, CustomerProfile>> updateProfile({

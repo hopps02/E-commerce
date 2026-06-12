@@ -39,6 +39,7 @@ class SearchBarSection extends StatelessWidget {
               hintText: Translation.search_hint.tr,
               keyboardType: TextInputType.text,
               controller: controller,
+              onChanged: onChanged,
               prefixWidget: Assets.svg.search.svg(width: 18.w, height: 18.w),
             ),
           ),

@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
 import 'package:for_u/presentation/views/user/sections/riverpod/sections_controller.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
@@ -16,9 +19,13 @@ class SectionsData extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sectionsState = ref.watch(sectionsController);
     final sectionsNotifier = ref.read(sectionsController.notifier);
+    final arabic = context.locale.languageCode == 'ar';
+
     return Expanded(
       child: FastStateRender(
-        reqState: ReqState.success /* sectionsState.reqState */,
+        reqState: sectionsState.reqState,
+        errorMessage: sectionsState.errorMessage,
+        onRetry: () => sectionsNotifier.load(),
         child: SingleChildScrollView(
           padding:
               EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
@@ -31,11 +38,19 @@ class SectionsData extends ConsumerWidget {
             runSpacing: 16.h,
             alignment: WrapAlignment.start,
             children: [
-              for (int i = 0; i < 20; i++)
+              for (final category in sectionsState.categories)
                 CategoryGridItem(
-                  title: "مواد البقالة",
+                  title: category.name(arabic),
                   imageUrl: "",
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.products,
+                      arguments: ProductsViewArgs(
+                        title: category.name(arabic),
+                        categoryId: category.id,
+                      ),
+                    );
+                  },
                 ),
             ],
           ),

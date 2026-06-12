@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
@@ -9,10 +8,12 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/product_details/riverpod/product_details_controller.dart';
 
-/// Weight/size selector chips — "حجم العبوة" section from Figma
-class ProductWeightSelector extends ConsumerWidget {
+/// Weight/size selector chips — "حجم العبوة" section from Figma.
+///
+/// Unused since sizes were folded into product names (each size is its own
+/// bank product); kept as the built design artifact with local-only state.
+class ProductWeightSelector extends StatefulWidget {
   final List<String> weights;
 
   const ProductWeightSelector({
@@ -21,12 +22,16 @@ class ProductWeightSelector extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(
-      productDetailsController.select((s) => s.selectedWeightIndex),
-    );
-    final notifier = ref.read(productDetailsController.notifier);
+  State<ProductWeightSelector> createState() => _ProductWeightSelectorState();
+}
 
+class _ProductWeightSelectorState extends State<ProductWeightSelector> {
+  int selectedIndex = 0;
+
+  List<String> get weights => widget.weights;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
@@ -48,7 +53,7 @@ class ProductWeightSelector extends ConsumerWidget {
               return _WeightChip(
                 label: weights[index],
                 isSelected: isSelected,
-                onTap: () => notifier.selectWeight(index),
+                onTap: () => setState(() => selectedIndex = index),
               );
             }),
           ),

@@ -1,0 +1,31 @@
+# Log the current customer out so the next tester starts at the auth screen.
+appId: com.utr.foryou
+---
+- stopApp
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+# profile tab (bottom navigation, far left in RTL)
+- tapOn:
+    point: 14%,92%
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element:
+      text: "تسجيل الخروج"
+    direction: DOWN
+- tapOn: "تسجيل الخروج"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "رجوع"
+    timeout: 10000
+- tapOn:
+    text: "تسجيل الخروج"
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000

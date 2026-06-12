@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
 import 'package:for_u/data/models/customer/customer_models.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
@@ -16,6 +17,41 @@ abstract class CustomerApi {
   @PATCH('/mobile/profile')
   Future<Envelope<CustomerProfile>> updateProfile(
     @Body() Map<String, String?> body,
+  );
+
+  @GET('/mobile/products')
+  Future<Envelope<List<BranchProduct>>> products(
+    @Query('branch_id') int branchId,
+    @Query('category_id') int? categoryId,
+    @Query('search') String? search,
+    @Query('page') int page,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET('/mobile/products/{id}')
+  Future<Envelope<BranchProduct>> productDetail(@Path('id') int id);
+
+  @GET('/mobile/categories')
+  Future<Envelope<List<ProductCategory>>> categories();
+
+  @GET('/mobile/addresses')
+  Future<Envelope<List<DeliveryAddress>>> addresses();
+
+  @POST('/mobile/cart/validate')
+  Future<Envelope<CartValidationResult>> validateCart(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/mobile/checkout/quote')
+  Future<Envelope<CheckoutQuote>> checkoutQuote(
+    @Body() Map<String, dynamic> body,
+  );
+
+  /// COD-only order creation; the key dedupes accidental double submits.
+  @POST('/mobile/orders')
+  Future<Envelope<CustomerOrder>> createOrder(
+    @Header('Idempotency-Key') String idempotencyKey,
+    @Body() Map<String, dynamic> body,
   );
 
   /// [statusGroup] is `current` or `previous`.

@@ -1,15 +1,15 @@
-import 'dart:async';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/products/riverpod/products_controller.dart';
@@ -22,25 +22,23 @@ class ProductsData extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final productsState = ref.watch(productsController);
     final productsNotifier = ref.read(productsController.notifier);
+    final cart = ref.watch(cartController);
+    final cartNotifier = ref.read(cartController.notifier);
+    final arabic = context.locale.languageCode == 'ar';
+
     return Expanded(
       child: FastStateRender(
-        reqState: ReqState.success /* productsState.reqState */,
+        reqState: productsState.reqState,
+        errorMessage: productsState.errorMessage,
+        onRetry: () => productsNotifier.refresh(),
         child: CustomizedSmartRefresh(
           enableLoading: true,
           controller: productsNotifier.refreshController,
           classicFooterPadding: EdgeInsets.only(
             bottom: context.bottomSafeAreaPadding,
           ),
-          onRefresh: () {
-            Timer(const Duration(seconds: 2), () {
-              productsNotifier.refreshController.refreshCompleted();
-            });
-          },
-          onLoading: () {
-            Timer(const Duration(seconds: 2), () {
-              productsNotifier.refreshController.loadComplete();
-            });
-          },
+          onRefresh: () => productsNotifier.refresh(),
+          onLoading: () => productsNotifier.loadMore(),
           child: GridView.builder(
             padding:
                 EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
@@ -54,26 +52,31 @@ class ProductsData extends ConsumerWidget {
               mainAxisSpacing: 12.h,
               childAspectRatio: .8,
             ),
-            itemCount: 10,
+            itemCount: productsState.products.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
+              final product = productsState.products[index];
+              return ProductCard(
+                fitForGridList: true,
+                title: product.name(arabic),
+                imageUrl: product.imageUrl ?? '',
+                price: Money.asRiyals(product.effectivePriceHalalas),
+                oldPrice: product.hasDiscount
+                    ? Money.asRiyals(product.priceHalalas)
+                    : null,
+                quantity: cart.quantityOf(product.id),
+                isFavorite: false,
+                onFavTap: () {},
                 onTap: () {
                   context.pushNamed(
                     Routes.productDetails,
-                    arguments: ProductDetailsViewArgs(productId: ''),
+                    arguments: ProductDetailsViewArgs(
+                      productId: product.id,
+                      initial: product,
+                    ),
                   );
                 },
-                child: ProductCard(
-                  fitForGridList: true,
-                  title: 'الكرنب الأخضر',
-                  imageUrl: '',
-                  price: 10.0,
-                  oldPrice: 12.0,
-                  quantity: 1,
-                  isFavorite: false,
-                  onFavTap: () {},
-                  onQuantityChanged: (_) {},
-                ),
+                onQuantityChanged: (quantity) =>
+                    cartNotifier.setQuantity(product, quantity),
               );
             },
           ),

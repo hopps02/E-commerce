@@ -30,7 +30,16 @@ class SessionService {
   final AuthRepository _authRepository;
   final Future<String?> Function() _fcmToken;
 
-  SessionService(this._storage, this._authRepository, this._fcmToken);
+  /// Session-scoped state to wipe on teardown (the cart, injected by DI so
+  /// this service never reaches into the widget layer).
+  final void Function()? _onSessionCleared;
+
+  SessionService(
+    this._storage,
+    this._authRepository,
+    this._fcmToken, {
+    void Function()? onSessionCleared,
+  }) : _onSessionCleared = onSessionCleared;
 
   /// Persists a verified session and registers the device for push.
   /// Returns false (and stores nothing) when the backend refused a token
@@ -122,6 +131,8 @@ class SessionService {
   Future<void> clearLocal() async {
     await _storage.deleteToken();
     await _storage.deleteRole();
+    // The cart belongs to the session — never carry it to the next account.
+    _onSessionCleared?.call();
   }
 
   /// Only an invalid token or a deactivated account ends the session —

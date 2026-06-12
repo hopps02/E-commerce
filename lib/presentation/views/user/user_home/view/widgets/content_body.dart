@@ -1,11 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/money.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/home_catalog_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/tap_home_contaroller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/categories_section.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/new_arrivals_banner.dart';
@@ -15,32 +20,76 @@ import 'package:for_u/presentation/views/user/user_home/view/widgets/top_categor
 import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
 
-class ContentBody extends ConsumerWidget {
+class ContentBody extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
   const ContentBody({super.key, required this.bottomSafeAreaPadding});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ContentBody> createState() => _ContentBodyState();
+}
+
+class _ContentBodyState extends ConsumerState<ContentBody> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref.read(homeCatalogController.notifier).load());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final tapHomeState = ref.watch(tapHomeController);
+    final catalog = ref.watch(homeCatalogController);
 
     return FastStateRender(
-      reqState: ReqState.success /* tapHomeState.reqState */,
-      alignment: Alignment(0, -0.2),
-      errorMessage: tapHomeState.errorMessage,
+      reqState: catalog.reqState,
+      alignment: const Alignment(0, -0.2),
+      errorMessage: catalog.errorMessage,
       isOutOfCoverage: tapHomeState.isOutOfCoverage,
-      onRetry: () {},
-      child: Body(bottomSafeAreaPadding: bottomSafeAreaPadding),
+      onRetry: () => ref.read(homeCatalogController.notifier).load(),
+      child: Body(
+        bottomSafeAreaPadding: widget.bottomSafeAreaPadding,
+        catalog: catalog,
+      ),
     );
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({super.key, required this.bottomSafeAreaPadding});
+class Body extends ConsumerWidget {
+  const Body({
+    super.key,
+    required this.bottomSafeAreaPadding,
+    required this.catalog,
+  });
 
   final double bottomSafeAreaPadding;
+  final HomeCatalogState catalog;
+
+  void _openProducts(BuildContext context, ProductCategory category, bool arabic) {
+    context.pushNamed(
+      Routes.products,
+      arguments: ProductsViewArgs(
+        title: category.name(arabic),
+        categoryId: category.id,
+      ),
+    );
+  }
+
+  void _openDetails(BuildContext context, BranchProduct product) {
+    context.pushNamed(
+      Routes.productDetails,
+      arguments: ProductDetailsViewArgs(
+        productId: product.id,
+        initial: product,
+      ),
+    );
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final arabic = context.locale.languageCode == 'ar';
+    final cart = ref.watch(cartController);
+    final cartNotifier = ref.read(cartController.notifier);
+
     return ListView(
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
       children: [
@@ -49,89 +98,42 @@ class Body extends StatelessWidget {
         18.verticalSpace,
         const OfferBanner().premiumAppear(index: 1, wantKeepAlive: true),
         18.verticalSpace,
-        CategoriesSection().premiumAppear(index: 2, wantKeepAlive: true),
-        18.verticalSpace,
-        ProductsSection(
-          title: Translation.vegetables.tr,
-          subtitle: Translation.quick_choices.tr,
-          onViewAllTap: () {
-            context.pushNamed(
-              Routes.products,
-              arguments: ProductsViewArgs(title: "الخضار"),
-            );
-          },
-          products: [
-            {
-              "id": 1,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 1,
-            },
-            {
-              "id": 1,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 1,
-            },
-            {
-              "id": 1,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 1,
-            },
-          ],
-        ).premiumAppear(index: 3, wantKeepAlive: true),
-        18.verticalSpace,
-        // New Arrivals Banner
-        NewArrivalsBanner(
-          onShopNowTap: () {},
-        ).premiumAppear(index: 4, wantKeepAlive: true),
-        18.verticalSpace,
-        // Snacks & Packaged Section
-        ProductsSection(
-          title: Translation.snacks_and_packaged.tr,
-          subtitle: Translation.quick_choices.tr,
-          onViewAllTap: () {
-            context.pushNamed(
-              Routes.products,
-              arguments: ProductsViewArgs(
-                title: Translation.snacks_and_packaged.tr,
-              ),
-            );
-          },
-          products: [
-            {
-              "id": 2,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 0,
-            },
-            {
-              "id": 3,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 0,
-            },
-            {
-              "id": 4,
-              "name": "الكرنب الأخضر",
-              "image": "",
-              "price": 12.0,
-              "oldPrice": 18.0,
-              "quantity": 0,
-            },
-          ],
-        ).premiumAppear(index: 5, wantKeepAlive: true),
+        CategoriesSection(
+          categories: catalog.categories,
+        ).premiumAppear(index: 2, wantKeepAlive: true),
+        for (final (sectionIndex, section) in catalog.sections.indexed) ...[
+          18.verticalSpace,
+          if (sectionIndex == 1)
+            // The promo banner sits between the two product rows, as designed.
+            NewArrivalsBanner(
+              onShopNowTap: () =>
+                  _openProducts(context, section.category, arabic),
+            ).premiumAppear(index: 3 + sectionIndex, wantKeepAlive: true),
+          if (sectionIndex == 1) 18.verticalSpace,
+          ProductsSection(
+            title: section.category.name(arabic),
+            subtitle: Translation.quick_choices.tr,
+            onViewAllTap: () =>
+                _openProducts(context, section.category, arabic),
+            onProductTap: (index) =>
+                _openDetails(context, section.products[index]),
+            onQuantityChanged: (index, quantity) =>
+                cartNotifier.setQuantity(section.products[index], quantity),
+            products: [
+              for (final product in section.products)
+                {
+                  'id': product.id,
+                  'name': product.name(arabic),
+                  'image': product.imageUrl ?? '',
+                  'price': Money.asRiyals(product.effectivePriceHalalas),
+                  'oldPrice': product.hasDiscount
+                      ? Money.asRiyals(product.priceHalalas)
+                      : null,
+                  'quantity': cart.quantityOf(product.id),
+                },
+            ],
+          ).premiumAppear(index: 4 + sectionIndex, wantKeepAlive: true),
+        ],
         18.verticalSpace,
       ],
     );

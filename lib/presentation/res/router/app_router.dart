@@ -195,7 +195,7 @@ final GoRouter appRouter = GoRouter(
       builder: (_, state) => ProductDetailsView(
         args: state.extra is ProductDetailsViewArgs
             ? state.extra as ProductDetailsViewArgs
-            : const ProductDetailsViewArgs(productId: ''),
+            : const ProductDetailsViewArgs(productId: 0),
       ),
     ),
     _r(

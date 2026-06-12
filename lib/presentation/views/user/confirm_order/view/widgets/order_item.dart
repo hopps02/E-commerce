@@ -62,23 +62,28 @@ class Order extends StatelessWidget {
                 14.verticalSpace,
                 Row(
                   children: [
-                    // Weight
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.w,
-                        vertical: 4.h,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: ColorM.gray200, width: 1.w),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Text(
-                        weight,
-                        style: context.labelMedium.copyWith(
-                          fontWeight: FontWeightM.semiBold,
+                    // Weight (sizes live inside product names, so this chip
+                    // only renders when a value is actually provided)
+                    if (weight.isNotEmpty)
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 4.h,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorM.gray200,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Text(
+                          weight,
+                          style: context.labelMedium.copyWith(
+                            fontWeight: FontWeightM.semiBold,
+                          ),
                         ),
                       ),
-                    ),
                     const Spacer(),
                     // Price & Count in the same row
                     Row(

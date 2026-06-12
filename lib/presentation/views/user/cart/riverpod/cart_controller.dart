@@ -1,27 +1,138 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 
-class CartState {
-  final ReqState reqState;
-  final String errorMessage;
+/// The customer's cart. Lines live client-side (the backend validates and
+/// prices them at checkout); single-branch per order is a v1 rule.
+class CartState extends Equatable {
+  final List<CartLine> lines;
 
-  const CartState({this.reqState = ReqState.loading, this.errorMessage = ""});
+  const CartState({this.lines = const []});
 
-  CartState copyWith({ReqState? reqState, String? errorMessage}) {
-    return CartState(
-      reqState: reqState ?? this.reqState,
-      errorMessage: errorMessage ?? this.errorMessage,
+  CartState copyWith({List<CartLine>? lines}) =>
+      CartState(lines: lines ?? this.lines);
+
+  bool get isEmpty => lines.isEmpty;
+
+  int get itemsCount => lines.fold(0, (sum, l) => sum + l.quantity);
+
+  /// Gross products total — discounts are shown on their own row.
+  int get subtotalHalalas =>
+      lines.fold(0, (sum, l) => sum + l.lineSubtotalHalalas);
+
+  int get discountHalalas =>
+      lines.fold(0, (sum, l) => sum + l.lineDiscountHalalas);
+
+  int quantityOf(int branchItemId) => lines
+      .firstWhere(
+        (l) => l.branchItemId == branchItemId,
+        orElse: () => const CartLine(branchItemId: 0, quantity: 0),
+      )
+      .quantity;
+
+  @override
+  List<Object?> get props => [lines];
+}
+
+class CartNotifier extends Notifier<CartState> {
+  @override
+  CartState build() => const CartState();
+
+  /// Sets a product's quantity, clamped to its live stock; zero removes the
+  /// line. Returns the quantity actually applied.
+  int setQuantity(BranchProduct product, int quantity) {
+    if (quantity <= 0) {
+      removeLine(product.id);
+      return 0;
+    }
+
+    var applied = quantity;
+    if (quantity > product.available) {
+      applied = product.available;
+      DI().snackBarHelper.showMessage(
+        Translation.stock_limit_reached.tr,
+        ErrorMessage.snackBar,
+      );
+      if (applied <= 0) {
+        removeLine(product.id);
+        return 0;
+      }
+    }
+
+    final line = CartLine(
+      branchItemId: product.id,
+      quantity: applied,
+      product: product,
+    );
+    final existing = state.lines.indexWhere((l) => l.branchItemId == product.id);
+    final lines = [...state.lines];
+    if (existing >= 0) {
+      lines[existing] = line;
+    } else {
+      lines.add(line);
+    }
+    state = state.copyWith(lines: lines);
+    return applied;
+  }
+
+  void removeLine(int branchItemId) {
+    state = state.copyWith(
+      lines: state.lines.where((l) => l.branchItemId != branchItemId).toList(),
     );
   }
-}
 
-class CartController extends Notifier<CartState> {
-  @override
-  CartState build() {
-    return const CartState(reqState: ReqState.success);
+  /// Reconciles local lines against a validate response: refreshes prices and
+  /// stock, clamps over-asks, and drops lines the branch no longer sells.
+  /// Returns true when anything changed (the cart screen mentions it).
+  bool applyValidation(CartValidationResult result) {
+    var changed = false;
+    final lines = <CartLine>[];
+
+    for (final line in state.lines) {
+      final remote = result.lines.where(
+        (r) => r.branchItemId == line.branchItemId,
+      );
+      if (remote.isEmpty) continue;
+      final r = remote.first;
+
+      final stock = r.availableQuantity ?? 0;
+      if (!r.available && stock <= 0) {
+        changed = true;
+        continue;
+      }
+
+      final quantity = line.quantity > stock ? stock : line.quantity;
+      if (quantity != line.quantity) changed = true;
+
+      final product = line.product;
+      lines.add(
+        CartLine(
+          branchItemId: line.branchItemId,
+          quantity: quantity,
+          product: product == null
+              ? null
+              : product.copyWith(
+                  priceHalalas: r.unitPriceHalalas ?? product.priceHalalas,
+                  discountHalalas:
+                      r.discountHalalas ?? product.discountHalalas,
+                  available: stock,
+                ),
+        ),
+      );
+    }
+
+    state = state.copyWith(lines: lines);
+    return changed;
   }
+
+  void clear() => state = const CartState();
 }
 
-final cartController = NotifierProvider.autoDispose<CartController, CartState>(
-  CartController.new,
+/// App-lifetime on purpose: the cart must survive navigation between home,
+/// products, details and checkout. It resets on logout via [CartNotifier.clear].
+final cartController = NotifierProvider<CartNotifier, CartState>(
+  CartNotifier.new,
 );

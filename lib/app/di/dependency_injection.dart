@@ -20,6 +20,7 @@ import 'package:for_u/domain/repository/captain_repository.dart';
 import 'package:for_u/domain/repository/cashier_repository.dart';
 import 'package:for_u/domain/repository/customer_repository.dart';
 import 'package:for_u/domain/usecase/auth_usecases.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off
@@ -52,6 +53,7 @@ class DI {
                                               ref.read(_storageService),
                                               ref.read(_authRepository),
                                               () => FirebaseMessegingServices.instance.fcmToken,
+                                              onSessionCleared: () => ref.read(cartController.notifier).clear(),
                                             ));
 
   // --- snack bar Helper

@@ -4,29 +4,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:for_u/app/ui_kit/direction.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/product_details/riverpod/product_details_controller.dart';
+import 'package:easy_localization/easy_localization.dart' as easy;
+import 'package:for_u/app/utils/money.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 
 /// Bottom bar: item count + "عرض السلة" button with price — matches Figma
 class ProductDetailsBottomBar extends ConsumerWidget {
-  final double price;
-  final String productName;
+  final BranchProduct product;
 
-  const ProductDetailsBottomBar({
-    super.key,
-    required this.price,
-    required this.productName,
-  });
+  const ProductDetailsBottomBar({super.key, required this.product});
+
+  double get price => Money.asRiyals(product.effectivePriceHalalas);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quantity = ref.watch(
-      productDetailsController.select((s) => s.quantity),
+      cartController.select((s) => s.quantityOf(product.id)),
     );
 
     return AnimatedSize(
@@ -61,8 +60,7 @@ class ProductDetailsBottomBar extends ConsumerWidget {
 
   Widget _buildAddToCartButton(BuildContext context, WidgetRef ref) {
     return CustomInkButton(
-      onTap: () =>
-          ref.read(productDetailsController.notifier).incrementQuantity(),
+      onTap: () => ref.read(cartController.notifier).setQuantity(product, 1),
       width: double.infinity,
       height: 56.h,
       borderRadius: 16.r,
@@ -105,7 +103,7 @@ class ProductDetailsBottomBar extends ConsumerWidget {
             ),
             1.verticalSpace,
             Text(
-              productName,
+              product.name(context.locale.languageCode == 'ar'),
               style: context.bodyMedium.copyWith(color: ColorM.gray700),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

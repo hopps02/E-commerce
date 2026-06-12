@@ -8,6 +8,7 @@ import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
 import 'package:for_u/app/enums/enums.dart';
 
@@ -15,7 +16,15 @@ import '../../../../../../app/ui_kit/shapes/gradient_border_side.dart';
 
 class Body extends StatelessWidget {
   final SuccessViewType successViewType;
-  const Body({super.key, required this.successViewType});
+  final int? orderId;
+  final String? orderNumber;
+
+  const Body({
+    super.key,
+    required this.successViewType,
+    this.orderId,
+    this.orderNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,7 @@ class Body extends StatelessWidget {
           Text(
             successViewType.isAuth
                 ? Translation.account_created_success.tr
-                : "${Translation.order_number.tr} #GOC-23456757",
+                : "${Translation.order_number.tr} #${orderNumber ?? ''}",
             textAlign: TextAlign.center,
             style: context.bodyMedium.copyWith(
               color: successViewType.isAuth ? ColorM.gray600 : ColorM.white,
@@ -51,6 +60,12 @@ class Body extends StatelessWidget {
             onTap: () async {
               if (successViewType.isOrder) {
                 context.popUntilNamed(Routes.home);
+                if (orderId != null) {
+                  context.pushNamed(
+                    Routes.orderDetails,
+                    arguments: OrderDetailsArgs(orderId: orderId!),
+                  );
+                }
                 return;
               }
               // The session was established at verify-otp; land on the

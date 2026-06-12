@@ -6,7 +6,16 @@ import 'package:for_u/presentation/views/shared/auth_success/view/widgets/loadin
 
 class AuthSuccessArgs {
   final SuccessViewType successViewType;
-  const AuthSuccessArgs({required this.successViewType});
+
+  /// Set on order success: the CTA opens this order's details.
+  final int? orderId;
+  final String? orderNumber;
+
+  const AuthSuccessArgs({
+    required this.successViewType,
+    this.orderId,
+    this.orderNumber,
+  });
 }
 
 class AuthSuccessView extends StatelessWidget {
@@ -29,7 +38,11 @@ class AuthSuccessView extends StatelessWidget {
 
             const Spacer(),
 
-            Body(successViewType: args.successViewType),
+            Body(
+              successViewType: args.successViewType,
+              orderId: args.orderId,
+              orderNumber: args.orderNumber,
+            ),
 
             const Spacer(flex: 2),
           ],

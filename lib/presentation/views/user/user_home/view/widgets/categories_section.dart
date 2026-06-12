@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/data/models/customer/catalog_models.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
@@ -9,20 +11,12 @@ import 'package:for_u/presentation/views/user/user_home/view/widgets/category_gr
 import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
 
 class CategoriesSection extends StatelessWidget {
-  const CategoriesSection({super.key});
+  final List<ProductCategory> categories;
+  const CategoriesSection({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      {'title': 'الخضار', 'image': ''},
-      {'title': 'الفواكة', 'image': ''},
-      {'title': 'الألبان', 'image': ''},
-      {'title': 'مواد البقالة', 'image': ''},
-      {'title': 'سناكس', 'image': ''},
-      {'title': 'عصائر', 'image': ''},
-      {'title': 'المجمّدات', 'image': ''},
-      {'title': 'منظفات', 'image': ''},
-    ];
+    final arabic = context.locale.languageCode == 'ar';
 
     return Column(
       children: [
@@ -41,14 +35,18 @@ class CategoriesSection extends StatelessWidget {
           spacing: 15.w,
           runSpacing: 16.h,
           alignment: WrapAlignment.start,
-          children: categories.map((cat) {
+          children: categories.map((category) {
+            final title = category.name(arabic);
             return CategoryGridItem(
-              title: cat['title']!,
-              imageUrl: cat['image']!,
+              title: title,
+              imageUrl: '',
               onTap: () {
                 context.pushNamed(
                   Routes.products,
-                  arguments: ProductsViewArgs(title: cat['title']!),
+                  arguments: ProductsViewArgs(
+                    title: title,
+                    categoryId: category.id,
+                  ),
                 );
               },
             );

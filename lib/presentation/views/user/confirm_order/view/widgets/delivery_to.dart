@@ -11,7 +11,8 @@ import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class DeliveryTo extends StatelessWidget {
-  const DeliveryTo({super.key});
+  final String address;
+  const DeliveryTo({super.key, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +46,14 @@ class DeliveryTo extends StatelessWidget {
                 ),
               ),
               11.horizontalSpace,
-              Text("شارع 14 , تبوك", style: context.labelLarge),
-              const Spacer(),
+              Expanded(
+                child: Text(
+                  address,
+                  style: context.labelLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Icon(
                 Icons.arrow_back_ios_new_rounded,
                 textDirection: context.isRTL

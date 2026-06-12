@@ -2,21 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_app_bar.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_data.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
 
-class CartView extends ConsumerWidget {
+class CartView extends ConsumerStatefulWidget {
   const CartView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(cartController);
-    final notifier = ref.read(cartController.notifier);
+  ConsumerState<CartView> createState() => _CartViewState();
+}
+
+class _CartViewState extends ConsumerState<CartView> {
+  @override
+  void initState() {
+    super.initState();
+    // Re-validate lines and price the order whenever the cart opens.
+    Future.microtask(() => ref.read(checkoutController.notifier).load());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cart = ref.watch(cartController);
+    final checkout = ref.watch(checkoutController);
 
     return Scaffold(
       backgroundColor: ColorM.white,
@@ -32,16 +46,19 @@ class CartView extends ConsumerWidget {
           Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
 
           // Scrollable body
-          CartData(state: state, notifier: notifier),
+          const CartData(),
         ],
       ),
 
-      // Summary Bottom Bar
-      bottomNavigationBar: state.reqState.isSuccess
+      // Summary Bottom Bar — totals are backend-quoted; product/discount rows
+      // track local quantity edits live.
+      bottomNavigationBar: checkout.reqState.isSuccess && !cart.isEmpty
           ? CartSummaryBottomBar(
-              totalProducts: 200,
-              shippingCost: 10,
-              discount: 30,
+              totalProducts: Money.asRiyals(cart.subtotalHalalas),
+              shippingCost: Money.asRiyals(
+                checkout.totals.deliveryFeeHalalas,
+              ),
+              discount: Money.asRiyals(cart.discountHalalas),
               onCheckout: () {
                 context.pushNamed(Routes.confirmOrder);
               },
