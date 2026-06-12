@@ -1,0 +1,55 @@
+# Continues the purchase E2E from the product-details screen (item 1 already
+# in the cart): add item 2 -> cart -> checkout -> place -> success -> details
+# -> my orders.
+appId: com.utr.foryou
+---
+# back from details to the search results
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn: ".*خبز تورتيلا.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "إضافة للسلة"
+    timeout: 15000
+- tapOn: "إضافة للسلة"
+- extendedWaitUntil:
+    visible: ".*عرض السلة.*"
+    timeout: 10000
+- tapOn: ".*عرض السلة.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تكلفة الشحن"
+    timeout: 15000
+- assertVisible: ".*خبز صامولي.*"
+- assertVisible: ".*خبز تورتيلا.*"
+- takeScreenshot: /tmp/qa-f4-cart
+- tapOn: "طلب الآن"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*حي العليا.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-f5-confirm
+- tapOn: "تأكيد الطلب"
+- extendedWaitUntil:
+    visible: "تم الطلب بنجاح"
+    timeout: 20000
+- assertVisible: ".*GOC-.*"
+- takeScreenshot: /tmp/qa-f6-order-success
+- tapOn: ".*عرض الطلب.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-.*"
+    timeout: 15000
+- assertVisible: ".*حي العليا.*"
+- takeScreenshot: /tmp/qa-f7-order-details
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn:
+    point: 29%,92%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-f8-my-orders-current

@@ -1,0 +1,21 @@
+# Recovery 2: from any bottom-nav screen, open the profile and log out.
+appId: com.utr.foryou
+---
+- tapOn:
+    point: 14%,92%
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element:
+      text: "تسجيل الخروج"
+    direction: DOWN
+- tapOn: "تسجيل الخروج"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "رجوع"
+    timeout: 10000
+- tapOn:
+    text: "تسجيل الخروج"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000

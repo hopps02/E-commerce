@@ -1,0 +1,27 @@
+# Confirm via a point tap (CustomInkButton ignores text-located taps).
+appId: com.utr.foryou
+---
+- tapOn:
+    point: 50%,91%
+- extendedWaitUntil:
+    visible: "تم الطلب بنجاح"
+    timeout: 20000
+- assertVisible: ".*GOC-.*"
+- takeScreenshot: /tmp/qa-f6-order-success
+- tapOn: ".*عرض الطلب.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-.*"
+    timeout: 15000
+- assertVisible: ".*حي العليا.*"
+- takeScreenshot: /tmp/qa-f7-order-details
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn:
+    point: 29%,92%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GOC-.*"
+    timeout: 15000
+- takeScreenshot: /tmp/qa-f8-my-orders-current
