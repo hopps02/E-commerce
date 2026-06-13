@@ -2,9 +2,13 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/request/auth/auth_request.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/domain/repository/auth_repository.dart';
+import 'package:for_u/domain/usecase/get_me_usecase.dart';
+import 'package:for_u/domain/usecase/logout_usecase.dart';
+import 'package:for_u/domain/usecase/register_device_usecase.dart';
+import 'package:for_u/domain/usecase/unregister_device_usecase.dart';
 
 /// Where a cold start should land.
 sealed class SessionStart {
@@ -27,7 +31,10 @@ final class StartHome extends SessionStart {
 /// simulator without push support can still log in.
 class SessionService {
   final StorageService _storage;
-  final AuthRepository _authRepository;
+  final RegisterDeviceUseCase _registerDeviceUseCase;
+  final GetMeUseCase _getMeUseCase;
+  final UnregisterDeviceUseCase _unregisterDeviceUseCase;
+  final LogoutUseCase _logoutUseCase;
   final Future<String?> Function() _fcmToken;
 
   /// Session-scoped state to wipe on teardown (the cart, injected by DI so
@@ -36,10 +43,17 @@ class SessionService {
 
   SessionService(
     this._storage,
-    this._authRepository,
     this._fcmToken, {
+    required RegisterDeviceUseCase registerDeviceUseCase,
+    required GetMeUseCase getMeUseCase,
+    required UnregisterDeviceUseCase unregisterDeviceUseCase,
+    required LogoutUseCase logoutUseCase,
     void Function()? onSessionCleared,
-  }) : _onSessionCleared = onSessionCleared;
+  })  : _registerDeviceUseCase = registerDeviceUseCase,
+        _getMeUseCase = getMeUseCase,
+        _unregisterDeviceUseCase = unregisterDeviceUseCase,
+        _logoutUseCase = logoutUseCase,
+        _onSessionCleared = onSessionCleared;
 
   /// Persists a verified session and registers the device for push.
   /// Returns false (and stores nothing) when the backend refused a token
@@ -61,7 +75,7 @@ class SessionService {
     try {
       final fcm = await _fcmToken();
       if (fcm == null) return;
-      await _authRepository.registerDevice(
+      await _registerDeviceUseCase.execute(
         RegisterDeviceBody(
           token: fcm,
           platform: Platform.isIOS ? 'ios' : 'android',
@@ -91,7 +105,7 @@ class SessionService {
       return const StartAuth();
     }
 
-    final result = await _authRepository.me();
+    final result = await _getMeUseCase.execute(null);
     return result.fold(
       (failure) async {
         if (_isSessionDead(failure)) {
@@ -119,12 +133,12 @@ class SessionService {
     try {
       final fcm = await _fcmToken();
       if (fcm != null) {
-        await _authRepository.unregisterDevice(fcm);
+        await _unregisterDeviceUseCase.execute(fcm);
       }
     } catch (_) {
       // The backend prunes dead tokens on failed pushes.
     }
-    await _authRepository.logout();
+    await _logoutUseCase.execute(null);
     await clearLocal();
   }
 

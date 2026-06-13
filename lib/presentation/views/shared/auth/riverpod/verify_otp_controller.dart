@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class VerifyOtpState extends Equatable {

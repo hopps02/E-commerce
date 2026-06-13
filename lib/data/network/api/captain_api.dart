@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/models/captain/captain_models.dart';
+import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 

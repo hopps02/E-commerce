@@ -5,7 +5,7 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/default_app_bar.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';

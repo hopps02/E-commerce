@@ -5,7 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/customer_models.dart';
+import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/domain/usecase/get_customer_orders_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TapData extends Equatable {
@@ -119,9 +120,8 @@ class MyOrdersTabNotifier extends Notifier<MyOrdersTabState> {
       return;
     }
 
-    final result = await DI().customerRepository.orders(
-      statusGroup: group,
-      page: data.page + 1,
+    final result = await DI().getCustomerOrdersUseCase.execute(
+      CustomerOrdersParams(statusGroup: group, page: data.page + 1),
     );
     result.fold((failure) => _refreshControllerFor(group).loadFailed(), (
       pageData,
@@ -139,9 +139,8 @@ class MyOrdersTabNotifier extends Notifier<MyOrdersTabState> {
   }
 
   Future<void> _loadFirstPage(String group) async {
-    final result = await DI().customerRepository.orders(
-      statusGroup: group,
-      page: 1,
+    final result = await DI().getCustomerOrdersUseCase.execute(
+      CustomerOrdersParams(statusGroup: group, page: 1),
     );
     result.fold(
       (failure) => _setData(

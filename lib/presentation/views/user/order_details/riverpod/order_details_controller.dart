@@ -4,7 +4,9 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/customer/customer_models.dart';
+import 'package:for_u/data/request/customer/customer_request.dart';
+import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/domain/usecase/rate_order_usecase.dart';
 
 class OrderDetailsState extends Equatable {
   final ReqState reqState;
@@ -75,7 +77,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
 
   Future<void> load(int orderId) async {
     state = const OrderDetailsState();
-    final result = await DI().customerRepository.orderDetail(orderId);
+    final result = await DI().getCustomerOrderDetailUseCase.execute(orderId);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -95,14 +97,16 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
     String? comment,
   }) async {
     DI().loadingService.show();
-    final result = await DI().customerRepository.rateOrder(
-      state.orderId,
-      RateOrderBody(
-        overallStars: overall.round().clamp(1, 5),
-        captainStars: captain.round().clamp(1, 5),
-        orderAccuracyStars: orderAccuracy.round().clamp(1, 5),
-        deliverySpeedStars: deliverySpeed.round().clamp(1, 5),
-        comment: (comment ?? '').trim().isEmpty ? null : comment!.trim(),
+    final result = await DI().rateOrderUseCase.execute(
+      RateOrderParams(
+        id: state.orderId,
+        body: RateOrderBody(
+          overallStars: overall.round().clamp(1, 5),
+          captainStars: captain.round().clamp(1, 5),
+          orderAccuracyStars: orderAccuracy.round().clamp(1, 5),
+          deliverySpeedStars: deliverySpeed.round().clamp(1, 5),
+          comment: (comment ?? '').trim().isEmpty ? null : comment!.trim(),
+        ),
       ),
     );
     DI().loadingService.hide();

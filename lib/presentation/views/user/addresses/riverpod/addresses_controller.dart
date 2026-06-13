@@ -4,7 +4,8 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/domain/usecase/update_address_usecase.dart';
 
 class AddressesState extends Equatable {
   final ReqState reqState;
@@ -42,7 +43,7 @@ class AddressesNotifier extends Notifier<AddressesState> {
 
   Future<void> load() async {
     state = const AddressesState();
-    final result = await DI().customerRepository.addresses();
+    final result = await DI().getAddressesUseCase.execute(null);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -57,9 +58,9 @@ class AddressesNotifier extends Notifier<AddressesState> {
 
   Future<void> setDefault(int id) async {
     DI().loadingService.show();
-    final result = await DI().customerRepository.updateAddress(id, {
-      'is_default': true,
-    });
+    final result = await DI().updateAddressUseCase.execute(
+      UpdateAddressParams(id: id, changes: {'is_default': true}),
+    );
     DI().loadingService.hide();
 
     await result.fold(
@@ -73,7 +74,7 @@ class AddressesNotifier extends Notifier<AddressesState> {
 
   Future<void> delete(int id) async {
     DI().loadingService.show();
-    final result = await DI().customerRepository.deleteAddress(id);
+    final result = await DI().deleteAddressUseCase.execute(id);
     DI().loadingService.hide();
 
     await result.fold(

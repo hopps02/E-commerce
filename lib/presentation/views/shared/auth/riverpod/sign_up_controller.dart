@@ -4,7 +4,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/app/validation/phone_validation.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 
 class AuthState extends Equatable {
   final String dialCode;

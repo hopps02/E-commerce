@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/app.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/screens/captain_home_view.dart';
 import 'package:for_u/presentation/views/captain/delivery_outcome/view/screens/captain_delivery_outcome_view.dart';
 import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';

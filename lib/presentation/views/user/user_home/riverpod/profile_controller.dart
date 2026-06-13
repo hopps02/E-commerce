@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/domain/usecase/update_profile_usecase.dart';
 
 class ProfileState extends Equatable {
   final String name;
@@ -29,7 +30,7 @@ class ProfileNotifier extends Notifier<ProfileState> {
   }
 
   Future<void> load() async {
-    final result = await DI().customerRepository.profile();
+    final result = await DI().getProfileUseCase.execute(null);
     result.fold(
       (_) {}, // The header keeps its placeholders on failure.
       (profile) =>
@@ -40,7 +41,9 @@ class ProfileNotifier extends Notifier<ProfileState> {
   /// Updates the customer's display name. Returns true when saved.
   Future<bool> updateName(String name) async {
     DI().loadingService.show();
-    final result = await DI().customerRepository.updateProfile(name: name);
+    final result = await DI().updateProfileUseCase.execute(
+      UpdateProfileParams(name: name),
+    );
     DI().loadingService.hide();
 
     return result.fold(
@@ -62,7 +65,7 @@ class ProfileNotifier extends Notifier<ProfileState> {
   /// Returns true when the caller should navigate back to auth.
   Future<bool> deleteAccount() async {
     DI().loadingService.show();
-    final result = await DI().customerRepository.deleteAccount();
+    final result = await DI().deleteAccountUseCase.execute(null);
     DI().loadingService.hide();
 
     return result.fold(

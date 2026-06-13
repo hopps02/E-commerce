@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/data/models/captain/captain_models.dart';
+import 'package:for_u/data/response/captain/captain_response.dart';
 
 void main() {
   group('captainStatusFromState', () {

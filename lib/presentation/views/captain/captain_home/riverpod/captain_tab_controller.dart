@@ -6,7 +6,8 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/captain/captain_models.dart';
+import 'package:for_u/data/response/captain/captain_response.dart';
+import 'package:for_u/domain/usecase/get_captain_orders_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // dart format off
@@ -142,7 +143,7 @@ class CaptainHomeNotifier extends Notifier<CaptainHomeState> {
     final next = !before;
     state = state.copyWith(isAvailable: next);
 
-    final result = await DI().captainRepository.setAvailability(next);
+    final result = await DI().setCaptainAvailabilityUseCase.execute(next);
     result.fold((failure) {
       state = state.copyWith(isAvailable: before);
       DI().snackBarHelper.showMessage(
@@ -164,9 +165,8 @@ class CaptainHomeNotifier extends Notifier<CaptainHomeState> {
       return;
     }
 
-    final result = await DI().captainRepository.orders(
-      queue: queue,
-      page: data.page + 1,
+    final result = await DI().getCaptainOrdersUseCase.execute(
+      CaptainOrdersParams(queue: queue, page: data.page + 1),
     );
     result.fold((failure) => _refreshControllerFor(queue).loadFailed(), (
       pageData,
@@ -184,7 +184,9 @@ class CaptainHomeNotifier extends Notifier<CaptainHomeState> {
   }
 
   Future<void> _loadFirstPage(String queue) async {
-    final result = await DI().captainRepository.orders(queue: queue, page: 1);
+    final result = await DI().getCaptainOrdersUseCase.execute(
+      CaptainOrdersParams(queue: queue, page: 1),
+    );
     result.fold(
       (failure) => _setData(
         queue,
@@ -206,7 +208,7 @@ class CaptainHomeNotifier extends Notifier<CaptainHomeState> {
 
   /// Greeting name + the real availability state from the backend.
   Future<void> _loadProfile() async {
-    final result = await DI().captainRepository.me();
+    final result = await DI().getCaptainProfileUseCase.execute(null);
     result.fold(
       (_) {}, // The header keeps its defaults on failure.
       (profile) => state = state.copyWith(

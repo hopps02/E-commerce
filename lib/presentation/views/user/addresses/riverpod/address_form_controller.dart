@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/domain/usecase/coverage_check_usecase.dart';
+import 'package:for_u/domain/usecase/create_address_usecase.dart';
+import 'package:for_u/domain/usecase/update_address_usecase.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
@@ -87,9 +90,8 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
       return;
     }
 
-    final coverage = await DI().customerRepository.coverageCheck(
-      lat: picked.latitude!,
-      lng: picked.longitude!,
+    final coverage = await DI().coverageCheckUseCase.execute(
+      CoverageCheckParams(lat: picked.latitude!, lng: picked.longitude!),
     );
     DI().loadingService.hide();
 
@@ -136,35 +138,41 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
     }
 
     DI().loadingService.show();
-    final repo = DI().customerRepository;
     final result = existing == null
-        ? await repo.createAddress(
-            cityId: state.cityId!,
-            displayAddress: displayAddress,
-            lat: state.lat!,
-            lng: state.lng!,
-            label: state.label,
-            street: street,
-            buildingNumber: buildingNumber,
-            floor: floor,
-            apartment: apartment,
-            landmark: landmark,
-            deliveryInstructions: deliveryInstructions,
-            isDefault: false,
+        ? await DI().createAddressUseCase.execute(
+            CreateAddressParams(
+              cityId: state.cityId!,
+              displayAddress: displayAddress,
+              lat: state.lat!,
+              lng: state.lng!,
+              label: state.label,
+              street: street,
+              buildingNumber: buildingNumber,
+              floor: floor,
+              apartment: apartment,
+              landmark: landmark,
+              deliveryInstructions: deliveryInstructions,
+              isDefault: false,
+            ),
           )
-        : await repo.updateAddress(existing.id, {
-            'city_id': state.cityId,
-            'display_address': displayAddress,
-            'lat': state.lat,
-            'lng': state.lng,
-            'label': state.label,
-            'street': street ?? '',
-            'building_number': buildingNumber ?? '',
-            'floor': floor ?? '',
-            'apartment': apartment ?? '',
-            'landmark': landmark ?? '',
-            'delivery_instructions': deliveryInstructions ?? '',
-          });
+        : await DI().updateAddressUseCase.execute(
+            UpdateAddressParams(
+              id: existing.id,
+              changes: {
+                'city_id': state.cityId,
+                'display_address': displayAddress,
+                'lat': state.lat,
+                'lng': state.lng,
+                'label': state.label,
+                'street': street ?? '',
+                'building_number': buildingNumber ?? '',
+                'floor': floor ?? '',
+                'apartment': apartment ?? '',
+                'landmark': landmark ?? '',
+                'delivery_instructions': deliveryInstructions ?? '',
+              },
+            ),
+          );
     DI().loadingService.hide();
 
     return result.fold((failure) {

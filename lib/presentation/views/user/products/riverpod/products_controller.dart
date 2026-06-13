@@ -4,7 +4,8 @@ import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/domain/usecase/get_products_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProductsState extends Equatable {
@@ -82,11 +83,13 @@ class ProductsNotifier extends Notifier<ProductsState> {
   }
 
   Future<void> _loadPage(int page) async {
-    final result = await DI().customerRepository.products(
-      branchId: Env.defaultBranchId,
-      categoryId: _categoryId,
-      search: _search,
-      page: page,
+    final result = await DI().getProductsUseCase.execute(
+      ProductsParams(
+        branchId: Env.defaultBranchId,
+        categoryId: _categoryId,
+        search: _search,
+        page: page,
+      ),
     );
 
     result.fold(

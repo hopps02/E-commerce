@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/models/cashier/cashier_models.dart';
+import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 

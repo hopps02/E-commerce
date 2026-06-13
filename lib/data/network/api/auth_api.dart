@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/request/auth/auth_request.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 

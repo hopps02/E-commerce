@@ -6,7 +6,8 @@ import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/cashier/cashier_models.dart';
+import 'package:for_u/data/response/cashier/cashier_response.dart';
+import 'package:for_u/domain/usecase/mark_item_prepared_usecase.dart';
 
 class CashierOrderProduct extends Equatable {
   final int id;
@@ -133,7 +134,7 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
 
   Future<void> load(int orderId) async {
     state = state.copyWith(reqState: ReqState.loading, orderId: orderId);
-    final result = await DI().cashierRepository.orderDetail(orderId);
+    final result = await DI().getCashierOrderDetailUseCase.execute(orderId);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -159,10 +160,12 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
       ],
     );
 
-    final result = await DI().cashierRepository.markItemPrepared(
-      state.orderId,
-      productId,
-      prepared: prepared,
+    final result = await DI().markItemPreparedUseCase.execute(
+      MarkItemPreparedParams(
+        orderId: state.orderId,
+        itemId: productId,
+        prepared: prepared,
+      ),
     );
     result.fold((failure) {
       state = state.copyWith(products: before);
@@ -177,7 +180,7 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
     if (!state.status.isPreparing || !state.allPrepared) return;
 
     DI().loadingService.show();
-    final result = await DI().cashierRepository.confirmReady(state.orderId);
+    final result = await DI().confirmReadyUseCase.execute(state.orderId);
     DI().loadingService.hide();
 
     result.fold(

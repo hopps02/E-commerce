@@ -6,7 +6,9 @@ import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/captain/captain_models.dart';
+import 'package:for_u/data/response/captain/captain_response.dart';
+import 'package:for_u/domain/usecase/mark_delivered_usecase.dart';
+import 'package:for_u/domain/usecase/mark_failed_usecase.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 // dart format off
@@ -102,7 +104,7 @@ class CaptainOrderDetailsNotifier extends Notifier<CaptainOrderDetailsState> {
 
   Future<void> load(int orderId) async {
     state = const CaptainOrderDetailsState();
-    final result = await DI().captainRepository.orderDetail(orderId);
+    final result = await DI().getCaptainOrderDetailUseCase.execute(orderId);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -115,30 +117,30 @@ class CaptainOrderDetailsNotifier extends Notifier<CaptainOrderDetailsState> {
   /// Acknowledge receiving the goods (a captain cannot decline).
   Future<bool> acceptOrder() async {
     if (!state.status.isUpcoming) return false;
-    return _transition(() => DI().captainRepository.accept(state.orderId));
+    return _transition(() => DI().acceptOrderUseCase.execute(state.orderId));
   }
 
   Future<bool> startDelivery() async {
     if (!state.status.isReceived) return false;
     return _transition(
-      () => DI().captainRepository.startDelivery(state.orderId),
+      () => DI().startDeliveryUseCase.execute(state.orderId),
     );
   }
 
   Future<bool> markDelivered() async {
     if (!state.status.isInDelivery) return false;
     return _transition(
-      () => DI().captainRepository.markDelivered(state.orderId),
+      () => DI().markDeliveredUseCase.execute(
+        MarkDeliveredParams(orderId: state.orderId),
+      ),
     );
   }
 
   /// [reason] is the backend enum value; the note is required for `other`.
   Future<bool> markFailed(String reason, String? note) async {
     return _transition(
-      () => DI().captainRepository.markFailed(
-        state.orderId,
-        reason: reason,
-        note: note,
+      () => DI().markFailedUseCase.execute(
+        MarkFailedParams(orderId: state.orderId, reason: reason, note: note),
       ),
     );
   }

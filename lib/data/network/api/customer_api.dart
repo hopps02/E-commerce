@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
-import 'package:for_u/data/models/customer/customer_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/data/request/customer/customer_request.dart';
+import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 

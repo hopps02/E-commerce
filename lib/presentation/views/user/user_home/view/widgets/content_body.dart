@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/utils/money.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';

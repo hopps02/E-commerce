@@ -6,7 +6,8 @@ import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/domain/usecase/get_products_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchState extends Equatable {
@@ -101,10 +102,8 @@ class SearchNotifier extends Notifier<SearchState> {
 
   Future<void> _loadPage(int page) async {
     final term = state.query;
-    final result = await DI().customerRepository.products(
-      branchId: Env.defaultBranchId,
-      search: term,
-      page: page,
+    final result = await DI().getProductsUseCase.execute(
+      ProductsParams(branchId: Env.defaultBranchId, search: term, page: page),
     );
     // A newer query superseded this response; drop it.
     if (term != state.query) return;

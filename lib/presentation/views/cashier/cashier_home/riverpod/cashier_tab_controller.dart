@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/cashier/cashier_models.dart';
+import 'package:for_u/data/response/cashier/cashier_response.dart';
+import 'package:for_u/domain/usecase/get_cashier_orders_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // dart format off
@@ -127,9 +128,8 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
       return;
     }
 
-    final result = await DI().cashierRepository.orders(
-      queue: queue,
-      page: data.page + 1,
+    final result = await DI().getCashierOrdersUseCase.execute(
+      CashierOrdersParams(queue: queue, page: data.page + 1),
     );
     result.fold(
       (failure) {
@@ -150,7 +150,9 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
   }
 
   Future<void> _loadFirstPage(String queue) async {
-    final result = await DI().cashierRepository.orders(queue: queue, page: 1);
+    final result = await DI().getCashierOrdersUseCase.execute(
+      CashierOrdersParams(queue: queue, page: 1),
+    );
     result.fold(
       (failure) => _setData(
         queue,
@@ -172,7 +174,7 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
 
   /// The greeting header shows the cashier's provisioned name.
   Future<void> _loadCashierName() async {
-    final result = await DI().cashierRepository.me();
+    final result = await DI().getCashierProfileUseCase.execute(null);
     result.fold(
       (_) {}, // The header simply keeps its placeholder on failure.
       (profile) => state = state.copyWith(cashierName: profile.name ?? ''),

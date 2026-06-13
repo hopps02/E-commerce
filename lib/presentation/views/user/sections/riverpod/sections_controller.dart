@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 
 class SectionsState extends Equatable {
   final ReqState reqState;
@@ -40,7 +40,7 @@ class SectionsNotifier extends Notifier<SectionsState> {
 
   Future<void> load() async {
     state = const SectionsState();
-    final result = await DI().customerRepository.categories();
+    final result = await DI().getCategoriesUseCase.execute(null);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,

@@ -5,7 +5,8 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/cashier/cashier_models.dart';
+import 'package:for_u/data/response/cashier/cashier_response.dart';
+import 'package:for_u/domain/usecase/assign_captain_usecase.dart';
 
 class AssignCaptainState extends Equatable {
   final List<AvailableCaptain> captains;
@@ -85,7 +86,7 @@ class AssignCaptainNotifier extends Notifier<AssignCaptainState> {
   /// Loads the branch's currently-available captains for [orderId].
   Future<void> load(int orderId) async {
     state = const AssignCaptainState();
-    final result = await DI().cashierRepository.availableCaptains(orderId);
+    final result = await DI().availableCaptainsUseCase.execute(orderId);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -113,9 +114,8 @@ class AssignCaptainNotifier extends Notifier<AssignCaptainState> {
     if (captain == null) return null;
 
     DI().loadingService.show();
-    final result = await DI().cashierRepository.assignCaptain(
-      orderId,
-      captain.id,
+    final result = await DI().assignCaptainUseCase.execute(
+      AssignCaptainParams(orderId: orderId, captainId: captain.id),
     );
     DI().loadingService.hide();
 

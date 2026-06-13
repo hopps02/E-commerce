@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/models/auth/auth_models.dart';
+import 'package:for_u/data/request/auth/auth_request.dart';
+import 'package:for_u/data/response/auth/auth_response.dart';
 import 'package:for_u/data/network/error_handler/failure.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -14,7 +15,10 @@ class MockStorageService extends Mock implements StorageService {}
 
 void main() {
   late MockStorageService storage;
-  late MockAuthRepository repository;
+  late MockRegisterDeviceUseCase registerDeviceUseCase;
+  late MockGetMeUseCase getMeUseCase;
+  late MockUnregisterDeviceUseCase unregisterDeviceUseCase;
+  late MockLogoutUseCase logoutUseCase;
   late SessionService service;
   String? fcmToken;
 
@@ -22,9 +26,19 @@ void main() {
 
   setUp(() {
     storage = MockStorageService();
-    repository = MockAuthRepository();
+    registerDeviceUseCase = MockRegisterDeviceUseCase();
+    getMeUseCase = MockGetMeUseCase();
+    unregisterDeviceUseCase = MockUnregisterDeviceUseCase();
+    logoutUseCase = MockLogoutUseCase();
     fcmToken = 'fcm-token';
-    service = SessionService(storage, repository, () async => fcmToken);
+    service = SessionService(
+      storage,
+      () async => fcmToken,
+      registerDeviceUseCase: registerDeviceUseCase,
+      getMeUseCase: getMeUseCase,
+      unregisterDeviceUseCase: unregisterDeviceUseCase,
+      logoutUseCase: logoutUseCase,
+    );
 
     when(() => storage.setToken(any())).thenAnswer((_) async {});
     when(() => storage.setRole(any())).thenAnswer((_) async {});
@@ -32,7 +46,7 @@ void main() {
     when(() => storage.deleteRole()).thenAnswer((_) async {});
     when(() => storage.language).thenReturn(const Locale('ar'));
     when(
-      () => repository.registerDevice(any()),
+      () => registerDeviceUseCase.execute(any()),
     ).thenAnswer((_) async => const Right(unit));
   });
 
@@ -47,7 +61,9 @@ void main() {
       // Device registration is fired without awaiting; let it run.
       await Future<void>.delayed(Duration.zero);
       final body =
-          verify(() => repository.registerDevice(captureAny())).captured.single
+          verify(
+                () => registerDeviceUseCase.execute(captureAny()),
+              ).captured.single
               as RegisterDeviceBody;
       expect(body.token, 'fcm-token');
       expect(body.locale, 'ar');
@@ -80,7 +96,7 @@ void main() {
 
       expect(ok, isTrue);
       await Future<void>.delayed(Duration.zero);
-      verifyNever(() => repository.registerDevice(any()));
+      verifyNever(() => registerDeviceUseCase.execute(any()));
     });
   });
 
@@ -102,7 +118,7 @@ void main() {
     test('valid session -> home for the backend role', () async {
       when(() => storage.getToken()).thenAnswer((_) async => 'jwt');
       when(() => storage.getRole()).thenAnswer((_) async => 'customer');
-      when(() => repository.me()).thenAnswer(
+      when(() => getMeUseCase.execute(null)).thenAnswer(
         (_) async => Right(
           MeData.fromJson(const {
             'account': DummyData.customerAccountJson,
@@ -121,7 +137,7 @@ void main() {
     test('expired token (401) -> cleared + auth', () async {
       when(() => storage.getToken()).thenAnswer((_) async => 'jwt');
       when(() => storage.getRole()).thenAnswer((_) async => 'customer');
-      when(() => repository.me()).thenAnswer(
+      when(() => getMeUseCase.execute(null)).thenAnswer(
         (_) async =>
             Left(ServerError(code: 'unauthenticated', statusCode: 401)),
       );
@@ -134,7 +150,7 @@ void main() {
     test('suspended account -> cleared + auth', () async {
       when(() => storage.getToken()).thenAnswer((_) async => 'jwt');
       when(() => storage.getRole()).thenAnswer((_) async => 'cashier');
-      when(() => repository.me()).thenAnswer(
+      when(() => getMeUseCase.execute(null)).thenAnswer(
         (_) async =>
             Left(ServerError(code: 'account_suspended', statusCode: 403)),
       );
@@ -146,7 +162,7 @@ void main() {
       when(() => storage.getToken()).thenAnswer((_) async => 'jwt');
       when(() => storage.getRole()).thenAnswer((_) async => 'captain');
       when(
-        () => repository.me(),
+        () => getMeUseCase.execute(null),
       ).thenAnswer((_) async => const Left(NoInternetConnection()));
 
       final start = await service.resolveStart();
@@ -159,26 +175,26 @@ void main() {
   group('logout', () {
     test('revokes server-side then clears local state', () async {
       when(
-        () => repository.unregisterDevice(any()),
+        () => unregisterDeviceUseCase.execute(any()),
       ).thenAnswer((_) async => const Right(unit));
       when(
-        () => repository.logout(),
+        () => logoutUseCase.execute(null),
       ).thenAnswer((_) async => const Right(unit));
 
       await service.logout();
 
-      verify(() => repository.unregisterDevice('fcm-token')).called(1);
-      verify(() => repository.logout()).called(1);
+      verify(() => unregisterDeviceUseCase.execute('fcm-token')).called(1);
+      verify(() => logoutUseCase.execute(null)).called(1);
       verify(() => storage.deleteToken()).called(1);
       verify(() => storage.deleteRole()).called(1);
     });
 
     test('local state clears even when the server is unreachable', () async {
       when(
-        () => repository.unregisterDevice(any()),
+        () => unregisterDeviceUseCase.execute(any()),
       ).thenAnswer((_) async => const Left(NoInternetConnection()));
       when(
-        () => repository.logout(),
+        () => logoutUseCase.execute(null),
       ).thenAnswer((_) async => const Left(NoInternetConnection()));
 
       await service.logout();

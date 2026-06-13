@@ -4,7 +4,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 
 class FavoritesState extends Equatable {
   final ReqState reqState;
@@ -61,7 +61,7 @@ class FavoritesNotifier extends Notifier<FavoritesState> {
   /// Loads the full favorites list for the favorites screen.
   Future<void> load() async {
     state = state.copyWith(reqState: ReqState.loading);
-    final result = await DI().customerRepository.favorites();
+    final result = await DI().getFavoritesUseCase.execute(null);
     result.fold(
       (failure) => state = state.copyWith(
         reqState: ReqState.error,
@@ -101,8 +101,8 @@ class FavoritesNotifier extends Notifier<FavoritesState> {
     );
 
     final result = wasFavorite
-        ? await DI().customerRepository.removeFavorite(id)
-        : await DI().customerRepository.addFavorite(id);
+        ? await DI().removeFavoriteUseCase.execute(id)
+        : await DI().addFavoriteUseCase.execute(id);
 
     result.fold((failure) {
       // Roll back to the pre-toggle membership.

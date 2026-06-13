@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 
 class ProductDetailsState extends Equatable {
   final ReqState reqState;
@@ -49,7 +49,7 @@ class ProductDetailsNotifier extends Notifier<ProductDetailsState> {
         ? ProductDetailsState(reqState: ReqState.success, product: initial)
         : const ProductDetailsState();
 
-    final result = await DI().customerRepository.productDetail(productId);
+    final result = await DI().getProductDetailUseCase.execute(productId);
     result.fold(
       (failure) {
         // Keep showing the passed-in row; only a cold open surfaces the error.

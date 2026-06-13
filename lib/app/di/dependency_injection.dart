@@ -11,15 +11,53 @@ import 'package:for_u/data/network/api/captain_api.dart';
 import 'package:for_u/data/network/api/cashier_api.dart';
 import 'package:for_u/data/network/api/customer_api.dart';
 import 'package:for_u/data/network/dio_factory.dart';
-import 'package:for_u/data/repository/auth_repository_impl.dart';
-import 'package:for_u/data/repository/captain_repository_impl.dart';
-import 'package:for_u/data/repository/cashier_repository_impl.dart';
-import 'package:for_u/data/repository/customer_repository_impl.dart';
-import 'package:for_u/domain/repository/auth_repository.dart';
-import 'package:for_u/domain/repository/captain_repository.dart';
-import 'package:for_u/domain/repository/cashier_repository.dart';
-import 'package:for_u/domain/repository/customer_repository.dart';
-import 'package:for_u/domain/usecase/auth_usecases.dart';
+import 'package:for_u/data/repository/repository_impl.dart';
+import 'package:for_u/domain/repository/repository.dart';
+import 'package:for_u/domain/usecase/get_me_usecase.dart';
+import 'package:for_u/domain/usecase/logout_usecase.dart';
+import 'package:for_u/domain/usecase/register_device_usecase.dart';
+import 'package:for_u/domain/usecase/request_otp_usecase.dart';
+import 'package:for_u/domain/usecase/unregister_device_usecase.dart';
+import 'package:for_u/domain/usecase/verify_otp_usecase.dart';
+import 'package:for_u/domain/usecase/accept_order_usecase.dart';
+import 'package:for_u/domain/usecase/get_captain_order_detail_usecase.dart';
+import 'package:for_u/domain/usecase/get_captain_orders_usecase.dart';
+import 'package:for_u/domain/usecase/get_captain_profile_usecase.dart';
+import 'package:for_u/domain/usecase/mark_delivered_usecase.dart';
+import 'package:for_u/domain/usecase/mark_failed_usecase.dart';
+import 'package:for_u/domain/usecase/set_captain_availability_usecase.dart';
+import 'package:for_u/domain/usecase/start_delivery_usecase.dart';
+import 'package:for_u/domain/usecase/assign_captain_usecase.dart';
+import 'package:for_u/domain/usecase/available_captains_usecase.dart';
+import 'package:for_u/domain/usecase/confirm_ready_usecase.dart';
+import 'package:for_u/domain/usecase/get_cashier_order_detail_usecase.dart';
+import 'package:for_u/domain/usecase/get_cashier_orders_usecase.dart';
+import 'package:for_u/domain/usecase/get_cashier_profile_usecase.dart';
+import 'package:for_u/domain/usecase/mark_item_prepared_usecase.dart';
+import 'package:for_u/domain/usecase/mark_item_unavailable_usecase.dart';
+import 'package:for_u/domain/usecase/reject_order_usecase.dart';
+import 'package:for_u/domain/usecase/add_favorite_usecase.dart';
+import 'package:for_u/domain/usecase/cancel_order_usecase.dart';
+import 'package:for_u/domain/usecase/checkout_quote_usecase.dart';
+import 'package:for_u/domain/usecase/coverage_check_usecase.dart';
+import 'package:for_u/domain/usecase/create_address_usecase.dart';
+import 'package:for_u/domain/usecase/create_order_usecase.dart';
+import 'package:for_u/domain/usecase/delete_account_usecase.dart';
+import 'package:for_u/domain/usecase/delete_address_usecase.dart';
+import 'package:for_u/domain/usecase/get_addresses_usecase.dart';
+import 'package:for_u/domain/usecase/get_categories_usecase.dart';
+import 'package:for_u/domain/usecase/get_customer_order_detail_usecase.dart';
+import 'package:for_u/domain/usecase/get_customer_orders_usecase.dart';
+import 'package:for_u/domain/usecase/get_favorites_usecase.dart';
+import 'package:for_u/domain/usecase/get_product_detail_usecase.dart';
+import 'package:for_u/domain/usecase/get_products_usecase.dart';
+import 'package:for_u/domain/usecase/get_profile_usecase.dart';
+import 'package:for_u/domain/usecase/open_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/rate_order_usecase.dart';
+import 'package:for_u/domain/usecase/remove_favorite_usecase.dart';
+import 'package:for_u/domain/usecase/update_address_usecase.dart';
+import 'package:for_u/domain/usecase/update_profile_usecase.dart';
+import 'package:for_u/domain/usecase/validate_cart_usecase.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,16 +82,23 @@ class DI {
   static final _cashierApi                = Provider((ref) => CashierApi(ref.read(_dio)));
   static final _captainApi                = Provider((ref) => CaptainApi(ref.read(_dio)));
   static final _customerApi               = Provider((ref) => CustomerApi(ref.read(_dio)));
+
   // --- Domain & Data ---
-  static final _authRepository            = Provider<AuthRepository>((ref) => AuthRepositoryImpl(ref.read(_authApi)));
-  static final _cashierRepository         = Provider<CashierRepository>((ref) => CashierRepositoryImpl(ref.read(_cashierApi)));
-  static final _captainRepository         = Provider<CaptainRepository>((ref) => CaptainRepositoryImpl(ref.read(_captainApi)));
-  static final _customerRepository        = Provider<CustomerRepository>((ref) => CustomerRepositoryImpl(ref.read(_customerApi)));
+  // One repository, backed by every API. Features reach it only through use cases.
+  static final _repository                = Provider<Repository>((ref) => RepositoryImpl(
+                                              ref.read(_authApi),
+                                              ref.read(_captainApi),
+                                              ref.read(_cashierApi),
+                                              ref.read(_customerApi),
+                                            ));
 
   static final _sessionService            = Provider((ref) => SessionService(
                                               ref.read(_storageService),
-                                              ref.read(_authRepository),
                                               () => FirebaseMessegingServices.instance.fcmToken,
+                                              registerDeviceUseCase:   RegisterDeviceUseCase(ref.read(_repository)),
+                                              getMeUseCase:            GetMeUseCase(ref.read(_repository)),
+                                              unregisterDeviceUseCase: UnregisterDeviceUseCase(ref.read(_repository)),
+                                              logoutUseCase:           LogoutUseCase(ref.read(_repository)),
                                               onSessionCleared: () {
                                                 ref.read(cartController.notifier).clear();
                                                 ref.read(favoritesController.notifier).clear();
@@ -83,17 +128,63 @@ extension DICoreServicesExtension on DI {
   SessionService      get sessionService   => DI.container.read(DI._sessionService);
   SnackbarHelper      get snackBarHelper   => DI.container.read(DI._snackBarHelper);
   LoadingManager      get loadingService   => DI.container.read(DI._loadingService);
-  CashierRepository   get cashierRepository=> DI.container.read(DI._cashierRepository);
-  CaptainRepository   get captainRepository=> DI.container.read(DI._captainRepository);
-  CustomerRepository  get customerRepository=> DI.container.read(DI._customerRepository);
 }
 
 extension DIUseCasesExtension on DI {
-  RequestOtpUseCase     get requestOtpUseCase     => RequestOtpUseCase(DI.container.read(DI._authRepository));
-  VerifyOtpUseCase      get verifyOtpUseCase      => VerifyOtpUseCase(DI.container.read(DI._authRepository));
-  GetMeUseCase          get getMeUseCase          => GetMeUseCase(DI.container.read(DI._authRepository));
-  LogoutUseCase         get logoutUseCase         => LogoutUseCase(DI.container.read(DI._authRepository));
-  RegisterDeviceUseCase get registerDeviceUseCase => RegisterDeviceUseCase(DI.container.read(DI._authRepository));
+  Repository get _repo => DI.container.read(DI._repository);
+
+  // --- Auth ---
+  RequestOtpUseCase           get requestOtpUseCase           => RequestOtpUseCase(_repo);
+  VerifyOtpUseCase            get verifyOtpUseCase            => VerifyOtpUseCase(_repo);
+  GetMeUseCase                get getMeUseCase                => GetMeUseCase(_repo);
+  LogoutUseCase               get logoutUseCase               => LogoutUseCase(_repo);
+  RegisterDeviceUseCase       get registerDeviceUseCase       => RegisterDeviceUseCase(_repo);
+  UnregisterDeviceUseCase     get unregisterDeviceUseCase     => UnregisterDeviceUseCase(_repo);
+
+  // --- Captain ---
+  GetCaptainProfileUseCase    get getCaptainProfileUseCase    => GetCaptainProfileUseCase(_repo);
+  SetCaptainAvailabilityUseCase get setCaptainAvailabilityUseCase => SetCaptainAvailabilityUseCase(_repo);
+  GetCaptainOrdersUseCase     get getCaptainOrdersUseCase     => GetCaptainOrdersUseCase(_repo);
+  GetCaptainOrderDetailUseCase get getCaptainOrderDetailUseCase => GetCaptainOrderDetailUseCase(_repo);
+  AcceptOrderUseCase          get acceptOrderUseCase          => AcceptOrderUseCase(_repo);
+  StartDeliveryUseCase        get startDeliveryUseCase        => StartDeliveryUseCase(_repo);
+  MarkDeliveredUseCase        get markDeliveredUseCase        => MarkDeliveredUseCase(_repo);
+  MarkFailedUseCase           get markFailedUseCase           => MarkFailedUseCase(_repo);
+
+  // --- Cashier ---
+  GetCashierProfileUseCase    get getCashierProfileUseCase    => GetCashierProfileUseCase(_repo);
+  GetCashierOrdersUseCase     get getCashierOrdersUseCase     => GetCashierOrdersUseCase(_repo);
+  GetCashierOrderDetailUseCase get getCashierOrderDetailUseCase => GetCashierOrderDetailUseCase(_repo);
+  MarkItemPreparedUseCase     get markItemPreparedUseCase     => MarkItemPreparedUseCase(_repo);
+  MarkItemUnavailableUseCase  get markItemUnavailableUseCase  => MarkItemUnavailableUseCase(_repo);
+  ConfirmReadyUseCase         get confirmReadyUseCase         => ConfirmReadyUseCase(_repo);
+  RejectOrderUseCase          get rejectOrderUseCase          => RejectOrderUseCase(_repo);
+  AvailableCaptainsUseCase    get availableCaptainsUseCase    => AvailableCaptainsUseCase(_repo);
+  AssignCaptainUseCase        get assignCaptainUseCase        => AssignCaptainUseCase(_repo);
+
+  // --- Customer ---
+  GetProfileUseCase           get getProfileUseCase           => GetProfileUseCase(_repo);
+  UpdateProfileUseCase        get updateProfileUseCase        => UpdateProfileUseCase(_repo);
+  GetProductsUseCase          get getProductsUseCase          => GetProductsUseCase(_repo);
+  GetProductDetailUseCase     get getProductDetailUseCase     => GetProductDetailUseCase(_repo);
+  GetCategoriesUseCase        get getCategoriesUseCase        => GetCategoriesUseCase(_repo);
+  GetFavoritesUseCase         get getFavoritesUseCase         => GetFavoritesUseCase(_repo);
+  AddFavoriteUseCase          get addFavoriteUseCase          => AddFavoriteUseCase(_repo);
+  RemoveFavoriteUseCase       get removeFavoriteUseCase       => RemoveFavoriteUseCase(_repo);
+  GetAddressesUseCase         get getAddressesUseCase         => GetAddressesUseCase(_repo);
+  CreateAddressUseCase        get createAddressUseCase        => CreateAddressUseCase(_repo);
+  UpdateAddressUseCase        get updateAddressUseCase        => UpdateAddressUseCase(_repo);
+  DeleteAddressUseCase        get deleteAddressUseCase        => DeleteAddressUseCase(_repo);
+  CoverageCheckUseCase        get coverageCheckUseCase        => CoverageCheckUseCase(_repo);
+  ValidateCartUseCase         get validateCartUseCase         => ValidateCartUseCase(_repo);
+  CheckoutQuoteUseCase        get checkoutQuoteUseCase        => CheckoutQuoteUseCase(_repo);
+  CreateOrderUseCase          get createOrderUseCase          => CreateOrderUseCase(_repo);
+  GetCustomerOrdersUseCase    get getCustomerOrdersUseCase    => GetCustomerOrdersUseCase(_repo);
+  GetCustomerOrderDetailUseCase get getCustomerOrderDetailUseCase => GetCustomerOrderDetailUseCase(_repo);
+  CancelOrderUseCase          get cancelOrderUseCase          => CancelOrderUseCase(_repo);
+  RateOrderUseCase            get rateOrderUseCase            => RateOrderUseCase(_repo);
+  OpenTicketUseCase           get openTicketUseCase           => OpenTicketUseCase(_repo);
+  DeleteAccountUseCase        get deleteAccountUseCase        => DeleteAccountUseCase(_repo);
 }
 
 // dart format on

@@ -4,8 +4,12 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
-import 'package:for_u/data/models/customer/customer_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/domain/usecase/checkout_quote_usecase.dart';
+import 'package:for_u/domain/usecase/coverage_check_usecase.dart';
+import 'package:for_u/domain/usecase/create_address_usecase.dart';
+import 'package:for_u/domain/usecase/create_order_usecase.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
@@ -80,7 +84,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
 
     state = const CheckoutState();
 
-    final validation = await DI().customerRepository.validateCart(
+    final validation = await DI().validateCartUseCase.execute(
       ref.read(cartController).lines,
     );
     var reconciled = false;
@@ -107,7 +111,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       return;
     }
 
-    final addresses = await DI().customerRepository.addresses();
+    final addresses = await DI().getAddressesUseCase.execute(null);
     var address = addresses.fold<DeliveryAddress?>((failure) {
       state = state.copyWith(
         reqState: ReqState.error,
@@ -123,9 +127,11 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     }
     final resolved = address;
 
-    final quote = await DI().customerRepository.checkoutQuote(
-      addressId: resolved.id,
-      lines: ref.read(cartController).lines,
+    final quote = await DI().checkoutQuoteUseCase.execute(
+      CheckoutQuoteParams(
+        addressId: resolved.id,
+        lines: ref.read(cartController).lines,
+      ),
     );
     quote.fold(
       (failure) => state = state.copyWith(
@@ -157,9 +163,8 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       return null;
     }
 
-    final coverage = await DI().customerRepository.coverageCheck(
-      lat: lat,
-      lng: lng,
+    final coverage = await DI().coverageCheckUseCase.execute(
+      CoverageCheckParams(lat: lat, lng: lng),
     );
     final cityId = coverage.fold<int?>((failure) {
       state = state.copyWith(
@@ -177,11 +182,13 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       return null;
     }
 
-    final created = await DI().customerRepository.createAddress(
-      cityId: cityId,
-      displayAddress: location.locationCity ?? Translation.unknown_location.tr,
-      lat: lat,
-      lng: lng,
+    final created = await DI().createAddressUseCase.execute(
+      CreateAddressParams(
+        cityId: cityId,
+        displayAddress: location.locationCity ?? Translation.unknown_location.tr,
+        lat: lat,
+        lng: lng,
+      ),
     );
     return created.fold((failure) {
       state = state.copyWith(
@@ -196,9 +203,11 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   /// backend quote (delivery fee can differ per zone).
   Future<void> selectAddress(DeliveryAddress address) async {
     state = state.copyWith(reqState: ReqState.loading);
-    final quote = await DI().customerRepository.checkoutQuote(
-      addressId: address.id,
-      lines: ref.read(cartController).lines,
+    final quote = await DI().checkoutQuoteUseCase.execute(
+      CheckoutQuoteParams(
+        addressId: address.id,
+        lines: ref.read(cartController).lines,
+      ),
     );
     quote.fold(
       (failure) => state = state.copyWith(
@@ -236,11 +245,13 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     if (addressId == null || lines.isEmpty) return null;
 
     state = state.copyWith(placing: true);
-    final result = await DI().customerRepository.createOrder(
-      idempotencyKey: _keyFor(addressId, lines),
-      addressId: addressId,
-      lines: lines,
-      notes: notes,
+    final result = await DI().createOrderUseCase.execute(
+      CreateOrderParams(
+        idempotencyKey: _keyFor(addressId, lines),
+        addressId: addressId,
+        lines: lines,
+        notes: notes,
+      ),
     );
     state = state.copyWith(placing: false);
 

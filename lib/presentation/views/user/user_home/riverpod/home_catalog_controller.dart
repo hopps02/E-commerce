@@ -4,7 +4,8 @@ import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/models/customer/catalog_models.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/domain/usecase/get_products_usecase.dart';
 
 /// A home product row: a real category and its first shelf of products.
 typedef HomeSection = ({ProductCategory category, List<BranchProduct> products});
@@ -52,7 +53,7 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
   Future<void> load() async {
     state = const HomeCatalogState();
 
-    final categoriesResult = await DI().customerRepository.categories();
+    final categoriesResult = await DI().getCategoriesUseCase.execute(null);
     final categories = categoriesResult.fold<List<ProductCategory>?>((
       failure,
     ) {
@@ -64,10 +65,8 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
     }, (list) => list);
     if (categories == null) return;
 
-    final productsResult = await DI().customerRepository.products(
-      branchId: Env.defaultBranchId,
-      page: 1,
-      pageSize: 50,
+    final productsResult = await DI().getProductsUseCase.execute(
+      ProductsParams(branchId: Env.defaultBranchId, page: 1, pageSize: 50),
     );
     productsResult.fold(
       (failure) => state = state.copyWith(
