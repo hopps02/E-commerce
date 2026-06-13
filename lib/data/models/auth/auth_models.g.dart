@@ -78,6 +78,7 @@ _AuthSession _$AuthSessionFromJson(Map<String, dynamic> json) => _AuthSession(
   scopes: json['scopes'] as Map<String, dynamic>? ?? const <String, dynamic>{},
   nextScreen: json['next_screen'] as String?,
   blocked: json['blocked'] as bool? ?? false,
+  isNew: json['is_new'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$AuthSessionToJson(_AuthSession instance) =>
@@ -90,6 +91,7 @@ Map<String, dynamic> _$AuthSessionToJson(_AuthSession instance) =>
       'scopes': instance.scopes,
       'next_screen': instance.nextScreen,
       'blocked': instance.blocked,
+      'is_new': instance.isNew,
     };
 
 _MeData _$MeDataFromJson(Map<String, dynamic> json) => _MeData(

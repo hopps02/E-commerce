@@ -45,6 +45,7 @@ enum Translation {
   address_set_default,
   address_use_my_location,
   address_location_missing,
+  location_fetch_failed,
   address_delete_confirm,
   street,
   building_number,

@@ -90,6 +90,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
               ),
               discount: Money.asRiyals(cart.discountHalalas),
               onConfirm: _placeOrder,
+              isLoading: checkout.placing,
             ).containerSlideUp()
           : null,
     );

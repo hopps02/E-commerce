@@ -15,6 +15,9 @@ class CartSummaryBottomBar extends StatelessWidget {
   final VoidCallback? onCheckout;
   final VoidCallback? onConfirm;
 
+  /// Shows the in-button spinner on the CTA while the order is being placed.
+  final bool isLoading;
+
   const CartSummaryBottomBar({
     super.key,
     required this.totalProducts,
@@ -22,6 +25,7 @@ class CartSummaryBottomBar extends StatelessWidget {
     required this.discount,
     this.onCheckout,
     this.onConfirm,
+    this.isLoading = false,
   });
 
   double get totalAmount => (totalProducts + shippingCost) - discount;
@@ -101,6 +105,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                 // Checkout Button
                 CustomInkButton(
                   onTap: onCheckout ?? onConfirm,
+                  isLoading: isLoading,
                   width: double.infinity,
                   height: 56.h,
                   backgroundColor: ColorM.primary,

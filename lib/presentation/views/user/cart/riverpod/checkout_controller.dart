@@ -17,12 +17,17 @@ class CheckoutState extends Equatable {
   final String addressLine;
   final CheckoutTotals totals;
 
+  /// True while the order is being placed — drives the in-button spinner on
+  /// the confirm CTA (no global overlay for this action).
+  final bool placing;
+
   const CheckoutState({
     this.reqState = ReqState.loading,
     this.errorMessage = '',
     this.addressId,
     this.addressLine = '',
     this.totals = const CheckoutTotals(),
+    this.placing = false,
   });
 
   CheckoutState copyWith({
@@ -31,6 +36,7 @@ class CheckoutState extends Equatable {
     int? addressId,
     String? addressLine,
     CheckoutTotals? totals,
+    bool? placing,
   }) {
     return CheckoutState(
       reqState: reqState ?? this.reqState,
@@ -38,6 +44,7 @@ class CheckoutState extends Equatable {
       addressId: addressId ?? this.addressId,
       addressLine: addressLine ?? this.addressLine,
       totals: totals ?? this.totals,
+      placing: placing ?? this.placing,
     );
   }
 
@@ -48,6 +55,7 @@ class CheckoutState extends Equatable {
     addressId,
     addressLine,
     totals,
+    placing,
   ];
 }
 
@@ -207,13 +215,15 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   }
 
   /// Retry from the cart's error state. When the dead end was a missing
-  /// location, this first walks the existing permission/fetch flow.
+  /// location, this first walks the existing permission/fetch flow
+  /// (hard-capped — GPS has no natural deadline).
   Future<void> retry() async {
     final location = ref.read(locationController);
     if (location.latitude == null || location.longitude == null) {
       await ref
           .read(locationController.notifier)
-          .handleLocationPermissionAndFetch();
+          .handleLocationPermissionAndFetch()
+          .timeout(const Duration(seconds: 12), onTimeout: () => false);
     }
     await load();
   }
@@ -225,14 +235,14 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     final lines = ref.read(cartController).lines;
     if (addressId == null || lines.isEmpty) return null;
 
-    DI().loadingService.show();
+    state = state.copyWith(placing: true);
     final result = await DI().customerRepository.createOrder(
       idempotencyKey: _keyFor(addressId, lines),
       addressId: addressId,
       lines: lines,
       notes: notes,
     );
-    DI().loadingService.hide();
+    state = state.copyWith(placing: false);
 
     return result.fold((failure) {
       DI().snackBarHelper.showMessage(

@@ -69,15 +69,19 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
 
   /// Walks the existing location feature (permission -> GPS -> geocode), then
   /// verifies coverage so the saved address is always serviceable-aware.
+  /// GPS has no natural deadline (a simulator without a simulated location
+  /// waits forever), so the fetch is hard-capped — never an endless overlay.
   Future<void> useMyLocation() async {
     DI().loadingService.show();
     final location = ref.read(locationController.notifier);
-    final fetched = await location.handleLocationPermissionAndFetch();
+    final fetched = await location
+        .handleLocationPermissionAndFetch()
+        .timeout(const Duration(seconds: 12), onTimeout: () => false);
     final picked = ref.read(locationController);
     if (!fetched || picked.latitude == null || picked.longitude == null) {
       DI().loadingService.hide();
       DI().snackBarHelper.showMessage(
-        Translation.address_location_missing.tr,
+        Translation.location_fetch_failed.tr,
         ErrorMessage.snackBar,
       );
       return;

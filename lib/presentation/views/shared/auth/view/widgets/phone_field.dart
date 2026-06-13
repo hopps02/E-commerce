@@ -3,12 +3,14 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/country_code_button.dart';
 import 'package:for_u/app/utils/formatters/phone_input_formatter.dart';
 import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
 import 'package:nice_text_form/nice_text_form.dart';
@@ -44,9 +46,22 @@ class PhoneField extends StatelessWidget {
               focusNode: phoneNumberFocusNode,
               textDirection: TextDirection.ltr,
               inputFormatters: phoneInputFormatters(authState.countryCode),
-              onChanged: (value) {
-                authNotifier.onTextFieldChanged(value.isNotEmpty);
-              },
+              onChanged: authNotifier.onPhoneChanged,
+              // Green check appears the moment the number is valid.
+              suffixWidget: authState.phoneValid
+                  ? (_) => Padding(
+                      padding: EdgeInsetsDirectional.only(end: 6.w),
+                      child: SvgPicture.asset(
+                        Assets.svg.circleCheck.path,
+                        width: 20.w,
+                        height: 20.w,
+                        colorFilter: const ColorFilter.mode(
+                          ColorM.primary500,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    )
+                  : null,
               prefixWidget: Row(
                 spacing: 5.w,
                 mainAxisSize: MainAxisSize.min,

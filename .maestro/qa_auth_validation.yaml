@@ -1,0 +1,35 @@
+# Visual check of the auth-screen interaction fixes: greyed send button when
+# empty/invalid, green checkmark + enabled button when the Saudi number is
+# valid, and a stripped leading zero.
+appId: com.utr.foryou
+---
+- launchApp
+- waitForAnimationToEnd
+# log out from the staff/captain header if present
+- runFlow:
+    when:
+      visible: "تسجيل الخروج"
+    commands:
+      - tapOn: "تسجيل الخروج"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "رجوع"
+          timeout: 10000
+      - tapOn:
+          text: "تسجيل الخروج"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "تسجيل الدخول"
+    timeout: 15000
+# (1) empty state — the send button must be greyed/disabled
+- takeScreenshot: /tmp/auth-1-empty
+# (2) invalid partial number — still greyed, no checkmark
+- tapOn: "أدخل رقم جوالك"
+- inputText: "512"
+- takeScreenshot: /tmp/auth-2-invalid
+# (3) leading zero then full valid number — zero stripped, checkmark, enabled
+- tapOn: "أدخل رقم جوالك"
+- eraseText: 10
+- inputText: "0512345678"
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/auth-3-valid

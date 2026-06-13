@@ -65,11 +65,17 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
     if (_otp.length != otpCodeLength) return;
 
     final session = await ref.read(verifyOtpController.notifier).verify(_otp);
-    if (session != null && mounted) {
+    if (session == null || !mounted) return;
+
+    if (session.isNew) {
+      // Brand-new signup → the welcome screen (it then routes by role).
       context.pushReplacementNamed(
         Routes.authSuccess,
         arguments: const AuthSuccessArgs(successViewType: SuccessViewType.auth),
       );
+    } else {
+      // Returning user → straight to their home, no welcome screen.
+      context.goNamed(session.role?.homeRoute ?? Routes.auth);
     }
   }
 

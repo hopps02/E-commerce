@@ -104,6 +104,8 @@ abstract class AuthSession with _$AuthSession {
     @Default(<String, dynamic>{}) Map<String, dynamic> scopes,
     @JsonKey(name: 'next_screen') String? nextScreen,
     @Default(false) bool blocked,
+    // True only for a brand-new signup — the welcome screen shows just then.
+    @JsonKey(name: 'is_new') @Default(false) bool isNew,
   }) = _AuthSession;
 
   factory AuthSession.fromJson(Map<String, dynamic> json) =>

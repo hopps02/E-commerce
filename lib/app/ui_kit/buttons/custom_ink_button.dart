@@ -291,6 +291,13 @@ class CustomInkButton extends StatefulWidget {
   /// at runtime.
   final CustomInkButtonController? controller;
 
+  /// When true the [child] is swapped for a small progress spinner and taps
+  /// are ignored — async CTAs show their busy state in place.
+  final bool isLoading;
+
+  /// Spinner color while [isLoading]; defaults to white (primary buttons).
+  final Color? loadingColor;
+
   const CustomInkButton({
     super.key,
     required this.child,
@@ -324,6 +331,8 @@ class CustomInkButton extends StatefulWidget {
     this.longPress = ButtonAnimationSettings.none,
     this.pressEffect = ButtonAnimationSettings.none,
     this.controller,
+    this.isLoading = false,
+    this.loadingColor,
   });
 
   @override
@@ -588,6 +597,19 @@ class _CustomInkButtonState extends State<CustomInkButton>
       !widget.pressEffect.isNone ||
       widget.controller != null;
 
+  /// Shown in place of [CustomInkButton.child] while [CustomInkButton.isLoading].
+  /// Fixed size so the button keeps its height during the busy state.
+  Widget get _loadingIndicator => SizedBox(
+    width: 22,
+    height: 22,
+    child: CircularProgressIndicator(
+      strokeWidth: 2.2,
+      valueColor: AlwaysStoppedAnimation<Color>(
+        widget.loadingColor ?? Colors.white,
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final Widget materialLayer = Material(
@@ -597,8 +619,11 @@ class _CustomInkButtonState extends State<CustomInkButton>
       animationDuration:
           widget.animationDuration ?? const Duration(milliseconds: 200),
       child: InkWell(
-        onTap: widget.enabled && widget.onTap != null ? _handleTap : null,
-        onLongPress: widget.enabled && widget.onLongPress != null
+        onTap: widget.enabled && !widget.isLoading && widget.onTap != null
+            ? _handleTap
+            : null,
+        onLongPress:
+            widget.enabled && !widget.isLoading && widget.onLongPress != null
             ? _handleLongPress
             : null,
         splashColor: widget.splashColor,
@@ -611,8 +636,8 @@ class _CustomInkButtonState extends State<CustomInkButton>
             maxHeight: widget.maxHeight ?? widget.height ?? double.infinity,
           ),
           padding: widget.padding,
-          alignment: widget.alignment,
-          child: widget.child,
+          alignment: widget.isLoading ? Alignment.center : widget.alignment,
+          child: widget.isLoading ? _loadingIndicator : widget.child,
         ),
       ),
     );
@@ -702,6 +727,17 @@ class _CustomInkButtonState extends State<CustomInkButton>
           },
           child: inner,
         ),
+      );
+    }
+
+    // A disabled button must look disabled — otherwise it reads as tappable
+    // and a tap that does nothing feels broken. Loading keeps full opacity
+    // (the spinner already communicates the busy state).
+    if (!widget.enabled && !widget.isLoading) {
+      result = AnimatedOpacity(
+        opacity: 0.45,
+        duration: const Duration(milliseconds: 150),
+        child: result,
       );
     }
 

@@ -42,6 +42,7 @@
   "address_set_default": "تعيين كافتراضي",
   "address_use_my_location": "استخدم موقعي الحالي",
   "address_location_missing": "حدد موقع العنوان أولًا — اضغط «استخدم موقعي الحالي»",
+  "location_fetch_failed": "تعذر تحديد موقعك، تأكد من تفعيل خدمة الموقع وحاول مرة أخرى",
   "address_delete_confirm": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
   "street": "الشارع",
   "building_number": "رقم المبنى",
