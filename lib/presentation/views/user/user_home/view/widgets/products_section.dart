@@ -10,6 +10,7 @@ class ProductsSection extends StatelessWidget {
   final VoidCallback? onViewAllTap;
   final void Function(int index)? onProductTap;
   final void Function(int index, int quantity)? onQuantityChanged;
+  final void Function(int index)? onFavTap;
   final VoidCallback? onLimitReached;
 
   final List<Map<String, dynamic>> products;
@@ -21,6 +22,7 @@ class ProductsSection extends StatelessWidget {
     this.onViewAllTap,
     this.onProductTap,
     this.onQuantityChanged,
+    this.onFavTap,
     this.onLimitReached,
   });
 
@@ -58,7 +60,8 @@ class ProductsSection extends StatelessWidget {
                       oldPrice: products[index]['oldPrice'],
                       quantity: products[index]['quantity'],
                       maxQuantity: products[index]['available'],
-                      onFavTap: () {},
+                      isFavorite: products[index]['isFavorite'] == true,
+                      onFavTap: onFavTap == null ? null : () => onFavTap!(index),
                       onTap: onProductTap == null
                           ? null
                           : () => onProductTap!(index),

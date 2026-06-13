@@ -34,6 +34,8 @@
   "stock_limit_reached": "You've reached the available stock for this item.",
   "cart_adjusted_to_stock": "Your cart was updated to match available stock.",
   "cart_empty": "Your cart is empty — browse products and add what you like.",
+  "favorites": "Favorites",
+  "no_favorites": "No favorite products yet",
   "add_address": "Add address",
   "edit_address": "Edit address",
   "no_addresses_yet": "No saved addresses yet",

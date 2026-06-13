@@ -7,6 +7,7 @@ import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/views/user/product_details/riverpod/product_details_controller.dart';
+import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 
 class ProductImageSlider extends ConsumerStatefulWidget {
   final List<String> imageUrls;
@@ -54,28 +55,36 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
           PositionedDirectional(
             top: 0.h,
             end: 16.w,
-            child: CustomInkButton(
-              onTap: () =>
-                  ref.read(productDetailsController.notifier).toggleFavorite(),
-              width: 32.w,
-              height: 32.w,
-              borderRadius: 99999,
-              backgroundColor: ColorM.gray100,
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                ref.watch(productDetailsController.select((s) => s.isFavorite))
-                    ? Assets.svg.fillHeart.path
-                    : Assets.svg.borderHeart.path,
-                width: 14.w,
-                colorFilter: ColorFilter.mode(
-                  ref.watch(
-                        productDetailsController.select((s) => s.isFavorite),
-                      )
-                      ? Colors.red
-                      : ColorM.gray700,
-                  BlendMode.srcIn,
-                ),
-              ),
+            child: Builder(
+              builder: (context) {
+                final product = ref.watch(
+                  productDetailsController.select((s) => s.product),
+                );
+                final isFav =
+                    product != null &&
+                    ref.watch(
+                      favoritesController.select((s) => s.contains(product.id)),
+                    );
+                return CustomInkButton(
+                  onTap: product == null
+                      ? null
+                      : () =>
+                            ref.read(favoritesController.notifier).toggle(product),
+                  width: 32.w,
+                  height: 32.w,
+                  borderRadius: 99999,
+                  backgroundColor: ColorM.gray100,
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    isFav ? Assets.svg.fillHeart.path : Assets.svg.borderHeart.path,
+                    width: 14.w,
+                    colorFilter: ColorFilter.mode(
+                      isFav ? Colors.red : ColorM.gray700,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 

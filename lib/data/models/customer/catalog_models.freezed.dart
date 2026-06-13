@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BranchProduct {
 
- int get id;@JsonKey(name: 'branch_id') int get branchId;@JsonKey(name: 'category_id') int? get categoryId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;@JsonKey(name: 'price_halalas') int get priceHalalas;@JsonKey(name: 'discount_halalas') int get discountHalalas; int get available;@JsonKey(name: 'stock_status') String? get stockStatus;
+ int get id;@JsonKey(name: 'branch_id') int get branchId;@JsonKey(name: 'category_id') int? get categoryId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;@JsonKey(name: 'price_halalas') int get priceHalalas;@JsonKey(name: 'discount_halalas') int get discountHalalas; int get available;@JsonKey(name: 'stock_status') String? get stockStatus;@JsonKey(name: 'is_favorite') bool get isFavorite;
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $BranchProductCopyWith<BranchProduct> get copyWith => _$BranchProductCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus);
+int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite);
 
 @override
 String toString() {
-  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus)';
+  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $BranchProductCopyWith<$Res>  {
   factory $BranchProductCopyWith(BranchProduct value, $Res Function(BranchProduct) _then) = _$BranchProductCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus
+ int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite
 });
 
 
@@ -65,7 +65,7 @@ class _$BranchProductCopyWithImpl<$Res>
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchId: null == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,8 @@ as String?,priceHalalas: null == priceHalalas ? _self.priceHalalas : priceHalala
 as int,discountHalalas: null == discountHalalas ? _self.discountHalalas : discountHalalas // ignore: cast_nullable_to_non_nullable
 as int,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as int,stockStatus: freezed == stockStatus ? _self.stockStatus : stockStatus // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BranchProduct() when $default != null:
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)  $default,) {final _that = this;
 switch (_that) {
 case _BranchProduct():
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)?  $default,) {final _that = this;
 switch (_that) {
 case _BranchProduct() when $default != null:
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
   return null;
 
 }
@@ -218,7 +219,7 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 @JsonSerializable()
 
 class _BranchProduct extends BranchProduct {
-  const _BranchProduct({required this.id, @JsonKey(name: 'branch_id') required this.branchId, @JsonKey(name: 'category_id') this.categoryId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, @JsonKey(name: 'price_halalas') this.priceHalalas = 0, @JsonKey(name: 'discount_halalas') this.discountHalalas = 0, this.available = 0, @JsonKey(name: 'stock_status') this.stockStatus}): super._();
+  const _BranchProduct({required this.id, @JsonKey(name: 'branch_id') required this.branchId, @JsonKey(name: 'category_id') this.categoryId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, @JsonKey(name: 'price_halalas') this.priceHalalas = 0, @JsonKey(name: 'discount_halalas') this.discountHalalas = 0, this.available = 0, @JsonKey(name: 'stock_status') this.stockStatus, @JsonKey(name: 'is_favorite') this.isFavorite = false}): super._();
   factory _BranchProduct.fromJson(Map<String, dynamic> json) => _$BranchProductFromJson(json);
 
 @override final  int id;
@@ -231,6 +232,7 @@ class _BranchProduct extends BranchProduct {
 @override@JsonKey(name: 'discount_halalas') final  int discountHalalas;
 @override@JsonKey() final  int available;
 @override@JsonKey(name: 'stock_status') final  String? stockStatus;
+@override@JsonKey(name: 'is_favorite') final  bool isFavorite;
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
@@ -245,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus);
+int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite);
 
 @override
 String toString() {
-  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus)';
+  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$BranchProductCopyWith<$Res> implements $BranchProductCopy
   factory _$BranchProductCopyWith(_BranchProduct value, $Res Function(_BranchProduct) _then) = __$BranchProductCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus
+ int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite
 });
 
 
@@ -282,7 +284,7 @@ class __$BranchProductCopyWithImpl<$Res>
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,}) {
   return _then(_BranchProduct(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchId: null == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
@@ -294,7 +296,8 @@ as String?,priceHalalas: null == priceHalalas ? _self.priceHalalas : priceHalala
 as int,discountHalalas: null == discountHalalas ? _self.discountHalalas : discountHalalas // ignore: cast_nullable_to_non_nullable
 as int,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as int,stockStatus: freezed == stockStatus ? _self.stockStatus : stockStatus // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

@@ -10,6 +10,7 @@ import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/products/riverpod/products_controller.dart';
@@ -24,7 +25,14 @@ class ProductsData extends ConsumerWidget {
     final productsNotifier = ref.read(productsController.notifier);
     final cart = ref.watch(cartController);
     final cartNotifier = ref.read(cartController.notifier);
+    final favorites = ref.watch(favoritesController);
+    final favoritesNotifier = ref.read(favoritesController.notifier);
     final arabic = context.locale.languageCode == 'ar';
+
+    // Seed favorite hearts from each loaded page's is_favorite flags.
+    ref.listen(productsController.select((s) => s.products), (_, products) {
+      favoritesNotifier.seedFrom(products);
+    });
 
     return Expanded(
       child: FastStateRender(
@@ -65,8 +73,8 @@ class ProductsData extends ConsumerWidget {
                     : null,
                 quantity: cart.quantityOf(product.id),
                 maxQuantity: product.available,
-                isFavorite: false,
-                onFavTap: () {},
+                isFavorite: favorites.contains(product.id),
+                onFavTap: () => favoritesNotifier.toggle(product),
                 onTap: () {
                   context.pushNamed(
                     Routes.productDetails,

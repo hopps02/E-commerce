@@ -30,6 +30,12 @@ abstract class CustomerRepository {
 
   Future<Either<Failure, List<ProductCategory>>> categories();
 
+  Future<Either<Failure, List<BranchProduct>>> favorites();
+
+  Future<Either<Failure, Unit>> addFavorite(int branchItemId);
+
+  Future<Either<Failure, Unit>> removeFavorite(int branchItemId);
+
   Future<Either<Failure, List<DeliveryAddress>>> addresses();
 
   Future<Either<Failure, DeliveryAddress>> createAddress({

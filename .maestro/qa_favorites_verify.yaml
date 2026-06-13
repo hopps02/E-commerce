@@ -1,0 +1,32 @@
+appId: com.utr.foryou
+---
+# on product details — tap the heart (top-left of the image)
+- tapOn:
+    point: 8%,21%
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/fav-filled
+# back to search, then home
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+- tapOn:
+    point: 89%,11%
+- waitForAnimationToEnd
+# profile tab -> المفضلة
+- tapOn:
+    point: 14%,92%
+- waitForAnimationToEnd
+- tapOn: "المفضلة"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*خبز صامولي.*"
+    timeout: 15000
+- takeScreenshot: /tmp/fav-screen
+# unfavorite from the card heart (top-left of the first grid cell)
+- tapOn:
+    point: 12%,26%
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*لا توجد منتجات في المفضلة.*"
+    timeout: 15000
+- takeScreenshot: /tmp/fav-empty

@@ -49,6 +49,27 @@ class CustomerRepositoryImpl implements CustomerRepository {
       fastHandler(request: () async => (await _api.categories()).data);
 
   @override
+  Future<Either<Failure, List<BranchProduct>>> favorites() =>
+      fastHandler(request: () async => (await _api.favorites()).data);
+
+  @override
+  Future<Either<Failure, Unit>> addFavorite(int branchItemId) => fastHandler(
+    request: () async {
+      await _api.addFavorite(branchItemId);
+      return unit;
+    },
+  );
+
+  @override
+  Future<Either<Failure, Unit>> removeFavorite(int branchItemId) =>
+      fastHandler(
+        request: () async {
+          await _api.removeFavorite(branchItemId);
+          return unit;
+        },
+      );
+
+  @override
   Future<Either<Failure, List<DeliveryAddress>>> addresses() =>
       fastHandler(request: () async => (await _api.addresses()).data);
 

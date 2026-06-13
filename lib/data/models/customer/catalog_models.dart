@@ -20,6 +20,7 @@ abstract class BranchProduct with _$BranchProduct {
     @JsonKey(name: 'discount_halalas') @Default(0) int discountHalalas,
     @Default(0) int available,
     @JsonKey(name: 'stock_status') String? stockStatus,
+    @JsonKey(name: 'is_favorite') @Default(false) bool isFavorite,
   }) = _BranchProduct;
 
   factory BranchProduct.fromJson(Map<String, dynamic> json) =>

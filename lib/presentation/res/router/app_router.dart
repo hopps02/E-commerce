@@ -18,6 +18,7 @@ import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm
 import 'package:for_u/presentation/views/user/addresses/view/screens/address_form_view.dart';
 import 'package:for_u/presentation/views/user/addresses/view/screens/addresses_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
+import 'package:for_u/presentation/views/user/favorites/view/screens/favorites_view.dart';
 import 'package:for_u/presentation/views/user/help_support/view/screens/help_support_view.dart';
 import 'package:for_u/presentation/views/user/user_home/view/screens/user_home_view.dart';
 import 'package:for_u/presentation/views/user/language/view/screens/language_view.dart';
@@ -57,6 +58,7 @@ enum Routes {
   helpSupport    ('help-support'),
   addresses      ('addresses'),
   addressForm    ('address-form'),
+  favorites      ('favorites'),
 
   // Cashier routes
   cashierHome           ('cashier-home'),
@@ -244,6 +246,11 @@ final GoRouter appRouter = GoRouter(
             ? state.extra as AddressFormArgs
             : const AddressFormArgs(),
       ),
+    ),
+    _r(
+      name: Routes.favorites.name,
+      path: Routes.favorites.path,
+      builder: (_, __) => const FavoritesView(),
     ),
     _r(
       name: Routes.legalPolicies.name,

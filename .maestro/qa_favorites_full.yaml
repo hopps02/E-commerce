@@ -1,0 +1,67 @@
+appId: com.utr.foryou
+---
+- launchApp
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تسجيل الدخول"
+    commands:
+      - tapOn: "أدخل رقم جوالك"
+      - inputText: "5"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "3"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "3"
+      - waitForAnimationToEnd
+      - waitForAnimationToEnd
+      - tapOn: "إرسال رمز التحقق"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "تأكيد"
+          timeout: 25000
+      - tapOn:
+          text: "_"
+          index: 0
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - inputText: "0"
+      - tapOn: "تأكيد"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "ابدأ التسوق"
+    commands:
+      - tapOn: "ابدأ التسوق"
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: "تفعيل الموقع"
+    commands:
+      - tapOn:
+          point: 8%,84%
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*الخبز.*"
+    timeout: 15000
+# open a product from search
+- tapOn: "بحث..."
+- waitForAnimationToEnd
+- tapOn:
+    point: 50%,11%
+- inputText: "خبز"
+- extendedWaitUntil:
+    visible: ".*خبز صامولي.*"
+    timeout: 15000
+- tapOn: ".*خبز صامولي.*"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "إضافة للسلة"
+    timeout: 15000
+- takeScreenshot: /tmp/fav-details

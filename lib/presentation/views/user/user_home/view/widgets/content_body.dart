@@ -9,6 +9,7 @@ import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/home_catalog_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/tap_home_contaroller.dart';
@@ -89,6 +90,13 @@ class Body extends ConsumerWidget {
     final arabic = context.locale.languageCode == 'ar';
     final cart = ref.watch(cartController);
     final cartNotifier = ref.read(cartController.notifier);
+    final favorites = ref.watch(favoritesController);
+    final favoritesNotifier = ref.read(favoritesController.notifier);
+
+    // Seed favorite hearts from the loaded home sections.
+    ref.listen(homeCatalogController.select((s) => s.sections), (_, sections) {
+      favoritesNotifier.seedFrom([for (final s in sections) ...s.products]);
+    });
 
     return ListView(
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
@@ -120,6 +128,8 @@ class Body extends ConsumerWidget {
             onLimitReached: () => cartNotifier.notifyStockLimit(),
             onQuantityChanged: (index, quantity) =>
                 cartNotifier.setQuantity(section.products[index], quantity),
+            onFavTap: (index) =>
+                favoritesNotifier.toggle(section.products[index]),
             products: [
               for (final product in section.products)
                 {
@@ -132,6 +142,7 @@ class Body extends ConsumerWidget {
                       : null,
                   'quantity': cart.quantityOf(product.id),
                   'available': product.available,
+                  'isFavorite': favorites.contains(product.id),
                 },
             ],
           ).premiumAppear(index: 4 + sectionIndex, wantKeepAlive: true),

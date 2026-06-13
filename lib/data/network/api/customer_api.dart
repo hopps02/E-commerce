@@ -34,6 +34,15 @@ abstract class CustomerApi {
   @GET('/mobile/categories')
   Future<Envelope<List<ProductCategory>>> categories();
 
+  @GET('/mobile/favorites')
+  Future<Envelope<List<BranchProduct>>> favorites();
+
+  @POST('/mobile/favorites/{id}')
+  Future<Envelope<dynamic>> addFavorite(@Path('id') int id);
+
+  @DELETE('/mobile/favorites/{id}')
+  Future<Envelope<dynamic>> removeFavorite(@Path('id') int id);
+
   @GET('/mobile/addresses')
   Future<Envelope<List<DeliveryAddress>>> addresses();
 

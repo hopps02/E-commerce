@@ -44,6 +44,20 @@ class ProfileSettings extends ConsumerWidget {
             },
           ),
           ProfileMenuItem(
+            icon: Assets.svg.borderHeart.svg(
+              width: 22.w,
+              height: 22.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.primary500,
+                BlendMode.srcIn,
+              ),
+            ),
+            title: Translation.favorites.tr,
+            onTap: () {
+              context.pushNamed(Routes.favorites);
+            },
+          ),
+          ProfileMenuItem(
             icon: Assets.svg.borderLocation.svg(
               width: 22.w,
               height: 22.w,

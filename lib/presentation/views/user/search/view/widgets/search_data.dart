@@ -10,6 +10,7 @@ import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:for_u/presentation/views/user/search/riverpod/search_controller.dart';
@@ -23,7 +24,13 @@ class SearchData extends ConsumerWidget {
     final searchNotifier = ref.read(searchController.notifier);
     final cart = ref.watch(cartController);
     final cartNotifier = ref.read(cartController.notifier);
+    final favorites = ref.watch(favoritesController);
+    final favoritesNotifier = ref.read(favoritesController.notifier);
     final arabic = context.locale.languageCode == 'ar';
+
+    ref.listen(searchController.select((s) => s.products), (_, products) {
+      favoritesNotifier.seedFrom(products);
+    });
 
     return Expanded(
       child: FastStateRender(
@@ -62,8 +69,8 @@ class SearchData extends ConsumerWidget {
                     : null,
                 quantity: cart.quantityOf(product.id),
                 maxQuantity: product.available,
-                isFavorite: false,
-                onFavTap: () {},
+                isFavorite: favorites.contains(product.id),
+                onFavTap: () => favoritesNotifier.toggle(product),
                 onTap: () {
                   context.pushNamed(
                     Routes.productDetails,

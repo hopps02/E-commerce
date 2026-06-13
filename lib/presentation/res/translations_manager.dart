@@ -35,6 +35,8 @@ enum Translation {
   stock_limit_reached,
   cart_adjusted_to_stock,
   cart_empty,
+  favorites,
+  no_favorites,
 
   // Addresses
   add_address,
