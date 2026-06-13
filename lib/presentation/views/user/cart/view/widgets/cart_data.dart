@@ -7,6 +7,7 @@ import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_item_card.dart';
@@ -25,7 +26,9 @@ class CartData extends ConsumerWidget {
       child: FastStateRender(
         reqState: cart.isEmpty ? ReqState.empty : checkout.reqState,
         alignment: const Alignment(0, -0.22),
-        errorMessage: checkout.errorMessage,
+        errorMessage: cart.isEmpty
+            ? Translation.cart_empty.tr
+            : checkout.errorMessage,
         onRetry: () => ref.read(checkoutController.notifier).retry(),
         child: ListView.separated(
           padding: EdgeInsets.symmetric(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
@@ -32,9 +31,6 @@ class _UserHomeViewState extends State<UserHomeView>
         title: Translation.cart.tr,
         svgPath: Assets.svg.borderBag.path,
         selectedSvgPath: Assets.svg.borderBag.path,
-        onTap: () {
-          context.pushNamed(Routes.cart);
-        },
       ),
       NavigationItem(
         title: Translation.my_orders.tr,

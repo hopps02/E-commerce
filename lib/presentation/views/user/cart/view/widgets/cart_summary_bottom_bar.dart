@@ -18,6 +18,10 @@ class CartSummaryBottomBar extends StatelessWidget {
   /// Shows the in-button spinner on the CTA while the order is being placed.
   final bool isLoading;
 
+  /// Trailing space below the bar — defaults to the home-indicator inset; the
+  /// cart tab passes the floating nav height so the bar clears it.
+  final double? bottomPadding;
+
   const CartSummaryBottomBar({
     super.key,
     required this.totalProducts,
@@ -26,6 +30,7 @@ class CartSummaryBottomBar extends StatelessWidget {
     this.onCheckout,
     this.onConfirm,
     this.isLoading = false,
+    this.bottomPadding,
   });
 
   double get totalAmount => (totalProducts + shippingCost) - discount;
@@ -125,8 +130,8 @@ class CartSummaryBottomBar extends StatelessWidget {
               ],
             ),
           ),
-          // Safe Area spacing
-          SizedBox(height: context.bottomSafeAreaPadding),
+          // Safe Area spacing (or the floating-nav clearance in the cart tab).
+          SizedBox(height: bottomPadding ?? context.bottomSafeAreaPadding),
         ],
       ),
     );

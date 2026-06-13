@@ -34,6 +34,7 @@ enum Translation {
   error_empty_cart,
   stock_limit_reached,
   cart_adjusted_to_stock,
+  cart_empty,
 
   // Addresses
   add_address,
