@@ -4,6 +4,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/domain/usecase/update_profile_usecase.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfileState extends Equatable {
   final String name;
@@ -29,13 +30,26 @@ class ProfileNotifier extends Notifier<ProfileState> {
     return const ProfileState();
   }
 
-  Future<void> load() async {
+  /// Re-fetches the customer profile. Returns true on success.
+  Future<bool> load() async {
     final result = await DI().getProfileUseCase.execute(null);
-    result.fold(
-      (_) {}, // The header keeps its placeholders on failure.
-      (profile) =>
-          state = ProfileState(name: profile.name ?? '', phone: profile.phone),
+    return result.fold(
+      (_) => false, // The header keeps its placeholders on failure.
+      (profile) {
+        state = ProfileState(
+          name: profile.name ?? 'User${profile.id}',
+          phone: profile.phone,
+        );
+        return true;
+      },
     );
+  }
+
+  /// Pull-to-refresh handler: reloads the profile and drives the refresh
+  /// controller's completed/failed state for the caller.
+  Future<void> refresh(RefreshController controller) async {
+    final ok = await load();
+    ok ? controller.refreshCompleted() : controller.refreshFailed();
   }
 
   /// Updates the customer's display name. Returns true when saved.

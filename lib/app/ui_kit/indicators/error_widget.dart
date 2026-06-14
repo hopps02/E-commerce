@@ -20,6 +20,7 @@ class MyErrorWidget extends StatelessWidget {
   final String? subtitleMessage;
   final ErrorType? errorType;
   final double? svgSize;
+
   const MyErrorWidget({
     super.key,
     this.onRetry,
@@ -91,29 +92,41 @@ class MyErrorWidget extends StatelessWidget {
         ],
         if (onRetry != null) ...[
           32.verticalSpace,
-          CustomInkButton(
-            onTap: onRetry,
-            backgroundColor: ColorM.primary,
-            borderRadius: 10.r,
-            padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
-            smoothness: 1,
-            boxShadow: [
-              BoxShadow(
-                color: ColorM.primary.withValues(alpha: 0.2),
-                blurRadius: 0,
-                offset: Offset(9.w, 9.w),
-              ),
-            ],
-            child: Text(
-              retryText ?? Translation.retry_button.tr,
-              style: context.labelMedium.copyWith(
-                fontWeight: FontWeightM.medium,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          RetryButton(onRetry: onRetry, retryText: retryText),
         ],
       ],
+    );
+  }
+}
+
+class RetryButton extends StatelessWidget {
+  final String? retryText;
+  final void Function()? onRetry;
+
+  const RetryButton({super.key, this.retryText, this.onRetry});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomInkButton(
+      onTap: onRetry,
+      backgroundColor: ColorM.primary,
+      borderRadius: 10.r,
+      padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
+      smoothness: 1,
+      boxShadow: [
+        BoxShadow(
+          color: ColorM.primary.withValues(alpha: 0.2),
+          blurRadius: 0,
+          offset: Offset(9.w, 9.w),
+        ),
+      ],
+      child: Text(
+        retryText ?? Translation.retry_button.tr,
+        style: context.labelMedium.copyWith(
+          fontWeight: FontWeightM.medium,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

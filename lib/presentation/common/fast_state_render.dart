@@ -78,32 +78,40 @@ class FastStateRender extends StatelessWidget {
       success: (context) => child,
       empty: (context) => Align(
         alignment: alignment,
-        child: Column(
-          spacing: 10.w,
-          mainAxisSize: .min,
-          mainAxisAlignment: .center,
-          crossAxisAlignment: .center,
-          children: [
-            emptyChild ??
-                Lottie.asset(
-                  Assets.lottieAnimations.empty.path,
-                  key: const Key("empty-lottie-fast-render"),
-                  width: 200.w,
-                  height: 200.w,
-                  repeat: true,
-                  fit: BoxFit.contain,
+        child: GeneralPadding(
+          child: Column(
+            spacing: 10.w,
+            mainAxisSize: .min,
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .center,
+            children: [
+              emptyChild ??
+                  Lottie.asset(
+                    Assets.lottieAnimations.empty.path,
+                    key: const Key("empty-lottie-fast-render"),
+                    width: 200.w,
+                    height: 200.w,
+                    repeat: true,
+                    fit: BoxFit.contain,
+                  ),
+          
+              Text(
+                errorMessage.trim().isEmpty
+                    ? Translation.no_data_found.tr
+                    : errorMessage,
+                textAlign: TextAlign.center,
+                style: context.labelLarge.copyWith(
+                  fontWeight: FontWeightM.bold,
+                  color: ColorM.gray600,
                 ),
-
-            Text(
-              errorMessage.trim().isEmpty
-                  ? Translation.no_data_found.tr
-                  : errorMessage,
-              style: context.labelLarge.copyWith(
-                fontWeight: FontWeightM.bold,
-                color: ColorM.gray600,
               ),
-            ),
-          ],
+          
+              if (onRetry != null) ...[
+                10.verticalSpace,
+                RetryButton(onRetry: onRetry),
+              ],
+            ],
+          ),
         ),
       ),
     );

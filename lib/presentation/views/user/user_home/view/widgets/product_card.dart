@@ -109,6 +109,7 @@ class _ProductCardState extends State<ProductCard> {
           },
       hoverColor: ColorM.transparent,
       splashColor: ColorM.transparent,
+      highlightColor: ColorM.transparent,
       child: SizedBox(
         width: widget.fitForGridList ? 9999999 : 156.w,
         child: Column(
@@ -131,8 +132,8 @@ class _ProductCardState extends State<ProductCard> {
                 Positioned.fill(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 20.w,
-                      vertical: 25.h,
+                      horizontal: 40.w,
+                      vertical: 40.w,
                     ),
                     child: CustomCachedImage(
                       imageUrl: widget.imageUrl,
@@ -144,7 +145,6 @@ class _ProductCardState extends State<ProductCard> {
                 PositionedDirectional(
                   top: 4.w,
                   end: 4.w,
-
                   child: CustomInkButton(
                     onTap: widget.onFavTap,
                     width: 32.w,
