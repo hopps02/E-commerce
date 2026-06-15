@@ -9,6 +9,7 @@ import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 
@@ -52,6 +53,9 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   Timer? _debounceTimer;
   late int _currentQuantity;
+
+  /// The branch has no available units left for this product.
+  bool get _isOutOfStock => widget.maxQuantity != null && widget.maxQuantity! <= 0;
 
   @override
   void initState() {
@@ -271,24 +275,48 @@ class _ProductCardState extends State<ProductCard> {
                             ],
                           ),
                         )
-                      : GestureDetector(
-                          key: const ValueKey("add"),
-                          onTap: () => _handleQuantityChange(1),
-                          child: Container(
-                            width: 28.w,
-                            height: 28.w,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF3F0FF),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Center(
-                              child: Assets.svg.bagPlus.svg(
-                                width: 16.w,
-                                color: ColorM.primary,
+                      : _isOutOfStock
+                          ? Container(
+                              key: const ValueKey("out_of_stock"),
+                              height: 24.w,
+                              constraints: BoxConstraints(maxWidth: 80.w),
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF4F4F4),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: FlexText(
+                                child: Text(
+                                  Translation.out_of_stock.tr,
+                                  maxLines: 1,
+                                  overflow: .ellipsis,
+                                  style: context.labelSmall.copyWith(
+                                    color: ColorM.gray500,
+                                    fontWeight: FontWeightM.medium,
+                                    fontSize: 9.sp,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : GestureDetector(
+                              key: const ValueKey("add"),
+                              onTap: () => _handleQuantityChange(1),
+                              child: Container(
+                                width: 28.w,
+                                height: 28.w,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF3F0FF),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                                child: Center(
+                                  child: Assets.svg.bagPlus.svg(
+                                    width: 16.w,
+                                    color: ColorM.primary,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
                 ),
               ],
             ),

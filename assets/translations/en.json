@@ -242,6 +242,7 @@
   "could_not_complete_delivery": "Could not complete delivery",
   "order_delivered_successfully": "Order delivered successfully",
   "customer_not_available": "Customer not available",
+  "out_of_stock": "Out of stock",
   "delivery_failure_recorded": "Delivery failure recorded for order #{order} and cashier notified",
   "order_delivered_confirmed": "Order #{order} has been delivered and confirmed",
   "not_answering_phone": "Not answering the phone",

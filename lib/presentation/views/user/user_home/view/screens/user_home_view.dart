@@ -32,6 +32,7 @@ class _UserHomeViewState extends State<UserHomeView>
         title: Translation.cart.tr,
         svgPath: Assets.svg.borderBag.path,
         selectedSvgPath: Assets.svg.borderBag.path,
+        isCart: true,
         onTap: (){
           context.pushNamed(Routes.cart);
         }

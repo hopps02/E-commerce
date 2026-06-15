@@ -8,12 +8,16 @@ import 'package:for_u/app/extensions/theme_extensions.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/extensions/widget_extensions.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 
 class NavigationItem {
   final String title;
   final String svgPath;
   final String selectedSvgPath;
+
+  /// When true the item shows a live count badge sourced from the cart.
+  final bool isCart;
 
   /// Custom action for a the item
   /// if 'null'     it will navigate to the screen with the same index
@@ -24,6 +28,7 @@ class NavigationItem {
     required this.title,
     required this.svgPath,
     required this.selectedSvgPath,
+    this.isCart = false,
     this.onTap,
   });
 }
@@ -42,6 +47,7 @@ class _CustomBottomNavigationBarState
   @override
   Widget build(BuildContext context) {
     final bottomNavState = ref.watch(bottomNavigationController);
+    final cartCount = ref.watch(cartController.select((s) => s.itemsCount));
     return Padding(
       padding: EdgeInsets.only(bottom: context.bottomSafeAreaPadding + 8.h),
       child: ClipRRect(
@@ -83,6 +89,7 @@ class _CustomBottomNavigationBarState
                     isSelected: isSelected,
                     item: item,
                     index: index,
+                    badgeCount: item.isCart ? cartCount : 0,
                   ).pluseAnimation(index + 8);
                 }),
               ),
@@ -101,12 +108,14 @@ class Button extends StatelessWidget {
     required this.isSelected,
     required this.item,
     required this.index,
+    this.badgeCount = 0,
   });
 
   final WidgetRef ref;
   final bool isSelected;
   final NavigationItem item;
   final int index;
+  final int badgeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -129,14 +138,43 @@ class Button extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              isSelected ? item.selectedSvgPath : item.svgPath,
-              width: 20.w,
-              height: 20.w,
-              colorFilter: ColorFilter.mode(
-                isSelected ? ColorM.primary500 : ColorM.gray600,
-                BlendMode.srcIn,
-              ),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                SvgPicture.asset(
+                  isSelected ? item.selectedSvgPath : item.svgPath,
+                  width: 20.w,
+                  height: 20.w,
+                  colorFilter: ColorFilter.mode(
+                    isSelected ? ColorM.primary500 : ColorM.gray600,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                if (badgeCount > 0)
+                  PositionedDirectional(
+                    top: -7.h,
+                    end: -9.w,
+                    child: Container(
+                      constraints: BoxConstraints(minWidth: 16.w, minHeight: 16.w),
+                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: ColorM.primary500,
+                        borderRadius: BorderRadius.circular(9999),
+                        border: Border.all(color: ColorM.white, width: 1.5.w),
+                      ),
+                      child: Text(
+                        badgeCount > 99 ? '99+' : '$badgeCount',
+                        style: context.labelLarge.copyWith(
+                          color: ColorM.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 9.sp,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
             AnimatedVisibility(
               visible: isSelected,
