@@ -68,7 +68,9 @@ class _ProductCardState extends State<ProductCard> {
     if (newQuantity < 0) return;
 
     final max = widget.maxQuantity;
-    if (max != null && newQuantity > max) {
+    // Guard increases only — decreasing is always allowed, even when the line
+    // already sits above live stock, so the user can still reduce it.
+    if (change > 0 && max != null && newQuantity > max) {
       widget.onLimitReached?.call();
       return;
     }
@@ -283,7 +285,7 @@ class _ProductCardState extends State<ProductCard> {
                               padding: EdgeInsets.symmetric(horizontal: 8.w),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF4F4F4),
+                                color: ColorM.gray50,
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: FlexText(

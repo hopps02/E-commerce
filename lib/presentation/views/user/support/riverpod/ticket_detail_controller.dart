@@ -48,6 +48,11 @@ class TicketDetailState extends Equatable {
 
 class TicketDetailNotifier extends Notifier<TicketDetailState>
     with AutoRefreshMixin<TicketDetailState> {
+  /// Bumped on every authoritative write (load/reply) so an overlapping
+  /// background poll can tell it raced and drop its now-stale result.
+  int _writeGen = 0;
+  bool _refreshing = false;
+
   @override
   TicketDetailState build() => const TicketDetailState();
 
@@ -59,10 +64,10 @@ class TicketDetailNotifier extends Notifier<TicketDetailState>
         reqState: ReqState.error,
         msgError: failure.displayMessage,
       ),
-      (ticket) => state = state.copyWith(
-        reqState: ReqState.success,
-        ticket: ticket,
-      ),
+      (ticket) {
+        _writeGen++;
+        state = state.copyWith(reqState: ReqState.success, ticket: ticket);
+      },
     );
   }
 
@@ -73,8 +78,14 @@ class TicketDetailNotifier extends Notifier<TicketDetailState>
   /// while a reply is in flight to avoid clobbering the optimistic state.
   Future<void> silentRefresh() async {
     final id = state.ticketId;
-    if (id == 0 || state.sending) return;
+    if (id == 0 || state.sending || _refreshing) return;
+    _refreshing = true;
+    final gen = _writeGen;
     final result = await DI().getTicketUseCase.execute(id);
+    _refreshing = false;
+    // A reply/reload landed, the ticket changed, or a send started while we
+    // polled — the fetched thread is stale, so drop it.
+    if (_writeGen != gen || state.ticketId != id || state.sending) return;
     result.fold(
       (_) {},
       (ticket) =>
@@ -102,6 +113,7 @@ class TicketDetailNotifier extends Notifier<TicketDetailState>
       );
       return null;
     }, (ticket) {
+      _writeGen++;
       state = state.copyWith(reqState: ReqState.success, ticket: ticket);
       // Keep the list row in sync (status/last activity) so going back doesn't
       // show a stale ticket. No-op if the list isn't holding this ticket.

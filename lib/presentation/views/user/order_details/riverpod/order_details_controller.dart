@@ -72,6 +72,11 @@ class OrderDetailsState extends Equatable {
 }
 
 class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
+  /// Bumped on every authoritative write (load/rate) so an overlapping
+  /// pull-to-refresh can tell it raced and drop its now-stale result.
+  int _writeGen = 0;
+  bool _refreshing = false;
+
   @override
   OrderDetailsState build() => const OrderDetailsState();
 
@@ -83,17 +88,24 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
         reqState: ReqState.error,
         errorMessage: failure.displayMessage,
       ),
-      _applyOrder,
+      (order) {
+        _writeGen++;
+        _applyOrder(order);
+      },
     );
   }
 
   /// Pull-to-refresh: re-fetches the order in place (keeps the content on
   /// screen, no full-page loader) so a changed status surfaces immediately.
   Future<void> silentRefresh() async {
-    if (state.orderId == 0) return;
-    final result = await DI().getCustomerOrderDetailUseCase.execute(
-      state.orderId,
-    );
+    final id = state.orderId;
+    if (id == 0 || _refreshing) return;
+    _refreshing = true;
+    final gen = _writeGen;
+    final result = await DI().getCustomerOrderDetailUseCase.execute(id);
+    _refreshing = false;
+    // A load or a rating landed while we refreshed — its result wins.
+    if (_writeGen != gen || state.orderId != id) return;
     result.fold((_) {}, _applyOrder);
   }
 
@@ -129,6 +141,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
       return false;
     }, (_) {
       // One rating per order — retire the CTA without a refetch.
+      _writeGen++;
       state = state.copyWith(canRate: false);
       return true;
     });
