@@ -10,7 +10,7 @@ abstract class TicketMessage with _$TicketMessage {
   const TicketMessage._();
 
   const factory TicketMessage({
-    required int id,
+    @Default(0) int id,
     @JsonKey(name: 'sender_type') @Default('') String senderType,
     @Default('') String body,
     @JsonKey(name: 'is_internal_note') @Default(false) bool isInternalNote,
@@ -49,6 +49,7 @@ abstract class Ticket with _$Ticket {
     @JsonKey(name: 'opener_name') String? openerName,
     @JsonKey(name: 'branch_id') int? branchId,
     @JsonKey(name: 'order_id') int? orderId,
+    @JsonKey(name: 'last_message') TicketMessage? lastMessage,
     List<TicketMessage>? messages,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
@@ -65,6 +66,13 @@ abstract class Ticket with _$Ticket {
       merchantNameAr ??
       merchantNameEn ??
       '';
+
+  /// Preview line for the tickets list: the latest message (whoever sent it)
+  /// when present, otherwise the original description.
+  String get previewText {
+    final body = lastMessage?.body.trim() ?? '';
+    return body.isNotEmpty ? body : description;
+  }
 }
 
 /// One legal/policy section from GET /mobile/legal-policies. [body] may be empty

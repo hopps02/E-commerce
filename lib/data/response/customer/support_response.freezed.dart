@@ -213,10 +213,10 @@ return $default(_that.id,_that.senderType,_that.body,_that.isInternalNote,_that.
 @JsonSerializable()
 
 class _TicketMessage extends TicketMessage {
-  const _TicketMessage({required this.id, @JsonKey(name: 'sender_type') this.senderType = '', this.body = '', @JsonKey(name: 'is_internal_note') this.isInternalNote = false, @JsonKey(name: 'created_at') this.createdAt}): super._();
+  const _TicketMessage({this.id = 0, @JsonKey(name: 'sender_type') this.senderType = '', this.body = '', @JsonKey(name: 'is_internal_note') this.isInternalNote = false, @JsonKey(name: 'created_at') this.createdAt}): super._();
   factory _TicketMessage.fromJson(Map<String, dynamic> json) => _$TicketMessageFromJson(json);
 
-@override final  int id;
+@override@JsonKey() final  int id;
 @override@JsonKey(name: 'sender_type') final  String senderType;
 @override@JsonKey() final  String body;
 @override@JsonKey(name: 'is_internal_note') final  bool isInternalNote;
@@ -290,7 +290,7 @@ as DateTime?,
 /// @nodoc
 mixin _$Ticket {
 
- int get id;@JsonKey(name: 'ticket_number') String get ticketNumber; String? get category; String? get priority; String get status; String get title; String get description;@JsonKey(name: 'merchant_id') int? get merchantId;@JsonKey(name: 'merchant_name_ar') String? get merchantNameAr;@JsonKey(name: 'merchant_name_en') String? get merchantNameEn;@JsonKey(name: 'opener_name') String? get openerName;@JsonKey(name: 'branch_id') int? get branchId;@JsonKey(name: 'order_id') int? get orderId; List<TicketMessage>? get messages;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+ int get id;@JsonKey(name: 'ticket_number') String get ticketNumber; String? get category; String? get priority; String get status; String get title; String get description;@JsonKey(name: 'merchant_id') int? get merchantId;@JsonKey(name: 'merchant_name_ar') String? get merchantNameAr;@JsonKey(name: 'merchant_name_en') String? get merchantNameEn;@JsonKey(name: 'opener_name') String? get openerName;@JsonKey(name: 'branch_id') int? get branchId;@JsonKey(name: 'order_id') int? get orderId;@JsonKey(name: 'last_message') TicketMessage? get lastMessage; List<TicketMessage>? get messages;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
 /// Create a copy of Ticket
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,16 +303,16 @@ $TicketCopyWith<Ticket> get copyWith => _$TicketCopyWithImpl<Ticket>(this as Tic
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ticket&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketNumber, ticketNumber) || other.ticketNumber == ticketNumber)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.status, status) || other.status == status)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId)&&(identical(other.merchantNameAr, merchantNameAr) || other.merchantNameAr == merchantNameAr)&&(identical(other.merchantNameEn, merchantNameEn) || other.merchantNameEn == merchantNameEn)&&(identical(other.openerName, openerName) || other.openerName == openerName)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ticket&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketNumber, ticketNumber) || other.ticketNumber == ticketNumber)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.status, status) || other.status == status)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId)&&(identical(other.merchantNameAr, merchantNameAr) || other.merchantNameAr == merchantNameAr)&&(identical(other.merchantNameEn, merchantNameEn) || other.merchantNameEn == merchantNameEn)&&(identical(other.openerName, openerName) || other.openerName == openerName)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketNumber,category,priority,status,title,description,merchantId,merchantNameAr,merchantNameEn,openerName,branchId,orderId,const DeepCollectionEquality().hash(messages),createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,ticketNumber,category,priority,status,title,description,merchantId,merchantNameAr,merchantNameEn,openerName,branchId,orderId,lastMessage,const DeepCollectionEquality().hash(messages),createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'Ticket(id: $id, ticketNumber: $ticketNumber, category: $category, priority: $priority, status: $status, title: $title, description: $description, merchantId: $merchantId, merchantNameAr: $merchantNameAr, merchantNameEn: $merchantNameEn, openerName: $openerName, branchId: $branchId, orderId: $orderId, messages: $messages, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Ticket(id: $id, ticketNumber: $ticketNumber, category: $category, priority: $priority, status: $status, title: $title, description: $description, merchantId: $merchantId, merchantNameAr: $merchantNameAr, merchantNameEn: $merchantNameEn, openerName: $openerName, branchId: $branchId, orderId: $orderId, lastMessage: $lastMessage, messages: $messages, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -323,11 +323,11 @@ abstract mixin class $TicketCopyWith<$Res>  {
   factory $TicketCopyWith(Ticket value, $Res Function(Ticket) _then) = _$TicketCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'ticket_number') String ticketNumber, String? category, String? priority, String status, String title, String description,@JsonKey(name: 'merchant_id') int? merchantId,@JsonKey(name: 'merchant_name_ar') String? merchantNameAr,@JsonKey(name: 'merchant_name_en') String? merchantNameEn,@JsonKey(name: 'opener_name') String? openerName,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'order_id') int? orderId, List<TicketMessage>? messages,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ int id,@JsonKey(name: 'ticket_number') String ticketNumber, String? category, String? priority, String status, String title, String description,@JsonKey(name: 'merchant_id') int? merchantId,@JsonKey(name: 'merchant_name_ar') String? merchantNameAr,@JsonKey(name: 'merchant_name_en') String? merchantNameEn,@JsonKey(name: 'opener_name') String? openerName,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'order_id') int? orderId,@JsonKey(name: 'last_message') TicketMessage? lastMessage, List<TicketMessage>? messages,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
-
+$TicketMessageCopyWith<$Res>? get lastMessage;
 
 }
 /// @nodoc
@@ -340,7 +340,7 @@ class _$TicketCopyWithImpl<$Res>
 
 /// Create a copy of Ticket
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketNumber = null,Object? category = freezed,Object? priority = freezed,Object? status = null,Object? title = null,Object? description = null,Object? merchantId = freezed,Object? merchantNameAr = freezed,Object? merchantNameEn = freezed,Object? openerName = freezed,Object? branchId = freezed,Object? orderId = freezed,Object? messages = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketNumber = null,Object? category = freezed,Object? priority = freezed,Object? status = null,Object? title = null,Object? description = null,Object? merchantId = freezed,Object? merchantNameAr = freezed,Object? merchantNameEn = freezed,Object? openerName = freezed,Object? branchId = freezed,Object? orderId = freezed,Object? lastMessage = freezed,Object? messages = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,ticketNumber: null == ticketNumber ? _self.ticketNumber : ticketNumber // ignore: cast_nullable_to_non_nullable
@@ -355,13 +355,26 @@ as String?,merchantNameEn: freezed == merchantNameEn ? _self.merchantNameEn : me
 as String?,openerName: freezed == openerName ? _self.openerName : openerName // ignore: cast_nullable_to_non_nullable
 as String?,branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
 as int?,orderId: freezed == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
-as int?,messages: freezed == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
+as int?,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as TicketMessage?,messages: freezed == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
 as List<TicketMessage>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
+/// Create a copy of Ticket
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TicketMessageCopyWith<$Res>? get lastMessage {
+    if (_self.lastMessage == null) {
+    return null;
+  }
 
+  return $TicketMessageCopyWith<$Res>(_self.lastMessage!, (value) {
+    return _then(_self.copyWith(lastMessage: value));
+  });
+}
 }
 
 
@@ -443,10 +456,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId, @JsonKey(name: 'last_message')  TicketMessage? lastMessage,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Ticket() when $default != null:
-return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.messages,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.lastMessage,_that.messages,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -464,10 +477,10 @@ return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId, @JsonKey(name: 'last_message')  TicketMessage? lastMessage,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Ticket():
-return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.messages,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.lastMessage,_that.messages,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -484,10 +497,10 @@ return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'ticket_number')  String ticketNumber,  String? category,  String? priority,  String status,  String title,  String description, @JsonKey(name: 'merchant_id')  int? merchantId, @JsonKey(name: 'merchant_name_ar')  String? merchantNameAr, @JsonKey(name: 'merchant_name_en')  String? merchantNameEn, @JsonKey(name: 'opener_name')  String? openerName, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'order_id')  int? orderId, @JsonKey(name: 'last_message')  TicketMessage? lastMessage,  List<TicketMessage>? messages, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Ticket() when $default != null:
-return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.messages,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.status,_that.title,_that.description,_that.merchantId,_that.merchantNameAr,_that.merchantNameEn,_that.openerName,_that.branchId,_that.orderId,_that.lastMessage,_that.messages,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -499,7 +512,7 @@ return $default(_that.id,_that.ticketNumber,_that.category,_that.priority,_that.
 @JsonSerializable()
 
 class _Ticket extends Ticket {
-  const _Ticket({required this.id, @JsonKey(name: 'ticket_number') this.ticketNumber = '', this.category, this.priority, this.status = 'open', this.title = '', this.description = '', @JsonKey(name: 'merchant_id') this.merchantId, @JsonKey(name: 'merchant_name_ar') this.merchantNameAr, @JsonKey(name: 'merchant_name_en') this.merchantNameEn, @JsonKey(name: 'opener_name') this.openerName, @JsonKey(name: 'branch_id') this.branchId, @JsonKey(name: 'order_id') this.orderId, final  List<TicketMessage>? messages, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt}): _messages = messages,super._();
+  const _Ticket({required this.id, @JsonKey(name: 'ticket_number') this.ticketNumber = '', this.category, this.priority, this.status = 'open', this.title = '', this.description = '', @JsonKey(name: 'merchant_id') this.merchantId, @JsonKey(name: 'merchant_name_ar') this.merchantNameAr, @JsonKey(name: 'merchant_name_en') this.merchantNameEn, @JsonKey(name: 'opener_name') this.openerName, @JsonKey(name: 'branch_id') this.branchId, @JsonKey(name: 'order_id') this.orderId, @JsonKey(name: 'last_message') this.lastMessage, final  List<TicketMessage>? messages, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt}): _messages = messages,super._();
   factory _Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
 
 @override final  int id;
@@ -515,6 +528,7 @@ class _Ticket extends Ticket {
 @override@JsonKey(name: 'opener_name') final  String? openerName;
 @override@JsonKey(name: 'branch_id') final  int? branchId;
 @override@JsonKey(name: 'order_id') final  int? orderId;
+@override@JsonKey(name: 'last_message') final  TicketMessage? lastMessage;
  final  List<TicketMessage>? _messages;
 @override List<TicketMessage>? get messages {
   final value = _messages;
@@ -540,16 +554,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ticket&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketNumber, ticketNumber) || other.ticketNumber == ticketNumber)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.status, status) || other.status == status)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId)&&(identical(other.merchantNameAr, merchantNameAr) || other.merchantNameAr == merchantNameAr)&&(identical(other.merchantNameEn, merchantNameEn) || other.merchantNameEn == merchantNameEn)&&(identical(other.openerName, openerName) || other.openerName == openerName)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ticket&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketNumber, ticketNumber) || other.ticketNumber == ticketNumber)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.status, status) || other.status == status)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId)&&(identical(other.merchantNameAr, merchantNameAr) || other.merchantNameAr == merchantNameAr)&&(identical(other.merchantNameEn, merchantNameEn) || other.merchantNameEn == merchantNameEn)&&(identical(other.openerName, openerName) || other.openerName == openerName)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketNumber,category,priority,status,title,description,merchantId,merchantNameAr,merchantNameEn,openerName,branchId,orderId,const DeepCollectionEquality().hash(_messages),createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,ticketNumber,category,priority,status,title,description,merchantId,merchantNameAr,merchantNameEn,openerName,branchId,orderId,lastMessage,const DeepCollectionEquality().hash(_messages),createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'Ticket(id: $id, ticketNumber: $ticketNumber, category: $category, priority: $priority, status: $status, title: $title, description: $description, merchantId: $merchantId, merchantNameAr: $merchantNameAr, merchantNameEn: $merchantNameEn, openerName: $openerName, branchId: $branchId, orderId: $orderId, messages: $messages, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Ticket(id: $id, ticketNumber: $ticketNumber, category: $category, priority: $priority, status: $status, title: $title, description: $description, merchantId: $merchantId, merchantNameAr: $merchantNameAr, merchantNameEn: $merchantNameEn, openerName: $openerName, branchId: $branchId, orderId: $orderId, lastMessage: $lastMessage, messages: $messages, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -560,11 +574,11 @@ abstract mixin class _$TicketCopyWith<$Res> implements $TicketCopyWith<$Res> {
   factory _$TicketCopyWith(_Ticket value, $Res Function(_Ticket) _then) = __$TicketCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'ticket_number') String ticketNumber, String? category, String? priority, String status, String title, String description,@JsonKey(name: 'merchant_id') int? merchantId,@JsonKey(name: 'merchant_name_ar') String? merchantNameAr,@JsonKey(name: 'merchant_name_en') String? merchantNameEn,@JsonKey(name: 'opener_name') String? openerName,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'order_id') int? orderId, List<TicketMessage>? messages,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ int id,@JsonKey(name: 'ticket_number') String ticketNumber, String? category, String? priority, String status, String title, String description,@JsonKey(name: 'merchant_id') int? merchantId,@JsonKey(name: 'merchant_name_ar') String? merchantNameAr,@JsonKey(name: 'merchant_name_en') String? merchantNameEn,@JsonKey(name: 'opener_name') String? openerName,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'order_id') int? orderId,@JsonKey(name: 'last_message') TicketMessage? lastMessage, List<TicketMessage>? messages,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
-
+@override $TicketMessageCopyWith<$Res>? get lastMessage;
 
 }
 /// @nodoc
@@ -577,7 +591,7 @@ class __$TicketCopyWithImpl<$Res>
 
 /// Create a copy of Ticket
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketNumber = null,Object? category = freezed,Object? priority = freezed,Object? status = null,Object? title = null,Object? description = null,Object? merchantId = freezed,Object? merchantNameAr = freezed,Object? merchantNameEn = freezed,Object? openerName = freezed,Object? branchId = freezed,Object? orderId = freezed,Object? messages = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketNumber = null,Object? category = freezed,Object? priority = freezed,Object? status = null,Object? title = null,Object? description = null,Object? merchantId = freezed,Object? merchantNameAr = freezed,Object? merchantNameEn = freezed,Object? openerName = freezed,Object? branchId = freezed,Object? orderId = freezed,Object? lastMessage = freezed,Object? messages = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_Ticket(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,ticketNumber: null == ticketNumber ? _self.ticketNumber : ticketNumber // ignore: cast_nullable_to_non_nullable
@@ -592,14 +606,27 @@ as String?,merchantNameEn: freezed == merchantNameEn ? _self.merchantNameEn : me
 as String?,openerName: freezed == openerName ? _self.openerName : openerName // ignore: cast_nullable_to_non_nullable
 as String?,branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
 as int?,orderId: freezed == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
-as int?,messages: freezed == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
+as int?,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as TicketMessage?,messages: freezed == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
 as List<TicketMessage>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
 
+/// Create a copy of Ticket
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TicketMessageCopyWith<$Res>? get lastMessage {
+    if (_self.lastMessage == null) {
+    return null;
+  }
 
+  return $TicketMessageCopyWith<$Res>(_self.lastMessage!, (value) {
+    return _then(_self.copyWith(lastMessage: value));
+  });
+}
 }
 
 

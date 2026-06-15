@@ -8,7 +8,7 @@ part of 'support_response.dart';
 
 _TicketMessage _$TicketMessageFromJson(Map<String, dynamic> json) =>
     _TicketMessage(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt() ?? 0,
       senderType: json['sender_type'] as String? ?? '',
       body: json['body'] as String? ?? '',
       isInternalNote: json['is_internal_note'] as bool? ?? false,
@@ -40,6 +40,9 @@ _Ticket _$TicketFromJson(Map<String, dynamic> json) => _Ticket(
   openerName: json['opener_name'] as String?,
   branchId: (json['branch_id'] as num?)?.toInt(),
   orderId: (json['order_id'] as num?)?.toInt(),
+  lastMessage: json['last_message'] == null
+      ? null
+      : TicketMessage.fromJson(json['last_message'] as Map<String, dynamic>),
   messages: (json['messages'] as List<dynamic>?)
       ?.map((e) => TicketMessage.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -65,6 +68,7 @@ Map<String, dynamic> _$TicketToJson(_Ticket instance) => <String, dynamic>{
   'opener_name': instance.openerName,
   'branch_id': instance.branchId,
   'order_id': instance.orderId,
+  'last_message': instance.lastMessage,
   'messages': instance.messages,
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),

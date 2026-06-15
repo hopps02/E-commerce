@@ -136,7 +136,7 @@ class _TicketCard extends StatelessWidget {
             ),
             8.verticalSpace,
             Text(
-              ticket.description,
+              ticket.previewText,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: context.bodyMedium.copyWith(color: ColorM.gray600),
