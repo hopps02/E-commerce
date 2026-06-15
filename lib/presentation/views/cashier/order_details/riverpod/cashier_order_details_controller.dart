@@ -8,6 +8,7 @@ import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/domain/usecase/mark_item_prepared_usecase.dart';
+import 'package:for_u/domain/usecase/mark_item_unavailable_usecase.dart';
 
 class CashierOrderProduct extends Equatable {
   final int id;
@@ -174,6 +175,36 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
         ErrorMessage.snackBar,
       );
     }, (_) {});
+  }
+
+  /// Marks an item unavailable. The row is optimistically dropped, then the
+  /// backend removes it, releases its stock, recalculates the totals and (when
+  /// it was the last item) auto-rejects the order — notifying the customer in
+  /// either case. The returned order carries the recomputed totals/state, so we
+  /// apply it directly; a failure rolls the row back. Server-side removal is not
+  /// reversible, so any UI undo must gate this call before it runs.
+  Future<void> markUnavailable(int productId, {String? reason}) async {
+    if (!state.status.isProductsEditable) return;
+
+    final before = state.products;
+    state = state.copyWith(
+      products: before.where((p) => p.id != productId).toList(),
+    );
+
+    final result = await DI().markItemUnavailableUseCase.execute(
+      MarkItemUnavailableParams(
+        orderId: state.orderId,
+        itemId: productId,
+        reason: reason,
+      ),
+    );
+    result.fold((failure) {
+      state = state.copyWith(products: before);
+      DI().snackBarHelper.showMessage(
+        failure.displayMessage,
+        ErrorMessage.snackBar,
+      );
+    }, _applyOrder);
   }
 
   Future<void> confirmReadiness() async {
