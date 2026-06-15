@@ -10,6 +10,7 @@ import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
+import 'package:for_u/presentation/views/cashier/order_details/view/widgets/mark_unavailable_bottom_sheet.dart';
 
 class OrderProductsTable extends ConsumerWidget {
   final CashierOrderDetailsState state;
@@ -52,10 +53,28 @@ class OrderProductsTable extends ConsumerWidget {
         Container(height: 1.h, color: ColorM.gray250),
         for (final product in state.products) ...[
           12.verticalSpace,
-          _ProductRow(
-            product: product,
-            editable: state.status.isProductsEditable,
-            onToggle: () => notifier.togglePrepared(product.id),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            // Long-press marks the item unavailable; the layout itself is left
+            // untouched. The sheet confirms before the (irreversible) backend call.
+            onLongPress: state.status.isProductsEditable
+                ? () async {
+                    final reason = await MarkUnavailableBottomSheet.show(
+                      context,
+                      itemName: product.name,
+                    );
+                    if (reason == null) return;
+                    await notifier.markUnavailable(
+                      product.id,
+                      reason: reason.isEmpty ? null : reason,
+                    );
+                  }
+                : null,
+            child: _ProductRow(
+              product: product,
+              editable: state.status.isProductsEditable,
+              onToggle: () => notifier.togglePrepared(product.id),
+            ),
           ),
           12.verticalSpace,
           Container(height: 1.h, color: ColorM.gray250),
