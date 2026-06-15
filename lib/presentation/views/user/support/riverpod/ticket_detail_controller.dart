@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
@@ -46,8 +47,15 @@ class TicketDetailState extends Equatable {
 }
 
 class TicketDetailNotifier extends Notifier<TicketDetailState> {
+  /// Owns the reply field so the UI stays purely declarative — the view never
+  /// reads or clears the text itself; [sendReply] does.
+  final TextEditingController replyController = TextEditingController();
+
   @override
-  TicketDetailState build() => const TicketDetailState();
+  TicketDetailState build() {
+    ref.onDispose(replyController.dispose);
+    return const TicketDetailState();
+  }
 
   Future<void> load(int id) async {
     state = state.copyWith(reqState: ReqState.loading, ticketId: id);
@@ -66,12 +74,14 @@ class TicketDetailNotifier extends Notifier<TicketDetailState> {
 
   Future<void> retry() => load(state.ticketId);
 
-  /// Sends a reply and replaces the thread with the backend's updated ticket
-  /// (the new message is appended server-side). Returns the updated ticket, or
-  /// null when the failure was already surfaced (e.g. a closed ticket).
-  Future<Ticket?> reply(String body) async {
+  /// Sends the text currently in [replyController] and replaces the thread with
+  /// the backend's updated ticket (the new message is appended server-side).
+  /// Trims/validates the input, then clears the field on success. A no-op when
+  /// the field is blank, the ticket isn't loaded, or a send is already in flight.
+  Future<void> sendReply() async {
+    final body = replyController.text.trim();
     final id = state.ticketId;
-    if (id == 0 || state.sending) return null;
+    if (body.isEmpty || id == 0 || state.sending) return;
 
     state = state.copyWith(sending: true);
     final result = await DI().replyTicketUseCase.execute(
@@ -79,18 +89,17 @@ class TicketDetailNotifier extends Notifier<TicketDetailState> {
     );
     state = state.copyWith(sending: false);
 
-    return result.fold((failure) {
+    result.fold((failure) {
       DI().snackBarHelper.showMessage(
         failure.displayMessage,
         ErrorMessage.snackBar,
       );
-      return null;
     }, (ticket) {
       state = state.copyWith(reqState: ReqState.success, ticket: ticket);
       // Keep the list row in sync (status/last activity) so going back doesn't
       // show a stale ticket. No-op if the list isn't holding this ticket.
       ref.read(ticketsController.notifier).upsert(ticket);
-      return ticket;
+      replyController.clear();
     });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,7 @@ class _CashierTabsBarState extends ConsumerState<CashierTabsBar> {
   Widget build(BuildContext context) {
     final state = ref.watch(cashierTabController);
     final notifier = ref.read(cashierTabController.notifier);
+    context.locale;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),

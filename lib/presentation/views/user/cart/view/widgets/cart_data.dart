@@ -29,7 +29,7 @@ class CartData extends ConsumerWidget {
         errorMessage: cart.isEmpty
             ? Translation.cart_empty.tr
             : checkout.errorMessage,
-        onRetry: () => ref.read(checkoutController.notifier).retry(),
+        onRetry: cart.isEmpty ? null : () => ref.read(checkoutController.notifier).retry(),
         child: ListView.separated(
           padding: EdgeInsets.symmetric(
             horizontal: SizeM.pagePadding.w,
