@@ -108,4 +108,9 @@ abstract class CustomerOrder with _$CustomerOrder {
 
   List<CustomerOrderItem> get activeItems =>
       (items ?? const []).where((item) => !item.removed).toList();
+
+  /// Items the cashier marked unavailable — surfaced separately so the customer
+  /// sees what was dropped and refunded instead of the line silently vanishing.
+  List<CustomerOrderItem> get removedItems =>
+      (items ?? const []).where((item) => item.removed).toList();
 }

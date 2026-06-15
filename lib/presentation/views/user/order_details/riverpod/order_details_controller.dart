@@ -18,6 +18,7 @@ class OrderDetailsState extends Equatable {
   final int step;
   final String address;
   final List<CustomerOrderItem> items;
+  final List<CustomerOrderItem> removedItems;
   final CustomerOrderTotals totals;
   final bool isDelivered;
 
@@ -32,6 +33,7 @@ class OrderDetailsState extends Equatable {
     this.step = 1,
     this.address = '',
     this.items = const [],
+    this.removedItems = const [],
     this.totals = const CustomerOrderTotals(),
     this.isDelivered = false,
     this.canRate = false,
@@ -50,6 +52,7 @@ class OrderDetailsState extends Equatable {
       step: step,
       address: address,
       items: items,
+      removedItems: removedItems,
       totals: totals,
       isDelivered: isDelivered,
       canRate: canRate ?? this.canRate,
@@ -65,6 +68,7 @@ class OrderDetailsState extends Equatable {
     step,
     address,
     items,
+    removedItems,
     totals,
     isDelivered,
     canRate,
@@ -155,6 +159,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
       step: order.timelineStep,
       address: order.addressLine,
       items: order.activeItems,
+      removedItems: order.removedItems,
       totals: order.totals ?? const CustomerOrderTotals(),
       isDelivered: order.isDelivered,
       canRate: order.canRate,

@@ -243,6 +243,8 @@
   "order_delivered_successfully": "تم تسليم الطلب بنجاح",
   "customer_not_available": "العميل غير متواجد",
   "out_of_stock": "نفدت الكمية",
+  "unavailable_items": "أصناف غير متوفّرة",
+  "unavailable_items_note": "تم تعديل الإجمالي واسترجاع قيمتها.",
   "delivery_failure_recorded": "تم تسجيل فشل تسليم الطلب #{order} وإبلاغ الكاشير",
   "order_delivered_confirmed": "الطلب #{order} تم تسليمه للعميل وتأكيده",
   "not_answering_phone": "لا يرد على الهاتف",

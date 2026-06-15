@@ -259,6 +259,8 @@ enum Translation {
   order_delivered_successfully,
   customer_not_available,
   out_of_stock,
+  unavailable_items,
+  unavailable_items_note,
   delivery_failure_recorded,
   order_delivered_confirmed,
   not_answering_phone,

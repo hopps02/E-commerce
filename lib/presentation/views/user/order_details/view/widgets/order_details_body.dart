@@ -84,6 +84,41 @@ class OrderDetailsBody extends StatelessWidget {
                       ).premiumAppear(index: 3 + index);
                     },
                   ),
+                  if (state.removedItems.isNotEmpty) ...[
+                    24.verticalSpace,
+                    Text(
+                      Translation.unavailable_items.tr,
+                      style: context.bodyLarge.copyWith(
+                        fontWeight: FontWeightM.bold,
+                      ),
+                    ),
+                    4.verticalSpace,
+                    Text(
+                      Translation.unavailable_items_note.tr,
+                      style: context.labelMedium.copyWith(color: ColorM.gray500),
+                    ),
+                    16.verticalSpace,
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      itemCount: state.removedItems.length,
+                      separatorBuilder: (context, index) => 16.verticalSpace,
+                      itemBuilder: (context, index) {
+                        final item = state.removedItems[index];
+                        return Opacity(
+                          opacity: 0.5,
+                          child: Order(
+                            title: item.name(arabic),
+                            weight: "",
+                            price: Money.amount(item.unitPriceHalalas),
+                            count: "${item.quantity}",
+                            image: item.imageUrl ?? "",
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                   32.verticalSpace,
                   OrderPriceSummary(
                     subtotalHalalas: state.totals.subtotalHalalas,

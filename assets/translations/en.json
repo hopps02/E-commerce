@@ -243,6 +243,8 @@
   "order_delivered_successfully": "Order delivered successfully",
   "customer_not_available": "Customer not available",
   "out_of_stock": "Out of stock",
+  "unavailable_items": "Unavailable items",
+  "unavailable_items_note": "The total was adjusted and these were refunded.",
   "delivery_failure_recorded": "Delivery failure recorded for order #{order} and cashier notified",
   "order_delivered_confirmed": "Order #{order} has been delivered and confirmed",
   "not_answering_phone": "Not answering the phone",
