@@ -33,6 +33,7 @@
   "error_empty_cart": "Your cart is empty.",
   "stock_limit_reached": "You've reached the available stock for this item.",
   "cart_adjusted_to_stock": "Your cart was updated to match available stock.",
+  "order_total_updated": "Order total was updated. Please review it and confirm again.",
   "cart_empty": "Your cart is empty — browse products and add what you like.",
   "favorites": "Favorites",
   "no_favorites": "No favorite products yet",

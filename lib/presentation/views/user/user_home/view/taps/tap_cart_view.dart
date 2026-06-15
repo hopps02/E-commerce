@@ -78,6 +78,8 @@ class _TapCartViewState extends ConsumerState<TapCartView>
               totalProducts: Money.asRiyals(cart.subtotalHalalas),
               shippingCost: Money.asRiyals(checkout.totals.deliveryFeeHalalas),
               discount: Money.asRiyals(cart.discountHalalas),
+              total: Money.asRiyals(checkout.totals.totalHalalas),
+              requoting: checkout.requoting,
               bottomPadding: widget.bottomSafeAreaPadding,
               onCheckout: () => context.pushNamed(Routes.confirmOrder),
             ).containerSlideUp(),

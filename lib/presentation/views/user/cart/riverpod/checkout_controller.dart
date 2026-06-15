@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
@@ -14,12 +16,27 @@ import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 
+/// Identifies the exact (address, lines) a quote was priced for. Any change to
+/// the selected address or to a line's id/quantity yields a different
+/// fingerprint, which marks the current totals stale and forces a re-quote.
+String checkoutFingerprint(int? addressId, List<CartLine> lines) =>
+    '$addressId|${lines.map((l) => '${l.branchItemId}x${l.quantity}').join(',')}';
+
 class CheckoutState extends Equatable {
   final ReqState reqState;
   final String errorMessage;
   final int? addressId;
   final String addressLine;
   final CheckoutTotals totals;
+
+  /// The (address, lines) fingerprint [totals] were quoted against. Empty until
+  /// the first successful quote.
+  final String quotedFingerprint;
+
+  /// True while a background re-quote is in flight after a cart/address edit —
+  /// the summary bar shows the delivery fee + grand total as "updating" instead
+  /// of a stale number, without tearing down the whole screen.
+  final bool requoting;
 
   /// True while the order is being placed — drives the in-button spinner on
   /// the confirm CTA (no global overlay for this action).
@@ -31,8 +48,16 @@ class CheckoutState extends Equatable {
     this.addressId,
     this.addressLine = '',
     this.totals = const CheckoutTotals(),
+    this.quotedFingerprint = '',
+    this.requoting = false,
     this.placing = false,
   });
+
+  /// Whether the current totals still match the given cart lines + selected
+  /// address. A false result means the displayed delivery fee/total is stale.
+  bool matchesCart(List<CartLine> lines) =>
+      quotedFingerprint.isNotEmpty &&
+      quotedFingerprint == checkoutFingerprint(addressId, lines);
 
   CheckoutState copyWith({
     ReqState? reqState,
@@ -40,6 +65,8 @@ class CheckoutState extends Equatable {
     int? addressId,
     String? addressLine,
     CheckoutTotals? totals,
+    String? quotedFingerprint,
+    bool? requoting,
     bool? placing,
   }) {
     return CheckoutState(
@@ -48,6 +75,8 @@ class CheckoutState extends Equatable {
       addressId: addressId ?? this.addressId,
       addressLine: addressLine ?? this.addressLine,
       totals: totals ?? this.totals,
+      quotedFingerprint: quotedFingerprint ?? this.quotedFingerprint,
+      requoting: requoting ?? this.requoting,
       placing: placing ?? this.placing,
     );
   }
@@ -59,6 +88,8 @@ class CheckoutState extends Equatable {
     addressId,
     addressLine,
     totals,
+    quotedFingerprint,
+    requoting,
     placing,
   ];
 }
@@ -66,14 +97,28 @@ class CheckoutState extends Equatable {
 /// Validates the cart, resolves the default address and prices the order via
 /// the backend quote. Used by both the cart screen (totals bar) and the
 /// confirm screen (address + place order).
+///
+/// The backend is always authoritative for stock, pricing and delivery fee
+/// (re-resolved at order creation). This controller's job is to make sure the
+/// totals the customer SEES and approves are never stale: any cart edit or
+/// address change invalidates the quote (via [checkoutFingerprint]) and
+/// triggers a fresh one before the totals are trusted or the order is placed.
 class CheckoutNotifier extends Notifier<CheckoutState> {
   /// One key per distinct (address, lines) request so a double tap dedupes
   /// server-side while an edited cart still places a fresh order.
   String? _idempotencyKey;
   String _keyFingerprint = '';
 
+  /// Coalesces rapid cart edits into a single re-quote.
+  Timer? _requoteDebounce;
+
   @override
-  CheckoutState build() => const CheckoutState();
+  CheckoutState build() {
+    // Re-price whenever the cart changes while a checkout screen is open.
+    ref.listen<CartState>(cartController, (_, next) => _onCartChanged(next));
+    ref.onDispose(() => _requoteDebounce?.cancel());
+    return const CheckoutState();
+  }
 
   Future<void> load() async {
     final cart = ref.read(cartController.notifier);
@@ -127,11 +172,9 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     }
     final resolved = address;
 
+    final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
-      CheckoutQuoteParams(
-        addressId: resolved.id,
-        lines: ref.read(cartController).lines,
-      ),
+      CheckoutQuoteParams(addressId: resolved.id, lines: lines),
     );
     quote.fold(
       (failure) => state = state.copyWith(
@@ -143,6 +186,8 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
         addressId: resolved.id,
         addressLine: resolved.displayAddress,
         totals: q.totals,
+        quotedFingerprint: checkoutFingerprint(resolved.id, lines),
+        requoting: false,
       ),
     );
   }
@@ -203,11 +248,9 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   /// backend quote (delivery fee can differ per zone).
   Future<void> selectAddress(DeliveryAddress address) async {
     state = state.copyWith(reqState: ReqState.loading);
+    final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
-      CheckoutQuoteParams(
-        addressId: address.id,
-        lines: ref.read(cartController).lines,
-      ),
+      CheckoutQuoteParams(addressId: address.id, lines: lines),
     );
     quote.fold(
       (failure) => state = state.copyWith(
@@ -219,6 +262,79 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
         addressId: address.id,
         addressLine: address.displayAddress,
         totals: q.totals,
+        quotedFingerprint: checkoutFingerprint(address.id, lines),
+        requoting: false,
+      ),
+    );
+  }
+
+  /// Called when a checkout screen opens. Loads the first quote, or re-prices
+  /// if the cart changed since the last quote (e.g. edited then navigated here
+  /// before the debounced re-quote fired).
+  Future<void> ensureQuote() async {
+    if (!state.reqState.isSuccess) {
+      await load();
+      return;
+    }
+    if (!state.matchesCart(ref.read(cartController).lines)) {
+      _requoteDebounce?.cancel();
+      await _requote();
+    }
+  }
+
+  void _onCartChanged(CartState cart) {
+    // The first quote is owned by load(); only react to edits made after it.
+    if (!state.reqState.isSuccess) return;
+
+    if (cart.isEmpty) {
+      _requoteDebounce?.cancel();
+      state = state.copyWith(reqState: ReqState.empty, requoting: false);
+      return;
+    }
+
+    if (state.matchesCart(cart.lines)) return;
+
+    // Hide the now-stale delivery fee/total immediately, then re-price.
+    state = state.copyWith(requoting: true);
+    _requoteDebounce?.cancel();
+    _requoteDebounce = Timer(const Duration(milliseconds: 400), _requote);
+  }
+
+  /// Re-prices the current cart against the selected address. No-op when the
+  /// quote is already current or there is nothing to price.
+  Future<void> _requote() async {
+    final addressId = state.addressId;
+    final lines = ref.read(cartController).lines;
+    if (addressId == null || lines.isEmpty) {
+      state = state.copyWith(requoting: false);
+      return;
+    }
+    final fingerprint = checkoutFingerprint(addressId, lines);
+    if (fingerprint == state.quotedFingerprint) {
+      state = state.copyWith(requoting: false);
+      return;
+    }
+
+    final quote = await DI().checkoutQuoteUseCase.execute(
+      CheckoutQuoteParams(addressId: addressId, lines: lines),
+    );
+    quote.fold(
+      (failure) {
+        state = state.copyWith(
+          reqState: ReqState.error,
+          errorMessage: failure.displayMessage,
+          requoting: false,
+        );
+        DI().snackBarHelper.showMessage(
+          failure.displayMessage,
+          ErrorMessage.snackBar,
+        );
+      },
+      (q) => state = state.copyWith(
+        reqState: ReqState.success,
+        totals: q.totals,
+        quotedFingerprint: fingerprint,
+        requoting: false,
       ),
     );
   }
@@ -237,14 +353,42 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     await load();
   }
 
-  /// Places the order. Returns it on success; null means the failure was
-  /// already surfaced to the user.
+  /// Places the order — but only against a total the customer can currently see.
+  /// Every confirm tap forces a FRESH server quote first:
+  ///  - quote fails (coverage/branch/network) -> block; the error is shown;
+  ///  - totals changed (or stock dropped) since they last saw it -> reveal the
+  ///    new total, ask them to review, and place NOTHING on this tap;
+  ///  - totals unchanged -> place. createOrder stays backend-authoritative.
+  /// Returns the order on success; null means nothing was placed (handled).
   Future<CustomerOrder?> placeOrder({String? notes}) async {
     final addressId = state.addressId;
-    final lines = ref.read(cartController).lines;
-    if (addressId == null || lines.isEmpty) return null;
+    if (addressId == null || ref.read(cartController).isEmpty) return null;
 
+    _requoteDebounce?.cancel();
     state = state.copyWith(placing: true);
+
+    // Approval integrity: re-price live right before placing and compare the
+    // SERVER totals against what the customer is looking at.
+    final approved = state.totals;
+    final fresh = await _quoteNow();
+    if (fresh == null) {
+      // Pricing failed (coverage/branch/merchant/network) — already surfaced.
+      state = state.copyWith(placing: false);
+      return null;
+    }
+    if (!fresh.allAvailable || fresh.totals != approved) {
+      // The live total differs from the one shown (or an item went unavailable):
+      // _quoteNow already put the fresh total in state; tell them to review and
+      // place nothing this tap. The next tap re-checks against the new total.
+      state = state.copyWith(placing: false);
+      DI().snackBarHelper.showMessage(
+        Translation.order_total_updated.tr,
+        ErrorMessage.snackBar,
+      );
+      return null;
+    }
+
+    final lines = ref.read(cartController).lines;
     final result = await DI().createOrderUseCase.execute(
       CreateOrderParams(
         idempotencyKey: _keyFor(addressId, lines),
@@ -269,9 +413,44 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     });
   }
 
+  /// Forces a fresh server quote for the current cart + address (the confirm
+  /// tap). Updates totals + fingerprint on success and returns the quote;
+  /// returns null after surfacing a pricing failure.
+  Future<CheckoutQuote?> _quoteNow() async {
+    final addressId = state.addressId;
+    final lines = ref.read(cartController).lines;
+    if (addressId == null || lines.isEmpty) return null;
+
+    final quote = await DI().checkoutQuoteUseCase.execute(
+      CheckoutQuoteParams(addressId: addressId, lines: lines),
+    );
+    return quote.fold<CheckoutQuote?>((failure) {
+      // Mirror _requote: a failed confirm-time quote must not leave the old
+      // total presented as a valid checkout — drop to error so the retry UI
+      // (CartData) takes over instead of showing a stale price.
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: failure.displayMessage,
+        requoting: false,
+      );
+      DI().snackBarHelper.showMessage(
+        failure.displayMessage,
+        ErrorMessage.snackBar,
+      );
+      return null;
+    }, (q) {
+      state = state.copyWith(
+        reqState: ReqState.success,
+        totals: q.totals,
+        quotedFingerprint: checkoutFingerprint(addressId, lines),
+        requoting: false,
+      );
+      return q;
+    });
+  }
+
   String _keyFor(int addressId, List<CartLine> lines) {
-    final fingerprint =
-        '$addressId|${lines.map((l) => '${l.branchItemId}x${l.quantity}').join(',')}';
+    final fingerprint = checkoutFingerprint(addressId, lines);
     if (_idempotencyKey == null || fingerprint != _keyFingerprint) {
       _idempotencyKey =
           'app-${DateTime.now().microsecondsSinceEpoch}-${identityHashCode(this)}';

@@ -12,6 +12,16 @@ class CartSummaryBottomBar extends StatelessWidget {
   final double totalProducts;
   final double shippingCost;
   final double discount;
+
+  /// Backend-authoritative grand total (totals.total_halalas). Never re-derived
+  /// on the client, so the customer always approves the server's number.
+  final double total;
+
+  /// True while the delivery fee + total are being re-priced after a cart or
+  /// address edit. The two server-priced rows show an "updating" spinner so a
+  /// stale number is never displayed as final.
+  final bool requoting;
+
   final VoidCallback? onCheckout;
   final VoidCallback? onConfirm;
 
@@ -27,13 +37,13 @@ class CartSummaryBottomBar extends StatelessWidget {
     required this.totalProducts,
     required this.shippingCost,
     required this.discount,
+    required this.total,
+    this.requoting = false,
     this.onCheckout,
     this.onConfirm,
     this.isLoading = false,
     this.bottomPadding,
   });
-
-  double get totalAmount => (totalProducts + shippingCost) - discount;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +76,8 @@ class CartSummaryBottomBar extends StatelessWidget {
                 ),
                 10.verticalSpace,
 
-                // Summary Items
+                // Summary Items — product/discount rows track local edits live;
+                // the shipping row is server-priced (spinner while re-quoting).
                 _SummaryRow(
                   title: Translation.total_products.tr,
                   price: totalProducts,
@@ -75,6 +86,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                 _SummaryRow(
                   title: Translation.shipping_cost.tr,
                   price: shippingCost,
+                  loading: requoting,
                 ),
                 6.verticalSpace,
                 _SummaryRow(title: Translation.discount.tr, price: discount),
@@ -86,7 +98,7 @@ class CartSummaryBottomBar extends StatelessWidget {
 
                 10.verticalSpace,
 
-                // Total Amount
+                // Total Amount — backend-authoritative; "updating" while stale.
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -98,19 +110,21 @@ class CartSummaryBottomBar extends StatelessWidget {
                       ),
                     ),
                     _PriceWidget(
-                      price: totalAmount,
+                      price: total,
                       color: ColorM.primary700,
                       fontWeight: FontWeightM.semiBold,
+                      loading: requoting,
                     ),
                   ],
                 ),
 
                 20.verticalSpace,
 
-                // Checkout Button
+                // Checkout Button — disabled while re-quoting so the customer
+                // can never confirm against an "updating" total.
                 CustomInkButton(
                   onTap: onCheckout ?? onConfirm,
-                  isLoading: isLoading,
+                  isLoading: isLoading || requoting,
                   width: double.infinity,
                   height: 56.h,
                   backgroundColor: ColorM.primary,
@@ -141,8 +155,13 @@ class CartSummaryBottomBar extends StatelessWidget {
 class _SummaryRow extends StatelessWidget {
   final String title;
   final double price;
+  final bool loading;
 
-  const _SummaryRow({required this.title, required this.price});
+  const _SummaryRow({
+    required this.title,
+    required this.price,
+    this.loading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +179,7 @@ class _SummaryRow extends StatelessWidget {
           price: price,
           color: ColorM.gray600,
           fontWeight: FontWeightM.medium,
+          loading: loading,
         ),
       ],
     );
@@ -170,15 +190,24 @@ class _PriceWidget extends StatelessWidget {
   final double price;
   final Color color;
   final FontWeight fontWeight;
+  final bool loading;
 
   const _PriceWidget({
     required this.price,
     required this.color,
     required this.fontWeight,
+    this.loading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return SizedBox(
+        width: 16.w,
+        height: 16.w,
+        child: CircularProgressIndicator(strokeWidth: 1.8, color: color),
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       spacing: 3.w,

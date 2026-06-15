@@ -27,12 +27,10 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
   @override
   void initState() {
     super.initState();
-    // Normally primed by the cart screen; a cold open still self-loads.
-    Future.microtask(() {
-      if (!ref.read(checkoutController).reqState.isSuccess) {
-        ref.read(checkoutController.notifier).load();
-      }
-    });
+    // Normally primed by the cart screen. ensureQuote() self-loads on a cold
+    // open AND re-prices if the cart was edited between the cart screen and
+    // here, so the confirm totals are never stale.
+    Future.microtask(() => ref.read(checkoutController.notifier).ensureQuote());
   }
 
   Future<void> _changeAddress() async {
@@ -89,6 +87,8 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
                 checkout.totals.deliveryFeeHalalas,
               ),
               discount: Money.asRiyals(cart.discountHalalas),
+              total: Money.asRiyals(checkout.totals.totalHalalas),
+              requoting: checkout.requoting,
               onConfirm: _placeOrder,
               isLoading: checkout.placing,
             ).containerSlideUp()

@@ -34,6 +34,7 @@ enum Translation {
   error_empty_cart,
   stock_limit_reached,
   cart_adjusted_to_stock,
+  order_total_updated,
   cart_empty,
   favorites,
   no_favorites,

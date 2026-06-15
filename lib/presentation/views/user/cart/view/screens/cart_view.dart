@@ -59,6 +59,8 @@ class _CartViewState extends ConsumerState<CartView> {
                 checkout.totals.deliveryFeeHalalas,
               ),
               discount: Money.asRiyals(cart.discountHalalas),
+              total: Money.asRiyals(checkout.totals.totalHalalas),
+              requoting: checkout.requoting,
               onCheckout: () {
                 context.pushNamed(Routes.confirmOrder);
               },
