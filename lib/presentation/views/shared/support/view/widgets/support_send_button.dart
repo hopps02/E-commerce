@@ -16,11 +16,13 @@ class SupportSendButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final submitting = ref.watch(supportController).submitting;
     return GeneralPadding(
       child: Padding(
         padding: EdgeInsets.only(bottom: 16.h),
         child: CustomInkButton(
           onTap: () => _onSend(context, ref),
+          isLoading: submitting,
           height: 56.h,
           width: double.infinity,
           borderRadius: SizeM.commonBorderRadius.r,
@@ -48,8 +50,8 @@ class SupportSendButton extends ConsumerWidget {
 
     final invalid = validateOnSubmit([
       SubmitField(
-        value: notifier.nameController.text,
-        focusNode: notifier.nameFocusNode,
+        value: notifier.titleController.text,
+        focusNode: notifier.titleFocusNode,
         rule: Rules.required(),
       ),
       SubmitField(

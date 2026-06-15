@@ -16,12 +16,12 @@ class SupportForm extends ConsumerWidget {
     return Column(
       children: [
         LabeledField(
-          label: Translation.full_name.tr,
+          label: Translation.ticket_subject.tr,
           child: SimpleForm(
-            controller: notifier.nameController,
-            focusNode: notifier.nameFocusNode,
-            hintText: Translation.name_hint.tr,
-            keyboardType: TextInputType.name,
+            controller: notifier.titleController,
+            focusNode: notifier.titleFocusNode,
+            hintText: Translation.ticket_subject_hint.tr,
+            keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             height: 52.h,
             borderRadius: 17.r,
@@ -33,11 +33,11 @@ class SupportForm extends ConsumerWidget {
         ),
         18.verticalSpace,
         LabeledField(
-          label: Translation.your_message.tr,
+          label: Translation.ticket_message.tr,
           child: SimpleForm(
             controller: notifier.messageController,
             focusNode: notifier.messageFocusNode,
-            hintText: Translation.write_your_message_hint.tr,
+            hintText: Translation.ticket_message_hint.tr,
             keyboardType: TextInputType.multiline,
             height: 120.h,
             maxLines: 5,

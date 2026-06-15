@@ -13,7 +13,7 @@ class SupportView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(supportController, (previous, next) {
-      if (next) {
+      if (next.success) {
         context.pop();
       }
     });

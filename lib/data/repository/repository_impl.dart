@@ -6,6 +6,7 @@ import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/api/captain_api.dart';
 import 'package:for_u/data/network/api/cashier_api.dart';
@@ -404,11 +405,42 @@ class RepositoryImpl implements Repository {
       );
 
   @override
-  Future<Either<Failure, Unit>> openTicket(OpenTicketBody body) => fastHandler(
+  Future<Either<Failure, TicketsPage>> tickets({
+    required int page,
+    int pageSize = 20,
+  }) => fastHandler(
     request: () async {
-      await _customerApi.openTicket(body);
-      return unit;
+      final envelope = await _customerApi.tickets(page, pageSize);
+      return (items: envelope.data, meta: envelope.meta);
     },
+  );
+
+  @override
+  Future<Either<Failure, Ticket>> ticket(int id) =>
+      fastHandler(request: () async => (await _customerApi.ticket(id)).data);
+
+  @override
+  Future<Either<Failure, Ticket>> openTicket(OpenTicketBody body) =>
+      fastHandler(request: () async => (await _customerApi.openTicket(body)).data);
+
+  @override
+  Future<Either<Failure, Ticket>> replyTicket(int id, String body) =>
+      fastHandler(
+        request: () async =>
+            (await _customerApi.replyTicket(id, ReplyTicketBody(body: body))).data,
+      );
+
+  @override
+  Future<Either<Failure, Ticket>> openCashierTicket(OpenTicketBody body) =>
+      fastHandler(request: () async => (await _cashierApi.openTicket(body)).data);
+
+  @override
+  Future<Either<Failure, Ticket>> openCaptainTicket(OpenTicketBody body) =>
+      fastHandler(request: () async => (await _captainApi.openTicket(body)).data);
+
+  @override
+  Future<Either<Failure, List<LegalSection>>> legalPolicies() => fastHandler(
+    request: () async => (await _customerApi.legalPolicies()).data,
   );
 
   @override

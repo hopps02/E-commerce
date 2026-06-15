@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:for_u/data/request/customer/customer_request.dart';
 import 'package:for_u/data/response/captain/captain_response.dart';
+import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -45,4 +47,7 @@ abstract class CaptainApi {
     @Path('id') int id,
     @Body() Map<String, dynamic> body,
   );
+
+  @POST('/captain/tickets')
+  Future<Envelope<Ticket>> openTicket(@Body() OpenTicketBody body);
 }

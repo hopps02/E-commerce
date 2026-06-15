@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,8 @@ import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/custom_scrollbar.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/legal_policies/riverpod/legal_policies_controller.dart';
 import 'package:for_u/presentation/views/user/legal_policies/view/widgets/policy_section.dart';
 
 class LegalPoliciesBody extends ConsumerStatefulWidget {
@@ -25,6 +28,8 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
 
   @override
   Widget build(BuildContext context) {
+    final sections = ref.watch(legalPoliciesController).sections;
+    final arabic = context.locale.languageCode == 'ar';
     return CustomScrollbar(
       controller: scrollController,
       wrapWithScrollView: false,
@@ -49,18 +54,16 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
             ) +
             EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
         children: [
-          const PolicySection(
-            title: 'Changes to the Service and/or Terms:',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.',
-          ).premiumAppear(index: 2),
-          32.verticalSpace,
-          for (int i = 0; i < 10; i++)
-            const PolicySection(
-              title: 'Terms',
-              description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.',
-            ).premiumAppear(index: 5),
+          for (int i = 0; i < sections.length; i++) ...[
+            PolicySection(
+              title: sections[i].title(arabic),
+              description: sections[i].hasBody
+                  ? sections[i].body
+                  : Translation.legal_content_empty.tr,
+              isPlaceholder: !sections[i].hasBody,
+            ).premiumAppear(index: 2 + i),
+            if (i != sections.length - 1) 32.verticalSpace,
+          ],
         ],
       ),
     );

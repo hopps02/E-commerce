@@ -5,12 +5,12 @@ import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/domain/repository/repository.dart';
 import 'package:for_u/domain/usecase/base.dart';
 
-class OpenTicketUseCase implements Base<OpenTicketBody, Ticket> {
+class OpenCaptainTicketUseCase implements Base<OpenTicketBody, Ticket> {
   final Repository _repository;
 
-  OpenTicketUseCase(this._repository);
+  OpenCaptainTicketUseCase(this._repository);
 
   @override
   Future<Either<Failure, Ticket>> execute(OpenTicketBody body) =>
-      _repository.openTicket(body);
+      _repository.openCaptainTicket(body);
 }

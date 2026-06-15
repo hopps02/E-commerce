@@ -8,10 +8,15 @@ class PolicySection extends StatelessWidget {
   final String title;
   final String description;
 
+  /// True when [description] is the honest "not added yet" placeholder (muted,
+  /// italic) rather than real legal copy.
+  final bool isPlaceholder;
+
   const PolicySection({
     super.key,
     required this.title,
     required this.description,
+    this.isPlaceholder = false,
   });
 
   @override
@@ -29,7 +34,11 @@ class PolicySection extends StatelessWidget {
         16.verticalSpace,
         Text(
           description,
-          style: context.bodyLarge.copyWith(color: ColorM.gray600, height: 1.6),
+          style: context.bodyLarge.copyWith(
+            color: isPlaceholder ? ColorM.gray500 : ColorM.gray600,
+            height: 1.6,
+            fontStyle: isPlaceholder ? FontStyle.italic : FontStyle.normal,
+          ),
         ),
       ],
     );

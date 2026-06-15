@@ -24,9 +24,20 @@ abstract class OpenTicketBody with _$OpenTicketBody {
   const factory OpenTicketBody({
     required String title,
     required String description,
+    @Default('inquiry') String category,
+    @Default('normal') String priority,
     @JsonKey(name: 'order_id') int? orderId,
   }) = _OpenTicketBody;
 
   factory OpenTicketBody.fromJson(Map<String, dynamic> json) =>
       _$OpenTicketBodyFromJson(json);
+}
+
+/// POST /mobile/tickets/{id}/reply body.
+@freezed
+abstract class ReplyTicketBody with _$ReplyTicketBody {
+  const factory ReplyTicketBody({required String body}) = _ReplyTicketBody;
+
+  factory ReplyTicketBody.fromJson(Map<String, dynamic> json) =>
+      _$ReplyTicketBodyFromJson(json);
 }

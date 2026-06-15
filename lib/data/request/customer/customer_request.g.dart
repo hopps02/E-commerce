@@ -28,6 +28,8 @@ _OpenTicketBody _$OpenTicketBodyFromJson(Map<String, dynamic> json) =>
     _OpenTicketBody(
       title: json['title'] as String,
       description: json['description'] as String,
+      category: json['category'] as String? ?? 'inquiry',
+      priority: json['priority'] as String? ?? 'normal',
       orderId: (json['order_id'] as num?)?.toInt(),
     );
 
@@ -35,5 +37,13 @@ Map<String, dynamic> _$OpenTicketBodyToJson(_OpenTicketBody instance) =>
     <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
+      'category': instance.category,
+      'priority': instance.priority,
       'order_id': instance.orderId,
     };
+
+_ReplyTicketBody _$ReplyTicketBodyFromJson(Map<String, dynamic> json) =>
+    _ReplyTicketBody(body: json['body'] as String);
+
+Map<String, dynamic> _$ReplyTicketBodyToJson(_ReplyTicketBody instance) =>
+    <String, dynamic>{'body': instance.body};

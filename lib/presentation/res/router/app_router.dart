@@ -10,7 +10,6 @@ import 'package:for_u/presentation/views/cashier/order_details/view/screens/cash
 import 'package:for_u/presentation/views/shared/support/view/screens/support_view.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/presentation/views/shared/auth/view/screens/auth_view.dart';
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
@@ -19,7 +18,9 @@ import 'package:for_u/presentation/views/user/addresses/view/screens/address_for
 import 'package:for_u/presentation/views/user/addresses/view/screens/addresses_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
 import 'package:for_u/presentation/views/user/favorites/view/screens/favorites_view.dart';
-import 'package:for_u/presentation/views/user/help_support/view/screens/help_support_view.dart';
+import 'package:for_u/presentation/views/user/support/view/screens/tickets_view.dart';
+import 'package:for_u/presentation/views/user/support/view/screens/ticket_detail_view.dart';
+import 'package:for_u/presentation/views/user/support/view/screens/create_ticket_view.dart';
 import 'package:for_u/presentation/views/user/user_home/view/screens/user_home_view.dart';
 import 'package:for_u/presentation/views/user/language/view/screens/language_view.dart';
 import 'package:for_u/presentation/views/user/legal_policies/view/screens/legal_policies_view.dart';
@@ -55,7 +56,9 @@ enum Routes {
   language       ('language'),
   editProfile    ('edit-profile'),
   legalPolicies  ('legal-policies'),
-  helpSupport    ('help-support'),
+  tickets        ('tickets'),
+  ticketDetail   ('ticket-detail'),
+  createTicket   ('create-ticket'),
   addresses      ('addresses'),
   addressForm    ('address-form'),
   favorites      ('favorites'),
@@ -258,9 +261,23 @@ final GoRouter appRouter = GoRouter(
       builder: (_, __) => const LegalPoliciesView(),
     ),
     _r(
-      name: Routes.helpSupport.name,
-      path: Routes.helpSupport.path,
-      builder: (_, __) => const HelpSupportView(),
+      name: Routes.tickets.name,
+      path: Routes.tickets.path,
+      builder: (_, __) => const TicketsView(),
+    ),
+    _r(
+      name: Routes.createTicket.name,
+      path: Routes.createTicket.path,
+      builder: (_, __) => const CreateTicketView(),
+    ),
+    _r(
+      name: Routes.ticketDetail.name,
+      path: Routes.ticketDetail.path,
+      builder: (_, state) => TicketDetailView(
+        args: state.extra is TicketDetailArgs
+            ? state.extra as TicketDetailArgs
+            : const TicketDetailArgs(id: 0),
+      ),
     ),
     _r(
       name: Routes.cashierHome.name,

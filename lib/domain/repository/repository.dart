@@ -6,6 +6,7 @@ import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:for_u/data/network/error_handler/failure.dart';
 
@@ -20,6 +21,9 @@ typedef CustomerOrdersPage = ({List<CustomerOrder> orders, Meta? meta});
 
 /// A page of branch products with its pagination block.
 typedef ProductsPage = ({List<BranchProduct> products, Meta? meta});
+
+/// A page of support tickets with its pagination block.
+typedef TicketsPage = ({List<Ticket> items, Meta? meta});
 
 /// The single application repository. Backed by the auth, captain, cashier and
 /// customer APIs; every feature reaches it through a dedicated use case rather
@@ -187,7 +191,19 @@ abstract class Repository {
 
   Future<Either<Failure, Unit>> rateOrder(int id, RateOrderBody body);
 
-  Future<Either<Failure, Unit>> openTicket(OpenTicketBody body);
+  Future<Either<Failure, TicketsPage>> tickets({required int page, int pageSize});
+
+  Future<Either<Failure, Ticket>> ticket(int id);
+
+  Future<Either<Failure, Ticket>> openTicket(OpenTicketBody body);
+
+  Future<Either<Failure, Ticket>> replyTicket(int id, String body);
+
+  Future<Either<Failure, Ticket>> openCashierTicket(OpenTicketBody body);
+
+  Future<Either<Failure, Ticket>> openCaptainTicket(OpenTicketBody body);
+
+  Future<Either<Failure, List<LegalSection>>> legalPolicies();
 
   /// Server-side soft delete; the caller still clears the local session.
   Future<Either<Failure, Unit>> deleteAccount();

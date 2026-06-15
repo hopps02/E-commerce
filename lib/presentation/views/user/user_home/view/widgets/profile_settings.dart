@@ -96,7 +96,7 @@ class ProfileSettings extends ConsumerWidget {
             ),
             title: Translation.help_and_support.tr,
             onTap: () {
-              context.pushNamed(Routes.helpSupport);
+              context.pushNamed(Routes.tickets);
             },
           ),
           ProfileMenuItem(

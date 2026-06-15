@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/request/customer/customer_request.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -104,8 +105,26 @@ abstract class CustomerApi {
     @Body() RateOrderBody body,
   );
 
+  @GET('/mobile/tickets')
+  Future<Envelope<List<Ticket>>> tickets(
+    @Query('page') int page,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET('/mobile/tickets/{id}')
+  Future<Envelope<Ticket>> ticket(@Path('id') int id);
+
   @POST('/mobile/tickets')
-  Future<Envelope<dynamic>> openTicket(@Body() OpenTicketBody body);
+  Future<Envelope<Ticket>> openTicket(@Body() OpenTicketBody body);
+
+  @POST('/mobile/tickets/{id}/reply')
+  Future<Envelope<Ticket>> replyTicket(
+    @Path('id') int id,
+    @Body() ReplyTicketBody body,
+  );
+
+  @GET('/mobile/legal-policies')
+  Future<Envelope<List<LegalSection>>> legalPolicies();
 
   @DELETE('/mobile/account')
   Future<Envelope<dynamic>> deleteAccount();

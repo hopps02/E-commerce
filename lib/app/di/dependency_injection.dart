@@ -53,6 +53,12 @@ import 'package:for_u/domain/usecase/get_product_detail_usecase.dart';
 import 'package:for_u/domain/usecase/get_products_usecase.dart';
 import 'package:for_u/domain/usecase/get_profile_usecase.dart';
 import 'package:for_u/domain/usecase/open_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/get_tickets_usecase.dart';
+import 'package:for_u/domain/usecase/get_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/reply_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/open_cashier_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/open_captain_ticket_usecase.dart';
+import 'package:for_u/domain/usecase/get_legal_policies_usecase.dart';
 import 'package:for_u/domain/usecase/rate_order_usecase.dart';
 import 'package:for_u/domain/usecase/remove_favorite_usecase.dart';
 import 'package:for_u/domain/usecase/update_address_usecase.dart';
@@ -184,6 +190,12 @@ extension DIUseCasesExtension on DI {
   CancelOrderUseCase          get cancelOrderUseCase          => CancelOrderUseCase(_repo);
   RateOrderUseCase            get rateOrderUseCase            => RateOrderUseCase(_repo);
   OpenTicketUseCase           get openTicketUseCase           => OpenTicketUseCase(_repo);
+  GetTicketsUseCase           get getTicketsUseCase           => GetTicketsUseCase(_repo);
+  GetTicketUseCase            get getTicketUseCase            => GetTicketUseCase(_repo);
+  ReplyTicketUseCase          get replyTicketUseCase          => ReplyTicketUseCase(_repo);
+  OpenCashierTicketUseCase    get openCashierTicketUseCase    => OpenCashierTicketUseCase(_repo);
+  OpenCaptainTicketUseCase    get openCaptainTicketUseCase    => OpenCaptainTicketUseCase(_repo);
+  GetLegalPoliciesUseCase     get getLegalPoliciesUseCase     => GetLegalPoliciesUseCase(_repo);
   DeleteAccountUseCase        get deleteAccountUseCase        => DeleteAccountUseCase(_repo);
 }
 

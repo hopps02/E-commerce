@@ -290,7 +290,7 @@ as String?,
 /// @nodoc
 mixin _$OpenTicketBody {
 
- String get title; String get description;@JsonKey(name: 'order_id') int? get orderId;
+ String get title; String get description; String get category; String get priority;@JsonKey(name: 'order_id') int? get orderId;
 /// Create a copy of OpenTicketBody
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,16 +303,16 @@ $OpenTicketBodyCopyWith<OpenTicketBody> get copyWith => _$OpenTicketBodyCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OpenTicketBody&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.orderId, orderId) || other.orderId == orderId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OpenTicketBody&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.orderId, orderId) || other.orderId == orderId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,description,orderId);
+int get hashCode => Object.hash(runtimeType,title,description,category,priority,orderId);
 
 @override
 String toString() {
-  return 'OpenTicketBody(title: $title, description: $description, orderId: $orderId)';
+  return 'OpenTicketBody(title: $title, description: $description, category: $category, priority: $priority, orderId: $orderId)';
 }
 
 
@@ -323,7 +323,7 @@ abstract mixin class $OpenTicketBodyCopyWith<$Res>  {
   factory $OpenTicketBodyCopyWith(OpenTicketBody value, $Res Function(OpenTicketBody) _then) = _$OpenTicketBodyCopyWithImpl;
 @useResult
 $Res call({
- String title, String description,@JsonKey(name: 'order_id') int? orderId
+ String title, String description, String category, String priority,@JsonKey(name: 'order_id') int? orderId
 });
 
 
@@ -340,10 +340,12 @@ class _$OpenTicketBodyCopyWithImpl<$Res>
 
 /// Create a copy of OpenTicketBody
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,Object? orderId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,Object? category = null,Object? priority = null,Object? orderId = freezed,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as String,orderId: freezed == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
@@ -430,10 +432,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String description, @JsonKey(name: 'order_id')  int? orderId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String description,  String category,  String priority, @JsonKey(name: 'order_id')  int? orderId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OpenTicketBody() when $default != null:
-return $default(_that.title,_that.description,_that.orderId);case _:
+return $default(_that.title,_that.description,_that.category,_that.priority,_that.orderId);case _:
   return orElse();
 
 }
@@ -451,10 +453,10 @@ return $default(_that.title,_that.description,_that.orderId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String description, @JsonKey(name: 'order_id')  int? orderId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String description,  String category,  String priority, @JsonKey(name: 'order_id')  int? orderId)  $default,) {final _that = this;
 switch (_that) {
 case _OpenTicketBody():
-return $default(_that.title,_that.description,_that.orderId);case _:
+return $default(_that.title,_that.description,_that.category,_that.priority,_that.orderId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -471,10 +473,10 @@ return $default(_that.title,_that.description,_that.orderId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String description, @JsonKey(name: 'order_id')  int? orderId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String description,  String category,  String priority, @JsonKey(name: 'order_id')  int? orderId)?  $default,) {final _that = this;
 switch (_that) {
 case _OpenTicketBody() when $default != null:
-return $default(_that.title,_that.description,_that.orderId);case _:
+return $default(_that.title,_that.description,_that.category,_that.priority,_that.orderId);case _:
   return null;
 
 }
@@ -486,11 +488,13 @@ return $default(_that.title,_that.description,_that.orderId);case _:
 @JsonSerializable()
 
 class _OpenTicketBody implements OpenTicketBody {
-  const _OpenTicketBody({required this.title, required this.description, @JsonKey(name: 'order_id') this.orderId});
+  const _OpenTicketBody({required this.title, required this.description, this.category = 'inquiry', this.priority = 'normal', @JsonKey(name: 'order_id') this.orderId});
   factory _OpenTicketBody.fromJson(Map<String, dynamic> json) => _$OpenTicketBodyFromJson(json);
 
 @override final  String title;
 @override final  String description;
+@override@JsonKey() final  String category;
+@override@JsonKey() final  String priority;
 @override@JsonKey(name: 'order_id') final  int? orderId;
 
 /// Create a copy of OpenTicketBody
@@ -506,16 +510,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenTicketBody&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.orderId, orderId) || other.orderId == orderId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenTicketBody&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.orderId, orderId) || other.orderId == orderId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,description,orderId);
+int get hashCode => Object.hash(runtimeType,title,description,category,priority,orderId);
 
 @override
 String toString() {
-  return 'OpenTicketBody(title: $title, description: $description, orderId: $orderId)';
+  return 'OpenTicketBody(title: $title, description: $description, category: $category, priority: $priority, orderId: $orderId)';
 }
 
 
@@ -526,7 +530,7 @@ abstract mixin class _$OpenTicketBodyCopyWith<$Res> implements $OpenTicketBodyCo
   factory _$OpenTicketBodyCopyWith(_OpenTicketBody value, $Res Function(_OpenTicketBody) _then) = __$OpenTicketBodyCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String description,@JsonKey(name: 'order_id') int? orderId
+ String title, String description, String category, String priority,@JsonKey(name: 'order_id') int? orderId
 });
 
 
@@ -543,12 +547,277 @@ class __$OpenTicketBodyCopyWithImpl<$Res>
 
 /// Create a copy of OpenTicketBody
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,Object? orderId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,Object? category = null,Object? priority = null,Object? orderId = freezed,}) {
   return _then(_OpenTicketBody(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as String,orderId: freezed == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
 as int?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ReplyTicketBody {
+
+ String get body;
+/// Create a copy of ReplyTicketBody
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ReplyTicketBodyCopyWith<ReplyTicketBody> get copyWith => _$ReplyTicketBodyCopyWithImpl<ReplyTicketBody>(this as ReplyTicketBody, _$identity);
+
+  /// Serializes this ReplyTicketBody to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReplyTicketBody&&(identical(other.body, body) || other.body == body));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,body);
+
+@override
+String toString() {
+  return 'ReplyTicketBody(body: $body)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ReplyTicketBodyCopyWith<$Res>  {
+  factory $ReplyTicketBodyCopyWith(ReplyTicketBody value, $Res Function(ReplyTicketBody) _then) = _$ReplyTicketBodyCopyWithImpl;
+@useResult
+$Res call({
+ String body
+});
+
+
+
+
+}
+/// @nodoc
+class _$ReplyTicketBodyCopyWithImpl<$Res>
+    implements $ReplyTicketBodyCopyWith<$Res> {
+  _$ReplyTicketBodyCopyWithImpl(this._self, this._then);
+
+  final ReplyTicketBody _self;
+  final $Res Function(ReplyTicketBody) _then;
+
+/// Create a copy of ReplyTicketBody
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? body = null,}) {
+  return _then(_self.copyWith(
+body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ReplyTicketBody].
+extension ReplyTicketBodyPatterns on ReplyTicketBody {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ReplyTicketBody value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ReplyTicketBody() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ReplyTicketBody value)  $default,){
+final _that = this;
+switch (_that) {
+case _ReplyTicketBody():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ReplyTicketBody value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ReplyTicketBody() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String body)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ReplyTicketBody() when $default != null:
+return $default(_that.body);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String body)  $default,) {final _that = this;
+switch (_that) {
+case _ReplyTicketBody():
+return $default(_that.body);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String body)?  $default,) {final _that = this;
+switch (_that) {
+case _ReplyTicketBody() when $default != null:
+return $default(_that.body);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ReplyTicketBody implements ReplyTicketBody {
+  const _ReplyTicketBody({required this.body});
+  factory _ReplyTicketBody.fromJson(Map<String, dynamic> json) => _$ReplyTicketBodyFromJson(json);
+
+@override final  String body;
+
+/// Create a copy of ReplyTicketBody
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ReplyTicketBodyCopyWith<_ReplyTicketBody> get copyWith => __$ReplyTicketBodyCopyWithImpl<_ReplyTicketBody>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ReplyTicketBodyToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReplyTicketBody&&(identical(other.body, body) || other.body == body));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,body);
+
+@override
+String toString() {
+  return 'ReplyTicketBody(body: $body)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ReplyTicketBodyCopyWith<$Res> implements $ReplyTicketBodyCopyWith<$Res> {
+  factory _$ReplyTicketBodyCopyWith(_ReplyTicketBody value, $Res Function(_ReplyTicketBody) _then) = __$ReplyTicketBodyCopyWithImpl;
+@override @useResult
+$Res call({
+ String body
+});
+
+
+
+
+}
+/// @nodoc
+class __$ReplyTicketBodyCopyWithImpl<$Res>
+    implements _$ReplyTicketBodyCopyWith<$Res> {
+  __$ReplyTicketBodyCopyWithImpl(this._self, this._then);
+
+  final _ReplyTicketBody _self;
+  final $Res Function(_ReplyTicketBody) _then;
+
+/// Create a copy of ReplyTicketBody
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? body = null,}) {
+  return _then(_ReplyTicketBody(
+body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
