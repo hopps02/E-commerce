@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/mixins/auto_refresh_mixin.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/domain/usecase/reply_ticket_usecase.dart';
@@ -45,7 +46,8 @@ class TicketDetailState extends Equatable {
   List<Object?> get props => [reqState, msgError, ticketId, ticket, sending];
 }
 
-class TicketDetailNotifier extends Notifier<TicketDetailState> {
+class TicketDetailNotifier extends Notifier<TicketDetailState>
+    with AutoRefreshMixin<TicketDetailState> {
   @override
   TicketDetailState build() => const TicketDetailState();
 
@@ -65,6 +67,20 @@ class TicketDetailNotifier extends Notifier<TicketDetailState> {
   }
 
   Future<void> retry() => load(state.ticketId);
+
+  /// Background poll: reloads the thread without flipping into the loading
+  /// state, so the open chat refreshes silently and never flickers. Skipped
+  /// while a reply is in flight to avoid clobbering the optimistic state.
+  Future<void> silentRefresh() async {
+    final id = state.ticketId;
+    if (id == 0 || state.sending) return;
+    final result = await DI().getTicketUseCase.execute(id);
+    result.fold(
+      (_) {},
+      (ticket) =>
+          state = state.copyWith(reqState: ReqState.success, ticket: ticket),
+    );
+  }
 
   /// Sends a reply and replaces the thread with the backend's updated ticket
   /// (the new message is appended server-side). Returns the updated ticket, or

@@ -87,6 +87,16 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
     );
   }
 
+  /// Pull-to-refresh: re-fetches the order in place (keeps the content on
+  /// screen, no full-page loader) so a changed status surfaces immediately.
+  Future<void> silentRefresh() async {
+    if (state.orderId == 0) return;
+    final result = await DI().getCustomerOrderDetailUseCase.execute(
+      state.orderId,
+    );
+    result.fold((_) {}, _applyOrder);
+  }
+
   /// All four axes are required by the backend; star widgets emit doubles
   /// but ratings travel as integers. Returns true when the rating stuck.
   Future<bool> rate({

@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
 import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
@@ -15,7 +17,14 @@ import 'package:for_u/presentation/views/user/order_details/view/widgets/rate_or
 
 class OrderDetailsBody extends StatelessWidget {
   final OrderDetailsState state;
-  const OrderDetailsBody({super.key, required this.state});
+  final RefreshController refreshController;
+  final VoidCallback onRefresh;
+  const OrderDetailsBody({
+    super.key,
+    required this.state,
+    required this.refreshController,
+    required this.onRefresh,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,10 @@ class OrderDetailsBody extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
+            child: CustomizedSmartRefresh(
+              controller: refreshController,
+              onRefresh: onRefresh,
+              child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +92,7 @@ class OrderDetailsBody extends StatelessWidget {
                   ).premiumAppear(index: 6),
                 ],
               ),
+            ),
             ),
           ),
           // Eligibility comes from the backend: delivered, unrated, in window.

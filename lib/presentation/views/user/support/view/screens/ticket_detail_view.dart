@@ -37,9 +37,14 @@ class _TicketDetailViewState extends ConsumerState<TicketDetailView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => ref.read(ticketDetailController.notifier).load(widget.args.id),
-    );
+    Future.microtask(() {
+      final notifier = ref.read(ticketDetailController.notifier);
+      notifier.load(widget.args.id);
+      notifier.startAutoRefresh(
+        const Duration(seconds: 30),
+        notifier.silentRefresh,
+      );
+    });
   }
 
   @override
