@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
@@ -47,7 +46,7 @@ class CartData extends ConsumerWidget {
             return CartItemCard(
               title: product?.name(arabic) ?? '',
               weight: '',
-              price: Money.asRiyals(product?.effectivePriceHalalas ?? 0),
+              priceHalalas: product?.effectivePriceHalalas ?? 0,
               imageUrl: product?.imageUrl ?? '',
               initialQuantity: line.quantity,
               maxQuantity: product?.available,

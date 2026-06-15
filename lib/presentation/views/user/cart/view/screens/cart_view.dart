@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
@@ -54,12 +53,10 @@ class _CartViewState extends ConsumerState<CartView> {
       // track local quantity edits live.
       bottomNavigationBar: checkout.reqState.isSuccess && !cart.isEmpty
           ? CartSummaryBottomBar(
-              totalProducts: Money.asRiyals(cart.subtotalHalalas),
-              shippingCost: Money.asRiyals(
-                checkout.totals.deliveryFeeHalalas,
-              ),
-              discount: Money.asRiyals(cart.discountHalalas),
-              total: Money.asRiyals(checkout.totals.totalHalalas),
+              subtotalHalalas: cart.subtotalHalalas,
+              deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
+              discountHalalas: cart.discountHalalas,
+              totalHalalas: checkout.totals.totalHalalas,
               requoting: checkout.requoting,
               onCheckout: () {
                 context.pushNamed(Routes.confirmOrder);

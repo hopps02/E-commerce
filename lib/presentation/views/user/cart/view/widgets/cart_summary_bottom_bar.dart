@@ -3,19 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class CartSummaryBottomBar extends StatelessWidget {
-  final double totalProducts;
-  final double shippingCost;
-  final double discount;
+  final int subtotalHalalas;
+  final int deliveryFeeHalalas;
+  final int discountHalalas;
 
   /// Backend-authoritative grand total (totals.total_halalas). Never re-derived
   /// on the client, so the customer always approves the server's number.
-  final double total;
+  final int totalHalalas;
 
   /// True while the delivery fee + total are being re-priced after a cart or
   /// address edit. The two server-priced rows show an "updating" spinner so a
@@ -34,10 +35,10 @@ class CartSummaryBottomBar extends StatelessWidget {
 
   const CartSummaryBottomBar({
     super.key,
-    required this.totalProducts,
-    required this.shippingCost,
-    required this.discount,
-    required this.total,
+    required this.subtotalHalalas,
+    required this.deliveryFeeHalalas,
+    required this.discountHalalas,
+    required this.totalHalalas,
     this.requoting = false,
     this.onCheckout,
     this.onConfirm,
@@ -80,16 +81,19 @@ class CartSummaryBottomBar extends StatelessWidget {
                 // the shipping row is server-priced (spinner while re-quoting).
                 _SummaryRow(
                   title: Translation.total_products.tr,
-                  price: totalProducts,
+                  halalas: subtotalHalalas,
                 ),
                 6.verticalSpace,
                 _SummaryRow(
                   title: Translation.shipping_cost.tr,
-                  price: shippingCost,
+                  halalas: deliveryFeeHalalas,
                   loading: requoting,
                 ),
                 6.verticalSpace,
-                _SummaryRow(title: Translation.discount.tr, price: discount),
+                _SummaryRow(
+                  title: Translation.discount.tr,
+                  halalas: discountHalalas,
+                ),
 
                 10.verticalSpace,
 
@@ -110,7 +114,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                       ),
                     ),
                     _PriceWidget(
-                      price: total,
+                      halalas: totalHalalas,
                       color: ColorM.primary700,
                       fontWeight: FontWeightM.semiBold,
                       loading: requoting,
@@ -154,12 +158,12 @@ class CartSummaryBottomBar extends StatelessWidget {
 
 class _SummaryRow extends StatelessWidget {
   final String title;
-  final double price;
+  final int halalas;
   final bool loading;
 
   const _SummaryRow({
     required this.title,
-    required this.price,
+    required this.halalas,
     this.loading = false,
   });
 
@@ -176,7 +180,7 @@ class _SummaryRow extends StatelessWidget {
           ),
         ),
         _PriceWidget(
-          price: price,
+          halalas: halalas,
           color: ColorM.gray600,
           fontWeight: FontWeightM.medium,
           loading: loading,
@@ -187,13 +191,13 @@ class _SummaryRow extends StatelessWidget {
 }
 
 class _PriceWidget extends StatelessWidget {
-  final double price;
+  final int halalas;
   final Color color;
   final FontWeight fontWeight;
   final bool loading;
 
   const _PriceWidget({
-    required this.price,
+    required this.halalas,
     required this.color,
     required this.fontWeight,
     this.loading = false,
@@ -213,7 +217,7 @@ class _PriceWidget extends StatelessWidget {
       spacing: 3.w,
       children: [
         Text(
-          "${price % 1 == 0 ? price.toInt() : price}",
+          Money.amount(halalas),
           style: context.bodyLarge.copyWith(
             color: color,
             fontWeight: fontWeight,

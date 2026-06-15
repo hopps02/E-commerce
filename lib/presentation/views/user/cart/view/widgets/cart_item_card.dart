@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/custom_cached_image.dart';
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -11,7 +12,7 @@ import 'package:for_u/presentation/res/gen/assets.gen.dart';
 class CartItemCard extends StatefulWidget {
   final String title;
   final String weight;
-  final double price;
+  final int priceHalalas;
   final String imageUrl;
   final int initialQuantity;
 
@@ -26,7 +27,7 @@ class CartItemCard extends StatefulWidget {
     super.key,
     required this.title,
     required this.weight,
-    required this.price,
+    required this.priceHalalas,
     required this.imageUrl,
     required this.initialQuantity,
     this.maxQuantity,
@@ -190,7 +191,7 @@ class _CartItemCardState extends State<CartItemCard> {
                       spacing: 3.w,
                       children: [
                         Text(
-                          "${widget.price}",
+                          Money.amount(widget.priceHalalas),
                           style: context.titleMedium.copyWith(
                             color: ColorM.primary700,
                             fontWeight: FontWeightM.semiBold,

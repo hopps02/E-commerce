@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -75,10 +74,10 @@ class _TapCartViewState extends ConsumerState<TapCartView>
           const CartData(),
           if (showSummary)
             CartSummaryBottomBar(
-              totalProducts: Money.asRiyals(cart.subtotalHalalas),
-              shippingCost: Money.asRiyals(checkout.totals.deliveryFeeHalalas),
-              discount: Money.asRiyals(cart.discountHalalas),
-              total: Money.asRiyals(checkout.totals.totalHalalas),
+              subtotalHalalas: cart.subtotalHalalas,
+              deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
+              discountHalalas: cart.discountHalalas,
+              totalHalalas: checkout.totals.totalHalalas,
               requoting: checkout.requoting,
               bottomPadding: widget.bottomSafeAreaPadding,
               onCheckout: () => context.pushNamed(Routes.confirmOrder),
