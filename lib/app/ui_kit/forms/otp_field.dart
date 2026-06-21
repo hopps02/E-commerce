@@ -139,6 +139,15 @@ class _OtpFieldState extends State<OtpField> {
       return;
     }
 
+    // Several digits arriving in one change — SMS autofill or a fast paste that
+    // dumped the whole code into a single box — get spread across the boxes from
+    // here forward. Replacing one filled box still arrives as two characters
+    // (old + new), so keep that case in place instead of spilling into the next.
+    if (digits.length > 1 && !(otp[index] != null && digits.length == 2)) {
+      _fillFrom(index, digits);
+      return;
+    }
+
     // Keep the last digit typed so re-typing over a filled box replaces it.
     _setField(index, digits.characters.last);
 
@@ -148,6 +157,25 @@ class _OtpFieldState extends State<OtpField> {
       widget.onComplete?.call(otpString);
     } else if (index + 1 < widget.length) {
       focusNodes[index + 1].requestFocus();
+    }
+    setState(() {});
+    widget.onChanged?.call(otpString);
+  }
+
+  // Spreads a run of digits across the boxes starting at [start], then either
+  // fires onComplete for a full code or parks focus on the next empty box.
+  void _fillFrom(int start, String digits) {
+    int box = start;
+    for (int d = 0; d < digits.length && box < widget.length; d++, box++) {
+      _setField(box, digits[d]);
+    }
+
+    final otpString = _currentOtp();
+    if (otpString.length == widget.length && int.tryParse(otpString) != null) {
+      focusNodes[widget.length - 1].unfocus();
+      widget.onComplete?.call(otpString);
+    } else {
+      focusNodes[box < widget.length ? box : widget.length - 1].requestFocus();
     }
     setState(() {});
     widget.onChanged?.call(otpString);
