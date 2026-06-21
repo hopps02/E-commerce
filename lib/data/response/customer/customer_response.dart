@@ -4,8 +4,8 @@ part 'customer_response.freezed.dart';
 part 'customer_response.g.dart';
 
 /// Maps a backend order state onto the order card's 3-step timeline
-/// (preparing -> out for delivery -> delivered). Terminal failures show the
-/// step they stopped at — the card has no negative visual by design.
+/// (preparing -> out for delivery -> delivered). A failed delivery maps to the
+/// out-for-delivery step, where the card paints that node red.
 int orderTimelineStep(String state) => switch (state) {
   'placed' || 'preparing' || 'ready_for_pickup' => 1,
   'captain_assigned' || 'received_by_captain' || 'out_for_delivery' => 2,
