@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,6 +55,12 @@ class OtpField extends StatefulWidget {
 }
 
 class _OtpFieldState extends State<OtpField> {
+  // A zero-width space keeps every field non-empty, so the soft keyboard always
+  // reports a backspace through onChanged — even on an already-empty box. iOS
+  // swallows the backspace key on a truly-empty native field, which is why
+  // deleting never stepped back to the previous box before.
+  static const String _sentinel = '​';
+
   int selectedIndex = 0;
   late List<String?> otp;
   late List<FocusNode> focusNodes;
@@ -63,13 +68,31 @@ class _OtpFieldState extends State<OtpField> {
 
   @override
   void initState() {
+    super.initState();
     otp = List.generate(widget.length, (index) => null);
     focusNodes = List.generate(widget.length, (index) => FocusNode());
     textEditingControllers = List.generate(
       widget.length,
-      (index) => TextEditingController(),
+      (index) => TextEditingController(text: _sentinel),
     );
-    super.initState();
+
+    // Track the focused box for the selected decoration, and keep the caret
+    // parked after the (possibly hidden) content. Registered once here so
+    // rebuilds don't stack duplicate listeners.
+    for (int i = 0; i < widget.length; i++) {
+      final index = i;
+      focusNodes[index].addListener(() {
+        if (!mounted) return;
+        if (focusNodes[index].hasFocus) {
+          setState(() => selectedIndex = index);
+          final text = textEditingControllers[index].text;
+          textEditingControllers[index].selection =
+              TextSelection.collapsed(offset: text.length);
+        } else if (index == selectedIndex) {
+          setState(() => selectedIndex = -1);
+        }
+      });
+    }
   }
 
   @override
@@ -83,11 +106,58 @@ class _OtpFieldState extends State<OtpField> {
     super.dispose();
   }
 
+  String _currentOtp() => otp.where((element) => element != null).join('');
+
+  // Writes a box's digit (or clears it) while re-seeding the sentinel and
+  // parking the caret at the end — the single place that mutates field text.
+  void _setField(int index, String? digit) {
+    otp[index] = digit;
+    final text = '$_sentinel${digit ?? ''}';
+    textEditingControllers[index].value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  /// Single handler for every keystroke. Typing a digit fills the box and steps
+  /// forward; backspace clears the latest digit and steps back to the previous
+  /// box — the mirror of typing — so editing feels symmetric both ways.
+  void _onFieldChanged(int index, String value) {
+    final digits = value.replaceAll(RegExp(r'\D'), '');
+
+    if (digits.isEmpty) {
+      // Backspace. If this box was already empty, the deletion belongs to the
+      // previous box (and focus follows it back); otherwise clear in place.
+      final wasEmpty = otp[index] == null;
+      _setField(index, null);
+      if (wasEmpty && index > 0) {
+        _setField(index - 1, null);
+        focusNodes[index - 1].requestFocus();
+      }
+      setState(() {});
+      widget.onChanged?.call(_currentOtp());
+      return;
+    }
+
+    // Keep the last digit typed so re-typing over a filled box replaces it.
+    _setField(index, digits.characters.last);
+
+    final otpString = _currentOtp();
+    if (otpString.length == widget.length && int.tryParse(otpString) != null) {
+      focusNodes[index].unfocus();
+      widget.onComplete?.call(otpString);
+    } else if (index + 1 < widget.length) {
+      focusNodes[index + 1].requestFocus();
+    }
+    setState(() {});
+    widget.onChanged?.call(otpString);
+  }
+
   Future<void> _handlePaste() async {
     final ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
     if (data?.text == null) return;
 
-    // Extract only digits and limit to remaining fields
+    // Extract only digits and limit to the available fields.
     final String digits = data!.text!.replaceAll(RegExp(r'\D'), '');
     if (digits.isEmpty) return;
 
@@ -96,23 +166,20 @@ class _OtpFieldState extends State<OtpField> {
       math.min(digits.length, widget.length),
     );
 
-    setState(() {
-      for (int i = 0; i < pasteText.length; i++) {
-        otp[i] = pasteText[i];
-        textEditingControllers[i].text = pasteText[i];
-      }
+    for (int i = 0; i < pasteText.length; i++) {
+      _setField(i, pasteText[i]);
+    }
 
-      // Move focus to the next empty field or the last field
-      int nextIndex = pasteText.length;
-      if (nextIndex >= widget.length) {
-        nextIndex = widget.length - 1;
-      }
-      focusNodes[nextIndex].requestFocus();
-      selectedIndex = nextIndex;
-    });
+    // Move focus to the next empty field or the last field.
+    int nextIndex = pasteText.length;
+    if (nextIndex >= widget.length) {
+      nextIndex = widget.length - 1;
+    }
+    focusNodes[nextIndex].requestFocus();
+    setState(() => selectedIndex = nextIndex);
 
-    String otpString = otp.where((element) => element != null).join('');
-    if (otpString.length == widget.length) {
+    final String otpString = _currentOtp();
+    if (otpString.length == widget.length && int.tryParse(otpString) != null) {
       widget.onComplete?.call(otpString);
     } else {
       widget.onChanged?.call(otpString);
@@ -175,80 +242,36 @@ class _OtpFieldState extends State<OtpField> {
                     ? widget.selectedFieldDecoration
                     : widget.unselectedFieldDecoration,
                 alignment: Alignment.center,
-                child: TextFormField(
-                  controller: textEditingControllers[i],
-                  cursorColor: widget.cursorColor,
-                  enableInteractiveSelection: false,
-                  contextMenuBuilder: null,
-                  keyboardType: TextInputType.number,
-                  key: Key(i.toString()),
-                  autofocus: widget.autofocus && i == 0,
-                  textAlign: TextAlign.center,
-                  focusNode: focusNodes[i]
-                    ..onKeyEvent = (FocusNode node, KeyEvent event) {
-                      if (event.logicalKey == LogicalKeyboardKey.backspace &&
-                          event is KeyDownEvent) {
-                        if (otp[i] == null) {
-                          if (i != 0) FocusScope.of(context).previousFocus();
-                          otp[i] = null;
-                        }
-                      }
-                      return KeyEventResult.ignored;
-                    }
-                    ..addListener(() {
-                      if (focusNodes[i].hasFocus) {
-                        setState(() {
-                          selectedIndex = i;
-                        });
-                        textEditingControllers[i].selection =
-                            TextSelection.fromPosition(
-                              TextPosition(
-                                offset: textEditingControllers[i].text.length,
-                              ),
-                            );
-                      } else if (!focusNodes[i].hasFocus &&
-                          i == selectedIndex) {
-                        setState(() {
-                          selectedIndex = -1;
-                        });
-                      }
-                    }),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    CustomizedLengthLimitingTextInputFormatter(
-                      1,
-                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // The sentinel is invisible, so render the placeholder
+                    // ourselves while the box holds no digit.
+                    if (otp[i] == null)
+                      IgnorePointer(
+                        child: Text(widget.hintText, style: widget.hintStyle),
+                      ),
+                    SizedBox(
+                      width: widget.fieldWidth,
+                      child: TextFormField(
+                        controller: textEditingControllers[i],
+                        cursorColor: widget.cursorColor,
+                        enableInteractiveSelection: false,
+                        contextMenuBuilder: null,
+                        keyboardType: TextInputType.number,
+                        key: Key(i.toString()),
+                        autofocus: widget.autofocus && i == 0,
+                        textAlign: TextAlign.center,
+                        focusNode: focusNodes[i],
+                        onChanged: (value) => _onFieldChanged(i, value),
+                        style: widget.textStyle,
+                        decoration: const InputDecoration.collapsed(
+                          hintText: '',
+                          border: InputBorder.none,
+                        ),
+                      ),
                     ),
                   ],
-                  onChanged: (value) {
-                    if (value.length == 1) {
-                      FocusScope.of(context).nextFocus();
-                      otp[i] = value;
-
-                      // handle on complete
-                      String otpString = otp
-                          .where((element) => element != null)
-                          .join('');
-                      if (otpString.length == widget.length &&
-                          int.tryParse(otpString) != null) {
-                        widget.onComplete?.call(otpString);
-                        FocusScope.of(context).unfocus();
-                      }
-                      //
-                    } else {
-                      otp[i] = null;
-                    }
-
-                    widget.onChanged?.call(
-                      otp.where((element) => element != null).join(''),
-                    );
-                  },
-                  style: widget.textStyle,
-                  decoration: InputDecoration.collapsed(
-                    border: InputBorder.none,
-                    hintText: widget.hintText,
-                    hintStyle: widget.hintStyle,
-                  ),
                 ),
               ),
               Positioned.fill(
@@ -266,96 +289,5 @@ class _OtpFieldState extends State<OtpField> {
           ),
       ],
     );
-  }
-}
-
-class CustomizedLengthLimitingTextInputFormatter extends TextInputFormatter {
-  CustomizedLengthLimitingTextInputFormatter(
-    this.maxLength, {
-    this.maxLengthEnforcement,
-  }) : assert(maxLength == null || maxLength == -1 || maxLength > 0);
-  final int? maxLength;
-  final MaxLengthEnforcement? maxLengthEnforcement;
-  static MaxLengthEnforcement getDefaultMaxLengthEnforcement([
-    TargetPlatform? platform,
-  ]) {
-    if (kIsWeb) {
-      return MaxLengthEnforcement.truncateAfterCompositionEnds;
-    } else {
-      switch (platform ?? defaultTargetPlatform) {
-        case TargetPlatform.android:
-        case TargetPlatform.windows:
-          return MaxLengthEnforcement.enforced;
-        case TargetPlatform.iOS:
-        case TargetPlatform.macOS:
-        case TargetPlatform.linux:
-        case TargetPlatform.fuchsia:
-          return MaxLengthEnforcement.truncateAfterCompositionEnds;
-      }
-    }
-  }
-
-  @visibleForTesting
-  static TextEditingValue truncate(TextEditingValue value, int maxLength) {
-    final CharacterRange iterator = CharacterRange(value.text);
-    if (value.text.characters.length > maxLength) {
-      iterator.expandNext(maxLength);
-    }
-    for (int i = 0; i < maxLength; i++) {
-      iterator.moveNext();
-    }
-    final String truncated = iterator.current;
-
-    return TextEditingValue(
-      text: truncated,
-      selection: value.selection.copyWith(
-        baseOffset: math.min(value.selection.start, truncated.length),
-        extentOffset: math.min(value.selection.end, truncated.length),
-      ),
-      composing:
-          !value.composing.isCollapsed &&
-              truncated.length > value.composing.start
-          ? TextRange(
-              start: value.composing.start,
-              end: math.min(value.composing.end, truncated.length),
-            )
-          : TextRange.empty,
-    );
-  }
-
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    final int? maxLength = this.maxLength;
-
-    if (maxLength == null ||
-        maxLength == -1 ||
-        newValue.text.characters.length <= maxLength) {
-      return newValue;
-    }
-
-    assert(maxLength > 0);
-
-    switch (maxLengthEnforcement ?? getDefaultMaxLengthEnforcement()) {
-      case MaxLengthEnforcement.none:
-        return newValue;
-      case MaxLengthEnforcement.enforced:
-        if (oldValue.text.characters.length == maxLength &&
-            oldValue.selection.isCollapsed) {
-          return truncate(newValue, maxLength);
-        }
-        return truncate(newValue, maxLength);
-      case MaxLengthEnforcement.truncateAfterCompositionEnds:
-        if (oldValue.text.characters.length == maxLength &&
-            !oldValue.composing.isValid) {
-          return truncate(newValue, maxLength);
-        }
-        if (newValue.composing.isValid) {
-          return truncate(newValue, maxLength);
-        }
-        return truncate(newValue, maxLength);
-    }
   }
 }
