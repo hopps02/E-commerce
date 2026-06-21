@@ -6,6 +6,8 @@ import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/data/response/customer/delivery_zone_response.dart';
+import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:for_u/data/network/error_handler/failure.dart';
@@ -159,6 +161,24 @@ abstract class Repository {
   Future<Either<Failure, CoverageResult>> coverageCheck({
     required double lat,
     required double lng,
+    int? cityId,
+    int? districtId,
+  });
+
+  Future<Either<Failure, DeliveryZonesResult>> deliveryZones({
+    int? cityId,
+    double? lat,
+    double? lng,
+  });
+
+  Future<Either<Failure, List<PlaceSuggestion>>> placesAutocomplete({
+    required String query,
+    required String session,
+  });
+
+  Future<Either<Failure, PlaceLocation>> placeDetails({
+    required String placeId,
+    required String session,
   });
 
   Future<Either<Failure, CartValidationResult>> validateCart(

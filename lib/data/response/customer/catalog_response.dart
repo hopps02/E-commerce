@@ -59,6 +59,10 @@ abstract class ProductCategory with _$ProductCategory {
 abstract class CoverageResult with _$CoverageResult {
   const factory CoverageResult({
     @JsonKey(name: 'is_serviceable') @Default(false) bool isServiceable,
+    @JsonKey(name: 'in_active_zone') @Default(false) bool inActiveZone,
+    @JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,
+    @JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,
+    @JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,
     @JsonKey(name: 'city_id') int? cityId,
     @JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas,
   }) = _CoverageResult;

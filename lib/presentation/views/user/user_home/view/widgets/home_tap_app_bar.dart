@@ -14,7 +14,9 @@ import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/location_picker_dialog.dart';
+import 'package:for_u/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});
@@ -65,16 +67,18 @@ class TopAppBarContent extends ConsumerWidget {
                   Text(Translation.deliver_to.tr, style: context.labelLarge),
                   8.verticalSpace,
                   CustomInkButton(
-                    onTap: () {
-                      LocationPickerDialog.show(
-                        context,
-                        isUpdating: locationCity != null,
-                        onEnablePressed: () async {
-                          return await ref
-                              .read(locationController.notifier)
-                              .handleLocationPermissionAndFetch();
-                        },
-                      );
+                    onTap: () async {
+                      final picked = await AddressPickerBottomSheet.show(context);
+                      if (picked == null) return;
+                      if (ref.read(cartController).isEmpty) {
+                        await ref
+                            .read(locationController.notifier)
+                            .setSelectedAddress(picked);
+                        return;
+                      }
+                      await ref
+                          .read(checkoutController.notifier)
+                          .selectAddress(picked);
                     },
                     padding: EdgeInsets.symmetric(
                       vertical: 8.h,

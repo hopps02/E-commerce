@@ -49,3 +49,7 @@ app.*.map.json
 /config.toml
 
 .claude/
+
+# Google Maps API keys — local only, NEVER commit (values live here, referenced via placeholders)
+/android/maps.properties
+/ios/Flutter/Maps.xcconfig

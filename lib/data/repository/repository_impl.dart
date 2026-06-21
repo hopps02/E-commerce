@@ -6,6 +6,8 @@ import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:for_u/data/response/customer/delivery_zone_response.dart';
+import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/api/captain_api.dart';
@@ -298,24 +300,37 @@ class RepositoryImpl implements Repository {
     String? landmark,
     String? deliveryInstructions,
     bool isDefault = true,
-  }) => fastHandler(
-    request: () async => (await _customerApi.createAddress({
-      'city_id': cityId,
-      'display_address': displayAddress,
-      'lat': lat,
-      'lng': lng,
-      'label': label,
-      if (street != null && street.isNotEmpty) 'street': street,
-      if (buildingNumber != null && buildingNumber.isNotEmpty)
-        'building_number': buildingNumber,
-      if (floor != null && floor.isNotEmpty) 'floor': floor,
-      if (apartment != null && apartment.isNotEmpty) 'apartment': apartment,
-      if (landmark != null && landmark.isNotEmpty) 'landmark': landmark,
-      if (deliveryInstructions != null && deliveryInstructions.isNotEmpty)
-        'delivery_instructions': deliveryInstructions,
-      'is_default': isDefault,
-    })).data,
-  );
+  }) {
+    final trimmedStreet = street?.trim();
+    final trimmedBuilding = buildingNumber?.trim();
+    final trimmedFloor = floor?.trim();
+    final trimmedApartment = apartment?.trim();
+    final trimmedLandmark = landmark?.trim();
+    final trimmedInstructions = deliveryInstructions?.trim();
+
+    return fastHandler(
+      request: () async => (await _customerApi.createAddress({
+        'city_id': cityId,
+        'display_address': displayAddress.trim(),
+        'lat': lat,
+        'lng': lng,
+        'label': label,
+        if (trimmedStreet != null && trimmedStreet.isNotEmpty)
+          'street': trimmedStreet,
+        if (trimmedBuilding != null && trimmedBuilding.isNotEmpty)
+          'building_number': trimmedBuilding,
+        if (trimmedFloor != null && trimmedFloor.isNotEmpty)
+          'floor': trimmedFloor,
+        if (trimmedApartment != null && trimmedApartment.isNotEmpty)
+          'apartment': trimmedApartment,
+        if (trimmedLandmark != null && trimmedLandmark.isNotEmpty)
+          'landmark': trimmedLandmark,
+        if (trimmedInstructions != null && trimmedInstructions.isNotEmpty)
+          'delivery_instructions': trimmedInstructions,
+        'is_default': isDefault,
+      })).data,
+    );
+  }
 
   @override
   Future<Either<Failure, DeliveryAddress>> updateAddress(
@@ -337,9 +352,43 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, CoverageResult>> coverageCheck({
     required double lat,
     required double lng,
+    int? cityId,
+    int? districtId,
+  }) => fastHandler(
+    request: () async => (await _customerApi.coverageCheck({
+      'lat': lat,
+      'lng': lng,
+      if (cityId != null) 'city_id': cityId,
+      if (districtId != null) 'district_id': districtId,
+    })).data,
+  );
+
+  @override
+  Future<Either<Failure, DeliveryZonesResult>> deliveryZones({
+    int? cityId,
+    double? lat,
+    double? lng,
+  }) => fastHandler(
+    request: () async => _customerApi.deliveryZones(cityId, lat, lng),
+  );
+
+  @override
+  Future<Either<Failure, List<PlaceSuggestion>>> placesAutocomplete({
+    required String query,
+    required String session,
   }) => fastHandler(
     request: () async =>
-        (await _customerApi.coverageCheck({'lat': lat, 'lng': lng})).data,
+        (await _customerApi.placesAutocomplete(query.trim(), session))
+            .suggestions,
+  );
+
+  @override
+  Future<Either<Failure, PlaceLocation>> placeDetails({
+    required String placeId,
+    required String session,
+  }) => fastHandler(
+    request: () async =>
+        (await _customerApi.placeDetails(placeId, session)).location,
   );
 
   @override

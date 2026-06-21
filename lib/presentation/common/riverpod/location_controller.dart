@@ -5,44 +5,74 @@ import 'package:geolocator/geolocator.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/services/location_service.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 
 class LocationState extends Equatable {
+  static const _unchanged = Object();
+
   final String? locationCity;
   final double? latitude;
   final double? longitude;
+  final DeliveryAddress? selectedAddress;
 
-  const LocationState({this.locationCity, this.latitude, this.longitude});
+  const LocationState({
+    this.locationCity,
+    this.latitude,
+    this.longitude,
+    this.selectedAddress,
+  });
+
+  int? get selectedAddressId => selectedAddress?.id;
 
   LocationState copyWith({
     String? locationCity,
     double? latitude,
     double? longitude,
+    Object? selectedAddress = _unchanged,
   }) {
     return LocationState(
       locationCity: locationCity ?? this.locationCity,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      selectedAddress: identical(selectedAddress, _unchanged)
+          ? this.selectedAddress
+          : selectedAddress as DeliveryAddress?,
     );
   }
 
   @override
-  List<Object?> get props => [locationCity, latitude, longitude];
+  List<Object?> get props => [
+    locationCity,
+    latitude,
+    longitude,
+    selectedAddress,
+  ];
 }
 
 class LocationNotifier extends Notifier<LocationState> {
+  static const _selectedAddressStorageKey = 'selected-delivery-address';
+
   @override
   LocationState build() {
     // Initialize location city from storage if available
     final storage = DI().storageService;
 
     Future.microtask(() async {
-      final data = await storage.getLocationData();
-      if (data.address != null) {
+      final storedLocation = await storage.getLocationData();
+      final savedAddress = _storedSelectedAddress();
+      if (savedAddress != null) {
         state = state.copyWith(
-          locationCity: data.address,
-          latitude: data.latitude,
-          longitude: data.longitude,
+          locationCity: savedAddress.displayAddress,
+          latitude: savedAddress.lat,
+          longitude: savedAddress.lng,
+          selectedAddress: savedAddress,
+        );
+      } else if (storedLocation.address != null) {
+        state = state.copyWith(
+          locationCity: storedLocation.address,
+          latitude: storedLocation.latitude,
+          longitude: storedLocation.longitude,
         );
       } else {
         state = state.copyWith();
@@ -106,12 +136,40 @@ class LocationNotifier extends Notifier<LocationState> {
       locationCity: address,
       latitude: latitude,
       longitude: longitude,
+      selectedAddress: null,
     );
     await DI().storageService.saveLocationData(
       latitude: latitude,
       longitude: longitude,
       address: address,
     );
+    await DI().storageService.deleteMap(_selectedAddressStorageKey);
+  }
+
+  Future<void> setSelectedAddress(DeliveryAddress address) async {
+    state = LocationState(
+      locationCity: address.displayAddress,
+      latitude: address.lat,
+      longitude: address.lng,
+      selectedAddress: address,
+    );
+    if (address.lat != null && address.lng != null) {
+      await DI().storageService.saveLocationData(
+        latitude: address.lat!,
+        longitude: address.lng!,
+        address: address.displayAddress,
+      );
+    }
+    await DI().storageService.setMap(
+      _selectedAddressStorageKey,
+      address.toJson(),
+    );
+  }
+
+  DeliveryAddress? _storedSelectedAddress() {
+    final json = DI().storageService.getMap(_selectedAddressStorageKey);
+    if (json == null) return null;
+    return DeliveryAddress.fromJson(json);
   }
 }
 

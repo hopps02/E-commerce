@@ -53,6 +53,10 @@ Map<String, dynamic> _$ProductCategoryToJson(_ProductCategory instance) =>
 _CoverageResult _$CoverageResultFromJson(Map<String, dynamic> json) =>
     _CoverageResult(
       isServiceable: json['is_serviceable'] as bool? ?? false,
+      inActiveZone: json['in_active_zone'] as bool? ?? false,
+      deliveryZoneId: (json['delivery_zone_id'] as num?)?.toInt(),
+      deliveryZoneNameAr: json['delivery_zone_name_ar'] as String?,
+      deliveryZoneNameEn: json['delivery_zone_name_en'] as String?,
       cityId: (json['city_id'] as num?)?.toInt(),
       deliveryFeeHalalas: (json['delivery_fee_halalas'] as num?)?.toInt(),
     );
@@ -60,6 +64,10 @@ _CoverageResult _$CoverageResultFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CoverageResultToJson(_CoverageResult instance) =>
     <String, dynamic>{
       'is_serviceable': instance.isServiceable,
+      'in_active_zone': instance.inActiveZone,
+      'delivery_zone_id': instance.deliveryZoneId,
+      'delivery_zone_name_ar': instance.deliveryZoneNameAr,
+      'delivery_zone_name_en': instance.deliveryZoneNameEn,
       'city_id': instance.cityId,
       'delivery_fee_halalas': instance.deliveryFeeHalalas,
     };

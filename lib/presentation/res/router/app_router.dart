@@ -14,7 +14,9 @@ import 'package:for_u/presentation/views/shared/auth/view/screens/auth_view.dart
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/cart/view/screens/cart_view.dart';
 import 'package:for_u/presentation/views/user/confirm_order/view/screens/confirm_order_view.dart';
+import 'package:for_u/presentation/views/user/addresses/model/map_location_picker_models.dart';
 import 'package:for_u/presentation/views/user/addresses/view/screens/address_form_view.dart';
+import 'package:for_u/presentation/views/user/addresses/view/screens/map_location_picker_screen.dart';
 import 'package:for_u/presentation/views/user/addresses/view/screens/addresses_view.dart';
 import 'package:for_u/presentation/views/user/edit_profile/view/screens/edit_profile_view.dart';
 import 'package:for_u/presentation/views/user/favorites/view/screens/favorites_view.dart';
@@ -61,6 +63,7 @@ enum Routes {
   createTicket   ('create-ticket'),
   addresses      ('addresses'),
   addressForm    ('address-form'),
+  mapLocationPicker ('map-location-picker'),
   favorites      ('favorites'),
 
   // Cashier routes
@@ -248,6 +251,15 @@ final GoRouter appRouter = GoRouter(
         args: state.extra is AddressFormArgs
             ? state.extra as AddressFormArgs
             : const AddressFormArgs(),
+      ),
+    ),
+    _r(
+      name: Routes.mapLocationPicker.name,
+      path: Routes.mapLocationPicker.path,
+      builder: (_, state) => MapLocationPickerScreen(
+        args: state.extra is MapLocationPickerArgs
+            ? state.extra as MapLocationPickerArgs
+            : const MapLocationPickerArgs(),
       ),
     ),
     _r(

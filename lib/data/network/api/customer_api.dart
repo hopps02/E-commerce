@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
+import 'package:for_u/data/response/customer/delivery_zone_response.dart';
+import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/request/customer/customer_request.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
@@ -66,6 +68,25 @@ abstract class CustomerApi {
   @POST('/mobile/location/coverage-check')
   Future<Envelope<CoverageResult>> coverageCheck(
     @Body() Map<String, dynamic> body,
+  );
+
+  @GET('/mobile/delivery-zones')
+  Future<DeliveryZonesResult> deliveryZones(
+    @Query('city_id') int? cityId,
+    @Query('lat') double? lat,
+    @Query('lng') double? lng,
+  );
+
+  @GET('/mobile/places/autocomplete')
+  Future<PlacesAutocompleteResult> placesAutocomplete(
+    @Query('q') String query,
+    @Query('session') String session,
+  );
+
+  @GET('/mobile/places/details')
+  Future<PlaceDetailsResult> placeDetails(
+    @Query('place_id') String placeId,
+    @Query('session') String session,
   );
 
   @POST('/mobile/cart/validate')

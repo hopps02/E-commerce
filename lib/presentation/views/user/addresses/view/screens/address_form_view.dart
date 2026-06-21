@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,20 +9,26 @@ import 'package:for_u/app/ui_kit/default_app_bar.dart';
 import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart'
     show GradientBorderSide;
+import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/addresses/model/map_location_picker_models.dart';
 import 'package:for_u/presentation/views/user/addresses/riverpod/address_form_controller.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class AddressFormArgs {
   final DeliveryAddress? existing;
-  const AddressFormArgs({this.existing});
+  final MapLocationPickerResult? initialMapResult;
+
+  const AddressFormArgs({this.existing, this.initialMapResult});
 }
+
+enum _AddressField { map, displayAddress, street, building }
 
 class AddressFormView extends ConsumerStatefulWidget {
   final AddressFormArgs args;
@@ -32,6 +39,7 @@ class AddressFormView extends ConsumerStatefulWidget {
 }
 
 class _AddressFormViewState extends ConsumerState<AddressFormView> {
+  final _scrollController = ScrollController();
   final _displayAddress = TextEditingController();
   final _street = TextEditingController();
   final _building = TextEditingController();
@@ -40,44 +48,104 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   final _landmark = TextEditingController();
   final _instructions = TextEditingController();
 
+  final _fieldKeys = {
+    _AddressField.map: GlobalKey(),
+    _AddressField.displayAddress: GlobalKey(),
+    _AddressField.street: GlobalKey(),
+    _AddressField.building: GlobalKey(),
+  };
+
+  bool _submitted = false;
+  bool _dirty = false;
+
   DeliveryAddress? get _existing => widget.args.existing;
 
   @override
   void initState() {
     super.initState();
-    final existing = _existing;
-    if (existing != null) {
-      _displayAddress.text = existing.displayAddress;
-      _street.text = existing.street ?? '';
-      _building.text = existing.buildingNumber ?? '';
-      _floor.text = existing.floor ?? '';
-      _apartment.text = existing.apartment ?? '';
-      _landmark.text = existing.landmark ?? '';
-      _instructions.text = existing.deliveryInstructions ?? '';
+    _fillExisting();
+    for (final controller in _controllers) {
+      controller.addListener(_onTextChanged);
     }
-    Future.microtask(
-      () => ref.read(addressFormController.notifier).initFrom(existing),
-    );
+    Future.microtask(() {
+      final notifier = ref.read(addressFormController.notifier);
+      notifier.initFrom(_existing);
+      final initialMapResult = widget.args.initialMapResult;
+      if (initialMapResult != null) _applyMapResult(initialMapResult);
+    });
   }
 
   @override
   void dispose() {
-    for (final c in [
-      _displayAddress,
-      _street,
-      _building,
-      _floor,
-      _apartment,
-      _landmark,
-      _instructions,
-    ]) {
-      c.dispose();
+    _scrollController.dispose();
+    for (final controller in _controllers) {
+      controller.removeListener(_onTextChanged);
+      controller.dispose();
     }
     super.dispose();
   }
 
+  List<TextEditingController> get _controllers => [
+    _displayAddress,
+    _street,
+    _building,
+    _floor,
+    _apartment,
+    _landmark,
+    _instructions,
+  ];
+
+  void _fillExisting() {
+    final existing = _existing;
+    if (existing == null) return;
+    _displayAddress.text = existing.displayAddress;
+    _street.text = existing.street ?? '';
+    _building.text = existing.buildingNumber ?? '';
+    _floor.text = existing.floor ?? '';
+    _apartment.text = existing.apartment ?? '';
+    _landmark.text = existing.landmark ?? '';
+    _instructions.text = existing.deliveryInstructions ?? '';
+  }
+
+  void _onTextChanged() {
+    if (!_dirty) _dirty = true;
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _openMap({required bool useCurrentLocation}) async {
+    final form = ref.read(addressFormController);
+    final args = MapLocationPickerArgs(
+      initialLat: useCurrentLocation ? null : form.lat ?? _existing?.lat,
+      initialLng: useCurrentLocation ? null : form.lng ?? _existing?.lng,
+      cityId: useCurrentLocation ? null : form.cityId ?? _existing?.cityId,
+      useCurrentLocation: useCurrentLocation,
+    );
+
+    final pickedLocation = await context.pushNamed<MapLocationPickerResult>(
+      Routes.mapLocationPicker,
+      arguments: args,
+    );
+    if (pickedLocation == null || !mounted) return;
+    _applyMapResult(pickedLocation);
+  }
+
+  void _applyMapResult(MapLocationPickerResult mapResult) {
+    ref.read(addressFormController.notifier).applyMapResult(mapResult);
+    _setIfPresent(_displayAddress, mapResult.displayAddressSuggestion);
+    _setIfPresent(_street, mapResult.street);
+    _setIfPresent(_building, mapResult.buildingNumber);
+    _dirty = true;
+    setState(() {});
+  }
+
+  void _setIfPresent(TextEditingController controller, String? text) {
+    final trimmed = text?.trim();
+    if (trimmed == null || trimmed.isEmpty) return;
+    controller.text = trimmed;
+  }
+
   Future<void> _save() async {
-    if (_displayAddress.text.trim().isEmpty) return;
+    if (!_validateAndScroll()) return;
 
     final saved = await ref
         .read(addressFormController.notifier)
@@ -91,268 +159,566 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
           landmark: _landmark.text.trim(),
           deliveryInstructions: _instructions.text.trim(),
         );
-    if (saved && mounted) context.pop();
+    if (saved != null && mounted) context.pop(saved);
   }
 
-  Widget _fieldLabel(String text) => Text(
-    text,
-    style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
-  );
+  bool _validateAndScroll() {
+    setState(() => _submitted = true);
+    final firstInvalid = _firstInvalidField(ref.read(addressFormController));
+    if (firstInvalid == null) return true;
+
+    final fieldContext = _fieldKeys[firstInvalid]?.currentContext;
+    if (fieldContext != null) {
+      Scrollable.ensureVisible(
+        fieldContext,
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeOut,
+        alignment: 0.12,
+      );
+    }
+    return false;
+  }
+
+  _AddressField? _firstInvalidField(AddressFormState form) {
+    if (!form.hasLocation) return _AddressField.map;
+    if (_displayAddress.text.trim().isEmpty) return _AddressField.displayAddress;
+    if (_street.text.trim().isEmpty) return _AddressField.street;
+    if (_building.text.trim().isEmpty) return _AddressField.building;
+    return null;
+  }
+
+  bool _canSave(AddressFormState form) => _firstInvalidField(form) == null;
+
+  bool _hasError(_AddressField field, AddressFormState form) =>
+      _submitted && _firstInvalidField(form) == field;
+
+  Future<bool> _confirmDiscard() async {
+    if (!_dirty) return true;
+    final discard = await showDialog<bool>(
+      context: context,
+      barrierColor: ColorM.gray950.withOpacity(0.45),
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: EdgeInsets.symmetric(horizontal: 32.w),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(22.w, 26.h, 22.w, 22.h),
+          decoration: ShapeDecoration(
+            color: ColorM.white,
+            shape: SmoothRectangleBorder(
+              smoothness: 1,
+              borderRadius: BorderRadius.circular(26.r),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 58.w,
+                height: 58.w,
+                alignment: Alignment.center,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFFFF3E8),
+                  shape: SmoothRectangleBorder(
+                    smoothness: 1,
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                ),
+                child: Icon(
+                  Icons.warning_amber_rounded,
+                  color: ColorM.orange,
+                  size: 30.sp,
+                ),
+              ),
+              18.verticalSpace,
+              Text(
+                Translation.discard_address_changes_title.tr,
+                textAlign: TextAlign.center,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeightM.bold,
+                  color: ColorM.gray950,
+                ),
+              ),
+              8.verticalSpace,
+              Text(
+                Translation.discard_address_changes_message.tr,
+                textAlign: TextAlign.center,
+                style: context.bodyMedium.copyWith(color: ColorM.gray600),
+              ),
+              24.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomInkButton(
+                      onTap: () => Navigator.pop(context, false),
+                      height: 50.h,
+                      borderRadius: 16.r,
+                      backgroundColor: ColorM.gray100,
+                      alignment: Alignment.center,
+                      child: Text(
+                        Translation.cancel.tr,
+                        style: context.bodyMedium.copyWith(
+                          color: ColorM.gray800,
+                          fontWeight: FontWeightM.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  12.horizontalSpace,
+                  Expanded(
+                    child: CustomInkButton(
+                      onTap: () => Navigator.pop(context, true),
+                      height: 50.h,
+                      borderRadius: 16.r,
+                      backgroundColor: ColorM.red,
+                      alignment: Alignment.center,
+                      child: Text(
+                        Translation.discard_changes.tr,
+                        style: context.bodyMedium.copyWith(
+                          color: ColorM.white,
+                          fontWeight: FontWeightM.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    return discard == true;
+  }
+
+  Widget _fieldLabel(String text, {bool required = false}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          text,
+          style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
+        ),
+        if (required) ...[
+          3.horizontalSpace,
+          Text(
+            '*',
+            style: context.bodyMedium.copyWith(
+              color: ColorM.red,
+              fontWeight: FontWeightM.bold,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _requiredHelper(bool visible, String message) {
+    if (!visible) return const SizedBox.shrink();
+    return Padding(
+      padding: EdgeInsets.only(top: 6.h),
+      child: Text(
+        message,
+        style: context.labelSmall.copyWith(
+          color: ColorM.red,
+          fontWeight: FontWeightM.medium,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final form = ref.watch(addressFormController);
+    final canSave = _canSave(form);
 
-    return Scaffold(
-      backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
-            ),
-            title: _existing == null
-                ? Translation.add_address.tr
-                : Translation.edit_address.tr,
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(16.w),
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Location: the existing GPS/geocode flow + coverage check.
-                  GestureDetector(
-                    onTap: () => ref
-                        .read(addressFormController.notifier)
-                        .useMyLocation(),
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(14.w),
-                      decoration: ShapeDecoration(
-                        shape: SmoothRectangleBorder(
-                          smoothness: 1,
-                          borderRadius: BorderRadius.circular(12.r),
-                          side: BorderSide(color: ColorM.gray250, width: 1.w),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            Assets.svg.borderLocation.path,
-                            width: 18.w,
-                            height: 18.w,
-                            colorFilter: const ColorFilter.mode(
-                              ColorM.primary500,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                          8.horizontalSpace,
-                          Expanded(
-                            child: Text(
-                              form.hasLocation
-                                  ? form.locationLabel
-                                  : Translation.address_use_my_location.tr,
-                              style: context.labelLarge.copyWith(
-                                color: form.hasLocation
-                                    ? ColorM.gray950
-                                    : ColorM.gray600,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          8.horizontalSpace,
+    return WillPopScope(
+      onWillPop: _confirmDiscard,
+      child: Scaffold(
+        backgroundColor: ColorM.white,
+        body: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+                horizontal: SizeM.pagePadding.w,
+              ),
+              title: _existing == null
+                  ? Translation.add_address.tr
+                  : Translation.edit_address.tr,
+            ).premiumAppear(index: 0),
+            Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                padding: EdgeInsets.all(16.w),
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _MapField(
+                      key: _fieldKeys[_AddressField.map],
+                      form: form,
+                      hasError: _hasError(_AddressField.map, form),
+                      onPickMap: () => _openMap(useCurrentLocation: false),
+                      onUseCurrentLocation: () =>
+                          _openMap(useCurrentLocation: true),
+                    ),
+                    _requiredHelper(
+                      _hasError(_AddressField.map, form),
+                      Translation.map_location_required.tr,
+                    ),
+
+                    20.verticalSpace,
+
+                    Row(
+                      spacing: 10.w,
+                      children: [
+                        for (final (labelValue, name) in [
+                          ('home', Translation.label_home.tr),
+                          ('work', Translation.label_work.tr),
+                          ('other', Translation.label_other.tr),
+                        ])
                           CustomInkButton(
-                            onTap: () => ref
-                                .read(addressFormController.notifier)
-                                .useMyLocation(),
-                            backgroundColor: ColorM.primary50,
-                            borderRadius: 10.r,
+                            onTap: () {
+                              _dirty = true;
+                              ref
+                                  .read(addressFormController.notifier)
+                                  .selectLabel(labelValue);
+                            },
+                            borderRadius: 12.r,
                             padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
+                              horizontal: 14.w,
                               vertical: 8.h,
                             ),
+                            backgroundColor: form.label == labelValue
+                                ? ColorM.primary50
+                                : ColorM.transparent,
+                            side: GradientBorderSide(
+                              color: form.label == labelValue
+                                  ? ColorM.primary
+                                  : ColorM.gray200,
+                              width: 1.w,
+                            ),
                             child: Text(
-                              Translation.address_use_my_location.tr,
+                              name,
                               style: context.labelMedium.copyWith(
-                                color: ColorM.primary500,
+                                color: form.label == labelValue
+                                    ? ColorM.primary500
+                                    : ColorM.gray700,
                                 fontWeight: FontWeightM.medium,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
-                  ),
 
-                  20.verticalSpace,
+                    20.verticalSpace,
 
-                  // Label chips (home / work / other)
-                  Row(
-                    spacing: 10.w,
-                    children: [
-                      for (final (value, name) in [
-                        ('home', Translation.label_home.tr),
-                        ('work', Translation.label_work.tr),
-                        ('other', Translation.label_other.tr),
-                      ])
-                        CustomInkButton(
-                          onTap: () => ref
-                              .read(addressFormController.notifier)
-                              .selectLabel(value),
-                          borderRadius: 12.r,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14.w,
-                            vertical: 8.h,
-                          ),
-                          backgroundColor: form.label == value
-                              ? ColorM.primary50
-                              : ColorM.transparent,
-                          side: GradientBorderSide(
-                            color: form.label == value
-                                ? ColorM.primary
-                                : ColorM.gray200,
-                            width: 1.w,
-                          ),
-                          child: Text(
-                            name,
-                            style: context.labelMedium.copyWith(
-                              color: form.label == value
-                                  ? ColorM.primary500
-                                  : ColorM.gray700,
-                              fontWeight: FontWeightM.medium,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-
-                  20.verticalSpace,
-
-                  _fieldLabel(Translation.address_details_label.tr),
-                  8.verticalSpace,
-                  SimpleForm(
-                    hintText: Translation.address_details_hint.tr,
-                    keyboardType: TextInputType.streetAddress,
-                    controller: _displayAddress,
-                    maxLines: 2,
-                  ),
-
-                  16.verticalSpace,
-
-                  _fieldLabel(Translation.street.tr),
-                  8.verticalSpace,
-                  SimpleForm(
-                    hintText: Translation.street.tr,
-                    keyboardType: TextInputType.streetAddress,
-                    controller: _street,
-                  ),
-
-                  16.verticalSpace,
-
-                  // Building / floor / apartment share one responsive row.
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _fieldLabel(Translation.building_number.tr),
-                            8.verticalSpace,
-                            SimpleForm(
-                              hintText: '12',
-                              keyboardType: TextInputType.text,
-                              controller: _building,
-                            ),
-                          ],
-                        ),
+                    _AddressTextField(
+                      key: _fieldKeys[_AddressField.displayAddress],
+                      label: _fieldLabel(
+                        Translation.address_details_label.tr,
+                        required: true,
                       ),
-                      10.horizontalSpace,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _fieldLabel(Translation.floor_label.tr),
-                            8.verticalSpace,
-                            SimpleForm(
-                              hintText: '2',
-                              keyboardType: TextInputType.text,
-                              controller: _floor,
+                      hintText: Translation.address_details_hint.tr,
+                      controller: _displayAddress,
+                      keyboardType: TextInputType.streetAddress,
+                      maxLines: 2,
+                      hasError: _hasError(_AddressField.displayAddress, form),
+                      errorText: Translation.required_field.tr,
+                    ),
+
+                    16.verticalSpace,
+
+                    _AddressTextField(
+                      key: _fieldKeys[_AddressField.street],
+                      label: _fieldLabel(Translation.street.tr, required: true),
+                      hintText: Translation.street.tr,
+                      controller: _street,
+                      keyboardType: TextInputType.streetAddress,
+                      hasError: _hasError(_AddressField.street, form),
+                      errorText: Translation.required_field.tr,
+                    ),
+
+                    16.verticalSpace,
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: _AddressTextField(
+                            key: _fieldKeys[_AddressField.building],
+                            label: _fieldLabel(
+                              Translation.building_number.tr,
+                              required: true,
                             ),
-                          ],
+                            hintText: '12',
+                            controller: _building,
+                            keyboardType: TextInputType.text,
+                            hasError: _hasError(_AddressField.building, form),
+                            errorText: Translation.required_field.tr,
+                          ),
                         ),
-                      ),
-                      10.horizontalSpace,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _fieldLabel(Translation.apartment.tr),
-                            8.verticalSpace,
-                            SimpleForm(
-                              hintText: '4',
-                              keyboardType: TextInputType.text,
-                              controller: _apartment,
-                            ),
-                          ],
+                        10.horizontalSpace,
+                        Expanded(
+                          child: _AddressTextField(
+                            label: _fieldLabel(Translation.floor_label.tr),
+                            hintText: '2',
+                            controller: _floor,
+                            keyboardType: TextInputType.text,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        10.horizontalSpace,
+                        Expanded(
+                          child: _AddressTextField(
+                            label: _fieldLabel(Translation.apartment.tr),
+                            hintText: '4',
+                            controller: _apartment,
+                            keyboardType: TextInputType.text,
+                          ),
+                        ),
+                      ],
+                    ),
 
-                  16.verticalSpace,
+                    16.verticalSpace,
 
-                  _fieldLabel(Translation.landmark.tr),
-                  8.verticalSpace,
-                  SimpleForm(
-                    hintText: Translation.landmark.tr,
-                    keyboardType: TextInputType.text,
-                    controller: _landmark,
-                  ),
+                    _AddressTextField(
+                      label: _fieldLabel(Translation.landmark.tr),
+                      hintText: Translation.landmark.tr,
+                      controller: _landmark,
+                      keyboardType: TextInputType.text,
+                    ),
 
-                  16.verticalSpace,
+                    16.verticalSpace,
 
-                  _fieldLabel(Translation.delivery_instructions.tr),
-                  8.verticalSpace,
-                  SimpleForm(
-                    hintText: Translation.delivery_instructions.tr,
-                    keyboardType: TextInputType.text,
-                    controller: _instructions,
-                    maxLines: 2,
-                  ),
+                    _AddressTextField(
+                      label: _fieldLabel(Translation.delivery_instructions.tr),
+                      hintText: Translation.delivery_instructions.tr,
+                      controller: _instructions,
+                      keyboardType: TextInputType.text,
+                      maxLines: 2,
+                    ),
 
-                  32.verticalSpace,
+                    32.verticalSpace,
 
-                  CustomInkButton(
-                    onTap: _save,
-                    borderRadius: 20.r,
-                    backgroundColor: ColorM.primary500,
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
-                    child: Center(
-                      child: Text(
-                        Translation.save.tr,
-                        style: context.titleMedium.copyWith(
-                          color: ColorM.white,
-                          fontWeight: FontWeightM.bold,
-                          fontSize: 16.sp,
+                    CustomInkButton(
+                      onTap: _save,
+                      borderRadius: 20.r,
+                      backgroundColor: canSave
+                          ? ColorM.primary500
+                          : ColorM.gray300,
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      child: Center(
+                        child: Text(
+                          Translation.save.tr,
+                          style: context.titleMedium.copyWith(
+                            color: ColorM.white,
+                            fontWeight: FontWeightM.bold,
+                            fontSize: 16.sp,
+                          ),
                         ),
                       ),
                     ),
-                  ),
 
-                  SizedBox(height: context.bottomSafeAreaPadding + 16.h),
-                ],
-              ).premiumAppear(index: 2),
+                    SizedBox(height: context.bottomSafeAreaPadding + 16.h),
+                  ],
+                ).premiumAppear(index: 2),
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MapField extends StatelessWidget {
+  final AddressFormState form;
+  final bool hasError;
+  final VoidCallback onPickMap;
+  final VoidCallback onUseCurrentLocation;
+
+  const _MapField({
+    super.key,
+    required this.form,
+    required this.hasError,
+    required this.onPickMap,
+    required this.onUseCurrentLocation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final arabic = context.locale.languageCode == 'ar';
+    final zoneName = form.zoneName(arabic);
+    final fee = form.deliveryFeeHalalas;
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(14.w),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          smoothness: 1,
+          borderRadius: BorderRadius.circular(12.r),
+          side: BorderSide(
+            color: hasError
+                ? ColorM.red
+                : form.hasLocation
+                ? ColorM.primary500
+                : ColorM.gray250,
+            width: 1.w,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svg.borderLocation.path,
+                width: 18.w,
+                height: 18.w,
+                colorFilter: ColorFilter.mode(
+                  hasError ? ColorM.red : ColorM.primary500,
+                  BlendMode.srcIn,
+                ),
+              ),
+              8.horizontalSpace,
+              Expanded(
+                child: Text(
+                  form.hasLocation
+                      ? form.locationLabel
+                      : Translation.map_location_required.tr,
+                  style: context.labelLarge.copyWith(
+                    color: form.hasLocation ? ColorM.gray950 : ColorM.gray600,
+                    fontWeight: FontWeightM.medium,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          if (form.hasLocation &&
+              (zoneName.isNotEmpty || fee != null || form.area != null)) ...[
+            10.verticalSpace,
+            Container(
+              padding: EdgeInsets.all(10.w),
+              decoration: ShapeDecoration(
+                color: ColorM.primary50,
+                shape: SmoothRectangleBorder(
+                  smoothness: 1,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+              child: Text(
+                [
+                  if (zoneName.isNotEmpty) zoneName,
+                  if (form.area != null) form.area!,
+                  if (fee != null)
+                    Translation.delivery_fee_value.trNamed({
+                      'fee': Money.format(fee, arabic: arabic),
+                    }),
+                ].join(' · '),
+                style: context.labelMedium.copyWith(
+                  color: ColorM.primary700,
+                  fontWeight: FontWeightM.medium,
+                ),
+              ),
+            ),
+          ],
+          12.verticalSpace,
+          Row(
+            children: [
+              Expanded(
+                child: CustomInkButton(
+                  onTap: onPickMap,
+                  borderRadius: 12.r,
+                  backgroundColor: ColorM.primary500,
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  alignment: Alignment.center,
+                  child: Text(
+                    Translation.pick_location_on_map.tr,
+                    style: context.labelLarge.copyWith(
+                      color: ColorM.white,
+                      fontWeight: FontWeightM.medium,
+                    ),
+                  ),
+                ),
+              ),
+              10.horizontalSpace,
+              Expanded(
+                child: CustomInkButton(
+                  onTap: onUseCurrentLocation,
+                  borderRadius: 12.r,
+                  backgroundColor: ColorM.primary50,
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  alignment: Alignment.center,
+                  child: Text(
+                    Translation.address_use_my_location.tr,
+                    style: context.labelLarge.copyWith(
+                      color: ColorM.primary500,
+                      fontWeight: FontWeightM.medium,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AddressTextField extends StatelessWidget {
+  final Widget label;
+  final String hintText;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final int maxLines;
+  final bool hasError;
+  final String? errorText;
+
+  const _AddressTextField({
+    super.key,
+    required this.label,
+    required this.hintText,
+    required this.controller,
+    required this.keyboardType,
+    this.maxLines = 1,
+    this.hasError = false,
+    this.errorText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        label,
+        8.verticalSpace,
+        SimpleForm(
+          hintText: hintText,
+          keyboardType: keyboardType,
+          controller: controller,
+          maxLines: maxLines,
+          borderColor: hasError ? ColorM.red : null,
+          enableActiveBorder: true,
+        ),
+        if (hasError && errorText != null)
+          Padding(
+            padding: EdgeInsets.only(top: 6.h),
+            child: Text(
+              errorText!,
+              style: context.labelSmall.copyWith(
+                color: ColorM.red,
+                fontWeight: FontWeightM.medium,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

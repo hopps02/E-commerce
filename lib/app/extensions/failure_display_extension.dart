@@ -33,7 +33,10 @@ extension FailureDisplay on Failure {
     'order_not_rateable' => Translation.error_order_not_rateable.tr,
     'address_required' => Translation.error_address_required.tr,
     'outside_delivery_zone' ||
+    'coverage_city_mismatch' ||
+    'district_city_mismatch' ||
     'address_city_mismatch' => Translation.error_outside_delivery_zone.tr,
+    'delivery_zone_no_branch' => Translation.map_zone_no_branch.tr,
     'branch_unavailable' ||
     'merchant_unavailable' => Translation.error_branch_unavailable.tr,
     'item_unavailable' ||

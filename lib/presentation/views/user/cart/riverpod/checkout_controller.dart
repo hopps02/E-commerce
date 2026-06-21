@@ -9,8 +9,6 @@ import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/domain/usecase/checkout_quote_usecase.dart';
-import 'package:for_u/domain/usecase/coverage_check_usecase.dart';
-import 'package:for_u/domain/usecase/create_address_usecase.dart';
 import 'package:for_u/domain/usecase/create_order_usecase.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
@@ -157,20 +155,31 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     }
 
     final addresses = await DI().getAddressesUseCase.execute(null);
-    var address = addresses.fold<DeliveryAddress?>((failure) {
+    final activeAddress = ref.read(locationController).selectedAddress;
+    final address = addresses.fold<DeliveryAddress?>((failure) {
       state = state.copyWith(
         reqState: ReqState.error,
         errorMessage: failure.displayMessage,
       );
       return null;
-    }, (list) => list.where((a) => a.isDefault).firstOrNull ?? list.firstOrNull);
+    }, (list) {
+      final activeId = activeAddress?.id;
+      if (activeId != null) {
+        final matched = list.where((a) => a.id == activeId).firstOrNull;
+        if (matched != null) return matched;
+      }
+      return list.where((a) => a.isDefault).firstOrNull ?? list.firstOrNull;
+    });
     if (state.reqState.isError) return;
-    address ??= await _addressFromPickedLocation();
     if (address == null) {
-      // _addressFromPickedLocation already set the error state.
+      state = state.copyWith(
+        reqState: ReqState.error,
+        errorMessage: Translation.error_address_required.tr,
+      );
       return;
     }
     final resolved = address;
+    await ref.read(locationController.notifier).setSelectedAddress(resolved);
 
     final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
@@ -192,61 +201,10 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     );
   }
 
-  /// New customers have no saved address and no addresses screen exists yet,
-  /// so the first order turns their picked location (the existing location
-  /// feature) into a default address — after a real coverage check.
-  /// Returns null after setting the error state.
-  Future<DeliveryAddress?> _addressFromPickedLocation() async {
-    final location = ref.read(locationController);
-    final lat = location.latitude;
-    final lng = location.longitude;
-    if (lat == null || lng == null) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: Translation.error_address_required.tr,
-      );
-      return null;
-    }
-
-    final coverage = await DI().coverageCheckUseCase.execute(
-      CoverageCheckParams(lat: lat, lng: lng),
-    );
-    final cityId = coverage.fold<int?>((failure) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      );
-      return null;
-    }, (c) => c.isServiceable ? c.cityId : null);
-    if (state.reqState.isError) return null;
-    if (cityId == null) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: Translation.error_outside_delivery_zone.tr,
-      );
-      return null;
-    }
-
-    final created = await DI().createAddressUseCase.execute(
-      CreateAddressParams(
-        cityId: cityId,
-        displayAddress: location.locationCity ?? Translation.unknown_location.tr,
-        lat: lat,
-        lng: lng,
-      ),
-    );
-    return created.fold((failure) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      );
-      return null;
-    }, (address) => address);
-  }
-
   /// Switches the order to another saved address and reprices through the
   /// backend quote (delivery fee can differ per zone).
   Future<void> selectAddress(DeliveryAddress address) async {
+    await ref.read(locationController.notifier).setSelectedAddress(address);
     state = state.copyWith(reqState: ReqState.loading);
     final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
@@ -339,17 +297,8 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     );
   }
 
-  /// Retry from the cart's error state. When the dead end was a missing
-  /// location, this first walks the existing permission/fetch flow
-  /// (hard-capped — GPS has no natural deadline).
+  /// Retry from the cart's error state.
   Future<void> retry() async {
-    final location = ref.read(locationController);
-    if (location.latitude == null || location.longitude == null) {
-      await ref
-          .read(locationController.notifier)
-          .handleLocationPermissionAndFetch()
-          .timeout(const Duration(seconds: 12), onTimeout: () => false);
-    }
     await load();
   }
 

@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/utils/mixins/after_layout.dart';
 import 'package:for_u/presentation/common/riverpod/location_controller.dart';
+import 'package:for_u/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/content_body.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/home_tap_app_bar.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/location_picker_dialog.dart';
 
 class TapHomeView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
@@ -40,28 +40,25 @@ class _TapHomeViewState extends ConsumerState<TapHomeView>
     super.dispose();
   }
 
-  void _showLocationPicker() {
-    LocationPickerDialog.show(
-      context,
-      onDismiss: () async {
-        final storage = DI().storageService;
-        if (storage.shouldShowLocationDialog) {
-          await storage.incrementLocationDismissedCount();
-        }
-      },
-      onEnablePressed: () async {
-        return await ref
-            .read(locationController.notifier)
-            .handleLocationPermissionAndFetch();
-      },
-    );
+  Future<void> _showLocationPicker() async {
+    final picked = await AddressPickerBottomSheet.show(context);
+    if (!mounted) return;
+    if (picked != null) {
+      await ref.read(locationController.notifier).setSelectedAddress(picked);
+      return;
+    }
+
+    final storage = DI().storageService;
+    if (storage.shouldShowLocationDialog) {
+      await storage.incrementLocationDismissedCount();
+    }
   }
 
   @override
   Future<void> afterLayout(BuildContext context) async {
     final storage = DI().storageService;
     if (!storage.isLocationSelected && storage.shouldShowLocationDialog) {
-      _showLocationPicker();
+      await _showLocationPicker();
     }
   }
 }
