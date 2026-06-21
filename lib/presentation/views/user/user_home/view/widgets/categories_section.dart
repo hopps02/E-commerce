@@ -124,6 +124,8 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
             child: PageView.builder(
               controller: _pageController,
               padEnds: false,
+              pageSnapping: true,
+              physics: const PageScrollPhysics(),
               itemCount: pageCount,
               onPageChanged: (index) {
                 setState(() => _currentPage = index);
@@ -252,12 +254,13 @@ class _CategoryCarouselDots extends StatelessWidget {
       children: List<Widget>.generate(pageCount, (index) {
         final isActive = index == currentPage;
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
           margin: EdgeInsets.symmetric(horizontal: 3.w),
-          width: 6.w,
+          width: isActive ? 20.w : 6.w,
           height: 6.h,
           decoration: BoxDecoration(
-            color: isActive ? ColorM.gray600 : ColorM.gray300,
+            color: isActive ? ColorM.primary : ColorM.gray300,
             borderRadius: BorderRadius.circular(99),
           ),
         );
