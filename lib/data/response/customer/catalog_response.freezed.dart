@@ -308,7 +308,7 @@ as bool,
 /// @nodoc
 mixin _$ProductCategory {
 
- int get id;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;
+ int get id;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;
 /// Create a copy of ProductCategory
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -321,16 +321,16 @@ $ProductCategoryCopyWith<ProductCategory> get copyWith => _$ProductCategoryCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductCategory&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductCategory&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn);
+int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn,imageUrl);
 
 @override
 String toString() {
-  return 'ProductCategory(id: $id, nameAr: $nameAr, nameEn: $nameEn)';
+  return 'ProductCategory(id: $id, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl)';
 }
 
 
@@ -341,7 +341,7 @@ abstract mixin class $ProductCategoryCopyWith<$Res>  {
   factory $ProductCategoryCopyWith(ProductCategory value, $Res Function(ProductCategory) _then) = _$ProductCategoryCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl
 });
 
 
@@ -358,11 +358,12 @@ class _$ProductCategoryCopyWithImpl<$Res>
 
 /// Create a copy of ProductCategory
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
 as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
+as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -448,10 +449,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductCategory() when $default != null:
-return $default(_that.id,_that.nameAr,_that.nameEn);case _:
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.imageUrl);case _:
   return orElse();
 
 }
@@ -469,10 +470,10 @@ return $default(_that.id,_that.nameAr,_that.nameEn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _ProductCategory():
-return $default(_that.id,_that.nameAr,_that.nameEn);case _:
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.imageUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -489,10 +490,10 @@ return $default(_that.id,_that.nameAr,_that.nameEn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductCategory() when $default != null:
-return $default(_that.id,_that.nameAr,_that.nameEn);case _:
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.imageUrl);case _:
   return null;
 
 }
@@ -504,12 +505,13 @@ return $default(_that.id,_that.nameAr,_that.nameEn);case _:
 @JsonSerializable()
 
 class _ProductCategory extends ProductCategory {
-  const _ProductCategory({required this.id, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn}): super._();
+  const _ProductCategory({required this.id, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl}): super._();
   factory _ProductCategory.fromJson(Map<String, dynamic> json) => _$ProductCategoryFromJson(json);
 
 @override final  int id;
 @override@JsonKey(name: 'name_ar') final  String? nameAr;
 @override@JsonKey(name: 'name_en') final  String? nameEn;
+@override@JsonKey(name: 'image_url') final  String? imageUrl;
 
 /// Create a copy of ProductCategory
 /// with the given fields replaced by the non-null parameter values.
@@ -524,16 +526,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductCategory&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductCategory&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn);
+int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn,imageUrl);
 
 @override
 String toString() {
-  return 'ProductCategory(id: $id, nameAr: $nameAr, nameEn: $nameEn)';
+  return 'ProductCategory(id: $id, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl)';
 }
 
 
@@ -544,7 +546,7 @@ abstract mixin class _$ProductCategoryCopyWith<$Res> implements $ProductCategory
   factory _$ProductCategoryCopyWith(_ProductCategory value, $Res Function(_ProductCategory) _then) = __$ProductCategoryCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl
 });
 
 
@@ -561,11 +563,12 @@ class __$ProductCategoryCopyWithImpl<$Res>
 
 /// Create a copy of ProductCategory
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,}) {
   return _then(_ProductCategory(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
 as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
+as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -45,6 +45,7 @@ abstract class ProductCategory with _$ProductCategory {
     required int id,
     @JsonKey(name: 'name_ar') String? nameAr,
     @JsonKey(name: 'name_en') String? nameEn,
+    @JsonKey(name: 'image_url') String? imageUrl,
   }) = _ProductCategory;
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) =>

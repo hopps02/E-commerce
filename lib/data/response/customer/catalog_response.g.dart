@@ -41,6 +41,7 @@ _ProductCategory _$ProductCategoryFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       nameAr: json['name_ar'] as String?,
       nameEn: json['name_en'] as String?,
+      imageUrl: json['image_url'] as String?,
     );
 
 Map<String, dynamic> _$ProductCategoryToJson(_ProductCategory instance) =>
@@ -48,6 +49,7 @@ Map<String, dynamic> _$ProductCategoryToJson(_ProductCategory instance) =>
       'id': instance.id,
       'name_ar': instance.nameAr,
       'name_en': instance.nameEn,
+      'image_url': instance.imageUrl,
     };
 
 _CoverageResult _$CoverageResultFromJson(Map<String, dynamic> json) =>
