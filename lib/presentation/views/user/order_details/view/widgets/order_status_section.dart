@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/utils/failure_reason.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.dart';
+import 'package:smooth_corner/smooth_corner.dart';
 
 class OrderStatusSection extends StatelessWidget {
   final int step;
   final String orderNumber;
+  final String orderState;
+  final String? failureReason;
+  final String? failureNote;
   const OrderStatusSection({
     super.key,
     required this.step,
     required this.orderNumber,
+    required this.orderState,
+    this.failureReason,
+    this.failureNote,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isFailed = orderState == 'failed_delivery';
+    final reasonLabel = failureReasonLabel(failureReason, note: failureNote);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -56,12 +66,18 @@ class OrderStatusSection extends StatelessWidget {
                 isNextActive: step >= 3,
                 isFirst: false,
                 isLast: false,
+                nextFailed: isFailed,
               ),
             ),
             Expanded(
               child: TimeLineStep(
-                title: Translation.delivered.tr,
-                isActive: step >= 3,
+                // A failed delivery replaces the "delivered" node with a red
+                // "delivery failed" node so the order never reads as delivered.
+                title: isFailed
+                    ? Translation.delivery_failed.tr
+                    : Translation.delivered.tr,
+                isActive: isFailed || step >= 3,
+                isFailed: isFailed,
                 isNextActive: false,
                 isFirst: false,
                 isLast: true,
@@ -69,6 +85,48 @@ class OrderStatusSection extends StatelessWidget {
             ),
           ],
         ),
+        if (isFailed && reasonLabel != null) ...[
+          16.verticalSpace,
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            decoration: ShapeDecoration(
+              color: ColorM.red.withValues(alpha: 0.08),
+              shape: SmoothRectangleBorder(
+                smoothness: 1,
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.error_outline_rounded, size: 18.w, color: ColorM.red),
+                8.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        Translation.delivery_failure_reason.tr,
+                        style: context.labelMedium.copyWith(
+                          color: ColorM.red,
+                          fontWeight: FontWeightM.semiBold,
+                        ),
+                      ),
+                      2.verticalSpace,
+                      Text(
+                        reasonLabel,
+                        style: context.bodyMedium.copyWith(
+                          color: ColorM.gray800,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
         24.verticalSpace,
         Container(height: 1.h, color: ColorM.gray150),
       ],

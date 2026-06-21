@@ -199,12 +199,16 @@ class OrderCard extends StatelessWidget {
                   isNextActive: step >= 3,
                   isFirst: false,
                   isLast: false,
+                  nextFailed: order.isFailedDelivery,
                 ),
               ),
               Expanded(
                 child: TimeLineStep(
-                  title: Translation.delivered.tr,
-                  isActive: step >= 3,
+                  title: order.isFailedDelivery
+                      ? Translation.delivery_failed.tr
+                      : Translation.delivered.tr,
+                  isActive: order.isFailedDelivery || step >= 3,
+                  isFailed: order.isFailedDelivery,
                   isNextActive: false,
                   isFirst: false,
                   isLast: true,
@@ -275,6 +279,14 @@ class TimeLineStep extends StatelessWidget {
   final bool isNextActive;
   final bool isFirst;
   final bool isLast;
+
+  /// A terminal failure ('failed_delivery') paints this node red instead of the
+  /// usual green, so a failed order never reads as delivered.
+  final bool isFailed;
+
+  /// The next node is the failed one — paint the connector leaving this node red
+  /// so the failure leg reads as a single red line out of "out for delivery".
+  final bool nextFailed;
   const TimeLineStep({
     super.key,
     required this.title,
@@ -282,10 +294,15 @@ class TimeLineStep extends StatelessWidget {
     this.isNextActive = false,
     required this.isFirst,
     required this.isLast,
+    this.isFailed = false,
+    this.nextFailed = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final nodeColor = isFailed
+        ? ColorM.red
+        : (isActive ? ColorM.primary600 : ColorM.gray250);
     return Align(
       alignment: isLast
           ? AlignmentDirectional.centerEnd
@@ -305,7 +322,7 @@ class TimeLineStep extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 1.h,
-                    color: isActive ? ColorM.primary600 : ColorM.gray250,
+                    color: nodeColor,
                   ),
                 ),
               Container(
@@ -314,7 +331,7 @@ class TimeLineStep extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isActive ? ColorM.primary600 : ColorM.gray250,
+                    color: nodeColor,
                     width: 1.5.w,
                   ),
                 ),
@@ -324,7 +341,7 @@ class TimeLineStep extends StatelessWidget {
                     height: 14.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isActive ? ColorM.primary600 : ColorM.gray250,
+                      color: nodeColor,
                     ),
                   ),
                 ),
@@ -333,7 +350,9 @@ class TimeLineStep extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 1.h,
-                    color: isNextActive ? ColorM.primary600 : ColorM.gray250,
+                    color: nextFailed
+                        ? ColorM.red
+                        : (isNextActive ? ColorM.primary600 : ColorM.gray250),
                   ),
                 ),
             ],
@@ -342,7 +361,9 @@ class TimeLineStep extends StatelessWidget {
           Text(
             title,
             style: context.labelSmall.copyWith(
-              color: isActive ? ColorM.gray900 : ColorM.gray700,
+              color: isFailed
+                  ? ColorM.red
+                  : (isActive ? ColorM.gray900 : ColorM.gray700),
             ),
             textAlign: TextAlign.center,
           ),

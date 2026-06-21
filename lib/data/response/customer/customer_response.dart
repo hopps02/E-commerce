@@ -85,6 +85,7 @@ abstract class CustomerOrder with _$CustomerOrder {
     CustomerOrderTotals? totals,
     @JsonKey(name: 'total_halalas') int? totalHalalas,
     @JsonKey(name: 'failure_reason') String? failureReason,
+    @JsonKey(name: 'failure_note') String? failureNote,
     @JsonKey(name: 'can_rate') @Default(false) bool canRate,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _CustomerOrder;
@@ -97,6 +98,8 @@ abstract class CustomerOrder with _$CustomerOrder {
   bool get isCancellable => orderIsCancellable(state);
 
   bool get isDelivered => state == 'delivered';
+
+  bool get isFailedDelivery => state == 'failed_delivery';
 
   /// List rows send `total_halalas` flat; the detail nests it under totals.
   int get displayTotalHalalas => totals?.totalHalalas ?? totalHalalas ?? 0;

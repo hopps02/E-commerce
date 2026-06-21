@@ -5,11 +5,11 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/failure_reason.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/captain/captain_response.dart';
 import 'package:for_u/domain/usecase/mark_delivered_usecase.dart';
 import 'package:for_u/domain/usecase/mark_failed_usecase.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
 
 // dart format off
 
@@ -183,7 +183,7 @@ class CaptainOrderDetailsNotifier extends Notifier<CaptainOrderDetailsState> {
       customerPhone: order.customer?.phone ?? '',
       address: order.addressLine,
       totalHalalas: order.totalHalalas,
-      cancellationReason: _failureCopy(order.failureReason),
+      cancellationReason: failureReasonLabel(order.failureReason),
       items: [
         for (final item in order.activeItems)
           CaptainOrderItem(
@@ -194,18 +194,6 @@ class CaptainOrderDetailsNotifier extends Notifier<CaptainOrderDetailsState> {
       ],
     );
   }
-
-  /// The stored failure reason is the backend enum value; show its localized
-  /// label (free-text notes live in the state-event metadata, not here).
-  String? _failureCopy(String? reason) => switch (reason) {
-    null => null,
-    'customer_not_available' => Translation.customer_not_available.tr,
-    'no_answer' => Translation.not_answering_phone.tr,
-    'wrong_address' => Translation.incorrect_address.tr,
-    'customer_refused' => Translation.customer_refused_receipt.tr,
-    'other' => Translation.other_reason.tr,
-    _ => reason,
-  };
 
   bool _isArabic() =>
       (DI().storageService.language ?? const Locale('ar')).languageCode == 'ar';

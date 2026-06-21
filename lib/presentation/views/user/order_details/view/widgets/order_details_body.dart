@@ -54,6 +54,9 @@ class OrderDetailsBody extends StatelessWidget {
                   OrderStatusSection(
                     step: state.step,
                     orderNumber: state.orderNumber,
+                    orderState: state.orderState,
+                    failureReason: state.failureReason,
+                    failureNote: state.failureNote,
                   ).premiumAppear(index: 0),
                   24.verticalSpace,
                   OrderDeliveryAddress(

@@ -86,6 +86,7 @@ _CustomerOrder _$CustomerOrderFromJson(Map<String, dynamic> json) =>
             ),
       totalHalalas: (json['total_halalas'] as num?)?.toInt(),
       failureReason: json['failure_reason'] as String?,
+      failureNote: json['failure_note'] as String?,
       canRate: json['can_rate'] as bool? ?? false,
       createdAt: json['created_at'] == null
           ? null
@@ -103,6 +104,7 @@ Map<String, dynamic> _$CustomerOrderToJson(_CustomerOrder instance) =>
       'totals': instance.totals,
       'total_halalas': instance.totalHalalas,
       'failure_reason': instance.failureReason,
+      'failure_note': instance.failureNote,
       'can_rate': instance.canRate,
       'created_at': instance.createdAt?.toIso8601String(),
     };

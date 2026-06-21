@@ -22,6 +22,12 @@ class OrderDetailsState extends Equatable {
   final CustomerOrderTotals totals;
   final bool isDelivered;
 
+  /// Raw backend state plus the failure detail, kept so the timeline can swap
+  /// the «تم التوصيل» node for a «تعذّر التوصيل» node and surface the reason.
+  final String orderState;
+  final String? failureReason;
+  final String? failureNote;
+
   /// Backend-owned eligibility (delivered, unrated, inside the rating window).
   final bool canRate;
 
@@ -36,6 +42,9 @@ class OrderDetailsState extends Equatable {
     this.removedItems = const [],
     this.totals = const CustomerOrderTotals(),
     this.isDelivered = false,
+    this.orderState = '',
+    this.failureReason,
+    this.failureNote,
     this.canRate = false,
   });
 
@@ -55,6 +64,9 @@ class OrderDetailsState extends Equatable {
       removedItems: removedItems,
       totals: totals,
       isDelivered: isDelivered,
+      orderState: orderState,
+      failureReason: failureReason,
+      failureNote: failureNote,
       canRate: canRate ?? this.canRate,
     );
   }
@@ -71,6 +83,9 @@ class OrderDetailsState extends Equatable {
     removedItems,
     totals,
     isDelivered,
+    orderState,
+    failureReason,
+    failureNote,
     canRate,
   ];
 }
@@ -162,6 +177,9 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
       removedItems: order.removedItems,
       totals: order.totals ?? const CustomerOrderTotals(),
       isDelivered: order.isDelivered,
+      orderState: order.state,
+      failureReason: order.failureReason,
+      failureNote: order.failureNote,
       canRate: order.canRate,
     );
   }
