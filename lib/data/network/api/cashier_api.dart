@@ -61,6 +61,12 @@ abstract class CashierApi {
     @Body() Map<String, int> body,
   );
 
+  @POST('/cashier/orders/{id}/reassign-captain')
+  Future<Envelope<CashierOrder>> reassignCaptain(
+    @Path('id') int id,
+    @Body() Map<String, dynamic> body,
+  );
+
   @POST('/cashier/tickets')
   Future<Envelope<Ticket>> openTicket(@Body() OpenTicketBody body);
 }

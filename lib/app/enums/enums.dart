@@ -39,6 +39,25 @@ enum CashierOrderStatus {
 
   /// Bottom action button is hidden once the order has been handed off.
   bool get showsActionButton => isPreparing || isReadyForCaptain;
+
+  /// The captain can be replaced while the order is assigned but not yet
+  /// delivered (captain_assigned / received_by_captain / out_for_delivery).
+  bool get canReassignCaptain => isInDelivery;
+}
+
+/// Why a cashier replaces the captain on a live order. Values mirror the
+/// backend ReassignReason; the localized labels live in the change-captain UI.
+enum ReassignReason {
+  captainUnavailable('captain_unavailable'),
+  captainSick('captain_sick'),
+  captainBrokeDown('captain_broke_down'),
+  customerRequest('customer_request'),
+  other('other');
+
+  final String value;
+  const ReassignReason(this.value);
+
+  bool get isOther => this == other;
 }
 
 /// States for the captain order-details screen. Drives which footer buttons

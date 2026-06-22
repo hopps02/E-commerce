@@ -8,7 +8,8 @@ import 'package:for_u/presentation/res/translations_manager.dart';
 
 class AssignCaptainHeader extends StatelessWidget {
   final VoidCallback onClose;
-  const AssignCaptainHeader({super.key, required this.onClose});
+  final String? title;
+  const AssignCaptainHeader({super.key, required this.onClose, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class AssignCaptainHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      Translation.assign_captain.tr,
+                      title ?? Translation.assign_captain.tr,
                       style: context.bodyLarge.copyWith(
                         color: const Color(0xFF231F20),
                         fontWeight: FontWeightM.medium,

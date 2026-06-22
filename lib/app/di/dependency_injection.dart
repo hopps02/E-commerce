@@ -29,6 +29,7 @@ import 'package:for_u/domain/usecase/set_captain_availability_usecase.dart';
 import 'package:for_u/domain/usecase/start_delivery_usecase.dart';
 import 'package:for_u/domain/usecase/assign_captain_usecase.dart';
 import 'package:for_u/domain/usecase/available_captains_usecase.dart';
+import 'package:for_u/domain/usecase/reassign_captain_usecase.dart';
 import 'package:for_u/domain/usecase/confirm_ready_usecase.dart';
 import 'package:for_u/domain/usecase/get_cashier_order_detail_usecase.dart';
 import 'package:for_u/domain/usecase/get_cashier_orders_usecase.dart';
@@ -170,6 +171,7 @@ extension DIUseCasesExtension on DI {
   RejectOrderUseCase          get rejectOrderUseCase          => RejectOrderUseCase(_repo);
   AvailableCaptainsUseCase    get availableCaptainsUseCase    => AvailableCaptainsUseCase(_repo);
   AssignCaptainUseCase        get assignCaptainUseCase        => AssignCaptainUseCase(_repo);
+  ReassignCaptainUseCase      get reassignCaptainUseCase      => ReassignCaptainUseCase(_repo);
 
   // --- Customer ---
   GetProfileUseCase           get getProfileUseCase           => GetProfileUseCase(_repo);

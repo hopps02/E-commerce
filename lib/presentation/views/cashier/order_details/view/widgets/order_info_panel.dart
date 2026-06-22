@@ -1,15 +1,19 @@
 import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/custom_cached_image.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
+import 'package:for_u/presentation/views/cashier/order_details/view/widgets/change_captain_bottom_sheet.dart';
 
 class OrderInfoPanel extends StatelessWidget {
   final CashierOrderDetailsState state;
@@ -40,10 +44,7 @@ class OrderInfoPanel extends StatelessWidget {
           ),
           if (state.status.showsCaptainRow && state.captainName != null) ...[
             10.verticalSpace,
-            _CaptainRow(
-              name: state.captainName!,
-              avatarUrl: state.captainAvatarUrl ?? '',
-            ),
+            _CaptainRow(state: state),
           ],
           if (state.status.showsCaptainRow) ...[
             9.verticalSpace,
@@ -106,14 +107,15 @@ class _InfoRow extends StatelessWidget {
   }
 }
 
-class _CaptainRow extends StatelessWidget {
-  final String name;
-  final String avatarUrl;
-  const _CaptainRow({required this.name, required this.avatarUrl});
+class _CaptainRow extends ConsumerWidget {
+  final CashierOrderDetailsState state;
+  const _CaptainRow({required this.state});
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final canChange = state.status.canReassignCaptain;
+
+    final content = Row(
       children: [
         SizedBox(
           width: 64.w,
@@ -129,7 +131,7 @@ class _CaptainRow extends StatelessWidget {
         6.horizontalSpace,
         ClipOval(
           child: CustomCachedImage(
-            imageUrl: avatarUrl,
+            imageUrl: state.captainAvatarUrl ?? '',
             width: 21.w,
             height: 21.w,
           ),
@@ -137,7 +139,7 @@ class _CaptainRow extends StatelessWidget {
         6.horizontalSpace,
         Expanded(
           child: Text(
-            name,
+            state.captainName ?? '',
             style: context.labelLarge.copyWith(
               color: ColorM.gray600,
               height: 16 / 14,
@@ -145,7 +147,68 @@ class _CaptainRow extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
+        if (canChange) ...[6.horizontalSpace, const _ChangePill()],
       ],
+    );
+
+    if (!canChange) return content;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _openChangeSheet(context, ref),
+      child: content,
+    );
+  }
+
+  Future<void> _openChangeSheet(BuildContext context, WidgetRef ref) async {
+    final postPickup =
+        state.orderRawState == 'out_for_delivery' ||
+        state.orderRawState == 'received_by_captain';
+
+    final order = await ChangeCaptainBottomSheet.show(
+      context,
+      orderId: state.orderId,
+      currentCaptainId: state.captainId,
+      currentCaptainName: state.captainName,
+      postPickup: postPickup,
+    );
+
+    if (order != null) {
+      ref.read(cashierOrderDetailsController.notifier).applyAssigned(order);
+      DI().snackBarHelper.showMessage(
+        Translation.captain_changed.tr,
+        ErrorMessage.snackBar,
+      );
+    }
+  }
+}
+
+class _ChangePill extends StatelessWidget {
+  const _ChangePill();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: ColorM.primary50,
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.edit_outlined, size: 12.sp, color: ColorM.primary700),
+          3.horizontalSpace,
+          Text(
+            Translation.change.tr,
+            style: context.labelMedium.copyWith(
+              color: ColorM.primary700,
+              fontWeight: FontWeightM.medium,
+              height: 1.2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

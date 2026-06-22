@@ -218,6 +218,20 @@ class RepositoryImpl implements Repository {
         (await _cashierApi.assignCaptain(orderId, {'captain_id': captainId})).data,
   );
 
+  @override
+  Future<Either<Failure, CashierOrder>> reassignCaptain(
+    int orderId,
+    int captainId,
+    String reason,
+    String? note,
+  ) => fastHandler(
+    request: () async => (await _cashierApi.reassignCaptain(orderId, {
+      'captain_id': captainId,
+      'reason': reason,
+      if (note != null && note.isNotEmpty) 'note': note,
+    })).data,
+  );
+
   // ---- Customer ----
   @override
   Future<Either<Failure, CustomerProfile>> profile() =>

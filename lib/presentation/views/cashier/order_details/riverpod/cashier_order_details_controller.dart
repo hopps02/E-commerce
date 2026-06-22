@@ -58,6 +58,11 @@ class CashierOrderDetailsState extends Equatable {
   final List<CashierOrderProduct> products;
   final String? captainName;
   final String? captainAvatarUrl;
+  final int? captainId;
+
+  /// Raw backend order state — distinguishes out_for_delivery (post-pickup)
+  /// from captain_assigned for the change-captain handoff note.
+  final String orderRawState;
   final String location;
   final DateTime orderTime;
 
@@ -75,6 +80,8 @@ class CashierOrderDetailsState extends Equatable {
     required this.orderTime,
     this.captainName,
     this.captainAvatarUrl,
+    this.captainId,
+    this.orderRawState = '',
     this.totalHalalas = 0,
   });
 
@@ -92,6 +99,8 @@ class CashierOrderDetailsState extends Equatable {
     List<CashierOrderProduct>? products,
     String? captainName,
     String? captainAvatarUrl,
+    int? captainId,
+    String? orderRawState,
     String? location,
     DateTime? orderTime,
     int? totalHalalas,
@@ -105,6 +114,8 @@ class CashierOrderDetailsState extends Equatable {
       products: products ?? this.products,
       captainName: captainName ?? this.captainName,
       captainAvatarUrl: captainAvatarUrl ?? this.captainAvatarUrl,
+      captainId: captainId ?? this.captainId,
+      orderRawState: orderRawState ?? this.orderRawState,
       location: location ?? this.location,
       orderTime: orderTime ?? this.orderTime,
       totalHalalas: totalHalalas ?? this.totalHalalas,
@@ -121,6 +132,8 @@ class CashierOrderDetailsState extends Equatable {
     products,
     captainName,
     captainAvatarUrl,
+    captainId,
+    orderRawState,
     location,
     orderTime,
     totalHalalas,
@@ -243,6 +256,8 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
       orderTime: order.createdAt ?? DateTime.now(),
       captainName: order.captain?.name,
       captainAvatarUrl: null,
+      captainId: order.captain?.id ?? order.captainId,
+      orderRawState: order.state,
       totalHalalas: order.totals.totalHalalas,
       products: [
         for (final item in order.activeItems)

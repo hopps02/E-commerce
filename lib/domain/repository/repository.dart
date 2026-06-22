@@ -106,6 +106,13 @@ abstract class Repository {
 
   Future<Either<Failure, CashierOrder>> assignCaptain(int orderId, int captainId);
 
+  Future<Either<Failure, CashierOrder>> reassignCaptain(
+    int orderId,
+    int captainId,
+    String reason,
+    String? note,
+  );
+
   // ---- Customer ----
   Future<Either<Failure, CustomerProfile>> profile();
 
