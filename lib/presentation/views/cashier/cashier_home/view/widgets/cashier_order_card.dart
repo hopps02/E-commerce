@@ -319,58 +319,58 @@ class _CaptainAndLocationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      spacing: 10.w,
+    // Stacked full-width rows (not side-by-side) so a long address or a long
+    // captain name truncates cleanly on its own line instead of wrapping into
+    // a cramped two-column layout.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                Assets.svg.borderLocation.path,
-                width: 18.w,
-                height: 18.w,
-                colorFilter: const ColorFilter.mode(
-                  ColorM.gray950,
-                  BlendMode.srcIn,
-                ),
+        Row(
+          children: [
+            SvgPicture.asset(
+              Assets.svg.borderLocation.path,
+              width: 16.w,
+              height: 16.w,
+              colorFilter: const ColorFilter.mode(
+                ColorM.gray950,
+                BlendMode.srcIn,
               ),
-              6.horizontalSpace,
-              Flexible(
-                child: Text(
-                  address,
-                  style: context.labelLarge.copyWith(color: ColorM.gray950),
-                ),
+            ),
+            6.horizontalSpace,
+            Expanded(
+              child: Text(
+                address,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.labelMedium.copyWith(color: ColorM.gray950),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Expanded(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                Translation.captain_label.tr,
-                style: context.labelLarge.copyWith(color: ColorM.gray950),
-              ),
-              6.horizontalSpace,
-              ClipOval(
-                child: CustomCachedImage(
-                  imageUrl: '',
-                  width: 21.w,
-                  height: 21.w,
+        8.verticalSpace,
+        Row(
+          children: [
+            Text(
+              Translation.captain_label.tr,
+              style: context.labelMedium.copyWith(color: ColorM.gray600),
+            ),
+            6.horizontalSpace,
+            ClipOval(
+              child: CustomCachedImage(imageUrl: '', width: 18.w, height: 18.w),
+            ),
+            6.horizontalSpace,
+            Expanded(
+              child: Text(
+                captainName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.labelMedium.copyWith(
+                  color: ColorM.gray900,
+                  fontWeight: FontWeightM.medium,
                 ),
               ),
-              6.horizontalSpace,
-              Flexible(
-                child: Text(
-                  captainName,
-                  style: context.labelLarge.copyWith(color: ColorM.gray700),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
