@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart'
@@ -10,7 +11,9 @@ import 'package:for_u/app/app.dart';
 import 'package:for_u/app/config/constants.dart';
 import 'package:for_u/app/config/supported_locales.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/services/firebase_messeging_services.dart';
 import 'package:for_u/app/utils/logger/app_logger.dart';
+import 'package:for_u/firebase_options.dart';
 
 void main() {
   runZonedGuarded(_initApp, _onError);
@@ -22,6 +25,16 @@ Future<void> _initApp() async {
   await EasyLocalization.ensureInitialized();
   await libphonenumber.init();
   await DI.init();
+
+  // Firebase + push. Guarded so a messaging hiccup (e.g. iOS APNs not yet set up)
+  // never blocks the app from starting.
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await FirebaseMessegingServices.instance.initialize();
+    unawaited(FirebaseMessegingServices.instance.handleInitialMessage());
+  } catch (e, s) {
+    AppLogger.instance.e('Firebase init failed', error: e, stackTrace: s);
+  }
 
   // System UI
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
