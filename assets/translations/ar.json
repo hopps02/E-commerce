@@ -28,6 +28,8 @@
   "error_order_not_rateable": "لا يمكن تقييم هذا الطلب",
   "error_address_required": "أضف عنوان توصيل أولًا لإتمام الطلب",
   "error_outside_delivery_zone": "عنوانك خارج نطاق التوصيل حاليًا",
+  "error_address_different_city": "هذا العنوان في مدينة مختلفة عن المتجر",
+  "error_cart_different_store": "سلتك من متجر مختلف عن المتجر الذي يخدم هذا العنوان",
   "error_branch_unavailable": "هذا الفرع غير متاح حاليًا",
   "error_item_unavailable": "بعض المنتجات لم تعد متوفرة، حدّث السلة وحاول مرة أخرى",
   "error_empty_cart": "السلة فارغة",

@@ -28,6 +28,8 @@
   "error_order_not_rateable": "This order can't be rated.",
   "error_address_required": "Add a delivery address first to place the order.",
   "error_outside_delivery_zone": "Your address is outside the delivery area for now.",
+  "error_address_different_city": "This address is in a different city than the store.",
+  "error_cart_different_store": "Your cart is from a different store than the one serving this address.",
   "error_branch_unavailable": "This branch isn't available right now.",
   "error_item_unavailable": "Some items are no longer available. Refresh the cart and try again.",
   "error_empty_cart": "Your cart is empty.",

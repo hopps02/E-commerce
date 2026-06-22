@@ -29,6 +29,8 @@ enum Translation {
   error_order_not_rateable,
   error_address_required,
   error_outside_delivery_zone,
+  error_address_different_city,
+  error_cart_different_store,
   error_branch_unavailable,
   error_item_unavailable,
   error_empty_cart,
