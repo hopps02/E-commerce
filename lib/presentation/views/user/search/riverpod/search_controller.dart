@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
-import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/domain/usecase/get_products_usecase.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchState extends Equatable {
@@ -102,8 +102,21 @@ class SearchNotifier extends Notifier<SearchState> {
 
   Future<void> _loadPage(int page) async {
     final term = state.query;
+    final location = ref.read(locationController);
+    final branchId = location.servingBranchId;
+    if (branchId == null) {
+      state = state.copyWith(
+        reqState: ReqState.empty,
+        errorMessage: location.browseUnavailableMessage,
+        products: const [],
+        page: 1,
+        hasMore: false,
+      );
+      return;
+    }
+
     final result = await DI().getProductsUseCase.execute(
-      ProductsParams(branchId: Env.defaultBranchId, search: term, page: page),
+      ProductsParams(branchId: branchId, search: term, page: page),
     );
     // A newer query superseded this response; drop it.
     if (term != state.query) return;

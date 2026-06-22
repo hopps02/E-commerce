@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/domain/usecase/get_products_usecase.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProductsState extends Equatable {
@@ -46,6 +46,7 @@ class ProductsState extends Equatable {
 class ProductsNotifier extends Notifier<ProductsState> {
   final RefreshController refreshController = RefreshController();
 
+  int? _branchId;
   int? _categoryId;
   String? _search;
 
@@ -58,11 +59,21 @@ class ProductsNotifier extends Notifier<ProductsState> {
   }
 
   /// Loads the first page for a category and/or search term. The browse
-  /// branch is fixed until the multi-store home ships.
+  /// branch comes from the selected delivery address.
   Future<void> init({int? categoryId, String? search}) async {
+    final location = ref.read(locationController);
+    _branchId = location.servingBranchId;
     _categoryId = categoryId;
     _search = search;
     state = const ProductsState();
+    if (_branchId == null) {
+      state = state.copyWith(
+        reqState: ReqState.empty,
+        errorMessage: location.browseUnavailableMessage,
+        hasMore: false,
+      );
+      return;
+    }
     await _loadPage(1);
   }
 
@@ -83,9 +94,15 @@ class ProductsNotifier extends Notifier<ProductsState> {
   }
 
   Future<void> _loadPage(int page) async {
+    final branchId = _branchId;
+    if (branchId == null) {
+      state = state.copyWith(reqState: ReqState.empty, hasMore: false);
+      return;
+    }
+
     final result = await DI().getProductsUseCase.execute(
       ProductsParams(
-        branchId: Env.defaultBranchId,
+        branchId: branchId,
         categoryId: _categoryId,
         search: _search,
         page: page,

@@ -27,7 +27,10 @@ class _TapHomeViewState extends ConsumerState<TapHomeView>
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return [HomeTapAppBar()];
       },
-      body: ContentBody(bottomSafeAreaPadding: widget.bottomSafeAreaPadding),
+      body: ContentBody(
+        bottomSafeAreaPadding: widget.bottomSafeAreaPadding,
+        onChooseAddress: _showLocationPicker,
+      ),
     );
   }
 

@@ -139,6 +139,12 @@ enum Translation {
   fresh_100_percent,
   snacks_and_packaged,
   quick_choices,
+  home_choose_location_title,
+  home_choose_location_desc,
+  home_choose_location_cta,
+  home_no_store_title,
+  home_no_store_desc,
+  change_delivery_address,
   home,
 
   // Cart & Orders

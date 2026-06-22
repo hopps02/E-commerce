@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/config/env.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
@@ -50,7 +49,7 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
   @override
   HomeCatalogState build() => const HomeCatalogState();
 
-  Future<void> load() async {
+  Future<void> load(int branchId) async {
     state = const HomeCatalogState();
 
     final categoriesResult = await DI().getCategoriesUseCase.execute(null);
@@ -66,7 +65,7 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
     if (categories == null) return;
 
     final productsResult = await DI().getProductsUseCase.execute(
-      ProductsParams(branchId: Env.defaultBranchId, page: 1, pageSize: 50),
+      ProductsParams(branchId: branchId, page: 1, pageSize: 50),
     );
     productsResult.fold(
       (failure) => state = state.copyWith(

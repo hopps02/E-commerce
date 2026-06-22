@@ -52,14 +52,39 @@ Map<String, dynamic> _$ProductCategoryToJson(_ProductCategory instance) =>
       'image_url': instance.imageUrl,
     };
 
+_CoverageServingBranch _$CoverageServingBranchFromJson(
+  Map<String, dynamic> json,
+) => _CoverageServingBranch(
+  id: (json['id'] as num).toInt(),
+  nameAr: json['name_ar'] as String?,
+  nameEn: json['name_en'] as String?,
+  merchantId: (json['merchant_id'] as num?)?.toInt(),
+);
+
+Map<String, dynamic> _$CoverageServingBranchToJson(
+  _CoverageServingBranch instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name_ar': instance.nameAr,
+  'name_en': instance.nameEn,
+  'merchant_id': instance.merchantId,
+};
+
 _CoverageResult _$CoverageResultFromJson(Map<String, dynamic> json) =>
     _CoverageResult(
       isServiceable: json['is_serviceable'] as bool? ?? false,
       inActiveZone: json['in_active_zone'] as bool? ?? false,
+      branchId: (json['branch_id'] as num?)?.toInt(),
+      servingBranch: json['serving_branch'] == null
+          ? null
+          : CoverageServingBranch.fromJson(
+              json['serving_branch'] as Map<String, dynamic>,
+            ),
       deliveryZoneId: (json['delivery_zone_id'] as num?)?.toInt(),
       deliveryZoneNameAr: json['delivery_zone_name_ar'] as String?,
       deliveryZoneNameEn: json['delivery_zone_name_en'] as String?,
       cityId: (json['city_id'] as num?)?.toInt(),
+      districtId: (json['district_id'] as num?)?.toInt(),
       deliveryFeeHalalas: (json['delivery_fee_halalas'] as num?)?.toInt(),
     );
 
@@ -67,10 +92,13 @@ Map<String, dynamic> _$CoverageResultToJson(_CoverageResult instance) =>
     <String, dynamic>{
       'is_serviceable': instance.isServiceable,
       'in_active_zone': instance.inActiveZone,
+      'branch_id': instance.branchId,
+      'serving_branch': instance.servingBranch,
       'delivery_zone_id': instance.deliveryZoneId,
       'delivery_zone_name_ar': instance.deliveryZoneNameAr,
       'delivery_zone_name_en': instance.deliveryZoneNameEn,
       'city_id': instance.cityId,
+      'district_id': instance.districtId,
       'delivery_fee_halalas': instance.deliveryFeeHalalas,
     };
 

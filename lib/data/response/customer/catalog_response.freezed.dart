@@ -578,9 +578,281 @@ as String?,
 
 
 /// @nodoc
+mixin _$CoverageServingBranch {
+
+ int get id;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'merchant_id') int? get merchantId;
+/// Create a copy of CoverageServingBranch
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CoverageServingBranchCopyWith<CoverageServingBranch> get copyWith => _$CoverageServingBranchCopyWithImpl<CoverageServingBranch>(this as CoverageServingBranch, _$identity);
+
+  /// Serializes this CoverageServingBranch to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverageServingBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn,merchantId);
+
+@override
+String toString() {
+  return 'CoverageServingBranch(id: $id, nameAr: $nameAr, nameEn: $nameEn, merchantId: $merchantId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CoverageServingBranchCopyWith<$Res>  {
+  factory $CoverageServingBranchCopyWith(CoverageServingBranch value, $Res Function(CoverageServingBranch) _then) = _$CoverageServingBranchCopyWithImpl;
+@useResult
+$Res call({
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'merchant_id') int? merchantId
+});
+
+
+
+
+}
+/// @nodoc
+class _$CoverageServingBranchCopyWithImpl<$Res>
+    implements $CoverageServingBranchCopyWith<$Res> {
+  _$CoverageServingBranchCopyWithImpl(this._self, this._then);
+
+  final CoverageServingBranch _self;
+  final $Res Function(CoverageServingBranch) _then;
+
+/// Create a copy of CoverageServingBranch
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,Object? merchantId = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
+as String?,merchantId: freezed == merchantId ? _self.merchantId : merchantId // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CoverageServingBranch].
+extension CoverageServingBranchPatterns on CoverageServingBranch {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CoverageServingBranch value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CoverageServingBranch() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CoverageServingBranch value)  $default,){
+final _that = this;
+switch (_that) {
+case _CoverageServingBranch():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CoverageServingBranch value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CoverageServingBranch() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'merchant_id')  int? merchantId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CoverageServingBranch() when $default != null:
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.merchantId);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'merchant_id')  int? merchantId)  $default,) {final _that = this;
+switch (_that) {
+case _CoverageServingBranch():
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.merchantId);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'merchant_id')  int? merchantId)?  $default,) {final _that = this;
+switch (_that) {
+case _CoverageServingBranch() when $default != null:
+return $default(_that.id,_that.nameAr,_that.nameEn,_that.merchantId);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CoverageServingBranch implements CoverageServingBranch {
+  const _CoverageServingBranch({required this.id, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'merchant_id') this.merchantId});
+  factory _CoverageServingBranch.fromJson(Map<String, dynamic> json) => _$CoverageServingBranchFromJson(json);
+
+@override final  int id;
+@override@JsonKey(name: 'name_ar') final  String? nameAr;
+@override@JsonKey(name: 'name_en') final  String? nameEn;
+@override@JsonKey(name: 'merchant_id') final  int? merchantId;
+
+/// Create a copy of CoverageServingBranch
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CoverageServingBranchCopyWith<_CoverageServingBranch> get copyWith => __$CoverageServingBranchCopyWithImpl<_CoverageServingBranch>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CoverageServingBranchToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverageServingBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.merchantId, merchantId) || other.merchantId == merchantId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,nameAr,nameEn,merchantId);
+
+@override
+String toString() {
+  return 'CoverageServingBranch(id: $id, nameAr: $nameAr, nameEn: $nameEn, merchantId: $merchantId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CoverageServingBranchCopyWith<$Res> implements $CoverageServingBranchCopyWith<$Res> {
+  factory _$CoverageServingBranchCopyWith(_CoverageServingBranch value, $Res Function(_CoverageServingBranch) _then) = __$CoverageServingBranchCopyWithImpl;
+@override @useResult
+$Res call({
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'merchant_id') int? merchantId
+});
+
+
+
+
+}
+/// @nodoc
+class __$CoverageServingBranchCopyWithImpl<$Res>
+    implements _$CoverageServingBranchCopyWith<$Res> {
+  __$CoverageServingBranchCopyWithImpl(this._self, this._then);
+
+  final _CoverageServingBranch _self;
+  final $Res Function(_CoverageServingBranch) _then;
+
+/// Create a copy of CoverageServingBranch
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nameAr = freezed,Object? nameEn = freezed,Object? merchantId = freezed,}) {
+  return _then(_CoverageServingBranch(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
+as String?,merchantId: freezed == merchantId ? _self.merchantId : merchantId // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$CoverageResult {
 
-@JsonKey(name: 'is_serviceable') bool get isServiceable;@JsonKey(name: 'in_active_zone') bool get inActiveZone;@JsonKey(name: 'delivery_zone_id') int? get deliveryZoneId;@JsonKey(name: 'delivery_zone_name_ar') String? get deliveryZoneNameAr;@JsonKey(name: 'delivery_zone_name_en') String? get deliveryZoneNameEn;@JsonKey(name: 'city_id') int? get cityId;@JsonKey(name: 'delivery_fee_halalas') int? get deliveryFeeHalalas;
+@JsonKey(name: 'is_serviceable') bool get isServiceable;@JsonKey(name: 'in_active_zone') bool get inActiveZone;@JsonKey(name: 'branch_id') int? get branchId;@JsonKey(name: 'serving_branch') CoverageServingBranch? get servingBranch;@JsonKey(name: 'delivery_zone_id') int? get deliveryZoneId;@JsonKey(name: 'delivery_zone_name_ar') String? get deliveryZoneNameAr;@JsonKey(name: 'delivery_zone_name_en') String? get deliveryZoneNameEn;@JsonKey(name: 'city_id') int? get cityId;@JsonKey(name: 'district_id') int? get districtId;@JsonKey(name: 'delivery_fee_halalas') int? get deliveryFeeHalalas;
 /// Create a copy of CoverageResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -593,16 +865,16 @@ $CoverageResultCopyWith<CoverageResult> get copyWith => _$CoverageResultCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.inActiveZone, inActiveZone) || other.inActiveZone == inActiveZone)&&(identical(other.deliveryZoneId, deliveryZoneId) || other.deliveryZoneId == deliveryZoneId)&&(identical(other.deliveryZoneNameAr, deliveryZoneNameAr) || other.deliveryZoneNameAr == deliveryZoneNameAr)&&(identical(other.deliveryZoneNameEn, deliveryZoneNameEn) || other.deliveryZoneNameEn == deliveryZoneNameEn)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.inActiveZone, inActiveZone) || other.inActiveZone == inActiveZone)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.servingBranch, servingBranch) || other.servingBranch == servingBranch)&&(identical(other.deliveryZoneId, deliveryZoneId) || other.deliveryZoneId == deliveryZoneId)&&(identical(other.deliveryZoneNameAr, deliveryZoneNameAr) || other.deliveryZoneNameAr == deliveryZoneNameAr)&&(identical(other.deliveryZoneNameEn, deliveryZoneNameEn) || other.deliveryZoneNameEn == deliveryZoneNameEn)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.districtId, districtId) || other.districtId == districtId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,isServiceable,inActiveZone,deliveryZoneId,deliveryZoneNameAr,deliveryZoneNameEn,cityId,deliveryFeeHalalas);
+int get hashCode => Object.hash(runtimeType,isServiceable,inActiveZone,branchId,servingBranch,deliveryZoneId,deliveryZoneNameAr,deliveryZoneNameEn,cityId,districtId,deliveryFeeHalalas);
 
 @override
 String toString() {
-  return 'CoverageResult(isServiceable: $isServiceable, inActiveZone: $inActiveZone, deliveryZoneId: $deliveryZoneId, deliveryZoneNameAr: $deliveryZoneNameAr, deliveryZoneNameEn: $deliveryZoneNameEn, cityId: $cityId, deliveryFeeHalalas: $deliveryFeeHalalas)';
+  return 'CoverageResult(isServiceable: $isServiceable, inActiveZone: $inActiveZone, branchId: $branchId, servingBranch: $servingBranch, deliveryZoneId: $deliveryZoneId, deliveryZoneNameAr: $deliveryZoneNameAr, deliveryZoneNameEn: $deliveryZoneNameEn, cityId: $cityId, districtId: $districtId, deliveryFeeHalalas: $deliveryFeeHalalas)';
 }
 
 
@@ -613,11 +885,11 @@ abstract mixin class $CoverageResultCopyWith<$Res>  {
   factory $CoverageResultCopyWith(CoverageResult value, $Res Function(CoverageResult) _then) = _$CoverageResultCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'in_active_zone') bool inActiveZone,@JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,@JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,@JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
+@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'in_active_zone') bool inActiveZone,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'serving_branch') CoverageServingBranch? servingBranch,@JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,@JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,@JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'district_id') int? districtId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
 });
 
 
-
+$CoverageServingBranchCopyWith<$Res>? get servingBranch;
 
 }
 /// @nodoc
@@ -630,19 +902,34 @@ class _$CoverageResultCopyWithImpl<$Res>
 
 /// Create a copy of CoverageResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isServiceable = null,Object? inActiveZone = null,Object? deliveryZoneId = freezed,Object? deliveryZoneNameAr = freezed,Object? deliveryZoneNameEn = freezed,Object? cityId = freezed,Object? deliveryFeeHalalas = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isServiceable = null,Object? inActiveZone = null,Object? branchId = freezed,Object? servingBranch = freezed,Object? deliveryZoneId = freezed,Object? deliveryZoneNameAr = freezed,Object? deliveryZoneNameEn = freezed,Object? cityId = freezed,Object? districtId = freezed,Object? deliveryFeeHalalas = freezed,}) {
   return _then(_self.copyWith(
 isServiceable: null == isServiceable ? _self.isServiceable : isServiceable // ignore: cast_nullable_to_non_nullable
 as bool,inActiveZone: null == inActiveZone ? _self.inActiveZone : inActiveZone // ignore: cast_nullable_to_non_nullable
-as bool,deliveryZoneId: freezed == deliveryZoneId ? _self.deliveryZoneId : deliveryZoneId // ignore: cast_nullable_to_non_nullable
+as bool,branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
+as int?,servingBranch: freezed == servingBranch ? _self.servingBranch : servingBranch // ignore: cast_nullable_to_non_nullable
+as CoverageServingBranch?,deliveryZoneId: freezed == deliveryZoneId ? _self.deliveryZoneId : deliveryZoneId // ignore: cast_nullable_to_non_nullable
 as int?,deliveryZoneNameAr: freezed == deliveryZoneNameAr ? _self.deliveryZoneNameAr : deliveryZoneNameAr // ignore: cast_nullable_to_non_nullable
 as String?,deliveryZoneNameEn: freezed == deliveryZoneNameEn ? _self.deliveryZoneNameEn : deliveryZoneNameEn // ignore: cast_nullable_to_non_nullable
 as String?,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,districtId: freezed == districtId ? _self.districtId : districtId // ignore: cast_nullable_to_non_nullable
 as int?,deliveryFeeHalalas: freezed == deliveryFeeHalalas ? _self.deliveryFeeHalalas : deliveryFeeHalalas // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CoverageServingBranchCopyWith<$Res>? get servingBranch {
+    if (_self.servingBranch == null) {
+    return null;
+  }
 
+  return $CoverageServingBranchCopyWith<$Res>(_self.servingBranch!, (value) {
+    return _then(_self.copyWith(servingBranch: value));
+  });
+}
 }
 
 
@@ -724,10 +1011,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'serving_branch')  CoverageServingBranch? servingBranch, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'district_id')  int? districtId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CoverageResult() when $default != null:
-return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.deliveryFeeHalalas);case _:
+return $default(_that.isServiceable,_that.inActiveZone,_that.branchId,_that.servingBranch,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.districtId,_that.deliveryFeeHalalas);case _:
   return orElse();
 
 }
@@ -745,10 +1032,10 @@ return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'serving_branch')  CoverageServingBranch? servingBranch, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'district_id')  int? districtId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)  $default,) {final _that = this;
 switch (_that) {
 case _CoverageResult():
-return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.deliveryFeeHalalas);case _:
+return $default(_that.isServiceable,_that.inActiveZone,_that.branchId,_that.servingBranch,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.districtId,_that.deliveryFeeHalalas);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -765,10 +1052,10 @@ return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'is_serviceable')  bool isServiceable, @JsonKey(name: 'in_active_zone')  bool inActiveZone, @JsonKey(name: 'branch_id')  int? branchId, @JsonKey(name: 'serving_branch')  CoverageServingBranch? servingBranch, @JsonKey(name: 'delivery_zone_id')  int? deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar')  String? deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en')  String? deliveryZoneNameEn, @JsonKey(name: 'city_id')  int? cityId, @JsonKey(name: 'district_id')  int? districtId, @JsonKey(name: 'delivery_fee_halalas')  int? deliveryFeeHalalas)?  $default,) {final _that = this;
 switch (_that) {
 case _CoverageResult() when $default != null:
-return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.deliveryFeeHalalas);case _:
+return $default(_that.isServiceable,_that.inActiveZone,_that.branchId,_that.servingBranch,_that.deliveryZoneId,_that.deliveryZoneNameAr,_that.deliveryZoneNameEn,_that.cityId,_that.districtId,_that.deliveryFeeHalalas);case _:
   return null;
 
 }
@@ -780,15 +1067,18 @@ return $default(_that.isServiceable,_that.inActiveZone,_that.deliveryZoneId,_tha
 @JsonSerializable()
 
 class _CoverageResult implements CoverageResult {
-  const _CoverageResult({@JsonKey(name: 'is_serviceable') this.isServiceable = false, @JsonKey(name: 'in_active_zone') this.inActiveZone = false, @JsonKey(name: 'delivery_zone_id') this.deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar') this.deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en') this.deliveryZoneNameEn, @JsonKey(name: 'city_id') this.cityId, @JsonKey(name: 'delivery_fee_halalas') this.deliveryFeeHalalas});
+  const _CoverageResult({@JsonKey(name: 'is_serviceable') this.isServiceable = false, @JsonKey(name: 'in_active_zone') this.inActiveZone = false, @JsonKey(name: 'branch_id') this.branchId, @JsonKey(name: 'serving_branch') this.servingBranch, @JsonKey(name: 'delivery_zone_id') this.deliveryZoneId, @JsonKey(name: 'delivery_zone_name_ar') this.deliveryZoneNameAr, @JsonKey(name: 'delivery_zone_name_en') this.deliveryZoneNameEn, @JsonKey(name: 'city_id') this.cityId, @JsonKey(name: 'district_id') this.districtId, @JsonKey(name: 'delivery_fee_halalas') this.deliveryFeeHalalas});
   factory _CoverageResult.fromJson(Map<String, dynamic> json) => _$CoverageResultFromJson(json);
 
 @override@JsonKey(name: 'is_serviceable') final  bool isServiceable;
 @override@JsonKey(name: 'in_active_zone') final  bool inActiveZone;
+@override@JsonKey(name: 'branch_id') final  int? branchId;
+@override@JsonKey(name: 'serving_branch') final  CoverageServingBranch? servingBranch;
 @override@JsonKey(name: 'delivery_zone_id') final  int? deliveryZoneId;
 @override@JsonKey(name: 'delivery_zone_name_ar') final  String? deliveryZoneNameAr;
 @override@JsonKey(name: 'delivery_zone_name_en') final  String? deliveryZoneNameEn;
 @override@JsonKey(name: 'city_id') final  int? cityId;
+@override@JsonKey(name: 'district_id') final  int? districtId;
 @override@JsonKey(name: 'delivery_fee_halalas') final  int? deliveryFeeHalalas;
 
 /// Create a copy of CoverageResult
@@ -804,16 +1094,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.inActiveZone, inActiveZone) || other.inActiveZone == inActiveZone)&&(identical(other.deliveryZoneId, deliveryZoneId) || other.deliveryZoneId == deliveryZoneId)&&(identical(other.deliveryZoneNameAr, deliveryZoneNameAr) || other.deliveryZoneNameAr == deliveryZoneNameAr)&&(identical(other.deliveryZoneNameEn, deliveryZoneNameEn) || other.deliveryZoneNameEn == deliveryZoneNameEn)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverageResult&&(identical(other.isServiceable, isServiceable) || other.isServiceable == isServiceable)&&(identical(other.inActiveZone, inActiveZone) || other.inActiveZone == inActiveZone)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.servingBranch, servingBranch) || other.servingBranch == servingBranch)&&(identical(other.deliveryZoneId, deliveryZoneId) || other.deliveryZoneId == deliveryZoneId)&&(identical(other.deliveryZoneNameAr, deliveryZoneNameAr) || other.deliveryZoneNameAr == deliveryZoneNameAr)&&(identical(other.deliveryZoneNameEn, deliveryZoneNameEn) || other.deliveryZoneNameEn == deliveryZoneNameEn)&&(identical(other.cityId, cityId) || other.cityId == cityId)&&(identical(other.districtId, districtId) || other.districtId == districtId)&&(identical(other.deliveryFeeHalalas, deliveryFeeHalalas) || other.deliveryFeeHalalas == deliveryFeeHalalas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,isServiceable,inActiveZone,deliveryZoneId,deliveryZoneNameAr,deliveryZoneNameEn,cityId,deliveryFeeHalalas);
+int get hashCode => Object.hash(runtimeType,isServiceable,inActiveZone,branchId,servingBranch,deliveryZoneId,deliveryZoneNameAr,deliveryZoneNameEn,cityId,districtId,deliveryFeeHalalas);
 
 @override
 String toString() {
-  return 'CoverageResult(isServiceable: $isServiceable, inActiveZone: $inActiveZone, deliveryZoneId: $deliveryZoneId, deliveryZoneNameAr: $deliveryZoneNameAr, deliveryZoneNameEn: $deliveryZoneNameEn, cityId: $cityId, deliveryFeeHalalas: $deliveryFeeHalalas)';
+  return 'CoverageResult(isServiceable: $isServiceable, inActiveZone: $inActiveZone, branchId: $branchId, servingBranch: $servingBranch, deliveryZoneId: $deliveryZoneId, deliveryZoneNameAr: $deliveryZoneNameAr, deliveryZoneNameEn: $deliveryZoneNameEn, cityId: $cityId, districtId: $districtId, deliveryFeeHalalas: $deliveryFeeHalalas)';
 }
 
 
@@ -824,11 +1114,11 @@ abstract mixin class _$CoverageResultCopyWith<$Res> implements $CoverageResultCo
   factory _$CoverageResultCopyWith(_CoverageResult value, $Res Function(_CoverageResult) _then) = __$CoverageResultCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'in_active_zone') bool inActiveZone,@JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,@JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,@JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
+@JsonKey(name: 'is_serviceable') bool isServiceable,@JsonKey(name: 'in_active_zone') bool inActiveZone,@JsonKey(name: 'branch_id') int? branchId,@JsonKey(name: 'serving_branch') CoverageServingBranch? servingBranch,@JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,@JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,@JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,@JsonKey(name: 'city_id') int? cityId,@JsonKey(name: 'district_id') int? districtId,@JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas
 });
 
 
-
+@override $CoverageServingBranchCopyWith<$Res>? get servingBranch;
 
 }
 /// @nodoc
@@ -841,20 +1131,35 @@ class __$CoverageResultCopyWithImpl<$Res>
 
 /// Create a copy of CoverageResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isServiceable = null,Object? inActiveZone = null,Object? deliveryZoneId = freezed,Object? deliveryZoneNameAr = freezed,Object? deliveryZoneNameEn = freezed,Object? cityId = freezed,Object? deliveryFeeHalalas = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isServiceable = null,Object? inActiveZone = null,Object? branchId = freezed,Object? servingBranch = freezed,Object? deliveryZoneId = freezed,Object? deliveryZoneNameAr = freezed,Object? deliveryZoneNameEn = freezed,Object? cityId = freezed,Object? districtId = freezed,Object? deliveryFeeHalalas = freezed,}) {
   return _then(_CoverageResult(
 isServiceable: null == isServiceable ? _self.isServiceable : isServiceable // ignore: cast_nullable_to_non_nullable
 as bool,inActiveZone: null == inActiveZone ? _self.inActiveZone : inActiveZone // ignore: cast_nullable_to_non_nullable
-as bool,deliveryZoneId: freezed == deliveryZoneId ? _self.deliveryZoneId : deliveryZoneId // ignore: cast_nullable_to_non_nullable
+as bool,branchId: freezed == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
+as int?,servingBranch: freezed == servingBranch ? _self.servingBranch : servingBranch // ignore: cast_nullable_to_non_nullable
+as CoverageServingBranch?,deliveryZoneId: freezed == deliveryZoneId ? _self.deliveryZoneId : deliveryZoneId // ignore: cast_nullable_to_non_nullable
 as int?,deliveryZoneNameAr: freezed == deliveryZoneNameAr ? _self.deliveryZoneNameAr : deliveryZoneNameAr // ignore: cast_nullable_to_non_nullable
 as String?,deliveryZoneNameEn: freezed == deliveryZoneNameEn ? _self.deliveryZoneNameEn : deliveryZoneNameEn // ignore: cast_nullable_to_non_nullable
 as String?,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,districtId: freezed == districtId ? _self.districtId : districtId // ignore: cast_nullable_to_non_nullable
 as int?,deliveryFeeHalalas: freezed == deliveryFeeHalalas ? _self.deliveryFeeHalalas : deliveryFeeHalalas // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
 
+/// Create a copy of CoverageResult
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CoverageServingBranchCopyWith<$Res>? get servingBranch {
+    if (_self.servingBranch == null) {
+    return null;
+  }
 
+  return $CoverageServingBranchCopyWith<$Res>(_self.servingBranch!, (value) {
+    return _then(_self.copyWith(servingBranch: value));
+  });
+}
 }
 
 

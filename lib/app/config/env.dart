@@ -14,11 +14,4 @@ class Env {
     defaultValue: 'https://4u-api.mawaeidk.com/api/v1',
   );
 
-  /// The browse branch until the multi-store home ships (GET /mobile/home is
-  /// pending the client's marketplace decision). Products, cart and checkout
-  /// already flow per-branch, so removing this later is a one-site change.
-  static const int defaultBranchId = int.fromEnvironment(
-    'DEFAULT_BRANCH_ID',
-    defaultValue: 1,
-  );
 }
