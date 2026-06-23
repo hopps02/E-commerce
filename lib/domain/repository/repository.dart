@@ -9,6 +9,7 @@ import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/data/response/customer/delivery_zone_response.dart';
 import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
+import 'package:for_u/data/response/notification_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:for_u/data/network/error_handler/failure.dart';
 
@@ -27,6 +28,9 @@ typedef ProductsPage = ({List<BranchProduct> products, Meta? meta});
 /// A page of support tickets with its pagination block.
 typedef TicketsPage = ({List<Ticket> items, Meta? meta});
 
+/// A page of in-app notifications with its pagination block.
+typedef NotificationsPage = ({List<MobileNotification> items, Meta? meta});
+
 /// The single application repository. Backed by the auth, captain, cashier and
 /// customer APIs; every feature reaches it through a dedicated use case rather
 /// than calling it directly.
@@ -43,6 +47,18 @@ abstract class Repository {
   Future<Either<Failure, Unit>> registerDevice(RegisterDeviceBody body);
 
   Future<Either<Failure, Unit>> unregisterDevice(String token);
+
+  // ---- Notifications ----
+  Future<Either<Failure, NotificationsPage>> notifications({
+    required int page,
+    int pageSize,
+  });
+
+  Future<Either<Failure, int>> unreadNotificationsCount();
+
+  Future<Either<Failure, MobileNotification>> markNotificationRead(int id);
+
+  Future<Either<Failure, int>> markAllNotificationsRead();
 
   // ---- Captain ----
   Future<Either<Failure, CaptainProfile>> captainMe();
@@ -100,11 +116,19 @@ abstract class Repository {
 
   Future<Either<Failure, CashierOrder>> confirmReady(int orderId);
 
-  Future<Either<Failure, CashierOrder>> rejectOrder(int orderId, {String? reason});
+  Future<Either<Failure, CashierOrder>> rejectOrder(
+    int orderId, {
+    String? reason,
+  });
 
-  Future<Either<Failure, List<AvailableCaptain>>> availableCaptains(int orderId);
+  Future<Either<Failure, List<AvailableCaptain>>> availableCaptains(
+    int orderId,
+  );
 
-  Future<Either<Failure, CashierOrder>> assignCaptain(int orderId, int captainId);
+  Future<Either<Failure, CashierOrder>> assignCaptain(
+    int orderId,
+    int captainId,
+  );
 
   Future<Either<Failure, CashierOrder>> reassignCaptain(
     int orderId,
@@ -218,7 +242,10 @@ abstract class Repository {
 
   Future<Either<Failure, Unit>> rateOrder(int id, RateOrderBody body);
 
-  Future<Either<Failure, TicketsPage>> tickets({required int page, int pageSize});
+  Future<Either<Failure, TicketsPage>> tickets({
+    required int page,
+    int pageSize,
+  });
 
   Future<Either<Failure, Ticket>> ticket(int id);
 

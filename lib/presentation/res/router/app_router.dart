@@ -7,6 +7,7 @@ import 'package:for_u/presentation/views/captain/order_details/view/screens/capt
 import 'package:for_u/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
+import 'package:for_u/presentation/views/shared/notifications/view/screens/notifications_view.dart';
 import 'package:for_u/presentation/views/shared/support/view/screens/support_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,6 +44,7 @@ enum Routes {
   // Shared routes
   splash         ('splash'),
   auth           ('auth'),
+  notifications  ('notifications'),
 
   // User routes
   onboarding     ('onboarding'),
@@ -156,17 +158,22 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.splash.name,
       path: Routes.splash.path,
-      builder: (_, __) => const SplashView(),
+      builder: (_, _) => const SplashView(),
     ),
     _r(
       name: Routes.onboarding.name,
       path: Routes.onboarding.path,
-      builder: (_, __) => const OnboardingView(),
+      builder: (_, _) => const OnboardingView(),
     ),
     _r(
       name: Routes.auth.name,
       path: Routes.auth.path,
-      builder: (_, __) => const AuthView(),
+      builder: (_, _) => const AuthView(),
+    ),
+    _r(
+      name: Routes.notifications.name,
+      path: Routes.notifications.path,
+      builder: (_, _) => const NotificationsView(),
     ),
     _r(
       name: Routes.authSuccess.name,
@@ -180,17 +187,17 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.home.name,
       path: Routes.home.path,
-      builder: (_, __) => UserHomeView(),
+      builder: (_, _) => UserHomeView(),
     ),
     _r(
       name: Routes.search.name,
       path: Routes.search.path,
-      builder: (_, __) => const SearchView(),
+      builder: (_, _) => const SearchView(),
     ),
     _r(
       name: Routes.sections.name,
       path: Routes.sections.path,
-      builder: (_, __) => const SectionsView(),
+      builder: (_, _) => const SectionsView(),
     ),
     _r(
       name: Routes.products.name,
@@ -213,12 +220,12 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.cart.name,
       path: Routes.cart.path,
-      builder: (_, __) => const CartView(),
+      builder: (_, _) => const CartView(),
     ),
     _r(
       name: Routes.confirmOrder.name,
       path: Routes.confirmOrder.path,
-      builder: (_, __) => const ConfirmOrderView(),
+      builder: (_, _) => const ConfirmOrderView(),
     ),
     _r(
       name: Routes.orderDetails.name,
@@ -232,17 +239,17 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.language.name,
       path: Routes.language.path,
-      builder: (_, __) => const LanguageView(),
+      builder: (_, _) => const LanguageView(),
     ),
     _r(
       name: Routes.editProfile.name,
       path: Routes.editProfile.path,
-      builder: (_, __) => const EditProfileView(),
+      builder: (_, _) => const EditProfileView(),
     ),
     _r(
       name: Routes.addresses.name,
       path: Routes.addresses.path,
-      builder: (_, __) => const AddressesView(),
+      builder: (_, _) => const AddressesView(),
     ),
     _r(
       name: Routes.addressForm.name,
@@ -265,22 +272,22 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.favorites.name,
       path: Routes.favorites.path,
-      builder: (_, __) => const FavoritesView(),
+      builder: (_, _) => const FavoritesView(),
     ),
     _r(
       name: Routes.legalPolicies.name,
       path: Routes.legalPolicies.path,
-      builder: (_, __) => const LegalPoliciesView(),
+      builder: (_, _) => const LegalPoliciesView(),
     ),
     _r(
       name: Routes.tickets.name,
       path: Routes.tickets.path,
-      builder: (_, __) => const TicketsView(),
+      builder: (_, _) => const TicketsView(),
     ),
     _r(
       name: Routes.createTicket.name,
       path: Routes.createTicket.path,
-      builder: (_, __) => const CreateTicketView(),
+      builder: (_, _) => const CreateTicketView(),
     ),
     _r(
       name: Routes.ticketDetail.name,
@@ -294,12 +301,12 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.cashierHome.name,
       path: Routes.cashierHome.path,
-      builder: (_, __) => const CashierHomeView(),
+      builder: (_, _) => const CashierHomeView(),
     ),
     _r(
       name: Routes.support.name,
       path: Routes.support.path,
-      builder: (_, __) => const SupportView(),
+      builder: (_, _) => const SupportView(),
     ),
     _r(
       name: Routes.cashierOrderDetails.name,
@@ -313,7 +320,7 @@ final GoRouter appRouter = GoRouter(
     _r(
       name: Routes.captainHome.name,
       path: Routes.captainHome.path,
-      builder: (_, __) => const CaptainHomeView(),
+      builder: (_, _) => const CaptainHomeView(),
     ),
     _r(
       name: Routes.captainOrderDetails.name,

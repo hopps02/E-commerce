@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/presentation/common/home_header_actions.dart';
 import 'package:for_u/presentation/common/home_top_app_bar.dart';
+import 'package:for_u/presentation/common/notification_bell.dart';
 import 'package:for_u/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_availability_switch.dart';
 import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_orders_slider.dart';
@@ -33,13 +35,29 @@ class _CaptainHomeViewState extends ConsumerState<CaptainHomeView>
               welcomeName: captainName,
               headerActions: const HomeHeaderActions(),
               tabsBar: const CaptainTabsBar(),
-              headerTrailing: const CaptainAvailabilitySwitch(),
+              headerTrailing: const _CaptainHeaderTrailing(),
               tabsAboveSearch: false,
             ),
           ];
         },
         body: const CaptainOrdersSlider(),
       ),
+    );
+  }
+}
+
+class _CaptainHeaderTrailing extends StatelessWidget {
+  const _CaptainHeaderTrailing();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const NotificationBell(dark: true),
+        12.horizontalSpace,
+        const CaptainAvailabilitySwitch(),
+      ],
     );
   }
 }

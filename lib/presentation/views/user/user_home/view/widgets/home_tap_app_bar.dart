@@ -7,6 +7,7 @@ import 'package:for_u/app/ui_kit/animations/animated_on_appear.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/presentation/common/notification_bell.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -68,7 +69,9 @@ class TopAppBarContent extends ConsumerWidget {
                   8.verticalSpace,
                   CustomInkButton(
                     onTap: () async {
-                      final picked = await AddressPickerBottomSheet.show(context);
+                      final picked = await AddressPickerBottomSheet.show(
+                        context,
+                      );
                       if (picked == null) return;
                       if (ref.read(cartController).isEmpty) {
                         await ref
@@ -114,14 +117,22 @@ class TopAppBarContent extends ConsumerWidget {
                   ),
                 ],
               ),
-              SvgPicture.asset(
-                Assets.svg.appLogo.path,
-                width: 39.w,
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  ColorM.primary700,
-                  BlendMode.srcIn,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                textDirection: TextDirection.ltr,
+                children: [
+                  const NotificationBell(),
+                  10.horizontalSpace,
+                  SvgPicture.asset(
+                    Assets.svg.appLogo.path,
+                    width: 39.w,
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      ColorM.primary700,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

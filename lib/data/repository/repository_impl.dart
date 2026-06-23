@@ -9,6 +9,7 @@ import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/data/response/customer/delivery_zone_response.dart';
 import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
+import 'package:for_u/data/response/notification_response.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/api/captain_api.dart';
 import 'package:for_u/data/network/api/cashier_api.dart';
@@ -79,6 +80,36 @@ class RepositoryImpl implements Repository {
     },
   );
 
+  // ---- Notifications ----
+  @override
+  Future<Either<Failure, NotificationsPage>> notifications({
+    required int page,
+    int pageSize = 20,
+  }) => fastHandler(
+    request: () async {
+      final envelope = await _customerApi.notifications(page, pageSize);
+      return (items: envelope.data, meta: envelope.meta);
+    },
+  );
+
+  @override
+  Future<Either<Failure, int>> unreadNotificationsCount() => fastHandler(
+    request: () async =>
+        (await _customerApi.unreadNotificationsCount()).data.unread,
+  );
+
+  @override
+  Future<Either<Failure, MobileNotification>> markNotificationRead(int id) =>
+      fastHandler(
+        request: () async => (await _customerApi.markNotificationRead(id)).data,
+      );
+
+  @override
+  Future<Either<Failure, int>> markAllNotificationsRead() => fastHandler(
+    request: () async =>
+        (await _customerApi.markAllNotificationsRead()).data.marked,
+  );
+
   // ---- Captain ----
   @override
   Future<Either<Failure, CaptainProfile>> captainMe() =>
@@ -107,11 +138,14 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, CaptainOrder>> captainOrderDetail(int id) =>
-      fastHandler(request: () async => (await _captainApi.orderDetail(id)).data);
+      fastHandler(
+        request: () async => (await _captainApi.orderDetail(id)).data,
+      );
 
   @override
-  Future<Either<Failure, CaptainOrder>> acceptOrder(int orderId) =>
-      fastHandler(request: () async => (await _captainApi.accept(orderId)).data);
+  Future<Either<Failure, CaptainOrder>> acceptOrder(int orderId) => fastHandler(
+    request: () async => (await _captainApi.accept(orderId)).data,
+  );
 
   @override
   Future<Either<Failure, CaptainOrder>> startDelivery(int orderId) =>
@@ -125,8 +159,10 @@ class RepositoryImpl implements Repository {
     double? lat,
     double? lng,
   }) => fastHandler(
-    request: () async =>
-        (await _captainApi.markDelivered(orderId, {'lat': lat, 'lng': lng})).data,
+    request: () async => (await _captainApi.markDelivered(orderId, {
+      'lat': lat,
+      'lng': lng,
+    })).data,
   );
 
   @override
@@ -164,7 +200,9 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, CashierOrder>> cashierOrderDetail(int id) =>
-      fastHandler(request: () async => (await _cashierApi.orderDetail(id)).data);
+      fastHandler(
+        request: () async => (await _cashierApi.orderDetail(id)).data,
+      );
 
   @override
   Future<Either<Failure, CashierOrder>> markItemPrepared(
@@ -183,15 +221,18 @@ class RepositoryImpl implements Repository {
     int itemId, {
     String? reason,
   }) => fastHandler(
-    request: () async => (await _cashierApi.markItemUnavailable(orderId, itemId, {
-      'reason': reason,
-    })).data,
+    request: () async => (await _cashierApi.markItemUnavailable(
+      orderId,
+      itemId,
+      {'reason': reason},
+    )).data,
   );
 
   @override
-  Future<Either<Failure, CashierOrder>> confirmReady(int orderId) => fastHandler(
-    request: () async => (await _cashierApi.confirmReady(orderId)).data,
-  );
+  Future<Either<Failure, CashierOrder>> confirmReady(int orderId) =>
+      fastHandler(
+        request: () async => (await _cashierApi.confirmReady(orderId)).data,
+      );
 
   @override
   Future<Either<Failure, CashierOrder>> rejectOrder(
@@ -214,8 +255,9 @@ class RepositoryImpl implements Repository {
     int orderId,
     int captainId,
   ) => fastHandler(
-    request: () async =>
-        (await _cashierApi.assignCaptain(orderId, {'captain_id': captainId})).data,
+    request: () async => (await _cashierApi.assignCaptain(orderId, {
+      'captain_id': captainId,
+    })).data,
   );
 
   @override
@@ -243,8 +285,8 @@ class RepositoryImpl implements Repository {
     String? preferredLocale,
   }) => fastHandler(
     request: () async => (await _customerApi.updateProfile({
-      if (name != null) 'name': name,
-      if (preferredLocale != null) 'preferred_locale': preferredLocale,
+      'name': ?name,
+      'preferred_locale': ?preferredLocale,
     })).data,
   );
 
@@ -269,8 +311,9 @@ class RepositoryImpl implements Repository {
   );
 
   @override
-  Future<Either<Failure, BranchProduct>> productDetail(int id) =>
-      fastHandler(request: () async => (await _customerApi.productDetail(id)).data);
+  Future<Either<Failure, BranchProduct>> productDetail(int id) => fastHandler(
+    request: () async => (await _customerApi.productDetail(id)).data,
+  );
 
   @override
   Future<Either<Failure, List<ProductCategory>>> categories() =>
@@ -372,8 +415,8 @@ class RepositoryImpl implements Repository {
     request: () async => (await _customerApi.coverageCheck({
       'lat': lat,
       'lng': lng,
-      if (cityId != null) 'city_id': cityId,
-      if (districtId != null) 'district_id': districtId,
+      'city_id': ?cityId,
+      'district_id': ?districtId,
     })).data,
   );
 
@@ -391,9 +434,10 @@ class RepositoryImpl implements Repository {
     required String query,
     required String session,
   }) => fastHandler(
-    request: () async =>
-        (await _customerApi.placesAutocomplete(query.trim(), session))
-            .suggestions,
+    request: () async => (await _customerApi.placesAutocomplete(
+      query.trim(),
+      session,
+    )).suggestions,
   );
 
   @override
@@ -452,11 +496,14 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, CustomerOrder>> customerOrderDetail(int id) =>
-      fastHandler(request: () async => (await _customerApi.orderDetail(id)).data);
+      fastHandler(
+        request: () async => (await _customerApi.orderDetail(id)).data,
+      );
 
   @override
-  Future<Either<Failure, CustomerOrder>> cancelOrder(int id) =>
-      fastHandler(request: () async => (await _customerApi.cancelOrder(id)).data);
+  Future<Either<Failure, CustomerOrder>> cancelOrder(int id) => fastHandler(
+    request: () async => (await _customerApi.cancelOrder(id)).data,
+  );
 
   @override
   Future<Either<Failure, Unit>> rateOrder(int id, RateOrderBody body) =>
@@ -484,22 +531,30 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, Ticket>> openTicket(OpenTicketBody body) =>
-      fastHandler(request: () async => (await _customerApi.openTicket(body)).data);
+      fastHandler(
+        request: () async => (await _customerApi.openTicket(body)).data,
+      );
 
   @override
   Future<Either<Failure, Ticket>> replyTicket(int id, String body) =>
       fastHandler(
-        request: () async =>
-            (await _customerApi.replyTicket(id, ReplyTicketBody(body: body))).data,
+        request: () async => (await _customerApi.replyTicket(
+          id,
+          ReplyTicketBody(body: body),
+        )).data,
       );
 
   @override
   Future<Either<Failure, Ticket>> openCashierTicket(OpenTicketBody body) =>
-      fastHandler(request: () async => (await _cashierApi.openTicket(body)).data);
+      fastHandler(
+        request: () async => (await _cashierApi.openTicket(body)).data,
+      );
 
   @override
   Future<Either<Failure, Ticket>> openCaptainTicket(OpenTicketBody body) =>
-      fastHandler(request: () async => (await _captainApi.openTicket(body)).data);
+      fastHandler(
+        request: () async => (await _captainApi.openTicket(body)).data,
+      );
 
   @override
   Future<Either<Failure, List<LegalSection>>> legalPolicies() => fastHandler(

@@ -5,6 +5,7 @@ import 'package:for_u/data/response/customer/place_response.dart';
 import 'package:for_u/data/request/customer/customer_request.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/data/response/customer/support_response.dart';
+import 'package:for_u/data/response/notification_response.dart';
 import 'package:for_u/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -46,6 +47,21 @@ abstract class CustomerApi {
 
   @DELETE('/mobile/favorites/{id}')
   Future<Envelope<dynamic>> removeFavorite(@Path('id') int id);
+
+  @GET('/mobile/notifications')
+  Future<Envelope<List<MobileNotification>>> notifications(
+    @Query('page') int page,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET('/mobile/notifications/unread-count')
+  Future<Envelope<UnreadNotificationsCount>> unreadNotificationsCount();
+
+  @POST('/mobile/notifications/{id}/read')
+  Future<Envelope<MobileNotification>> markNotificationRead(@Path('id') int id);
+
+  @POST('/mobile/notifications/read-all')
+  Future<Envelope<MarkedNotificationsCount>> markAllNotificationsRead();
 
   @GET('/mobile/addresses')
   Future<Envelope<List<DeliveryAddress>>> addresses();

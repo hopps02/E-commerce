@@ -50,9 +50,12 @@ import 'package:for_u/domain/usecase/get_categories_usecase.dart';
 import 'package:for_u/domain/usecase/get_customer_order_detail_usecase.dart';
 import 'package:for_u/domain/usecase/get_customer_orders_usecase.dart';
 import 'package:for_u/domain/usecase/get_favorites_usecase.dart';
+import 'package:for_u/domain/usecase/get_notifications_usecase.dart';
 import 'package:for_u/domain/usecase/get_product_detail_usecase.dart';
 import 'package:for_u/domain/usecase/get_products_usecase.dart';
 import 'package:for_u/domain/usecase/get_profile_usecase.dart';
+import 'package:for_u/domain/usecase/get_unread_notifications_count_usecase.dart';
+import 'package:for_u/domain/usecase/mark_all_notifications_read_usecase.dart';
 import 'package:for_u/domain/usecase/open_ticket_usecase.dart';
 import 'package:for_u/domain/usecase/get_tickets_usecase.dart';
 import 'package:for_u/domain/usecase/get_ticket_usecase.dart';
@@ -61,6 +64,7 @@ import 'package:for_u/domain/usecase/open_cashier_ticket_usecase.dart';
 import 'package:for_u/domain/usecase/open_captain_ticket_usecase.dart';
 import 'package:for_u/domain/usecase/get_delivery_zones_usecase.dart';
 import 'package:for_u/domain/usecase/get_legal_policies_usecase.dart';
+import 'package:for_u/domain/usecase/mark_notification_read_usecase.dart';
 import 'package:for_u/domain/usecase/places_autocomplete_usecase.dart';
 import 'package:for_u/domain/usecase/places_details_usecase.dart';
 import 'package:for_u/domain/usecase/rate_order_usecase.dart';
@@ -70,6 +74,7 @@ import 'package:for_u/domain/usecase/update_profile_usecase.dart';
 import 'package:for_u/domain/usecase/validate_cart_usecase.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
+import 'package:for_u/presentation/views/shared/notifications/riverpod/notifications_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // dart format off
@@ -112,6 +117,7 @@ class DI {
                                               onSessionCleared: () {
                                                 ref.read(cartController.notifier).clear();
                                                 ref.read(favoritesController.notifier).clear();
+                                                ref.read(notificationsController.notifier).clear();
                                               },
                                             ));
 
@@ -182,6 +188,10 @@ extension DIUseCasesExtension on DI {
   GetFavoritesUseCase         get getFavoritesUseCase         => GetFavoritesUseCase(_repo);
   AddFavoriteUseCase          get addFavoriteUseCase          => AddFavoriteUseCase(_repo);
   RemoveFavoriteUseCase       get removeFavoriteUseCase       => RemoveFavoriteUseCase(_repo);
+  GetNotificationsUseCase     get getNotificationsUseCase     => GetNotificationsUseCase(_repo);
+  GetUnreadNotificationsCountUseCase get getUnreadNotificationsCountUseCase => GetUnreadNotificationsCountUseCase(_repo);
+  MarkNotificationReadUseCase get markNotificationReadUseCase => MarkNotificationReadUseCase(_repo);
+  MarkAllNotificationsReadUseCase get markAllNotificationsReadUseCase => MarkAllNotificationsReadUseCase(_repo);
   GetAddressesUseCase         get getAddressesUseCase         => GetAddressesUseCase(_repo);
   CreateAddressUseCase        get createAddressUseCase        => CreateAddressUseCase(_repo);
   UpdateAddressUseCase        get updateAddressUseCase        => UpdateAddressUseCase(_repo);
