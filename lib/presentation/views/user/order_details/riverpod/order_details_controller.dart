@@ -31,6 +31,13 @@ class OrderDetailsState extends Equatable {
   /// Backend-owned eligibility (delivered, unrated, inside the rating window).
   final bool canRate;
 
+  /// Set the moment a rating is accepted this session — drives the in-screen
+  /// confirmation that replaces the CTA. Reset on every fresh load.
+  final bool justRated;
+
+  /// Overall stars just submitted (1–5), shown filled in the confirmation.
+  final int ratedOverall;
+
   const OrderDetailsState({
     this.reqState = ReqState.loading,
     this.errorMessage = "",
@@ -46,12 +53,16 @@ class OrderDetailsState extends Equatable {
     this.failureReason,
     this.failureNote,
     this.canRate = false,
+    this.justRated = false,
+    this.ratedOverall = 0,
   });
 
   OrderDetailsState copyWith({
     ReqState? reqState,
     String? errorMessage,
     bool? canRate,
+    bool? justRated,
+    int? ratedOverall,
   }) {
     return OrderDetailsState(
       reqState: reqState ?? this.reqState,
@@ -68,6 +79,8 @@ class OrderDetailsState extends Equatable {
       failureReason: failureReason,
       failureNote: failureNote,
       canRate: canRate ?? this.canRate,
+      justRated: justRated ?? this.justRated,
+      ratedOverall: ratedOverall ?? this.ratedOverall,
     );
   }
 
@@ -87,6 +100,8 @@ class OrderDetailsState extends Equatable {
     failureReason,
     failureNote,
     canRate,
+    justRated,
+    ratedOverall,
   ];
 }
 
@@ -159,9 +174,14 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
       );
       return false;
     }, (_) {
-      // One rating per order — retire the CTA without a refetch.
+      // One rating per order — retire the CTA without a refetch and surface the
+      // in-screen confirmation with the stars just given.
       _writeGen++;
-      state = state.copyWith(canRate: false);
+      state = state.copyWith(
+        canRate: false,
+        justRated: true,
+        ratedOverall: overall.round().clamp(1, 5),
+      );
       return true;
     });
   }

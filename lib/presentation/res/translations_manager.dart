@@ -186,6 +186,8 @@ enum Translation {
   rating_order_match,
   rating_delivery_speed,
   share_experience_hint,
+  rating_submitted,
+  rating_thanks,
 
   // Profile
   name,

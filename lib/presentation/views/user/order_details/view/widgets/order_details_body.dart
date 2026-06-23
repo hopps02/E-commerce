@@ -12,6 +12,7 @@ import 'package:for_u/presentation/views/user/confirm_order/view/widgets/order_i
 import 'package:for_u/presentation/views/user/order_details/riverpod/order_details_controller.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_delivery_address.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_price_summary.dart';
+import 'package:for_u/presentation/views/user/order_details/view/widgets/order_rated_confirmation.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/order_status_section.dart';
 import 'package:for_u/presentation/views/user/order_details/view/widgets/rate_order_button.dart';
 
@@ -134,7 +135,12 @@ class OrderDetailsBody extends StatelessWidget {
             ),
           ),
           // Eligibility comes from the backend: delivered, unrated, in window.
-          if (state.canRate) const RateOrderButton().premiumAppear(index: 7),
+          if (state.canRate)
+            const RateOrderButton().premiumAppear(index: 7)
+          else if (state.justRated)
+            OrderRatedConfirmation(
+              overall: state.ratedOverall,
+            ).premiumAppear(index: 7),
         ],
       ),
     );

@@ -195,6 +195,8 @@
   "rating_order_match": "Order match",
   "rating_delivery_speed": "Delivery speed",
   "share_experience_hint": "Share the details of your experience....",
+  "rating_submitted": "Your rating was submitted",
+  "rating_thanks": "Thanks for sharing your experience",
   "no_data_found": "Oops, there's no data to show right now.",
   "_comment_profile": "===== Profile =====",
   "name": "Name",
