@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'local_notification_services.dart';
+import 'notification_deep_link.dart';
 
 // Top-level background message handler. Must be a global or static function.
 @pragma('vm:entry-point')
@@ -93,12 +94,15 @@ class FirebaseMessegingServices {
   }
 
   Future<void> handleInitialMessage() async {
+    // Cold start from a notification tap: stash it for the splash to replay
+    // once the session resolves — navigating now would be wiped by the splash
+    // redirect.
     final _initialMessage = await this.initialMessage;
     if (_initialMessage != null) {
-      handleNotificationTap(_initialMessage);
+      NotificationDeepLink.stashColdStart(_initialMessage);
     }
 
-    // App in background and user taps the notification
+    // App alive in the background and the user taps the notification.
     FirebaseMessaging.onMessageOpenedApp.listen(handleNotificationTap);
   }
 
@@ -106,49 +110,7 @@ class FirebaseMessegingServices {
     if (kDebugMode) {
       print('Notification tap data: ' + message.data.toString());
     }
-
-    // if (message.data['type'] == "Booking" &&
-    //     message.data['type_id'] != null &&
-    //     HomeView.homeBloc != null) {
-    //   final bookingId = int.parse(message.data['type_id']);
-    //   NAVIGATOR_KEY.currentState!
-    //       .pushNamed(RoutesManager.bookingDetails.route, arguments: {
-    //     'booking-id': bookingId,
-    //     'on-review-submitted': () {
-    //       HomeView.homeBloc!.add(
-    //         UpdateBookingRatedEvent(
-    //           bookingId: bookingId,
-    //         ),
-    //       );
-    //     },
-    //     'on-booking-cancelled': () {
-    //       HomeView.homeBloc!.add(
-    //         CancelBookingUpdateEvent(
-    //           bookingId: bookingId,
-    //         ),
-    //       );
-    //     },
-    //   });
-    // } else
-    //   NAVIGATOR_KEY.currentState!.pushNamed(
-    //     RoutesManager.notifications.route,
-    //     arguments: {
-    //       'on-review-submitted': (int bookingId) {
-    //         HomeView.homeBloc!.add(
-    //           UpdateBookingRatedEvent(
-    //             bookingId: bookingId,
-    //           ),
-    //         );
-    //       },
-    //       'on-booking-cancelled': (int bookingId) {
-    //         HomeView.homeBloc!.add(
-    //           CancelBookingUpdateEvent(
-    //             bookingId: bookingId,
-    //           ),
-    //         );
-    //       },
-    //     },
-    //   );
+    NotificationDeepLink.handleTap(message);
   }
 
   Future<void> handleInitialMessageAndMessageTapped() async {

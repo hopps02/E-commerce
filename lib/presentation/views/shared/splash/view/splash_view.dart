@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:for_u/app/config/constants.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/services/notification_deep_link.dart';
 import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -59,6 +60,9 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
       switch (start) {
         case StartHome(:final role):
           context.goNamed(role.homeRoute);
+          // A notification that cold-started the app now lands on its screen,
+          // stacked on top of the home the user just reached.
+          NotificationDeepLink.consumeColdStart();
         case StartAuth():
           context.goNamed(Routes.auth);
       }
