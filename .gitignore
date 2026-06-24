@@ -50,6 +50,6 @@ app.*.map.json
 
 .claude/
 
-# Google Maps API keys — local only, NEVER commit (values live here, referenced via placeholders)
-/android/maps.properties
-/ios/Flutter/Maps.xcconfig
+# Google Maps API keys — committed on purpose: the keys are restricted in Google Cloud
+# to our bundle id / package + SHA and the Maps SDK only, so they are safe to ship in-repo
+# (a mobile maps key ships inside the app binary regardless).

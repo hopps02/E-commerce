@@ -1,0 +1,2 @@
+// Google Maps SDK for iOS key — local only, gitignored. Referenced by Info.plist GMSApiKey = $(MAPS_API_KEY).
+MAPS_API_KEY=AIzaSyC-aXa_9TBsJseCToC0gI62S1zb_ClT1P8

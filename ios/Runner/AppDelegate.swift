@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import GoogleMaps
 import flutter_local_notifications
 
 @main
@@ -8,6 +9,11 @@ import flutter_local_notifications
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+
+    // Google Maps SDK key from Info.plist (resolved from the gitignored Maps.xcconfig).
+    if let mapsKey = Bundle.main.object(forInfoDictionaryKey: "GMSApiKey") as? String, !mapsKey.isEmpty {
+      GMSServices.provideAPIKey(mapsKey)
+    }
 
     FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
       GeneratedPluginRegistrant.register(with: registry)
