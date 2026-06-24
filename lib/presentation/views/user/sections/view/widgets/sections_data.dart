@@ -41,7 +41,7 @@ class SectionsData extends ConsumerWidget {
               for (final category in sectionsState.categories)
                 CategoryGridItem(
                   title: category.name(arabic),
-                  imageUrl: "",
+                  imageUrl: category.imageUrl ?? "",
                   onTap: () {
                     context.pushNamed(
                       Routes.products,
