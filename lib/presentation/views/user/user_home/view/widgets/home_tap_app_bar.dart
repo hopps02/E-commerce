@@ -98,10 +98,14 @@ class TopAppBarContent extends ConsumerWidget {
                           width: 18.sp,
                           height: 18.sp,
                         ),
-                        Text(
-                          locationCity ?? Translation.select_your_location.tr,
-                          style: context.labelMedium.copyWith(
-                            color: ColorM.gray600,
+                        SizedBox(
+                          width: 150.w,
+                          child: Text(
+                            locationCity ?? Translation.select_your_location.tr,
+                            maxLines: 1,
+                            style: context.labelMedium.copyWith(
+                              color: ColorM.gray600,
+                            ),
                           ),
                         ),
                         RotatedBox(

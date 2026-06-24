@@ -1,6 +1,0 @@
-# Re-tap confirm and capture whatever error toast appears.
-appId: com.utr.foryou
----
-- tapOn: "تأكيد الطلب"
-- takeScreenshot: /tmp/qa-confirm-err-1
-- takeScreenshot: /tmp/qa-confirm-err-2
