@@ -64,6 +64,8 @@ abstract class AuthSession with _$AuthSession {
   const factory AuthSession({
     @JsonKey(name: 'access_token') String? accessToken,
     @JsonKey(name: 'token_type') String? tokenType,
+    @JsonKey(name: 'refresh_token') String? refreshToken,
+    @JsonKey(name: 'expires_in') int? expiresIn,
     required MobileAccountInfo account,
     @JsonKey(name: 'active_role') required String activeRole,
     Map<String, dynamic>? profile,

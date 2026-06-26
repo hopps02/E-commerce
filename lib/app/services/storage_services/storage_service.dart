@@ -16,6 +16,11 @@ class StorageService extends StorageServiceBase {
   Future<void> setToken(String token)                        async => await _secureStorageService.setToken(token);
   Future<String?> getToken()                                 async => await _secureStorageService.token;
   Future<void> deleteToken()                                 async => await _secureStorageService.deleteToken();
+  Future<void> setRefreshToken(String token)                 async => await _secureStorageService.setRefreshToken(token);
+  Future<String?> getRefreshToken()                          async => await _secureStorageService.refreshToken;
+  Future<void> deleteRefreshToken()                          async => await _secureStorageService.deleteRefreshToken();
+  Future<void> setAccessTokenExpiresAt(DateTime expiresAt)   async => await _secureStorageService.setAccessTokenExpiresAt(expiresAt);
+  Future<void> deleteAccessTokenExpiresAt()                  async => await _secureStorageService.deleteAccessTokenExpiresAt();
 
   // Role (server-assigned)
   Future<void> setRole(String role)                          async => await _secureStorageService.setRole(role);

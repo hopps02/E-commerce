@@ -18,6 +18,9 @@ abstract class AuthApi {
   @POST('/mobile/auth/verify-otp')
   Future<Envelope<AuthSession>> verifyOtp(@Body() VerifyOtpBody body);
 
+  @POST('/mobile/auth/refresh')
+  Future<Envelope<AuthSession>> refresh(@Body() Map<String, String> body);
+
   @GET('/mobile/me')
   Future<Envelope<MeData>> me();
 

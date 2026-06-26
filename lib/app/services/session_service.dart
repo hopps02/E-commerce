@@ -64,6 +64,8 @@ class SessionService {
     if (session.blocked || token == null || role == null) return false;
 
     await _storage.setToken(token);
+    await _storeRefreshToken(session.refreshToken);
+    await _storeAccessTokenExpiry(session.expiresIn);
     await _storage.setRole(role.value);
     unawaited(registerDeviceBestEffort());
     return true;
@@ -144,9 +146,29 @@ class SessionService {
 
   Future<void> clearLocal() async {
     await _storage.deleteToken();
+    await _storage.deleteRefreshToken();
+    await _storage.deleteAccessTokenExpiresAt();
     await _storage.deleteRole();
     // The cart belongs to the session — never carry it to the next account.
     _onSessionCleared?.call();
+  }
+
+  Future<void> _storeRefreshToken(String? token) async {
+    if (token == null || token.isEmpty) {
+      await _storage.deleteRefreshToken();
+      return;
+    }
+    await _storage.setRefreshToken(token);
+  }
+
+  Future<void> _storeAccessTokenExpiry(int? expiresIn) async {
+    if (expiresIn == null || expiresIn <= 0) {
+      await _storage.deleteAccessTokenExpiresAt();
+      return;
+    }
+    await _storage.setAccessTokenExpiresAt(
+      DateTime.now().add(Duration(seconds: expiresIn)),
+    );
   }
 
   /// Only an invalid token or a deactivated account ends the session —

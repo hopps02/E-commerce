@@ -7,10 +7,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 abstract class SecureStorageServiceBase {
 
   final FlutterSecureStorage _storage;
-  static const               _tokenKey    = 'access-token';
-  static const               _roleKey     = 'user-role';
-  static const               _mapDataKey = 'user-data';
+  static const               _tokenKey                = 'access-token';
+  static const               _refreshTokenKey         = 'refresh-token';
+  static const               _accessTokenExpiresAtKey = 'access-token-expires-at';
+  static const               _roleKey                 = 'user-role';
+  static const               _mapDataKey              = 'user-data';
   String?                     _cachedToken;
+  String?                     _cachedRefreshToken;
   String?                     _cachedRole;
 
   SecureStorageServiceBase(this._storage);
@@ -30,6 +33,30 @@ abstract class SecureStorageServiceBase {
   Future<void> deleteToken()          async => {
     await _storage.delete(key: _tokenKey),
     _cachedToken = null,
+  };
+
+  // Refresh token (single-use, server-rotated on every refresh)
+  Future<void> setRefreshToken(String token) async => {
+    await _storage.write(key: _refreshTokenKey, value: token),
+    _cachedRefreshToken = token,
+  };
+
+  Future<String?> get refreshToken    async => _cachedRefreshToken ??= await _storage.read(key: _refreshTokenKey);
+
+  Future<void> deleteRefreshToken()   async => {
+    await _storage.delete(key: _refreshTokenKey),
+    _cachedRefreshToken = null,
+  };
+
+  Future<void> setAccessTokenExpiresAt(DateTime expiresAt) async => {
+    await _storage.write(
+      key: _accessTokenExpiresAtKey,
+      value: expiresAt.toUtc().toIso8601String(),
+    ),
+  };
+
+  Future<void> deleteAccessTokenExpiresAt() async => {
+    await _storage.delete(key: _accessTokenExpiresAtKey),
   };
 
   /// check if there is token or not

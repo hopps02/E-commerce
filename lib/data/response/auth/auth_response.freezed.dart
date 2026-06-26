@@ -559,7 +559,7 @@ as String,
 /// @nodoc
 mixin _$AuthSession {
 
-@JsonKey(name: 'access_token') String? get accessToken;@JsonKey(name: 'token_type') String? get tokenType; MobileAccountInfo get account;@JsonKey(name: 'active_role') String get activeRole; Map<String, dynamic>? get profile; Map<String, dynamic> get scopes;@JsonKey(name: 'next_screen') String? get nextScreen; bool get blocked;// True only for a brand-new signup — the welcome screen shows just then.
+@JsonKey(name: 'access_token') String? get accessToken;@JsonKey(name: 'token_type') String? get tokenType;@JsonKey(name: 'refresh_token') String? get refreshToken;@JsonKey(name: 'expires_in') int? get expiresIn; MobileAccountInfo get account;@JsonKey(name: 'active_role') String get activeRole; Map<String, dynamic>? get profile; Map<String, dynamic> get scopes;@JsonKey(name: 'next_screen') String? get nextScreen; bool get blocked;// True only for a brand-new signup — the welcome screen shows just then.
 @JsonKey(name: 'is_new') bool get isNew;
 /// Create a copy of AuthSession
 /// with the given fields replaced by the non-null parameter values.
@@ -573,16 +573,16 @@ $AuthSessionCopyWith<AuthSession> get copyWith => _$AuthSessionCopyWithImpl<Auth
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthSession&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.account, account) || other.account == account)&&(identical(other.activeRole, activeRole) || other.activeRole == activeRole)&&const DeepCollectionEquality().equals(other.profile, profile)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.nextScreen, nextScreen) || other.nextScreen == nextScreen)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.isNew, isNew) || other.isNew == isNew));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthSession&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.account, account) || other.account == account)&&(identical(other.activeRole, activeRole) || other.activeRole == activeRole)&&const DeepCollectionEquality().equals(other.profile, profile)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.nextScreen, nextScreen) || other.nextScreen == nextScreen)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.isNew, isNew) || other.isNew == isNew));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,tokenType,account,activeRole,const DeepCollectionEquality().hash(profile),const DeepCollectionEquality().hash(scopes),nextScreen,blocked,isNew);
+int get hashCode => Object.hash(runtimeType,accessToken,tokenType,refreshToken,expiresIn,account,activeRole,const DeepCollectionEquality().hash(profile),const DeepCollectionEquality().hash(scopes),nextScreen,blocked,isNew);
 
 @override
 String toString() {
-  return 'AuthSession(accessToken: $accessToken, tokenType: $tokenType, account: $account, activeRole: $activeRole, profile: $profile, scopes: $scopes, nextScreen: $nextScreen, blocked: $blocked, isNew: $isNew)';
+  return 'AuthSession(accessToken: $accessToken, tokenType: $tokenType, refreshToken: $refreshToken, expiresIn: $expiresIn, account: $account, activeRole: $activeRole, profile: $profile, scopes: $scopes, nextScreen: $nextScreen, blocked: $blocked, isNew: $isNew)';
 }
 
 
@@ -593,7 +593,7 @@ abstract mixin class $AuthSessionCopyWith<$Res>  {
   factory $AuthSessionCopyWith(AuthSession value, $Res Function(AuthSession) _then) = _$AuthSessionCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'token_type') String? tokenType, MobileAccountInfo account,@JsonKey(name: 'active_role') String activeRole, Map<String, dynamic>? profile, Map<String, dynamic> scopes,@JsonKey(name: 'next_screen') String? nextScreen, bool blocked,@JsonKey(name: 'is_new') bool isNew
+@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'token_type') String? tokenType,@JsonKey(name: 'refresh_token') String? refreshToken,@JsonKey(name: 'expires_in') int? expiresIn, MobileAccountInfo account,@JsonKey(name: 'active_role') String activeRole, Map<String, dynamic>? profile, Map<String, dynamic> scopes,@JsonKey(name: 'next_screen') String? nextScreen, bool blocked,@JsonKey(name: 'is_new') bool isNew
 });
 
 
@@ -610,11 +610,13 @@ class _$AuthSessionCopyWithImpl<$Res>
 
 /// Create a copy of AuthSession
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = freezed,Object? tokenType = freezed,Object? account = null,Object? activeRole = null,Object? profile = freezed,Object? scopes = null,Object? nextScreen = freezed,Object? blocked = null,Object? isNew = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = freezed,Object? tokenType = freezed,Object? refreshToken = freezed,Object? expiresIn = freezed,Object? account = null,Object? activeRole = null,Object? profile = freezed,Object? scopes = null,Object? nextScreen = freezed,Object? blocked = null,Object? isNew = null,}) {
   return _then(_self.copyWith(
 accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,tokenType: freezed == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
-as String?,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
+as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,expiresIn: freezed == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
+as int?,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
 as MobileAccountInfo,activeRole: null == activeRole ? _self.activeRole : activeRole // ignore: cast_nullable_to_non_nullable
 as String,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
@@ -715,10 +717,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'expires_in')  int? expiresIn,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthSession() when $default != null:
-return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
+return $default(_that.accessToken,_that.tokenType,_that.refreshToken,_that.expiresIn,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
   return orElse();
 
 }
@@ -736,10 +738,10 @@ return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'expires_in')  int? expiresIn,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)  $default,) {final _that = this;
 switch (_that) {
 case _AuthSession():
-return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
+return $default(_that.accessToken,_that.tokenType,_that.refreshToken,_that.expiresIn,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -756,10 +758,10 @@ return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'expires_in')  int? expiresIn,  MobileAccountInfo account, @JsonKey(name: 'active_role')  String activeRole,  Map<String, dynamic>? profile,  Map<String, dynamic> scopes, @JsonKey(name: 'next_screen')  String? nextScreen,  bool blocked, @JsonKey(name: 'is_new')  bool isNew)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthSession() when $default != null:
-return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
+return $default(_that.accessToken,_that.tokenType,_that.refreshToken,_that.expiresIn,_that.account,_that.activeRole,_that.profile,_that.scopes,_that.nextScreen,_that.blocked,_that.isNew);case _:
   return null;
 
 }
@@ -771,11 +773,13 @@ return $default(_that.accessToken,_that.tokenType,_that.account,_that.activeRole
 @JsonSerializable()
 
 class _AuthSession extends AuthSession {
-  const _AuthSession({@JsonKey(name: 'access_token') this.accessToken, @JsonKey(name: 'token_type') this.tokenType, required this.account, @JsonKey(name: 'active_role') required this.activeRole, final  Map<String, dynamic>? profile, final  Map<String, dynamic> scopes = const <String, dynamic>{}, @JsonKey(name: 'next_screen') this.nextScreen, this.blocked = false, @JsonKey(name: 'is_new') this.isNew = false}): _profile = profile,_scopes = scopes,super._();
+  const _AuthSession({@JsonKey(name: 'access_token') this.accessToken, @JsonKey(name: 'token_type') this.tokenType, @JsonKey(name: 'refresh_token') this.refreshToken, @JsonKey(name: 'expires_in') this.expiresIn, required this.account, @JsonKey(name: 'active_role') required this.activeRole, final  Map<String, dynamic>? profile, final  Map<String, dynamic> scopes = const <String, dynamic>{}, @JsonKey(name: 'next_screen') this.nextScreen, this.blocked = false, @JsonKey(name: 'is_new') this.isNew = false}): _profile = profile,_scopes = scopes,super._();
   factory _AuthSession.fromJson(Map<String, dynamic> json) => _$AuthSessionFromJson(json);
 
 @override@JsonKey(name: 'access_token') final  String? accessToken;
 @override@JsonKey(name: 'token_type') final  String? tokenType;
+@override@JsonKey(name: 'refresh_token') final  String? refreshToken;
+@override@JsonKey(name: 'expires_in') final  int? expiresIn;
 @override final  MobileAccountInfo account;
 @override@JsonKey(name: 'active_role') final  String activeRole;
  final  Map<String, dynamic>? _profile;
@@ -812,16 +816,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthSession&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.account, account) || other.account == account)&&(identical(other.activeRole, activeRole) || other.activeRole == activeRole)&&const DeepCollectionEquality().equals(other._profile, _profile)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.nextScreen, nextScreen) || other.nextScreen == nextScreen)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.isNew, isNew) || other.isNew == isNew));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthSession&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.account, account) || other.account == account)&&(identical(other.activeRole, activeRole) || other.activeRole == activeRole)&&const DeepCollectionEquality().equals(other._profile, _profile)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.nextScreen, nextScreen) || other.nextScreen == nextScreen)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.isNew, isNew) || other.isNew == isNew));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,tokenType,account,activeRole,const DeepCollectionEquality().hash(_profile),const DeepCollectionEquality().hash(_scopes),nextScreen,blocked,isNew);
+int get hashCode => Object.hash(runtimeType,accessToken,tokenType,refreshToken,expiresIn,account,activeRole,const DeepCollectionEquality().hash(_profile),const DeepCollectionEquality().hash(_scopes),nextScreen,blocked,isNew);
 
 @override
 String toString() {
-  return 'AuthSession(accessToken: $accessToken, tokenType: $tokenType, account: $account, activeRole: $activeRole, profile: $profile, scopes: $scopes, nextScreen: $nextScreen, blocked: $blocked, isNew: $isNew)';
+  return 'AuthSession(accessToken: $accessToken, tokenType: $tokenType, refreshToken: $refreshToken, expiresIn: $expiresIn, account: $account, activeRole: $activeRole, profile: $profile, scopes: $scopes, nextScreen: $nextScreen, blocked: $blocked, isNew: $isNew)';
 }
 
 
@@ -832,7 +836,7 @@ abstract mixin class _$AuthSessionCopyWith<$Res> implements $AuthSessionCopyWith
   factory _$AuthSessionCopyWith(_AuthSession value, $Res Function(_AuthSession) _then) = __$AuthSessionCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'token_type') String? tokenType, MobileAccountInfo account,@JsonKey(name: 'active_role') String activeRole, Map<String, dynamic>? profile, Map<String, dynamic> scopes,@JsonKey(name: 'next_screen') String? nextScreen, bool blocked,@JsonKey(name: 'is_new') bool isNew
+@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'token_type') String? tokenType,@JsonKey(name: 'refresh_token') String? refreshToken,@JsonKey(name: 'expires_in') int? expiresIn, MobileAccountInfo account,@JsonKey(name: 'active_role') String activeRole, Map<String, dynamic>? profile, Map<String, dynamic> scopes,@JsonKey(name: 'next_screen') String? nextScreen, bool blocked,@JsonKey(name: 'is_new') bool isNew
 });
 
 
@@ -849,11 +853,13 @@ class __$AuthSessionCopyWithImpl<$Res>
 
 /// Create a copy of AuthSession
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = freezed,Object? tokenType = freezed,Object? account = null,Object? activeRole = null,Object? profile = freezed,Object? scopes = null,Object? nextScreen = freezed,Object? blocked = null,Object? isNew = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = freezed,Object? tokenType = freezed,Object? refreshToken = freezed,Object? expiresIn = freezed,Object? account = null,Object? activeRole = null,Object? profile = freezed,Object? scopes = null,Object? nextScreen = freezed,Object? blocked = null,Object? isNew = null,}) {
   return _then(_AuthSession(
 accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,tokenType: freezed == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
-as String?,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
+as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,expiresIn: freezed == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
+as int?,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
 as MobileAccountInfo,activeRole: null == activeRole ? _self.activeRole : activeRole // ignore: cast_nullable_to_non_nullable
 as String,profile: freezed == profile ? _self._profile : profile // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable

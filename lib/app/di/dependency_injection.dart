@@ -134,8 +134,9 @@ class DI {
       overrides: [_sharedPreferences.overrideWithValue(prefs)],
     );
 
-    // Warm the token cache so the first API request doesn't pay the secure-storage read.
+    // Warm token caches so the first API request/refresh doesn't pay the secure-storage read.
     await DI().storageService.getToken();
+    await DI().storageService.getRefreshToken();
   }
 }
 
