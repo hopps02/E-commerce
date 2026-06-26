@@ -88,7 +88,7 @@ class CashierOnTheWayCard extends StatelessWidget {
         const _Divider(),
         12.verticalSpace,
         _OnTheWayFooter(
-          delivered: order.uiStatus == CashierOrderStatus.delivered,
+          status: order.uiStatus,
           onTapDetails: onTapDetails,
         ),
       ],
@@ -415,18 +415,28 @@ class _PrimaryActionButton extends StatelessWidget {
 }
 
 class _OnTheWayFooter extends StatelessWidget {
-  final bool delivered;
+  final CashierOrderStatus? status;
   final VoidCallback onTapDetails;
-  const _OnTheWayFooter({required this.delivered, required this.onTapDetails});
+  const _OnTheWayFooter({required this.status, required this.onTapDetails});
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = delivered
-        ? const Color(0xFF10B981)
-        : const Color(0xFFF59E0B);
-    final statusLabel = delivered
-        ? Translation.delivered.tr
-        : Translation.out_for_delivery.tr;
+    final (statusColor, statusLabel) = switch (status) {
+      CashierOrderStatus.delivered => (
+        const Color(0xFF10B981),
+        Translation.delivered.tr,
+      ),
+      CashierOrderStatus.failedDelivery => (
+        ColorM.red,
+        Translation.delivery_failed.tr,
+      ),
+      CashierOrderStatus.cancelled => (ColorM.red, Translation.cancelled.tr),
+      CashierOrderStatus.rejectedByMerchant => (
+        ColorM.red,
+        Translation.rejected_by_merchant.tr,
+      ),
+      _ => (const Color(0xFFF59E0B), Translation.out_for_delivery.tr),
+    };
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

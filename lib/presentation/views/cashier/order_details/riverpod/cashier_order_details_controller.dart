@@ -5,6 +5,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/failure_reason.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
 import 'package:for_u/domain/usecase/mark_item_prepared_usecase.dart';
@@ -59,6 +60,7 @@ class CashierOrderDetailsState extends Equatable {
   final String? captainName;
   final String? captainAvatarUrl;
   final int? captainId;
+  final String? failureReason;
 
   /// Raw backend order state — distinguishes out_for_delivery (post-pickup)
   /// from captain_assigned for the change-captain handoff note.
@@ -81,6 +83,7 @@ class CashierOrderDetailsState extends Equatable {
     this.captainName,
     this.captainAvatarUrl,
     this.captainId,
+    this.failureReason,
     this.orderRawState = '',
     this.totalHalalas = 0,
   });
@@ -100,6 +103,7 @@ class CashierOrderDetailsState extends Equatable {
     String? captainName,
     String? captainAvatarUrl,
     int? captainId,
+    String? failureReason,
     String? orderRawState,
     String? location,
     DateTime? orderTime,
@@ -115,6 +119,7 @@ class CashierOrderDetailsState extends Equatable {
       captainName: captainName ?? this.captainName,
       captainAvatarUrl: captainAvatarUrl ?? this.captainAvatarUrl,
       captainId: captainId ?? this.captainId,
+      failureReason: failureReason ?? this.failureReason,
       orderRawState: orderRawState ?? this.orderRawState,
       location: location ?? this.location,
       orderTime: orderTime ?? this.orderTime,
@@ -133,6 +138,7 @@ class CashierOrderDetailsState extends Equatable {
     captainName,
     captainAvatarUrl,
     captainId,
+    failureReason,
     orderRawState,
     location,
     orderTime,
@@ -242,10 +248,14 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
   void _applyOrder(CashierOrder order) {
     final status = order.uiStatus;
     if (status == null) {
-      // The order left the cashier queues (rejected/cancelled meanwhile).
+      // Unknown state from the backend; surface it instead of guessing.
       state = state.copyWith(reqState: ReqState.error, msgError: order.state);
       return;
     }
+
+    final reason = status.isFailedDelivery
+        ? failureReasonLabel(order.failureReason, note: order.failureNote)
+        : null;
 
     state = CashierOrderDetailsState(
       reqState: ReqState.success,
@@ -257,6 +267,7 @@ class CashierOrderDetailsNotifier extends Notifier<CashierOrderDetailsState> {
       captainName: order.captain?.name,
       captainAvatarUrl: null,
       captainId: order.captain?.id ?? order.captainId,
+      failureReason: reason,
       orderRawState: order.state,
       totalHalalas: order.totals.totalHalalas,
       products: [

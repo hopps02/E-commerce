@@ -4,9 +4,9 @@ import 'package:for_u/app/enums/enums.dart';
 part 'cashier_response.freezed.dart';
 part 'cashier_response.g.dart';
 
-/// Maps a backend order state onto the cashier screen's four UI stages.
-/// States that never appear in the cashier queues (rejected/cancelled/failed)
-/// map to null and their cards are skipped rather than mis-rendered.
+/// Maps a backend order state onto the cashier screen's UI stages.
+/// The exceptions queue surfaces terminal states that still need cashier
+/// visibility, so each one gets a distinct status label.
 CashierOrderStatus? cashierStatusFromState(String state) => switch (state) {
   'placed' || 'preparing' => CashierOrderStatus.preparing,
   'ready_for_pickup' => CashierOrderStatus.readyForCaptain,
@@ -14,6 +14,9 @@ CashierOrderStatus? cashierStatusFromState(String state) => switch (state) {
   'received_by_captain' ||
   'out_for_delivery' => CashierOrderStatus.inDelivery,
   'delivered' => CashierOrderStatus.delivered,
+  'failed_delivery' => CashierOrderStatus.failedDelivery,
+  'cancelled' => CashierOrderStatus.cancelled,
+  'rejected_by_merchant' => CashierOrderStatus.rejectedByMerchant,
   _ => null,
 };
 
@@ -99,6 +102,8 @@ abstract class CashierOrder with _$CashierOrder {
     Map<String, dynamic>? customer,
     required CashierOrderTotals totals,
     List<CashierOrderItem>? items,
+    @JsonKey(name: 'failure_reason') String? failureReason,
+    @JsonKey(name: 'failure_note') String? failureNote,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _CashierOrder;
 

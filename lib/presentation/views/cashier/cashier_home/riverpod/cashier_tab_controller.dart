@@ -51,12 +51,14 @@ class CashierTabState extends Equatable {
   final String cashierName;
   final CashierTapData preparationData;
   final CashierTapData onTheWayData;
+  final CashierTapData exceptionsData;
 
   const CashierTabState({
     this.selectedIndex = 0,
     this.cashierName = '',
     this.preparationData = const CashierTapData(),
     this.onTheWayData = const CashierTapData(),
+    this.exceptionsData = const CashierTapData(),
   });
 
   CashierTabState copyWith({
@@ -64,17 +66,25 @@ class CashierTabState extends Equatable {
     String? cashierName,
     CashierTapData? preparationData,
     CashierTapData? onTheWayData,
+    CashierTapData? exceptionsData,
   }) {
     return CashierTabState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       cashierName: cashierName ?? this.cashierName,
       preparationData: preparationData ?? this.preparationData,
       onTheWayData: onTheWayData ?? this.onTheWayData,
+      exceptionsData: exceptionsData ?? this.exceptionsData,
     );
   }
 
   @override
-  List<Object?> get props => [selectedIndex, cashierName, preparationData, onTheWayData];
+  List<Object?> get props => [
+    selectedIndex,
+    cashierName,
+    preparationData,
+    onTheWayData,
+    exceptionsData,
+  ];
 }
 
 // dart format on
@@ -82,18 +92,21 @@ class CashierTabState extends Equatable {
 class CashierTabNotifier extends Notifier<CashierTabState> {
   static const _preparationQueue = 'preparation';
   static const _onTheWayQueue = 'on_the_way';
+  static const _exceptionsQueue = 'exceptions';
 
   final CarouselSliderController carouselController =
       CarouselSliderController();
 
   final RefreshController preparationRefreshController = RefreshController();
   final RefreshController onTheWayRefreshController = RefreshController();
+  final RefreshController exceptionsRefreshController = RefreshController();
 
   @override
   CashierTabState build() {
     ref.onDispose(() {
       preparationRefreshController.dispose();
       onTheWayRefreshController.dispose();
+      exceptionsRefreshController.dispose();
     });
     Future.microtask(loadInitial);
     return const CashierTabState();
@@ -112,6 +125,7 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
     await Future.wait([
       _loadFirstPage(_preparationQueue),
       _loadFirstPage(_onTheWayQueue),
+      _loadFirstPage(_exceptionsQueue),
       _loadCashierName(),
     ]);
   }
@@ -184,18 +198,24 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
   bool _morePagesAfter(meta, int page) =>
       meta != null && page * meta.pageSize < meta.total;
 
-  CashierTapData _dataFor(String queue) =>
-      queue == _preparationQueue ? state.preparationData : state.onTheWayData;
+  CashierTapData _dataFor(String queue) => switch (queue) {
+    _preparationQueue => state.preparationData,
+    _onTheWayQueue => state.onTheWayData,
+    _ => state.exceptionsData,
+  };
 
-  RefreshController _refreshControllerFor(String queue) =>
-      queue == _preparationQueue
-      ? preparationRefreshController
-      : onTheWayRefreshController;
+  RefreshController _refreshControllerFor(String queue) => switch (queue) {
+    _preparationQueue => preparationRefreshController,
+    _onTheWayQueue => onTheWayRefreshController,
+    _ => exceptionsRefreshController,
+  };
 
   void _setData(String queue, CashierTapData data) {
-    state = queue == _preparationQueue
-        ? state.copyWith(preparationData: data)
-        : state.copyWith(onTheWayData: data);
+    state = switch (queue) {
+      _preparationQueue => state.copyWith(preparationData: data),
+      _onTheWayQueue => state.copyWith(onTheWayData: data),
+      _ => state.copyWith(exceptionsData: data),
+    };
   }
 }
 

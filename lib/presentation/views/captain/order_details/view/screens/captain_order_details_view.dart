@@ -80,7 +80,7 @@ class _CaptainOrderDetailsViewState
                         items: state.items,
                         totalHalalas: state.totalHalalas,
                       ).premiumAppear(index: 2),
-                      if (state.status.isCancelled &&
+                      if ((state.status.isCancelled || state.status.isFailed) &&
                           state.cancellationReason != null) ...[
                         16.verticalSpace,
                         CaptainCancellationReasonBox(

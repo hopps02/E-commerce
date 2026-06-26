@@ -89,6 +89,7 @@ class CaptainOrderDetailsFooter extends ConsumerWidget {
           const _FailureButton(),
         ];
       case CaptainOrderStatus.delivered:
+      case CaptainOrderStatus.failed:
       case CaptainOrderStatus.cancelled:
         return const [];
     }

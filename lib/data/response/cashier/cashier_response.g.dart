@@ -101,6 +101,8 @@ _CashierOrder _$CashierOrderFromJson(
   items: (json['items'] as List<dynamic>?)
       ?.map((e) => CashierOrderItem.fromJson(e as Map<String, dynamic>))
       .toList(),
+  failureReason: json['failure_reason'] as String?,
+  failureNote: json['failure_note'] as String?,
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
@@ -117,6 +119,8 @@ Map<String, dynamic> _$CashierOrderToJson(_CashierOrder instance) =>
       'customer': instance.customer,
       'totals': instance.totals,
       'items': instance.items,
+      'failure_reason': instance.failureReason,
+      'failure_note': instance.failureNote,
       'created_at': instance.createdAt?.toIso8601String(),
     };
 

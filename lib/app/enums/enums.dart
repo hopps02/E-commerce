@@ -6,7 +6,7 @@ enum SuccessViewType {
   bool get isAuth => this == auth;
 }
 
-/// The four states an order can be in inside the cashier flow. Drives the
+/// The cashier-visible stages an order can be in. Drives the
 /// order-details screen's bottom action button and whether the products table
 /// + captain row are editable / visible.
 enum CashierOrderStatus {
@@ -24,18 +24,35 @@ enum CashierOrderStatus {
 
   /// Order delivered to customer. No action button; green status pill +
   /// captain row are shown.
-  delivered;
+  delivered,
+
+  /// Captain could not complete delivery. Read-only danger status.
+  failedDelivery,
+
+  /// Order was cancelled. Read-only danger status.
+  cancelled,
+
+  /// Merchant rejected the order. Read-only danger status.
+  rejectedByMerchant;
 
   bool get isPreparing => this == preparing;
   bool get isReadyForCaptain => this == readyForCaptain;
   bool get isInDelivery => this == inDelivery;
   bool get isDelivered => this == delivered;
+  bool get isFailedDelivery => this == failedDelivery;
+  bool get isCancelled => this == cancelled;
+  bool get isRejectedByMerchant => this == rejectedByMerchant;
+  bool get isException =>
+      isFailedDelivery || isCancelled || isRejectedByMerchant;
 
   /// Products can only be ticked off while the cashier is preparing the order.
   bool get isProductsEditable => isPreparing;
 
-  /// Captain row + status pill appear once the order leaves the cashier.
-  bool get showsCaptainRow => isInDelivery || isDelivered;
+  /// Captain row appears once the order is assigned to a captain.
+  bool get showsCaptainRow => isInDelivery || isDelivered || isFailedDelivery;
+
+  /// Status pill appears once the order leaves the active preparation states.
+  bool get showsStatusBadge => isInDelivery || isDelivered || isException;
 
   /// Bottom action button is hidden once the order has been handed off.
   bool get showsActionButton => isPreparing || isReadyForCaptain;
@@ -78,16 +95,20 @@ enum CaptainOrderStatus {
   /// Delivered to customer. Read-only. Green pill on customer card.
   delivered,
 
-  /// Failed delivery. Read-only. Red pill + cancellation-reason box at bottom.
+  /// Failed delivery. Read-only. Red pill + failure-reason box at bottom.
+  failed,
+
+  /// Cancelled order. Read-only. Red pill.
   cancelled;
 
   bool get isUpcoming => this == upcoming;
   bool get isReceived => this == received;
   bool get isInDelivery => this == inDelivery;
   bool get isDelivered => this == delivered;
+  bool get isFailed => this == failed;
   bool get isCancelled => this == cancelled;
 
-  bool get isReadOnly => isDelivered || isCancelled;
+  bool get isReadOnly => isDelivered || isFailed || isCancelled;
   bool get showsStatusPill => isInDelivery || isReadOnly;
 }
 
