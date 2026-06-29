@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/data/response/cashier/cashier_response.dart';
+import 'package:for_u/domain/repository/repository.dart';
 import 'package:for_u/domain/usecase/get_cashier_orders_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -52,6 +55,8 @@ class CashierTabState extends Equatable {
   final CashierTapData preparationData;
   final CashierTapData onTheWayData;
   final CashierTapData exceptionsData;
+  final bool hasNewOrder;
+  final int newOrderCount;
 
   const CashierTabState({
     this.selectedIndex = 0,
@@ -59,6 +64,8 @@ class CashierTabState extends Equatable {
     this.preparationData = const CashierTapData(),
     this.onTheWayData = const CashierTapData(),
     this.exceptionsData = const CashierTapData(),
+    this.hasNewOrder = false,
+    this.newOrderCount = 0,
   });
 
   CashierTabState copyWith({
@@ -67,6 +74,8 @@ class CashierTabState extends Equatable {
     CashierTapData? preparationData,
     CashierTapData? onTheWayData,
     CashierTapData? exceptionsData,
+    bool? hasNewOrder,
+    int? newOrderCount,
   }) {
     return CashierTabState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
@@ -74,6 +83,8 @@ class CashierTabState extends Equatable {
       preparationData: preparationData ?? this.preparationData,
       onTheWayData: onTheWayData ?? this.onTheWayData,
       exceptionsData: exceptionsData ?? this.exceptionsData,
+      hasNewOrder: hasNewOrder ?? this.hasNewOrder,
+      newOrderCount: newOrderCount ?? this.newOrderCount,
     );
   }
 
@@ -84,6 +95,8 @@ class CashierTabState extends Equatable {
     preparationData,
     onTheWayData,
     exceptionsData,
+    hasNewOrder,
+    newOrderCount,
   ];
 }
 
@@ -101,9 +114,21 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
   final RefreshController onTheWayRefreshController = RefreshController();
   final RefreshController exceptionsRefreshController = RefreshController();
 
+  final Set<String> _seenPreparationOrders = {};
+
+  Timer? _pollTimer;
+
+  bool _baselined = false;
+  bool _isPreparationPollRunning = false;
+
   @override
   CashierTabState build() {
+    _pollTimer = Timer.periodic(const Duration(seconds: 15), (_) {
+      unawaited(_pollPreparationQueue());
+    });
+
     ref.onDispose(() {
+      _pollTimer?.cancel();
       preparationRefreshController.dispose();
       onTheWayRefreshController.dispose();
       exceptionsRefreshController.dispose();
@@ -133,6 +158,16 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
   Future<void> refreshQueue(String queue) async {
     await _loadFirstPage(queue);
     _refreshControllerFor(queue).refreshCompleted();
+  }
+
+  void dismissNewOrder() {
+    if (!state.hasNewOrder && state.newOrderCount == 0) return;
+    state = state.copyWith(hasNewOrder: false, newOrderCount: 0);
+  }
+
+  void onViewNewOrder() {
+    dismissNewOrder();
+    onTabChange(0);
   }
 
   Future<void> loadMore(String queue) async {
@@ -174,15 +209,12 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
           queue,
         ).copyWith(reqState: ReqState.error, msgError: failure.displayMessage),
       ),
-      (pageData) => _setData(
-        queue,
-        CashierTapData(
-          reqState: pageData.orders.isEmpty ? ReqState.empty : ReqState.success,
-          orders: pageData.orders,
-          page: 1,
-          hasMore: _morePagesAfter(pageData.meta, 1),
-        ),
-      ),
+      (pageData) {
+        _setData(queue, _pageDataToState(pageData));
+        if (queue == _preparationQueue) {
+          _rememberPreparationOrders(pageData.orders);
+        }
+      },
     );
   }
 
@@ -197,6 +229,62 @@ class CashierTabNotifier extends Notifier<CashierTabState> {
 
   bool _morePagesAfter(meta, int page) =>
       meta != null && page * meta.pageSize < meta.total;
+
+  Future<void> _pollPreparationQueue() async {
+    if (_isPreparationPollRunning) return;
+
+    _isPreparationPollRunning = true;
+    try {
+      final result = await DI().getCashierOrdersUseCase.execute(
+        const CashierOrdersParams(queue: _preparationQueue, page: 1),
+      );
+
+      result.fold(
+        (_) {},
+        (pageData) {
+          final preparationData = _pageDataToState(pageData);
+          final orderNumbers = _orderNumbersFrom(pageData.orders);
+
+          if (!_baselined) {
+            _seenPreparationOrders.addAll(orderNumbers);
+            _baselined = true;
+            state = state.copyWith(preparationData: preparationData);
+            return;
+          }
+
+          final newOrders = orderNumbers.difference(_seenPreparationOrders);
+          _seenPreparationOrders.addAll(orderNumbers);
+
+          state = state.copyWith(
+            preparationData: preparationData,
+            hasNewOrder: newOrders.isEmpty ? state.hasNewOrder : true,
+            newOrderCount: newOrders.isEmpty
+                ? state.newOrderCount
+                : state.newOrderCount + newOrders.length,
+          );
+        },
+      );
+    } finally {
+      _isPreparationPollRunning = false;
+    }
+  }
+
+  void _rememberPreparationOrders(List<CashierOrder> orders) {
+    _seenPreparationOrders.addAll(_orderNumbersFrom(orders));
+    _baselined = true;
+  }
+
+  Set<String> _orderNumbersFrom(List<CashierOrder> orders) => orders
+      .map((order) => order.orderNumber)
+      .where((number) => number.isNotEmpty)
+      .toSet();
+
+  CashierTapData _pageDataToState(CashierOrdersPage pageData) => CashierTapData(
+    reqState: pageData.orders.isEmpty ? ReqState.empty : ReqState.success,
+    orders: pageData.orders,
+    page: 1,
+    hasMore: _morePagesAfter(pageData.meta, 1),
+  );
 
   CashierTapData _dataFor(String queue) => switch (queue) {
     _preparationQueue => state.preparationData,
