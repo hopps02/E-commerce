@@ -15,7 +15,7 @@ const int _categoryRowsPerPage = 3;
 const int _categoryColumnsPerPage = 4;
 const int _categoryItemsPerPage =
     _categoryRowsPerPage * _categoryColumnsPerPage;
-const double _categoryViewportFraction = 0.92;
+const double _categoryViewportFraction = 1.0;
 const double _categoryTileImageSize = 70;
 const double _categoryTileLabelGap = 8;
 const double _categoryTileLabelHeight = 44;
@@ -117,36 +117,38 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
 
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
-          child: SizedBox(
-            height: pageHeight,
-            child: PageView.builder(
-              controller: _pageController,
-              padEnds: false,
-              pageSnapping: true,
-              physics: const PageScrollPhysics(),
-              itemCount: pageCount,
-              onPageChanged: (index) {
-                setState(() => _currentPage = index);
-              },
-              itemBuilder: (context, pageIndex) {
-                final start = pageIndex * _categoryItemsPerPage;
-                final end = start + _categoryItemsPerPage;
-                final pageCategories = widget.categories.sublist(
-                  start,
-                  end > widget.categories.length
-                      ? widget.categories.length
-                      : end,
-                );
+        SizedBox(
+          height: pageHeight,
+          child: PageView.builder(
+            controller: _pageController,
+            padEnds: false,
+            pageSnapping: true,
+            physics: const PageScrollPhysics(),
+            itemCount: pageCount,
+            onPageChanged: (index) {
+              setState(() => _currentPage = index);
+            },
+            itemBuilder: (context, pageIndex) {
+              final start = pageIndex * _categoryItemsPerPage;
+              final end = start + _categoryItemsPerPage;
+              final pageCategories = widget.categories.sublist(
+                start,
+                end > widget.categories.length
+                    ? widget.categories.length
+                    : end,
+              );
 
-                return _CategoryCarouselPage(
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeM.pagePadding.w,
+                ),
+                child: _CategoryCarouselPage(
                   categories: pageCategories,
                   arabic: widget.arabic,
                   tileHeight: tileHeight,
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
         if (pageCount > 1) ...[
@@ -211,6 +213,7 @@ class _CategoryCarouselRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: List<Widget>.generate(_categoryColumnsPerPage, (columnIndex) {
         final categoryIndex = startIndex + columnIndex;
         if (categoryIndex >= categories.length) {
