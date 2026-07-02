@@ -40,7 +40,7 @@ class CaptainOrderDetailsState extends Equatable {
   final List<CaptainOrderItem> items;
   /// Backend-authoritative order total — never recomputed client-side.
   final int totalHalalas;
-  /// Populated when status == cancelled, shown in the bottom box.
+  /// Populated for terminal delivery failures/cancellations when provided.
   final String? cancellationReason;
 
   const CaptainOrderDetailsState({

@@ -14,6 +14,7 @@ enum CaptainOrderStatus {
   upcoming,
   inDelivery,
   delivered,
+  failed,
   cancelled;
 
   bool get isUpcoming => this == upcoming;
@@ -336,6 +337,7 @@ class _StatusLabel extends StatelessWidget {
         Translation.delivered.tr,
         const Color(0xFF22C55E),
       ),
+      CaptainOrderStatus.failed => (Translation.delivery_failed.tr, ColorM.red),
       CaptainOrderStatus.cancelled => (Translation.cancelled.tr, ColorM.red),
     };
 

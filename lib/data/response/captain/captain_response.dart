@@ -4,7 +4,7 @@ import 'package:for_u/app/enums/enums.dart';
 part 'captain_response.freezed.dart';
 part 'captain_response.g.dart';
 
-/// Maps a backend order state onto the captain screen's five UI stages.
+/// Maps a backend order state onto the captain screen's UI stages.
 /// States a captain never sees (placed/preparing/cancelled-by-customer…)
 /// map to null and are skipped rather than mis-rendered.
 CaptainOrderStatus? captainStatusFromState(String state) => switch (state) {
@@ -12,7 +12,8 @@ CaptainOrderStatus? captainStatusFromState(String state) => switch (state) {
   'received_by_captain' => CaptainOrderStatus.received,
   'out_for_delivery' => CaptainOrderStatus.inDelivery,
   'delivered' => CaptainOrderStatus.delivered,
-  'failed_delivery' => CaptainOrderStatus.cancelled,
+  'failed_delivery' => CaptainOrderStatus.failed,
+  'cancelled' => CaptainOrderStatus.cancelled,
   _ => null,
 };
 

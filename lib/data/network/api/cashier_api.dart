@@ -15,8 +15,7 @@ abstract class CashierApi {
   @GET('/cashier/me')
   Future<Envelope<CashierProfile>> me();
 
-  /// [queue] is `preparation` or `on_the_way` (the latter includes delivered,
-  /// newest first).
+  /// [queue] is `preparation`, `on_the_way`, or `exceptions`.
   @GET('/cashier/orders')
   Future<Envelope<List<CashierOrder>>> orders(
     @Query('queue') String queue,

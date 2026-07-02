@@ -1124,7 +1124,7 @@ as int,
 /// @nodoc
 mixin _$CashierOrder {
 
- int get id;@JsonKey(name: 'order_number') String get orderNumber; String get state;@JsonKey(name: 'captain_id') int? get captainId; CashierOrderCaptain? get captain;@JsonKey(name: 'items_count') int? get itemsCount; Map<String, dynamic>? get customer; CashierOrderTotals get totals; List<CashierOrderItem>? get items;@JsonKey(name: 'created_at') DateTime? get createdAt;
+ int get id;@JsonKey(name: 'order_number') String get orderNumber; String get state;@JsonKey(name: 'captain_id') int? get captainId; CashierOrderCaptain? get captain;@JsonKey(name: 'items_count') int? get itemsCount; Map<String, dynamic>? get customer; CashierOrderTotals get totals; List<CashierOrderItem>? get items;@JsonKey(name: 'failure_reason') String? get failureReason;@JsonKey(name: 'failure_note') String? get failureNote;@JsonKey(name: 'created_at') DateTime? get createdAt;
 /// Create a copy of CashierOrder
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1137,16 +1137,16 @@ $CashierOrderCopyWith<CashierOrder> get copyWith => _$CashierOrderCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CashierOrder&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.state, state) || other.state == state)&&(identical(other.captainId, captainId) || other.captainId == captainId)&&(identical(other.captain, captain) || other.captain == captain)&&(identical(other.itemsCount, itemsCount) || other.itemsCount == itemsCount)&&const DeepCollectionEquality().equals(other.customer, customer)&&(identical(other.totals, totals) || other.totals == totals)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CashierOrder&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.state, state) || other.state == state)&&(identical(other.captainId, captainId) || other.captainId == captainId)&&(identical(other.captain, captain) || other.captain == captain)&&(identical(other.itemsCount, itemsCount) || other.itemsCount == itemsCount)&&const DeepCollectionEquality().equals(other.customer, customer)&&(identical(other.totals, totals) || other.totals == totals)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.failureReason, failureReason) || other.failureReason == failureReason)&&(identical(other.failureNote, failureNote) || other.failureNote == failureNote)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,state,captainId,captain,itemsCount,const DeepCollectionEquality().hash(customer),totals,const DeepCollectionEquality().hash(items),createdAt);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,state,captainId,captain,itemsCount,const DeepCollectionEquality().hash(customer),totals,const DeepCollectionEquality().hash(items),failureReason,failureNote,createdAt);
 
 @override
 String toString() {
-  return 'CashierOrder(id: $id, orderNumber: $orderNumber, state: $state, captainId: $captainId, captain: $captain, itemsCount: $itemsCount, customer: $customer, totals: $totals, items: $items, createdAt: $createdAt)';
+  return 'CashierOrder(id: $id, orderNumber: $orderNumber, state: $state, captainId: $captainId, captain: $captain, itemsCount: $itemsCount, customer: $customer, totals: $totals, items: $items, failureReason: $failureReason, failureNote: $failureNote, createdAt: $createdAt)';
 }
 
 
@@ -1157,7 +1157,7 @@ abstract mixin class $CashierOrderCopyWith<$Res>  {
   factory $CashierOrderCopyWith(CashierOrder value, $Res Function(CashierOrder) _then) = _$CashierOrderCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'order_number') String orderNumber, String state,@JsonKey(name: 'captain_id') int? captainId, CashierOrderCaptain? captain,@JsonKey(name: 'items_count') int? itemsCount, Map<String, dynamic>? customer, CashierOrderTotals totals, List<CashierOrderItem>? items,@JsonKey(name: 'created_at') DateTime? createdAt
+ int id,@JsonKey(name: 'order_number') String orderNumber, String state,@JsonKey(name: 'captain_id') int? captainId, CashierOrderCaptain? captain,@JsonKey(name: 'items_count') int? itemsCount, Map<String, dynamic>? customer, CashierOrderTotals totals, List<CashierOrderItem>? items,@JsonKey(name: 'failure_reason') String? failureReason,@JsonKey(name: 'failure_note') String? failureNote,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -1174,7 +1174,7 @@ class _$CashierOrderCopyWithImpl<$Res>
 
 /// Create a copy of CashierOrder
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? state = null,Object? captainId = freezed,Object? captain = freezed,Object? itemsCount = freezed,Object? customer = freezed,Object? totals = null,Object? items = freezed,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? state = null,Object? captainId = freezed,Object? captain = freezed,Object? itemsCount = freezed,Object? customer = freezed,Object? totals = null,Object? items = freezed,Object? failureReason = freezed,Object? failureNote = freezed,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -1185,7 +1185,9 @@ as CashierOrderCaptain?,itemsCount: freezed == itemsCount ? _self.itemsCount : i
 as int?,customer: freezed == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,totals: null == totals ? _self.totals : totals // ignore: cast_nullable_to_non_nullable
 as CashierOrderTotals,items: freezed == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
-as List<CashierOrderItem>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<CashierOrderItem>?,failureReason: freezed == failureReason ? _self.failureReason : failureReason // ignore: cast_nullable_to_non_nullable
+as String?,failureNote: freezed == failureNote ? _self.failureNote : failureNote // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -1292,10 +1294,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'failure_reason')  String? failureReason, @JsonKey(name: 'failure_note')  String? failureNote, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CashierOrder() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.failureReason,_that.failureNote,_that.createdAt);case _:
   return orElse();
 
 }
@@ -1313,10 +1315,10 @@ return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.cap
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'failure_reason')  String? failureReason, @JsonKey(name: 'failure_note')  String? failureNote, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _CashierOrder():
-return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.failureReason,_that.failureNote,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1333,10 +1335,10 @@ return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.cap
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'order_number')  String orderNumber,  String state, @JsonKey(name: 'captain_id')  int? captainId,  CashierOrderCaptain? captain, @JsonKey(name: 'items_count')  int? itemsCount,  Map<String, dynamic>? customer,  CashierOrderTotals totals,  List<CashierOrderItem>? items, @JsonKey(name: 'failure_reason')  String? failureReason, @JsonKey(name: 'failure_note')  String? failureNote, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _CashierOrder() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.captain,_that.itemsCount,_that.customer,_that.totals,_that.items,_that.failureReason,_that.failureNote,_that.createdAt);case _:
   return null;
 
 }
@@ -1348,7 +1350,7 @@ return $default(_that.id,_that.orderNumber,_that.state,_that.captainId,_that.cap
 @JsonSerializable()
 
 class _CashierOrder extends CashierOrder {
-  const _CashierOrder({required this.id, @JsonKey(name: 'order_number') required this.orderNumber, required this.state, @JsonKey(name: 'captain_id') this.captainId, this.captain, @JsonKey(name: 'items_count') this.itemsCount, final  Map<String, dynamic>? customer, required this.totals, final  List<CashierOrderItem>? items, @JsonKey(name: 'created_at') this.createdAt}): _customer = customer,_items = items,super._();
+  const _CashierOrder({required this.id, @JsonKey(name: 'order_number') required this.orderNumber, required this.state, @JsonKey(name: 'captain_id') this.captainId, this.captain, @JsonKey(name: 'items_count') this.itemsCount, final  Map<String, dynamic>? customer, required this.totals, final  List<CashierOrderItem>? items, @JsonKey(name: 'failure_reason') this.failureReason, @JsonKey(name: 'failure_note') this.failureNote, @JsonKey(name: 'created_at') this.createdAt}): _customer = customer,_items = items,super._();
   factory _CashierOrder.fromJson(Map<String, dynamic> json) => _$CashierOrderFromJson(json);
 
 @override final  int id;
@@ -1376,6 +1378,8 @@ class _CashierOrder extends CashierOrder {
   return EqualUnmodifiableListView(value);
 }
 
+@override@JsonKey(name: 'failure_reason') final  String? failureReason;
+@override@JsonKey(name: 'failure_note') final  String? failureNote;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 
 /// Create a copy of CashierOrder
@@ -1391,16 +1395,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CashierOrder&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.state, state) || other.state == state)&&(identical(other.captainId, captainId) || other.captainId == captainId)&&(identical(other.captain, captain) || other.captain == captain)&&(identical(other.itemsCount, itemsCount) || other.itemsCount == itemsCount)&&const DeepCollectionEquality().equals(other._customer, _customer)&&(identical(other.totals, totals) || other.totals == totals)&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CashierOrder&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.state, state) || other.state == state)&&(identical(other.captainId, captainId) || other.captainId == captainId)&&(identical(other.captain, captain) || other.captain == captain)&&(identical(other.itemsCount, itemsCount) || other.itemsCount == itemsCount)&&const DeepCollectionEquality().equals(other._customer, _customer)&&(identical(other.totals, totals) || other.totals == totals)&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.failureReason, failureReason) || other.failureReason == failureReason)&&(identical(other.failureNote, failureNote) || other.failureNote == failureNote)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,state,captainId,captain,itemsCount,const DeepCollectionEquality().hash(_customer),totals,const DeepCollectionEquality().hash(_items),createdAt);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,state,captainId,captain,itemsCount,const DeepCollectionEquality().hash(_customer),totals,const DeepCollectionEquality().hash(_items),failureReason,failureNote,createdAt);
 
 @override
 String toString() {
-  return 'CashierOrder(id: $id, orderNumber: $orderNumber, state: $state, captainId: $captainId, captain: $captain, itemsCount: $itemsCount, customer: $customer, totals: $totals, items: $items, createdAt: $createdAt)';
+  return 'CashierOrder(id: $id, orderNumber: $orderNumber, state: $state, captainId: $captainId, captain: $captain, itemsCount: $itemsCount, customer: $customer, totals: $totals, items: $items, failureReason: $failureReason, failureNote: $failureNote, createdAt: $createdAt)';
 }
 
 
@@ -1411,7 +1415,7 @@ abstract mixin class _$CashierOrderCopyWith<$Res> implements $CashierOrderCopyWi
   factory _$CashierOrderCopyWith(_CashierOrder value, $Res Function(_CashierOrder) _then) = __$CashierOrderCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'order_number') String orderNumber, String state,@JsonKey(name: 'captain_id') int? captainId, CashierOrderCaptain? captain,@JsonKey(name: 'items_count') int? itemsCount, Map<String, dynamic>? customer, CashierOrderTotals totals, List<CashierOrderItem>? items,@JsonKey(name: 'created_at') DateTime? createdAt
+ int id,@JsonKey(name: 'order_number') String orderNumber, String state,@JsonKey(name: 'captain_id') int? captainId, CashierOrderCaptain? captain,@JsonKey(name: 'items_count') int? itemsCount, Map<String, dynamic>? customer, CashierOrderTotals totals, List<CashierOrderItem>? items,@JsonKey(name: 'failure_reason') String? failureReason,@JsonKey(name: 'failure_note') String? failureNote,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -1428,7 +1432,7 @@ class __$CashierOrderCopyWithImpl<$Res>
 
 /// Create a copy of CashierOrder
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? state = null,Object? captainId = freezed,Object? captain = freezed,Object? itemsCount = freezed,Object? customer = freezed,Object? totals = null,Object? items = freezed,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? state = null,Object? captainId = freezed,Object? captain = freezed,Object? itemsCount = freezed,Object? customer = freezed,Object? totals = null,Object? items = freezed,Object? failureReason = freezed,Object? failureNote = freezed,Object? createdAt = freezed,}) {
   return _then(_CashierOrder(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -1439,7 +1443,9 @@ as CashierOrderCaptain?,itemsCount: freezed == itemsCount ? _self.itemsCount : i
 as int?,customer: freezed == customer ? _self._customer : customer // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,totals: null == totals ? _self.totals : totals // ignore: cast_nullable_to_non_nullable
 as CashierOrderTotals,items: freezed == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
-as List<CashierOrderItem>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<CashierOrderItem>?,failureReason: freezed == failureReason ? _self.failureReason : failureReason // ignore: cast_nullable_to_non_nullable
+as String?,failureNote: freezed == failureNote ? _self.failureNote : failureNote // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

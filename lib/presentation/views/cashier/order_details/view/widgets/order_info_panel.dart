@@ -46,9 +46,13 @@ class OrderInfoPanel extends StatelessWidget {
             10.verticalSpace,
             _CaptainRow(state: state),
           ],
-          if (state.status.showsCaptainRow) ...[
+          if (state.status.showsStatusBadge) ...[
             9.verticalSpace,
             _StatusBadge(status: state.status),
+          ],
+          if (state.failureReason != null) ...[
+            9.verticalSpace,
+            _FailureReasonBox(reason: state.failureReason!),
           ],
         ],
       ),
@@ -228,6 +232,15 @@ class _StatusBadge extends StatelessWidget {
         const Color(0xFF10B981),
         Translation.delivered.tr,
       ),
+      CashierOrderStatus.failedDelivery => (
+        ColorM.red,
+        Translation.delivery_failed.tr,
+      ),
+      CashierOrderStatus.cancelled => (ColorM.red, Translation.cancelled.tr),
+      CashierOrderStatus.rejectedByMerchant => (
+        ColorM.red,
+        Translation.rejected_by_merchant.tr,
+      ),
       _ => (Colors.transparent, ''),
     };
 
@@ -257,6 +270,53 @@ class _StatusBadge extends StatelessWidget {
             width: 7.w,
             height: 7.w,
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FailureReasonBox extends StatelessWidget {
+  final String reason;
+  const _FailureReasonBox({required this.reason});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      decoration: BoxDecoration(
+        color: ColorM.red.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.error_outline_rounded, size: 18.w, color: ColorM.red),
+          8.horizontalSpace,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Translation.delivery_failure_reason.tr,
+                  style: context.labelMedium.copyWith(
+                    color: ColorM.red,
+                    fontWeight: FontWeightM.semiBold,
+                    height: 1.2,
+                  ),
+                ),
+                2.verticalSpace,
+                Text(
+                  reason,
+                  style: context.bodyMedium.copyWith(
+                    color: ColorM.gray800,
+                    height: 1.2,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -30,16 +30,23 @@ class _CashierTabsBarState extends ConsumerState<CashierTabsBar> {
         children: [
           CashierTabButton(
             title: Translation.preparation.tr,
-            count: 3,
+            count: state.preparationData.orders.length,
             isSelected: state.selectedIndex == 0,
             onTap: () => notifier.onTabChange(0),
           ),
           4.horizontalSpace,
           CashierTabButton(
             title: Translation.on_the_way_to_customer.tr,
-            count: 3,
+            count: state.onTheWayData.orders.length,
             isSelected: state.selectedIndex == 1,
             onTap: () => notifier.onTabChange(1),
+          ),
+          4.horizontalSpace,
+          CashierTabButton(
+            title: Translation.exceptions.tr,
+            count: state.exceptionsData.orders.length,
+            isSelected: state.selectedIndex == 2,
+            onTap: () => notifier.onTabChange(2),
           ),
         ],
       ),

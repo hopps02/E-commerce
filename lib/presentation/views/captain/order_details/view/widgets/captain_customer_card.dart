@@ -219,10 +219,18 @@ class _StatusPill extends StatelessWidget {
             color: ColorM.white,
           ),
         );
+      case CaptainOrderStatus.failed:
+        return _StatusPillSpec(
+          label: Translation.delivery_failed.tr,
+          background: ColorM.red,
+          foreground: ColorM.white,
+          iconBuilder: () =>
+              Icon(Icons.cancel_outlined, size: 16.w, color: ColorM.white),
+        );
       case CaptainOrderStatus.cancelled:
         return _StatusPillSpec(
           label: Translation.cancelled.tr,
-          background: const Color(0xFFE7000B),
+          background: ColorM.red,
           foreground: ColorM.white,
           iconBuilder: () =>
               Icon(Icons.cancel_outlined, size: 16.w, color: ColorM.white),

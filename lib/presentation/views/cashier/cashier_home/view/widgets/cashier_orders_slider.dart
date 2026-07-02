@@ -26,6 +26,7 @@ class CashierOrdersSlider extends ConsumerWidget {
       items: const [
         CashierOrdersData(type: CashierOrdersDataType.preparation),
         CashierOrdersData(type: CashierOrdersDataType.onTheWay),
+        CashierOrdersData(type: CashierOrdersDataType.exceptions),
       ],
     );
   }

@@ -126,6 +126,7 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
           'upcoming' || 'received' => CaptainOrderStatus.upcoming,
           'inDelivery' => CaptainOrderStatus.inDelivery,
           'delivered' => CaptainOrderStatus.delivered,
+          'failed' => CaptainOrderStatus.failed,
           _ => CaptainOrderStatus.cancelled,
         },
       };

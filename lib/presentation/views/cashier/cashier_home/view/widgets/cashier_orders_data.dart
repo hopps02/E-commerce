@@ -16,12 +16,17 @@ import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashi
 
 enum CashierOrdersDataType {
   preparation,
-  onTheWay;
+  onTheWay,
+  exceptions;
 
   bool get isPreparation => this == CashierOrdersDataType.preparation;
   bool get isOnTheWay => this == CashierOrdersDataType.onTheWay;
 
-  String get queue => isPreparation ? 'preparation' : 'on_the_way';
+  String get queue => switch (this) {
+    CashierOrdersDataType.preparation => 'preparation',
+    CashierOrdersDataType.onTheWay => 'on_the_way',
+    CashierOrdersDataType.exceptions => 'exceptions',
+  };
 }
 
 class CashierOrdersData extends ConsumerStatefulWidget {
@@ -43,7 +48,7 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
       Routes.cashierOrderDetails,
       arguments: CashierOrderDetailsArgs(orderId: order.id),
     );
-    // The cashier may have changed the order inside; reload both queues.
+    // The cashier may have changed the order inside; reload all queues.
     if (mounted) ref.read(cashierTabController.notifier).loadInitial();
   }
 
@@ -62,13 +67,19 @@ class _CashierOrdersDataState extends ConsumerState<CashierOrdersData>
     super.build(context);
     final state = ref.watch(
       cashierTabController.select(
-        (s) => widget.type.isPreparation ? s.preparationData : s.onTheWayData,
+        (s) => switch (widget.type) {
+          CashierOrdersDataType.preparation => s.preparationData,
+          CashierOrdersDataType.onTheWay => s.onTheWayData,
+          CashierOrdersDataType.exceptions => s.exceptionsData,
+        },
       ),
     );
     final notifier = ref.read(cashierTabController.notifier);
-    final refreshController = widget.type.isPreparation
-        ? notifier.preparationRefreshController
-        : notifier.onTheWayRefreshController;
+    final refreshController = switch (widget.type) {
+      CashierOrdersDataType.preparation => notifier.preparationRefreshController,
+      CashierOrdersDataType.onTheWay => notifier.onTheWayRefreshController,
+      CashierOrdersDataType.exceptions => notifier.exceptionsRefreshController,
+    };
 
     return FastStateRender(
       reqState: state.reqState,

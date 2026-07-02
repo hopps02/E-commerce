@@ -41,6 +41,8 @@ Map<String, dynamic> _$MobileAccountInfoToJson(_MobileAccountInfo instance) =>
 _AuthSession _$AuthSessionFromJson(Map<String, dynamic> json) => _AuthSession(
   accessToken: json['access_token'] as String?,
   tokenType: json['token_type'] as String?,
+  refreshToken: json['refresh_token'] as String?,
+  expiresIn: (json['expires_in'] as num?)?.toInt(),
   account: MobileAccountInfo.fromJson(json['account'] as Map<String, dynamic>),
   activeRole: json['active_role'] as String,
   profile: json['profile'] as Map<String, dynamic>?,
@@ -54,6 +56,8 @@ Map<String, dynamic> _$AuthSessionToJson(_AuthSession instance) =>
     <String, dynamic>{
       'access_token': instance.accessToken,
       'token_type': instance.tokenType,
+      'refresh_token': instance.refreshToken,
+      'expires_in': instance.expiresIn,
       'account': instance.account,
       'active_role': instance.activeRole,
       'profile': instance.profile,
