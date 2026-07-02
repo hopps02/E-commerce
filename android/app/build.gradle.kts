@@ -2,6 +2,7 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
+    id("kotlin-android")
     // START: FlutterFire Configuration
     id("com.google.gms.google-services")
     // END: FlutterFire Configuration
@@ -31,6 +32,10 @@ android {
         multiDexEnabled = true
     }
 
+     kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
 
     defaultConfig {
         applicationId = "com.utr.foryou"
@@ -52,11 +57,6 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-    }
-}
 
 flutter {
     source = "../.."
