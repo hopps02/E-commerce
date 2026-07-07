@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/services/notification_deep_link.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
@@ -27,7 +28,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(notificationsController.notifier).load());
+    Future.microtask(_ensureAccessAndLoad);
   }
 
   @override
@@ -113,5 +114,13 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
         ],
       ),
     );
+  }
+
+  Future<void> _ensureAccessAndLoad() async {
+    if (!await requireLogin(context, ref)) {
+      if (mounted) Navigator.of(context).maybePop();
+      return;
+    }
+    await ref.read(notificationsController.notifier).load();
   }
 }

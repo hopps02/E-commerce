@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:for_u/app/services/firebase_messeging_services.dart';
 import 'package:for_u/app/services/session_service.dart';
@@ -13,6 +14,7 @@ import 'package:for_u/data/network/api/customer_api.dart';
 import 'package:for_u/data/network/dio_factory.dart';
 import 'package:for_u/data/repository/repository_impl.dart';
 import 'package:for_u/domain/repository/repository.dart';
+import 'package:for_u/domain/usecase/guest_login_usecase.dart';
 import 'package:for_u/domain/usecase/get_me_usecase.dart';
 import 'package:for_u/domain/usecase/logout_usecase.dart';
 import 'package:for_u/domain/usecase/register_device_usecase.dart';
@@ -91,23 +93,27 @@ class DI {
   static final _storageService            = Provider((ref) => StorageService(ref.read(_secureStorage), ref.read(_sharedPrefsService)));
 
   // --- Network ---
-  static final _dio                       = Provider((ref) => buildDio(ref.read(_storageService)));
+  static final Provider<Dio> _dio         = Provider((ref) => buildDio(
+                                              ref.read(_storageService),
+                                              sessionService: () => ref.read(_sessionService),
+                                              guestLoginUseCase: () => GuestLoginUseCase(ref.read(_repository)),
+                                            ));
 
-  static final _authApi                   = Provider((ref) => AuthApi(ref.read(_dio)));
+  static final Provider<AuthApi> _authApi = Provider((ref) => AuthApi(ref.read(_dio)));
   static final _cashierApi                = Provider((ref) => CashierApi(ref.read(_dio)));
   static final _captainApi                = Provider((ref) => CaptainApi(ref.read(_dio)));
   static final _customerApi               = Provider((ref) => CustomerApi(ref.read(_dio)));
 
   // --- Domain & Data ---
   // One repository, backed by every API. Features reach it only through use cases.
-  static final _repository                = Provider<Repository>((ref) => RepositoryImpl(
+  static final Provider<Repository> _repository = Provider((ref) => RepositoryImpl(
                                               ref.read(_authApi),
                                               ref.read(_captainApi),
                                               ref.read(_cashierApi),
                                               ref.read(_customerApi),
                                             ));
 
-  static final _sessionService            = Provider((ref) => SessionService(
+  static final Provider<SessionService> _sessionService = Provider((ref) => SessionService(
                                               ref.read(_storageService),
                                               () => FirebaseMessegingServices.instance.fcmToken,
                                               registerDeviceUseCase:   RegisterDeviceUseCase(ref.read(_repository)),
@@ -153,6 +159,7 @@ extension DIUseCasesExtension on DI {
   // --- Auth ---
   RequestOtpUseCase           get requestOtpUseCase           => RequestOtpUseCase(_repo);
   VerifyOtpUseCase            get verifyOtpUseCase            => VerifyOtpUseCase(_repo);
+  GuestLoginUseCase           get guestLoginUseCase           => GuestLoginUseCase(_repo);
   GetMeUseCase                get getMeUseCase                => GetMeUseCase(_repo);
   LogoutUseCase               get logoutUseCase               => LogoutUseCase(_repo);
   RegisterDeviceUseCase       get registerDeviceUseCase       => RegisterDeviceUseCase(_repo);

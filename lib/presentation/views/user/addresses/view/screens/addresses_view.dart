@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/default_app_bar.dart';
@@ -29,18 +30,28 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(addressesController.notifier).load());
+    Future.microtask(_ensureAccessAndLoad);
   }
 
   Future<void> _openForm({DeliveryAddress? existing}) async {
+    if (!await requireLogin(context, ref)) return;
     await context.pushNamed(
       Routes.addressForm,
       arguments: AddressFormArgs(existing: existing),
     );
-    if (mounted) ref.read(addressesController.notifier).load();
+    if (mounted) await _ensureAccessAndLoad();
+  }
+
+  Future<void> _ensureAccessAndLoad() async {
+    if (!await requireLogin(context, ref)) {
+      if (mounted) Navigator.of(context).maybePop();
+      return;
+    }
+    ref.read(addressesController.notifier).load();
   }
 
   Future<void> _delete(DeliveryAddress address) async {
+    if (!await requireLogin(context, ref)) return;
     final confirmed = await DeleteAddressBottomSheet.show(context);
     if (confirmed != true || !mounted) return;
     await ref.read(addressesController.notifier).delete(address.id);
@@ -70,7 +81,7 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
                   ? Translation.no_addresses_yet.tr
                   : state.errorMessage,
               alignment: const Alignment(0, -0.22),
-              onRetry: () => ref.read(addressesController.notifier).load(),
+              onRetry: _ensureAccessAndLoad,
               emptyChild: null,
               child: ListView.separated(
                 padding: EdgeInsets.symmetric(
@@ -86,9 +97,12 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
                     address: address,
                     onEdit: () => _openForm(existing: address),
                     onDelete: () => _delete(address),
-                    onSetDefault: () => ref
-                        .read(addressesController.notifier)
-                        .setDefault(address.id),
+                    onSetDefault: () async {
+                      if (!await requireLogin(context, ref)) return;
+                      await ref
+                          .read(addressesController.notifier)
+                          .setDefault(address.id);
+                    },
                   ).premiumAppear(index: index);
                 },
               ),

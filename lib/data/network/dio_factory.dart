@@ -1,20 +1,32 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:for_u/app/config/env.dart';
+import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/app/services/storage_services/storage_service.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/network/interceptors/auth_interceptor.dart';
 import 'package:for_u/data/network/interceptors/language_interceptor.dart';
+import 'package:for_u/domain/usecase/guest_login_usecase.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Dio buildCleanDio() => Dio(_baseOptions());
 
-Dio buildDio(StorageService storageService) {
+Dio buildDio(
+  StorageService storageService, {
+  required SessionService Function() sessionService,
+  required GuestLoginUseCase Function() guestLoginUseCase,
+}) {
   final dio = buildCleanDio();
   final refreshDio = buildCleanDio();
 
   dio.interceptors.add(
-    AuthInterceptor(storageService, AuthApi(refreshDio), refreshDio),
+    AuthInterceptor(
+      storageService,
+      AuthApi(refreshDio),
+      refreshDio,
+      sessionService: sessionService,
+      guestLoginUseCase: guestLoginUseCase,
+    ),
   );
   dio.interceptors.add(LanguageInterceptor());
 

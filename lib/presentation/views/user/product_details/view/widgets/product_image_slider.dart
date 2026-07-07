@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/custom_cached_image.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
@@ -68,8 +69,12 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                 return CustomInkButton(
                   onTap: product == null
                       ? null
-                      : () =>
-                            ref.read(favoritesController.notifier).toggle(product),
+                      : () async {
+                          if (!await requireLogin(context, ref)) return;
+                          await ref
+                              .read(favoritesController.notifier)
+                              .toggle(product);
+                        },
                   width: 32.w,
                   height: 32.w,
                   borderRadius: 99999,

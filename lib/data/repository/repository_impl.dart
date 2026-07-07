@@ -52,6 +52,10 @@ class RepositoryImpl implements Repository {
       );
 
   @override
+  Future<Either<Failure, GuestSession>> guestLogin() =>
+      fastHandler(request: () async => (await _authApi.guestLogin()).data);
+
+  @override
   Future<Either<Failure, MeData>> me() =>
       fastHandler(request: () async => (await _authApi.me()).data);
 

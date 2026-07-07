@@ -119,9 +119,14 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   }
 
   Future<void> load() async {
+    final cartState = ref.read(cartController);
     final cart = ref.read(cartController.notifier);
-    if (ref.read(cartController).isEmpty) {
+    if (cartState.isEmpty) {
       state = state.copyWith(reqState: ReqState.empty);
+      return;
+    }
+    if (await DI().sessionService.isGuest) {
+      _loadGuestPreview(cartState.lines);
       return;
     }
 
@@ -131,16 +136,19 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       ref.read(cartController).lines,
     );
     var reconciled = false;
-    final validationFailed = validation.fold((failure) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      );
-      return true;
-    }, (result) {
-      reconciled = cart.applyValidation(result);
-      return false;
-    });
+    final validationFailed = validation.fold(
+      (failure) {
+        state = state.copyWith(
+          reqState: ReqState.error,
+          errorMessage: failure.displayMessage,
+        );
+        return true;
+      },
+      (result) {
+        reconciled = cart.applyValidation(result);
+        return false;
+      },
+    );
     if (validationFailed) return;
     if (reconciled) {
       DI().snackBarHelper.showMessage(
@@ -156,20 +164,23 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
 
     final addresses = await DI().getAddressesUseCase.execute(null);
     final activeAddress = ref.read(locationController).selectedAddress;
-    final address = addresses.fold<DeliveryAddress?>((failure) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      );
-      return null;
-    }, (list) {
-      final activeId = activeAddress?.id;
-      if (activeId != null) {
-        final matched = list.where((a) => a.id == activeId).firstOrNull;
-        if (matched != null) return matched;
-      }
-      return list.where((a) => a.isDefault).firstOrNull ?? list.firstOrNull;
-    });
+    final address = addresses.fold<DeliveryAddress?>(
+      (failure) {
+        state = state.copyWith(
+          reqState: ReqState.error,
+          errorMessage: failure.displayMessage,
+        );
+        return null;
+      },
+      (list) {
+        final activeId = activeAddress?.id;
+        if (activeId != null) {
+          final matched = list.where((a) => a.id == activeId).firstOrNull;
+          if (matched != null) return matched;
+        }
+        return list.where((a) => a.isDefault).firstOrNull ?? list.firstOrNull;
+      },
+    );
     if (state.reqState.isError) return;
     if (address == null) {
       state = state.copyWith(
@@ -205,6 +216,10 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   /// backend quote (delivery fee can differ per zone).
   Future<void> selectAddress(DeliveryAddress address) async {
     await ref.read(locationController.notifier).setSelectedAddress(address);
+    if (await DI().sessionService.isGuest) {
+      _loadGuestPreview(ref.read(cartController).lines);
+      return;
+    }
     state = state.copyWith(reqState: ReqState.loading);
     final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
@@ -230,6 +245,10 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   /// if the cart changed since the last quote (e.g. edited then navigated here
   /// before the debounced re-quote fired).
   Future<void> ensureQuote() async {
+    if (await DI().sessionService.isGuest) {
+      await load();
+      return;
+    }
     if (!state.reqState.isSuccess) {
       await load();
       return;
@@ -243,6 +262,15 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   void _onCartChanged(CartState cart) {
     // The first quote is owned by load(); only react to edits made after it.
     if (!state.reqState.isSuccess) return;
+    if (state.addressId == null) {
+      if (cart.isEmpty) {
+        _requoteDebounce?.cancel();
+        state = state.copyWith(reqState: ReqState.empty, requoting: false);
+        return;
+      }
+      _loadGuestPreview(cart.lines);
+      return;
+    }
 
     if (cart.isEmpty) {
       _requoteDebounce?.cancel();
@@ -310,6 +338,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
   ///  - totals unchanged -> place. createOrder stays backend-authoritative.
   /// Returns the order on success; null means nothing was placed (handled).
   Future<CustomerOrder?> placeOrder({String? notes}) async {
+    if (await DI().sessionService.isGuest) return null;
     final addressId = state.addressId;
     if (addressId == null || ref.read(cartController).isEmpty) return null;
 
@@ -348,18 +377,21 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     );
     state = state.copyWith(placing: false);
 
-    return result.fold((failure) {
-      DI().snackBarHelper.showMessage(
-        failure.displayMessage,
-        ErrorMessage.snackBar,
-      );
-      return null;
-    }, (order) {
-      _idempotencyKey = null;
-      _keyFingerprint = '';
-      ref.read(cartController.notifier).clear();
-      return order;
-    });
+    return result.fold(
+      (failure) {
+        DI().snackBarHelper.showMessage(
+          failure.displayMessage,
+          ErrorMessage.snackBar,
+        );
+        return null;
+      },
+      (order) {
+        _idempotencyKey = null;
+        _keyFingerprint = '';
+        ref.read(cartController.notifier).clear();
+        return order;
+      },
+    );
   }
 
   /// Forces a fresh server quote for the current cart + address (the confirm
@@ -373,29 +405,32 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     final quote = await DI().checkoutQuoteUseCase.execute(
       CheckoutQuoteParams(addressId: addressId, lines: lines),
     );
-    return quote.fold<CheckoutQuote?>((failure) {
-      // Mirror _requote: a failed confirm-time quote must not leave the old
-      // total presented as a valid checkout — drop to error so the retry UI
-      // (CartData) takes over instead of showing a stale price.
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-        requoting: false,
-      );
-      DI().snackBarHelper.showMessage(
-        failure.displayMessage,
-        ErrorMessage.snackBar,
-      );
-      return null;
-    }, (q) {
-      state = state.copyWith(
-        reqState: ReqState.success,
-        totals: q.totals,
-        quotedFingerprint: checkoutFingerprint(addressId, lines),
-        requoting: false,
-      );
-      return q;
-    });
+    return quote.fold<CheckoutQuote?>(
+      (failure) {
+        // Mirror _requote: a failed confirm-time quote must not leave the old
+        // total presented as a valid checkout — drop to error so the retry UI
+        // (CartData) takes over instead of showing a stale price.
+        state = state.copyWith(
+          reqState: ReqState.error,
+          errorMessage: failure.displayMessage,
+          requoting: false,
+        );
+        DI().snackBarHelper.showMessage(
+          failure.displayMessage,
+          ErrorMessage.snackBar,
+        );
+        return null;
+      },
+      (q) {
+        state = state.copyWith(
+          reqState: ReqState.success,
+          totals: q.totals,
+          quotedFingerprint: checkoutFingerprint(addressId, lines),
+          requoting: false,
+        );
+        return q;
+      },
+    );
   }
 
   String _keyFor(int addressId, List<CartLine> lines) {
@@ -406,6 +441,15 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       _keyFingerprint = fingerprint;
     }
     return _idempotencyKey!;
+  }
+
+  void _loadGuestPreview(List<CartLine> lines) {
+    final selectedAddress = ref.read(locationController).selectedAddress;
+    state = CheckoutState(
+      reqState: ReqState.success,
+      addressLine: selectedAddress?.displayAddress ?? '',
+      quotedFingerprint: checkoutFingerprint(null, lines),
+    );
   }
 }
 

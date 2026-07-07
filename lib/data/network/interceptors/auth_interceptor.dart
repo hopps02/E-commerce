@@ -2,22 +2,34 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:for_u/app/app.dart';
+import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/app/services/storage_services/storage_service.dart';
 import 'package:for_u/data/network/api/auth_api.dart';
 import 'package:for_u/data/response/auth/auth_response.dart';
+import 'package:for_u/domain/usecase/guest_login_usecase.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthInterceptor extends Interceptor {
   static const _retryMarker = 'auth_retry_attempted';
   static Completer<AuthSession?>? _refreshCompleter;
-  static String? _lastRefreshedAccessToken;
+  static Completer<String?>? _guestCompleter;
+  static String? _lastIssuedAccessToken;
 
   final StorageService _storageService;
   final AuthApi _authApi;
   final Dio _retryDio;
+  final SessionService Function() _sessionService;
+  final GuestLoginUseCase Function() _guestLoginUseCase;
 
-  AuthInterceptor(this._storageService, this._authApi, this._retryDio);
+  AuthInterceptor(
+    this._storageService,
+    this._authApi,
+    this._retryDio, {
+    required SessionService Function() sessionService,
+    required GuestLoginUseCase Function() guestLoginUseCase,
+  })  : _sessionService = sessionService,
+        _guestLoginUseCase = guestLoginUseCase;
 
   @override
   Future<void> onRequest(
@@ -31,8 +43,9 @@ class AuthInterceptor extends Interceptor {
     handler.next(options);
   }
 
-  /// Expired access tokens refresh once and replay the request. The user only
-  /// lands back on auth when the refresh token is missing or rejected.
+  /// Expired access tokens retry once. Customers refresh with their refresh
+  /// token; guests silently mint a fresh guest token unless the backend said
+  /// the action itself requires login.
   @override
   Future<void> onError(
     DioException err,
@@ -54,6 +67,68 @@ class AuthInterceptor extends Interceptor {
       return;
     }
 
+    if (await _storageService.getGuest()) {
+      await _handleGuestUnauthorized(err, handler);
+      return;
+    }
+
+    await _handleCustomerUnauthorized(err, handler);
+  }
+
+  Future<void> _handleGuestUnauthorized(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    if (_errorCode(err) == 'login_required') {
+      handler.next(err);
+      return;
+    }
+
+    if (_hasRetried(err.requestOptions)) {
+      await _clearSessionAndNavigate();
+      handler.next(err);
+      return;
+    }
+
+    try {
+      final retryResponse = await _retryIfAccessTokenChanged(
+        err.requestOptions,
+      );
+      if (retryResponse != null) {
+        handler.resolve(retryResponse);
+        return;
+      }
+    } on DioException catch (retryErr) {
+      handler.next(retryErr);
+      return;
+    } catch (_) {
+      // Fall through to guest token re-mint.
+    }
+
+    final accessToken = await _reissueGuest();
+    if (accessToken == null || accessToken.isEmpty) {
+      await _clearSessionAndNavigate();
+      handler.next(err);
+      return;
+    }
+
+    try {
+      final retryResponse = await _retryRequest(
+        err.requestOptions,
+        accessToken,
+      );
+      handler.resolve(retryResponse);
+      return;
+    } on DioException catch (retryErr) {
+      handler.next(retryErr);
+      return;
+    }
+  }
+
+  Future<void> _handleCustomerUnauthorized(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     if (_hasRetried(err.requestOptions)) {
       await _clearSessionAndNavigate();
       handler.next(err);
@@ -93,6 +168,37 @@ class AuthInterceptor extends Interceptor {
     } on DioException catch (retryErr) {
       handler.next(retryErr);
       return;
+    }
+  }
+
+  Future<String?> _reissueGuest() async {
+    final activeGuest = _guestCompleter;
+    if (activeGuest != null) return activeGuest.future;
+
+    final completer = Completer<String?>();
+    _guestCompleter = completer;
+
+    try {
+      final result = await _guestLoginUseCase().execute(null);
+      return await result.fold(
+        (_) async {
+          completer.complete(null);
+          return null;
+        },
+        (session) async {
+          await _sessionService().establishGuest(session.accessToken);
+          _lastIssuedAccessToken = session.accessToken;
+          completer.complete(session.accessToken);
+          return session.accessToken;
+        },
+      );
+    } catch (_) {
+      completer.complete(null);
+      return null;
+    } finally {
+      if (identical(_guestCompleter, completer)) {
+        _guestCompleter = null;
+      }
     }
   }
 
@@ -147,8 +253,9 @@ class AuthInterceptor extends Interceptor {
     await _storageService.setToken(accessToken);
     await _storageService.setRefreshToken(refreshToken);
     await _storeAccessTokenExpiry(session.expiresIn);
+    await _storageService.deleteGuest();
     await _storageService.setRole(role.value);
-    _lastRefreshedAccessToken = accessToken;
+    _lastIssuedAccessToken = accessToken;
     return true;
   }
 
@@ -185,7 +292,7 @@ class AuthInterceptor extends Interceptor {
   ) async {
     final currentToken = await _storageService.getToken();
     if (currentToken == null || currentToken.isEmpty) return null;
-    if (_lastRefreshedAccessToken != currentToken) return null;
+    if (_lastIssuedAccessToken != currentToken) return null;
 
     final requestToken = _requestBearerToken(requestOptions);
     if (requestToken == currentToken) return null;
@@ -206,11 +313,8 @@ class AuthInterceptor extends Interceptor {
   }
 
   Future<void> _clearSessionAndNavigate() async {
-    await _storageService.deleteToken();
-    await _storageService.deleteRefreshToken();
-    await _storageService.deleteAccessTokenExpiresAt();
-    await _storageService.deleteRole();
-    _lastRefreshedAccessToken = null;
+    await _sessionService().clearLocal();
+    _lastIssuedAccessToken = null;
     NAVIGATOR_KEY.currentContext?.goNamed(Routes.auth.name);
   }
 
@@ -221,14 +325,18 @@ class AuthInterceptor extends Interceptor {
 
   bool _isAccountSuspended(DioException err) {
     final status = err.response?.statusCode;
-    final body = err.response?.data;
-    final code = body is Map
-        ? (body['error'] is Map ? body['error']['code'] : null)
-        : null;
-    return status == 403 && code == 'account_suspended';
+    return status == 403 && _errorCode(err) == 'account_suspended';
   }
 
-  /// Login/verify calls legitimately 401 on bad input — never react to those.
+  String? _errorCode(DioException err) {
+    final body = err.response?.data;
+    return body is Map && body['error'] is Map
+        ? body['error']['code']?.toString()
+        : null;
+  }
+
+  /// Login/verify/guest/refresh calls legitimately 401 on bad input — never
+  /// recurse into the auth handlers for those.
   bool _isAuthCall(RequestOptions options) =>
       options.path.contains('/mobile/auth/');
 }

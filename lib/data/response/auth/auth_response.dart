@@ -82,6 +82,38 @@ abstract class AuthSession with _$AuthSession {
   MobileRole? get role => MobileRole.tryFrom(activeRole);
 }
 
+/// POST /mobile/auth/guest data. Guests only receive an access token and
+/// browse with it until a login-required action prompts real auth.
+class GuestSession {
+  final String accessToken;
+  final String? tokenType;
+  final int? expiresIn;
+  final bool isGuest;
+
+  const GuestSession({
+    required this.accessToken,
+    this.tokenType,
+    this.expiresIn,
+    this.isGuest = true,
+  });
+
+  factory GuestSession.fromJson(Map<String, dynamic> json) {
+    return GuestSession(
+      accessToken: json['access_token'] as String,
+      tokenType: json['token_type'] as String?,
+      expiresIn: (json['expires_in'] as num?)?.toInt(),
+      isGuest: json['is_guest'] as bool? ?? true,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'access_token': accessToken,
+    'token_type': tokenType,
+    'expires_in': expiresIn,
+    'is_guest': isGuest,
+  };
+}
+
 /// GET /mobile/me data — same blocks as the session, minus the token.
 @freezed
 abstract class MeData with _$MeData {

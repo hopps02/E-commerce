@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
@@ -32,9 +33,14 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
 
   @override
   Widget build(BuildContext context) {
-    final unread = ref.watch(
-      notificationsController.select((state) => state.unreadCount),
-    );
+    final isGuest = ref
+        .watch(isGuestProvider)
+        .maybeWhen(data: (guest) => guest, orElse: () => false);
+    final unread = isGuest
+        ? 0
+        : ref.watch(
+            notificationsController.select((state) => state.unreadCount),
+          );
     final iconColor = widget.dark ? ColorM.white : ColorM.gray800;
 
     return Tooltip(
@@ -44,6 +50,7 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
         children: [
           CustomInkButton(
             onTap: () async {
+              if (!await requireLogin(context, ref)) return;
               await context.pushNamed(Routes.notifications);
               if (!mounted) return;
               await ref

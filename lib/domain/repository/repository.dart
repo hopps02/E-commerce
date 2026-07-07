@@ -40,6 +40,8 @@ abstract class Repository {
 
   Future<Either<Failure, AuthSession>> verifyOtp(String phone, String code);
 
+  Future<Either<Failure, GuestSession>> guestLogin();
+
   Future<Either<Failure, MeData>> me();
 
   Future<Either<Failure, Unit>> logout();

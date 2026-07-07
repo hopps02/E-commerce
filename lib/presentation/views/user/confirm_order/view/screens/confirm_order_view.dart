@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/enums/enums.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
@@ -29,16 +30,18 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
     // Normally primed by the cart screen. ensureQuote() self-loads on a cold
     // open AND re-prices if the cart was edited between the cart screen and
     // here, so the confirm totals are never stale.
-    Future.microtask(() => ref.read(checkoutController.notifier).ensureQuote());
+    Future.microtask(_ensureAccessAndLoadQuote);
   }
 
   Future<void> _changeAddress() async {
+    if (!await requireLogin(context, ref)) return;
     final picked = await AddressPickerBottomSheet.show(context);
     if (picked == null || !mounted) return;
     await ref.read(checkoutController.notifier).selectAddress(picked);
   }
 
   Future<void> _placeOrder() async {
+    if (!await requireLogin(context, ref)) return;
     final order = await ref.read(checkoutController.notifier).placeOrder();
     if (order == null || !mounted) return;
 
@@ -51,6 +54,14 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
         orderNumber: order.orderNumber,
       ),
     );
+  }
+
+  Future<void> _ensureAccessAndLoadQuote() async {
+    if (!await requireLogin(context, ref)) {
+      if (mounted) Navigator.of(context).maybePop();
+      return;
+    }
+    await ref.read(checkoutController.notifier).ensureQuote();
   }
 
   @override

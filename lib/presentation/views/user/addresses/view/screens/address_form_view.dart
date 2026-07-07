@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/default_app_bar.dart';
 import 'package:for_u/app/ui_kit/forms/simple_form.dart';
@@ -145,6 +146,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   }
 
   Future<void> _save() async {
+    if (!await requireLogin(context, ref)) return;
     if (!_validateAndScroll()) return;
 
     final saved = await ref
@@ -181,7 +183,8 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
 
   _AddressField? _firstInvalidField(AddressFormState form) {
     if (!form.hasLocation) return _AddressField.map;
-    if (_displayAddress.text.trim().isEmpty) return _AddressField.displayAddress;
+    if (_displayAddress.text.trim().isEmpty)
+      return _AddressField.displayAddress;
     if (_street.text.trim().isEmpty) return _AddressField.street;
     if (_building.text.trim().isEmpty) return _AddressField.building;
     return null;
@@ -347,7 +350,10 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   ? Translation.add_address.tr
                   : Translation.edit_address.tr,
             ).premiumAppear(index: 0),
-            Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+            Container(
+              height: 6.h,
+              color: ColorM.gray150,
+            ).premiumAppear(index: 1),
             Expanded(
               child: SingleChildScrollView(
                 controller: _scrollController,

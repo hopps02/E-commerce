@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/forms/simple_form.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
@@ -14,6 +15,7 @@ import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/domain/usecase/create_address_usecase.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:for_u/presentation/common/riverpod/location_controller.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/fonts_manager.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -30,7 +32,11 @@ import 'package:smooth_corner/smooth_corner.dart';
 class AddressPickerBottomSheet extends ConsumerStatefulWidget {
   const AddressPickerBottomSheet({super.key});
 
-  static Future<DeliveryAddress?> show(BuildContext context) {
+  static Future<DeliveryAddress?> show(BuildContext context) async {
+    final isGuest = await DI().sessionService.isGuest;
+    if (!context.mounted) return null;
+    if (isGuest) return _showGuestMapPicker(context);
+
     return showModalBottomSheet<DeliveryAddress>(
       context: context,
       isScrollControlled: true,
@@ -38,6 +44,25 @@ class AddressPickerBottomSheet extends ConsumerStatefulWidget {
       useSafeArea: true,
       builder: (context) => const AddressPickerBottomSheet(),
     );
+  }
+
+  static Future<DeliveryAddress?> _showGuestMapPicker(
+    BuildContext context,
+  ) async {
+    final locationState = ProviderScope.containerOf(
+      context,
+      listen: false,
+    ).read(locationController);
+    final selectedAddress = locationState.selectedAddress;
+    final pickerArgs = selectedAddress == null
+        ? const MapLocationPickerArgs(useCurrentLocation: true)
+        : MapLocationPickerArgs.fromAddress(selectedAddress);
+
+    final picked = await context.pushNamed<MapLocationPickerResult>(
+      Routes.mapLocationPicker,
+      arguments: pickerArgs,
+    );
+    return picked?.toSessionAddress();
   }
 
   @override
@@ -123,7 +148,8 @@ class _AddressPickerBottomSheetState
                 : FastStateRender(
                     reqState: state.reqState,
                     errorMessage: state.errorMessage,
-                    onRetry: () => ref.read(addressesController.notifier).load(),
+                    onRetry: () =>
+                        ref.read(addressesController.notifier).load(),
                     child: ListView.separated(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
@@ -357,7 +383,7 @@ class _PickerRow extends StatelessWidget {
   }
 }
 
-class _OneOffAddressDetailsSheet extends StatefulWidget {
+class _OneOffAddressDetailsSheet extends ConsumerStatefulWidget {
   final MapLocationPickerResult mapResult;
 
   const _OneOffAddressDetailsSheet({required this.mapResult});
@@ -376,12 +402,12 @@ class _OneOffAddressDetailsSheet extends StatefulWidget {
   }
 
   @override
-  State<_OneOffAddressDetailsSheet> createState() =>
+  ConsumerState<_OneOffAddressDetailsSheet> createState() =>
       _OneOffAddressDetailsSheetState();
 }
 
 class _OneOffAddressDetailsSheetState
-    extends State<_OneOffAddressDetailsSheet> {
+    extends ConsumerState<_OneOffAddressDetailsSheet> {
   late final TextEditingController _displayAddress;
   late final TextEditingController _street;
   late final TextEditingController _building;
@@ -425,6 +451,7 @@ class _OneOffAddressDetailsSheetState
   Future<void> _save() async {
     setState(() => _submitted = true);
     if (!_canSave || _saving) return;
+    if (!await requireLogin(context, ref)) return;
 
     setState(() => _saving = true);
     final mapResult = widget.mapResult;

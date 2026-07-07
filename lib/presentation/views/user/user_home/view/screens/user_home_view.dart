@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation_bar.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/gradient_background.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/page_slider.dart';
 
-class UserHomeView extends StatefulWidget {
+class UserHomeView extends ConsumerStatefulWidget {
   const UserHomeView({super.key});
 
   @override
-  State<UserHomeView> createState() => _UserHomeViewState();
+  ConsumerState<UserHomeView> createState() => _UserHomeViewState();
 }
 
-class _UserHomeViewState extends State<UserHomeView>
+class _UserHomeViewState extends ConsumerState<UserHomeView>
     with AutomaticKeepAliveClientMixin {
   late List<NavigationItem> bottomNavItems;
 
@@ -33,14 +36,18 @@ class _UserHomeViewState extends State<UserHomeView>
         svgPath: Assets.svg.borderBag.path,
         selectedSvgPath: Assets.svg.borderBag.path,
         isCart: true,
-        onTap: (){
+        onTap: () {
           context.pushNamed(Routes.cart);
-        }
+        },
       ),
       NavigationItem(
         title: Translation.my_orders.tr,
         svgPath: Assets.svg.borderReceipt.path,
         selectedSvgPath: Assets.svg.fillReceipt.path,
+        onTap: () async {
+          if (!await requireLogin(context, ref)) return;
+          ref.read(bottomNavigationController.notifier).onBottomNavTap(2);
+        },
       ),
       NavigationItem(
         title: Translation.profile.tr,

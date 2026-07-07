@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
+import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
+import 'package:for_u/presentation/common/general_padding.dart';
+import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/user_home/riverpod/profile_controller.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/logout_button.dart';
 import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_info.dart';
@@ -33,6 +41,16 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isGuest = ref.watch(isGuestProvider);
+
+    return isGuest.when(
+      data: (guest) => guest ? _buildGuestScaffold() : _buildCustomerScaffold(),
+      loading: _buildLoadingScaffold,
+      error: (_, _) => _buildLoadingScaffold(),
+    );
+  }
+
+  Widget _buildCustomerScaffold() {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: CustomizedSmartRefresh(
@@ -46,24 +64,135 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
                 children: [
                   SizedBox(height: context.topSafeAreaPadding),
                   28.verticalSpace,
-                  // App Bar equivalent
                   ProfileInfo().premiumAppear(index: 0),
                   24.verticalSpace,
-
-                  // Menu Container
                   ProfileSettings().premiumAppear(index: 1),
-
                   16.verticalSpace,
-
-                  // Logout Button
                   LogoutButton().premiumAppear(index: 2),
-
                   SizedBox(height: widget.bottomSafeAreaPadding),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildGuestScaffold() {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(height: context.topSafeAreaPadding),
+                28.verticalSpace,
+                Text(
+                  Translation.profile.tr,
+                  style: context.titleLarge.copyWith(
+                    fontWeight: FontWeightM.bold,
+                    color: ColorM.gray900,
+                  ),
+                ).premiumAppear(index: 0),
+                28.verticalSpace,
+                _GuestProfileState().premiumAppear(index: 1),
+                28.verticalSpace,
+                const ProfileSettings(guestMode: true).premiumAppear(index: 2),
+                SizedBox(height: widget.bottomSafeAreaPadding),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoadingScaffold() {
+    return const Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: CircularProgressIndicator(color: ColorM.primary500),
+      ),
+    );
+  }
+}
+
+class _GuestProfileState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GeneralPadding(
+      child: Column(
+        children: [
+          Container(
+            height: 86.w,
+            width: 86.w,
+            decoration: BoxDecoration(
+              color: ColorM.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: ColorM.primary200.withValues(alpha: 0.5),
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+              border: Border.all(color: ColorM.primary100, width: 2),
+            ),
+            alignment: Alignment.center,
+            child: Container(
+              height: 76.w,
+              width: 76.w,
+              decoration: const BoxDecoration(
+                color: ColorM.primary50,
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.lock_person_rounded,
+                color: ColorM.primary600,
+                size: 36.sp,
+              ),
+            ),
+          ),
+          20.verticalSpace,
+          Text(
+            Translation.guest_profile_title.tr,
+            textAlign: TextAlign.center,
+            style: context.headlineSmall.copyWith(
+              fontWeight: FontWeightM.bold,
+              color: ColorM.gray900,
+            ),
+          ),
+          8.verticalSpace,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              Translation.guest_profile_subtitle.tr,
+              textAlign: TextAlign.center,
+              style: context.bodyMedium.copyWith(
+                color: ColorM.gray500,
+              ),
+            ),
+          ),
+          24.verticalSpace,
+          CustomInkButton(
+            onTap: () => context.goNamed(Routes.auth),
+            backgroundColor: ColorM.primary500,
+            borderRadius: SizeM.commonBorderRadius.r,
+            height: 56.h,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: Text(
+              Translation.login.tr,
+              style: context.bodyLarge.copyWith(
+                color: ColorM.white,
+                fontWeight: FontWeightM.medium,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

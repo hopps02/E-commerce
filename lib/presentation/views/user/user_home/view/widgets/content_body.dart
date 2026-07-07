@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/money.dart';
@@ -368,8 +369,10 @@ class Body extends ConsumerWidget {
             onLimitReached: () => cartNotifier.notifyStockLimit(),
             onQuantityChanged: (index, quantity) =>
                 cartNotifier.setQuantity(section.products[index], quantity),
-            onFavTap: (index) =>
-                favoritesNotifier.toggle(section.products[index]),
+            onFavTap: (index) async {
+              if (!await requireLogin(context, ref)) return;
+              await favoritesNotifier.toggle(section.products[index]);
+            },
             products: [
               for (final product in section.products)
                 {

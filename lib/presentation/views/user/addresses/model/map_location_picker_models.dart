@@ -56,4 +56,29 @@ class MapLocationPickerResult {
       deliveryZoneNameAr ??
       deliveryZoneNameEn ??
       '';
+
+  DeliveryAddress toSessionAddress() => DeliveryAddress(
+    id: 0,
+    label: 'other',
+    displayAddress: _sessionDisplayAddress(),
+    street: street,
+    buildingNumber: buildingNumber,
+    cityId: cityId,
+    lat: lat,
+    lng: lng,
+  );
+
+  String _sessionDisplayAddress() {
+    for (final value in [
+      displayAddressSuggestion,
+      area,
+      street,
+      deliveryZoneNameEn,
+      deliveryZoneNameAr,
+    ]) {
+      final trimmed = value?.trim();
+      if (trimmed != null && trimmed.isNotEmpty) return trimmed;
+    }
+    return '';
+  }
 }

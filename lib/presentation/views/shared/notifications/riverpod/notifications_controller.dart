@@ -68,6 +68,10 @@ class NotificationsNotifier extends Notifier<NotificationsState> {
   }
 
   Future<void> load() async {
+    if (await _isGuest()) {
+      state = const NotificationsState(reqState: ReqState.empty);
+      return;
+    }
     state = state.copyWith(
       reqState: ReqState.loading,
       msgError: '',
@@ -80,11 +84,20 @@ class NotificationsNotifier extends Notifier<NotificationsState> {
   Future<void> retry() => load();
 
   Future<void> refresh() async {
+    if (await _isGuest()) {
+      state = const NotificationsState(reqState: ReqState.empty);
+      refreshController.refreshCompleted();
+      return;
+    }
     await Future.wait([_loadFirstPage(), refreshUnreadCount()]);
     refreshController.refreshCompleted();
   }
 
   Future<void> loadMore() async {
+    if (await _isGuest()) {
+      refreshController.loadNoData();
+      return;
+    }
     if (!state.hasMore) {
       refreshController.loadNoData();
       return;
@@ -106,6 +119,10 @@ class NotificationsNotifier extends Notifier<NotificationsState> {
   }
 
   Future<void> refreshUnreadCount() async {
+    if (await _isGuest()) {
+      state = state.copyWith(unreadCount: 0);
+      return;
+    }
     final result = await DI().getUnreadNotificationsCountUseCase.execute(null);
     result.fold(
       (_) {},
@@ -190,6 +207,8 @@ class NotificationsNotifier extends Notifier<NotificationsState> {
 
   bool _morePagesAfter(Meta? meta, int page) =>
       meta != null && page * meta.pageSize < meta.total;
+
+  Future<bool> _isGuest() => DI().sessionService.isGuest;
 }
 
 final notificationsController =

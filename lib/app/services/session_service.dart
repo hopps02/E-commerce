@@ -19,6 +19,10 @@ final class StartAuth extends SessionStart {
   const StartAuth();
 }
 
+final class StartGuest extends SessionStart {
+  const StartGuest();
+}
+
 final class StartHome extends SessionStart {
   final MobileRole role;
   const StartHome(this.role);
@@ -30,6 +34,8 @@ final class StartHome extends SessionStart {
 /// The FCM token provider is injected so tests never touch Firebase and a
 /// simulator without push support can still log in.
 class SessionService {
+  static const _guestRoleMarker = 'guest';
+
   final StorageService _storage;
   final RegisterDeviceUseCase _registerDeviceUseCase;
   final GetMeUseCase _getMeUseCase;
@@ -66,15 +72,27 @@ class SessionService {
     await _storage.setToken(token);
     await _storeRefreshToken(session.refreshToken);
     await _storeAccessTokenExpiry(session.expiresIn);
+    await _storage.deleteGuest();
     await _storage.setRole(role.value);
     unawaited(registerDeviceBestEffort());
     return true;
   }
 
+  Future<void> establishGuest(String accessToken) async {
+    await _storage.setToken(accessToken);
+    await _storage.deleteRefreshToken();
+    await _storage.deleteAccessTokenExpiresAt();
+    await _storage.setGuest(true);
+    await _storage.setRole(_guestRoleMarker);
+  }
+
+  Future<bool> get isGuest async => await _storage.getGuest();
+
   /// Push registration must never block or fail login — a simulator has no
   /// FCM token and the backend may be unreachable; the next login retries.
   Future<void> registerDeviceBestEffort() async {
     try {
+      if (await isGuest) return;
       final fcm = await _fcmToken();
       if (fcm == null) return;
       await _registerDeviceUseCase.execute(
@@ -98,7 +116,12 @@ class SessionService {
   /// the stored role wins — being offline must not lock the user out.
   Future<SessionStart> resolveStart() async {
     final token = await _storage.getToken();
-    if (token == null) return const StartAuth();
+    if (token == null) {
+      await _storage.deleteGuest();
+      return const StartAuth();
+    }
+
+    if (await isGuest) return const StartGuest();
 
     final stored = await storedRole();
     if (stored == null) {
@@ -132,6 +155,10 @@ class SessionService {
   /// Revokes the session server-side first (the requests need the token),
   /// then clears local state regardless of how the network calls went.
   Future<void> logout() async {
+    if (await isGuest) {
+      await clearLocal();
+      return;
+    }
     try {
       final fcm = await _fcmToken();
       if (fcm != null) {
@@ -149,6 +176,7 @@ class SessionService {
     await _storage.deleteRefreshToken();
     await _storage.deleteAccessTokenExpiresAt();
     await _storage.deleteRole();
+    await _storage.deleteGuest();
     // The cart belongs to the session — never carry it to the next account.
     _onSessionCleared?.call();
   }

@@ -6,19 +6,27 @@ import 'package:retrofit/retrofit.dart';
 
 part 'auth_api.g.dart';
 
+const _requestOtpPath = '/mobile/auth/request-otp';
+const _verifyOtpPath = '/mobile/auth/verify-otp';
+const _guestPath = '/mobile/auth/guest';
+const _refreshPath = '/mobile/auth/refresh';
+
 /// Auth + device endpoints (guard: mobile). Role is resolved server-side at
 /// verify-otp; the same surface serves customer, cashier and captain.
 @RestApi()
 abstract class AuthApi {
   factory AuthApi(Dio dio, {String? baseUrl}) = _AuthApi;
 
-  @POST('/mobile/auth/request-otp')
+  @POST(_requestOtpPath)
   Future<Envelope<OtpRequested>> requestOtp(@Body() RequestOtpBody body);
 
-  @POST('/mobile/auth/verify-otp')
+  @POST(_verifyOtpPath)
   Future<Envelope<AuthSession>> verifyOtp(@Body() VerifyOtpBody body);
 
-  @POST('/mobile/auth/refresh')
+  @POST(_guestPath)
+  Future<Envelope<GuestSession>> guestLogin();
+
+  @POST(_refreshPath)
   Future<Envelope<AuthSession>> refresh(@Body() Map<String, String> body);
 
   @GET('/mobile/me')

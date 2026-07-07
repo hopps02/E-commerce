@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
@@ -30,6 +31,9 @@ class _CartViewState extends ConsumerState<CartView> {
   Widget build(BuildContext context) {
     final cart = ref.watch(cartController);
     final checkout = ref.watch(checkoutController);
+    final guestMode = ref
+        .watch(isGuestProvider)
+        .maybeWhen(data: (guest) => guest, orElse: () => false);
 
     return Scaffold(
       backgroundColor: ColorM.white,
@@ -51,14 +55,24 @@ class _CartViewState extends ConsumerState<CartView> {
 
       // Summary Bottom Bar — totals are backend-quoted; product/discount rows
       // track local quantity edits live.
-      bottomNavigationBar: checkout.reqState.isSuccess && !cart.isEmpty
+      bottomNavigationBar: guestMode && !cart.isEmpty
+          ? GuestCheckoutBottomBar(
+              subtotalHalalas: cart.subtotalHalalas,
+              discountHalalas: cart.discountHalalas,
+              onCheckout: () async {
+                if (!await requireLogin(context, ref)) return;
+                context.pushNamed(Routes.confirmOrder);
+              },
+            ).containerSlideUp()
+          : checkout.reqState.isSuccess && !cart.isEmpty
           ? CartSummaryBottomBar(
               subtotalHalalas: cart.subtotalHalalas,
               deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
               discountHalalas: cart.discountHalalas,
               totalHalalas: checkout.totals.totalHalalas,
               requoting: checkout.requoting,
-              onCheckout: () {
+              onCheckout: () async {
+                if (!await requireLogin(context, ref)) return;
                 context.pushNamed(Routes.confirmOrder);
               },
             ).containerSlideUp()

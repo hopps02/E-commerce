@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:for_u/app/config/constants.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/services/notification_deep_link.dart';
 import 'package:for_u/app/services/session_service.dart';
 import 'package:for_u/presentation/res/gen/assets.gen.dart';
@@ -58,13 +59,21 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
       final start = await DI().sessionService.resolveStart();
       if (!context.mounted) return;
       switch (start) {
+        case StartGuest():
+          context.goNamed(Routes.home);
+          NotificationDeepLink.consumeColdStart();
         case StartHome(:final role):
           context.goNamed(role.homeRoute);
           // A notification that cold-started the app now lands on its screen,
           // stacked on top of the home the user just reached.
           NotificationDeepLink.consumeColdStart();
         case StartAuth():
-          context.goNamed(Routes.auth);
+          // No stored session — open the storefront as a guest by default;
+          // sign-in is prompted later, only when an action needs an account.
+          final entered = await enterAsGuest();
+          if (!context.mounted) return;
+          context.goNamed(entered ? Routes.home : Routes.auth);
+          if (entered) NotificationDeepLink.consumeColdStart();
       }
     });
   }

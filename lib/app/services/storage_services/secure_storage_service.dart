@@ -11,10 +11,12 @@ abstract class SecureStorageServiceBase {
   static const               _refreshTokenKey         = 'refresh-token';
   static const               _accessTokenExpiresAtKey = 'access-token-expires-at';
   static const               _roleKey                 = 'user-role';
+  static const               _guestKey                = 'is-guest';
   static const               _mapDataKey              = 'user-data';
   String?                     _cachedToken;
   String?                     _cachedRefreshToken;
   String?                     _cachedRole;
+  bool?                       _cachedGuest;
 
   SecureStorageServiceBase(this._storage);
 
@@ -73,6 +75,18 @@ abstract class SecureStorageServiceBase {
   Future<void> deleteRole()           async => {
     await _storage.delete(key: _roleKey),
     _cachedRole = null,
+  };
+
+  Future<void> setGuest(bool isGuest) async => {
+    await _storage.write(key: _guestKey, value: isGuest.toString()),
+    _cachedGuest = isGuest,
+  };
+
+  Future<bool> get guest              async => _cachedGuest ??= (await _storage.read(key: _guestKey)) == 'true';
+
+  Future<void> deleteGuest()          async => {
+    await _storage.delete(key: _guestKey),
+    _cachedGuest = null,
   };
 
   // User Data

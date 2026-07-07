@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:for_u/app/di/dependency_injection.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
@@ -34,11 +35,12 @@ class _OnboardingViewState extends State<OnboardingView> {
     );
   }
 
-  /// Both CTAs end at the auth screen — the role is assigned by the backend
-  /// at verify-otp, never picked here.
+  /// Both CTAs open the storefront: the user browses as a guest by default
+  /// and is prompted to sign in later, only when an action needs an account.
   Future<void> _handleOnboardingComplete() async {
     await DI().storageService.setSkippedOnBoarding();
-    if (mounted) context.goNamed(Routes.auth);
+    final entered = await enterAsGuest();
+    if (mounted) context.goNamed(entered ? Routes.home : Routes.auth);
   }
 
   Future<void> _handleOnNext() => _handleOnboardingComplete();

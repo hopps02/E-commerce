@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
 import 'package:for_u/app/utils/money.dart';
@@ -70,7 +71,10 @@ class SearchData extends ConsumerWidget {
                 quantity: cart.quantityOf(product.id),
                 maxQuantity: product.available,
                 isFavorite: favorites.contains(product.id),
-                onFavTap: () => favoritesNotifier.toggle(product),
+                onFavTap: () async {
+                  if (!await requireLogin(context, ref)) return;
+                  await favoritesNotifier.toggle(product);
+                },
                 onTap: () {
                   context.pushNamed(
                     Routes.productDetails,

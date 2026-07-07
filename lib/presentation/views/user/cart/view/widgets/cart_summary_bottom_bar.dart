@@ -156,6 +156,90 @@ class CartSummaryBottomBar extends StatelessWidget {
   }
 }
 
+class GuestCheckoutBottomBar extends StatelessWidget {
+  final int subtotalHalalas;
+  final int discountHalalas;
+  final VoidCallback onCheckout;
+  final double? bottomPadding;
+
+  const GuestCheckoutBottomBar({
+    super.key,
+    required this.subtotalHalalas,
+    required this.discountHalalas,
+    required this.onCheckout,
+    this.bottomPadding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: ColorM.white,
+        boxShadow: [
+          BoxShadow(
+            color: ColorM.gray900.withValues(alpha: 0.04),
+            blurRadius: 31,
+            offset: Offset(0, -17.h),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Translation.price_summary.tr,
+                  style: context.bodyLarge.copyWith(
+                    color: ColorM.gray900,
+                    fontWeight: FontWeightM.medium,
+                  ),
+                ),
+                10.verticalSpace,
+                _SummaryRow(
+                  title: Translation.total_products.tr,
+                  halalas: subtotalHalalas,
+                ),
+                6.verticalSpace,
+                _SummaryRow(
+                  title: Translation.discount.tr,
+                  halalas: discountHalalas,
+                ),
+                12.verticalSpace,
+                Text(
+                  Translation.login_required_subtitle.tr,
+                  style: context.bodyMedium.copyWith(color: ColorM.gray600),
+                ),
+                20.verticalSpace,
+                CustomInkButton(
+                  onTap: onCheckout,
+                  width: double.infinity,
+                  height: 56.h,
+                  backgroundColor: ColorM.primary,
+                  borderRadius: 16.r,
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  alignment: Alignment.center,
+                  child: Text(
+                    Translation.order_now.tr,
+                    style: context.bodyLarge.copyWith(
+                      color: ColorM.white,
+                      fontWeight: FontWeightM.medium,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: bottomPadding ?? context.bottomSafeAreaPadding),
+        ],
+      ),
+    );
+  }
+}
+
 class _SummaryRow extends StatelessWidget {
   final String title;
   final int halalas;
