@@ -85,7 +85,9 @@ class AuthInterceptor extends Interceptor {
     }
 
     if (_hasRetried(err.requestOptions)) {
-      await _clearSessionAndNavigate();
+      // A guest is never sent to the login screen: surface the error and keep
+      // the guest session so the next call can re-mint. Navigating to auth here
+      // traps the guest (home 401s again → back to auth, forever).
       handler.next(err);
       return;
     }
@@ -107,7 +109,8 @@ class AuthInterceptor extends Interceptor {
 
     final accessToken = await _reissueGuest();
     if (accessToken == null || accessToken.isEmpty) {
-      await _clearSessionAndNavigate();
+      // Re-mint failed (e.g. offline). Don't clear the session or bounce to the
+      // login screen — surface the error; a later call retries the guest mint.
       handler.next(err);
       return;
     }

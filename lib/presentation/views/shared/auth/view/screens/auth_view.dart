@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/validation/validate_phone_field.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
@@ -36,6 +37,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
     if (otp != null && mounted) {
       OtpBottomSheet.show(context, mobileNumber: phone, otpRequested: otp);
     }
+  }
+
+  /// Closing the login screen returns to guest browsing. Re-establish a guest
+  /// session first so the home never lands on a dead session and bounces back
+  /// here — that produced an auth↔home loop when the old session was gone.
+  Future<void> _returnToBrowsing() async {
+    await enterAsGuest();
+    if (mounted) context.goNamed(Routes.home);
   }
 
   @override
@@ -86,7 +95,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
               child: Padding(
                 padding: EdgeInsets.all(8.w),
                 child: IconButton(
-                  onPressed: () => context.goNamed(Routes.home),
+                  onPressed: _returnToBrowsing,
                   icon: Icon(
                     Icons.close_rounded,
                     color: ColorM.primary700,
