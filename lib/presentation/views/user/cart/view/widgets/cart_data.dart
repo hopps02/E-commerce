@@ -2,15 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/presentation/common/cart_branch_resolution_state.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
 import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/res/sizes_manager.dart';
 import 'package:for_u/presentation/res/translations_manager.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:for_u/presentation/views/user/cart/view/widgets/cart_item_card.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
 
 class CartData extends ConsumerWidget {
   const CartData({super.key});
@@ -20,14 +22,41 @@ class CartData extends ConsumerWidget {
     final cart = ref.watch(cartController);
     final checkout = ref.watch(checkoutController);
     final arabic = context.locale.languageCode == 'ar';
+    if (cart.isEmpty) {
+      return Expanded(
+        child: FastStateRender(
+          reqState: ReqState.empty,
+          alignment: const Alignment(0, -0.22),
+          errorMessage: Translation.cart_empty.tr,
+          child: const SizedBox.shrink(),
+        ),
+      );
+    }
+
+    if (checkout.requiresCartBranchResolution) {
+      return Expanded(
+        child: CartBranchResolutionState(
+          message: checkout.errorMessage,
+          onClearCart: () {
+            ref.read(cartController.notifier).clear();
+            context.goNamed(Routes.home);
+          },
+          onDismiss: () {
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).maybePop();
+              return;
+            }
+            context.goNamed(Routes.home);
+          },
+        ),
+      );
+    }
 
     return Expanded(
       child: FastStateRender(
-        reqState: cart.isEmpty ? ReqState.empty : checkout.reqState,
+        reqState: checkout.reqState,
         alignment: const Alignment(0, -0.22),
-        errorMessage: cart.isEmpty
-            ? Translation.cart_empty.tr
-            : checkout.errorMessage,
+        errorMessage: checkout.errorMessage,
         onRetry: () => ref.read(checkoutController.notifier).retry(),
         child: ListView.separated(
           padding: EdgeInsets.symmetric(
@@ -54,10 +83,9 @@ class CartData extends ConsumerWidget {
                   ref.read(cartController.notifier).notifyStockLimit(),
               onQuantityChanged: (quantity) {
                 if (product == null) return;
-                ref.read(cartController.notifier).setQuantity(
-                  product,
-                  quantity,
-                );
+                ref
+                    .read(cartController.notifier)
+                    .setQuantity(product, quantity);
               },
               onDelete: () => ref
                   .read(cartController.notifier)
@@ -69,3 +97,4 @@ class CartData extends ConsumerWidget {
     );
   }
 }
+

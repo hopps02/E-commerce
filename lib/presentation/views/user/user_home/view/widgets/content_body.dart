@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
+import 'package:for_u/app/utils/snackbar_helper.dart';
 import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
@@ -47,6 +49,11 @@ class _ContentBodyState extends ConsumerState<ContentBody> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<int?>(
+      locationController.select((s) => s.servingBranchId),
+      _onServingBranchChanged,
+    );
+
     final location = ref.watch(locationController);
     final catalog = ref.watch(homeCatalogController);
     final branchId = location.servingBranchId;
@@ -57,8 +64,9 @@ class _ContentBodyState extends ConsumerState<ContentBody> {
         location: location,
         bottomSafeAreaPadding: widget.bottomSafeAreaPadding,
         onChooseAddress: widget.onChooseAddress,
-        onRetryCoverage: () =>
-            ref.read(locationController.notifier).resolveSelectedAddressBranch(),
+        onRetryCoverage: () => ref
+            .read(locationController.notifier)
+            .resolveSelectedAddressBranch(),
       );
     }
 
@@ -85,6 +93,20 @@ class _ContentBodyState extends ConsumerState<ContentBody> {
       if (!mounted) return;
       ref.read(homeCatalogController.notifier).load(branchId);
     });
+  }
+
+  void _onServingBranchChanged(int? previous, int? next) {
+    if (previous == next || next == null) return;
+
+    final cart = ref.read(cartController);
+    final cartBranchId = cart.cartBranchId;
+    if (cart.isEmpty || cartBranchId == null || cartBranchId == next) return;
+
+    ref.read(cartController.notifier).clear();
+    DI().snackBarHelper.showMessage(
+      Translation.cart_cleared_location_changed.tr,
+      ErrorMessage.snackBar,
+    );
   }
 }
 
@@ -306,7 +328,11 @@ class Body extends ConsumerWidget {
   final double bottomSafeAreaPadding;
   final HomeCatalogState catalog;
 
-  void _openProducts(BuildContext context, ProductCategory category, bool arabic) {
+  void _openProducts(
+    BuildContext context,
+    ProductCategory category,
+    bool arabic,
+  ) {
     context.pushNamed(
       Routes.products,
       arguments: ProductsViewArgs(
@@ -368,7 +394,14 @@ class Body extends ConsumerWidget {
                 _openDetails(context, section.products[index]),
             onLimitReached: () => cartNotifier.notifyStockLimit(),
             onQuantityChanged: (index, quantity) =>
-                cartNotifier.setQuantity(section.products[index], quantity),
+                _updateSectionProductQuantity(
+                  context,
+                  ref,
+                  cartNotifier,
+                  section.products[index],
+                  cart.quantityOf(section.products[index].id),
+                  quantity,
+                ),
             onFavTap: (index) async {
               if (!await requireLogin(context, ref)) return;
               await favoritesNotifier.toggle(section.products[index]);
@@ -393,5 +426,21 @@ class Body extends ConsumerWidget {
         18.verticalSpace,
       ],
     );
+  }
+
+  void _updateSectionProductQuantity(
+    BuildContext context,
+    WidgetRef ref,
+    CartNotifier cartNotifier,
+    BranchProduct product,
+    int currentQuantity,
+    int quantity,
+  ) {
+    if (quantity < currentQuantity) {
+      cartNotifier.setQuantity(product, quantity);
+      return;
+    }
+
+    addToCartGuarded(context, ref, product, quantity);
   }
 }

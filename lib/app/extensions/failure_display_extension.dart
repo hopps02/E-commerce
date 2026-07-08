@@ -37,6 +37,7 @@ extension FailureDisplay on Failure {
     'district_city_mismatch' ||
     'address_city_mismatch' => Translation.error_address_different_city.tr,
     'cart_branch_mismatch' => Translation.error_cart_different_store.tr,
+    'multi_branch_cart' => Translation.error_cart_multi_branch.tr,
     'delivery_zone_no_branch' => Translation.map_zone_no_branch.tr,
     'branch_unavailable' ||
     'merchant_unavailable' => Translation.error_branch_unavailable.tr,

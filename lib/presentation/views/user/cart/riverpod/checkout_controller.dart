@@ -6,6 +6,7 @@ import 'package:for_u/app/di/dependency_injection.dart';
 import 'package:for_u/app/extensions/failure_display_extension.dart';
 import 'package:for_u/app/ui_kit/indicators/state_render.dart';
 import 'package:for_u/app/utils/snackbar_helper.dart';
+import 'package:for_u/data/network/error_handler/failure.dart';
 import 'package:for_u/data/response/customer/catalog_response.dart';
 import 'package:for_u/data/response/customer/customer_response.dart';
 import 'package:for_u/domain/usecase/checkout_quote_usecase.dart';
@@ -23,6 +24,7 @@ String checkoutFingerprint(int? addressId, List<CartLine> lines) =>
 class CheckoutState extends Equatable {
   final ReqState reqState;
   final String errorMessage;
+  final String errorCode;
   final int? addressId;
   final String addressLine;
   final CheckoutTotals totals;
@@ -43,6 +45,7 @@ class CheckoutState extends Equatable {
   const CheckoutState({
     this.reqState = ReqState.loading,
     this.errorMessage = '',
+    this.errorCode = '',
     this.addressId,
     this.addressLine = '',
     this.totals = const CheckoutTotals(),
@@ -57,9 +60,13 @@ class CheckoutState extends Equatable {
       quotedFingerprint.isNotEmpty &&
       quotedFingerprint == checkoutFingerprint(addressId, lines);
 
+  bool get requiresCartBranchResolution =>
+      errorCode == 'cart_branch_mismatch' || errorCode == 'multi_branch_cart';
+
   CheckoutState copyWith({
     ReqState? reqState,
     String? errorMessage,
+    String? errorCode,
     int? addressId,
     String? addressLine,
     CheckoutTotals? totals,
@@ -70,6 +77,7 @@ class CheckoutState extends Equatable {
     return CheckoutState(
       reqState: reqState ?? this.reqState,
       errorMessage: errorMessage ?? this.errorMessage,
+      errorCode: errorCode ?? this.errorCode,
       addressId: addressId ?? this.addressId,
       addressLine: addressLine ?? this.addressLine,
       totals: totals ?? this.totals,
@@ -83,6 +91,7 @@ class CheckoutState extends Equatable {
   List<Object?> get props => [
     reqState,
     errorMessage,
+    errorCode,
     addressId,
     addressLine,
     totals,
@@ -138,10 +147,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     var reconciled = false;
     final validationFailed = validation.fold(
       (failure) {
-        state = state.copyWith(
-          reqState: ReqState.error,
-          errorMessage: failure.displayMessage,
-        );
+        _setFailure(failure);
         return true;
       },
       (result) {
@@ -166,10 +172,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     final activeAddress = ref.read(locationController).selectedAddress;
     final address = addresses.fold<DeliveryAddress?>(
       (failure) {
-        state = state.copyWith(
-          reqState: ReqState.error,
-          errorMessage: failure.displayMessage,
-        );
+        _setFailure(failure);
         return null;
       },
       (list) {
@@ -197,12 +200,11 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       CheckoutQuoteParams(addressId: resolved.id, lines: lines),
     );
     quote.fold(
-      (failure) => state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      ),
+      _setFailure,
       (q) => state = state.copyWith(
         reqState: ReqState.success,
+        errorMessage: '',
+        errorCode: '',
         addressId: resolved.id,
         addressLine: resolved.displayAddress,
         totals: q.totals,
@@ -226,12 +228,11 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       CheckoutQuoteParams(addressId: address.id, lines: lines),
     );
     quote.fold(
-      (failure) => state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: failure.displayMessage,
-      ),
+      _setFailure,
       (q) => state = state.copyWith(
         reqState: ReqState.success,
+        errorMessage: '',
+        errorCode: '',
         addressId: address.id,
         addressLine: address.displayAddress,
         totals: q.totals,
@@ -265,7 +266,12 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     if (state.addressId == null) {
       if (cart.isEmpty) {
         _requoteDebounce?.cancel();
-        state = state.copyWith(reqState: ReqState.empty, requoting: false);
+        state = state.copyWith(
+          reqState: ReqState.empty,
+          errorMessage: '',
+          errorCode: '',
+          requoting: false,
+        );
         return;
       }
       _loadGuestPreview(cart.lines);
@@ -274,7 +280,12 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
 
     if (cart.isEmpty) {
       _requoteDebounce?.cancel();
-      state = state.copyWith(reqState: ReqState.empty, requoting: false);
+      state = state.copyWith(
+        reqState: ReqState.empty,
+        errorMessage: '',
+        errorCode: '',
+        requoting: false,
+      );
       return;
     }
 
@@ -306,11 +317,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
     );
     quote.fold(
       (failure) {
-        state = state.copyWith(
-          reqState: ReqState.error,
-          errorMessage: failure.displayMessage,
-          requoting: false,
-        );
+        _setFailure(failure, requoting: false);
         DI().snackBarHelper.showMessage(
           failure.displayMessage,
           ErrorMessage.snackBar,
@@ -318,6 +325,8 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       },
       (q) => state = state.copyWith(
         reqState: ReqState.success,
+        errorMessage: '',
+        errorCode: '',
         totals: q.totals,
         quotedFingerprint: fingerprint,
         requoting: false,
@@ -379,6 +388,9 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
 
     return result.fold(
       (failure) {
+        if (_isCartBranchResolutionFailure(failure)) {
+          _setFailure(failure, placing: false);
+        }
         DI().snackBarHelper.showMessage(
           failure.displayMessage,
           ErrorMessage.snackBar,
@@ -410,11 +422,7 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
         // Mirror _requote: a failed confirm-time quote must not leave the old
         // total presented as a valid checkout — drop to error so the retry UI
         // (CartData) takes over instead of showing a stale price.
-        state = state.copyWith(
-          reqState: ReqState.error,
-          errorMessage: failure.displayMessage,
-          requoting: false,
-        );
+        _setFailure(failure, requoting: false);
         DI().snackBarHelper.showMessage(
           failure.displayMessage,
           ErrorMessage.snackBar,
@@ -424,6 +432,8 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       (q) {
         state = state.copyWith(
           reqState: ReqState.success,
+          errorMessage: '',
+          errorCode: '',
           totals: q.totals,
           quotedFingerprint: checkoutFingerprint(addressId, lines),
           requoting: false,
@@ -449,6 +459,23 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       reqState: ReqState.success,
       addressLine: selectedAddress?.displayAddress ?? '',
       quotedFingerprint: checkoutFingerprint(null, lines),
+    );
+  }
+
+  bool _isCartBranchResolutionFailure(Failure failure) =>
+      _errorCode(failure) == 'cart_branch_mismatch' ||
+      _errorCode(failure) == 'multi_branch_cart';
+
+  String _errorCode(Failure failure) =>
+      failure is ServerError ? failure.code ?? '' : '';
+
+  void _setFailure(Failure failure, {bool? placing, bool? requoting}) {
+    state = state.copyWith(
+      reqState: ReqState.error,
+      errorMessage: failure.displayMessage,
+      errorCode: _errorCode(failure),
+      placing: placing,
+      requoting: requoting,
     );
   }
 }

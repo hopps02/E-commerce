@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:for_u/app/extensions/extensions.dart';
 import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
 import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
 import 'package:for_u/app/utils/money.dart';
 import 'package:for_u/presentation/common/fast_state_render.dart';
@@ -85,8 +84,15 @@ class SearchData extends ConsumerWidget {
                   );
                 },
                 onLimitReached: () => cartNotifier.notifyStockLimit(),
-                onQuantityChanged: (quantity) =>
-                    cartNotifier.setQuantity(product, quantity),
+                onQuantityChanged: (quantity) {
+                  final currentQuantity = cart.quantityOf(product.id);
+                  if (quantity < currentQuantity) {
+                    cartNotifier.setQuantity(product, quantity);
+                    return;
+                  }
+
+                  addToCartGuarded(context, ref, product, quantity);
+                },
               );
             },
           ),

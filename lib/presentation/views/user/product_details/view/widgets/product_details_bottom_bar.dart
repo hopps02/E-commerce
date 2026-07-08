@@ -52,7 +52,9 @@ class ProductDetailsBottomBar extends ConsumerWidget {
             ),
             child: Row(
               children: [
-                Expanded(child: _PriceBlock(product: product, arabic: arabic)),
+                Expanded(
+                  child: _PriceBlock(product: product, arabic: arabic),
+                ),
                 12.horizontalSpace,
                 AnimatedSize(
                   duration: const Duration(milliseconds: 240),
@@ -64,11 +66,14 @@ class ProductDetailsBottomBar extends ConsumerWidget {
                     transitionBuilder: (child, animation) => FadeTransition(
                       opacity: animation,
                       child: ScaleTransition(
-                        scale: Tween<double>(begin: 0.9, end: 1).animate(animation),
+                        scale: Tween<double>(
+                          begin: 0.9,
+                          end: 1,
+                        ).animate(animation),
                         child: child,
                       ),
                     ),
-                    child: _action(ref, cartQuantity),
+                    child: _action(context, ref, cartQuantity),
                   ),
                 ),
               ],
@@ -79,14 +84,16 @@ class ProductDetailsBottomBar extends ConsumerWidget {
     );
   }
 
-  Widget _action(WidgetRef ref, int cartQuantity) {
+  Widget _action(BuildContext context, WidgetRef ref, int cartQuantity) {
     if (!product.inStock) {
       return const _OutOfStockChip(key: ValueKey('out-of-stock'));
     }
     if (cartQuantity == 0) {
       return _AddToCartButton(
         key: const ValueKey('add-to-cart'),
-        onTap: () => ref.read(cartController.notifier).setQuantity(product, 1),
+        onTap: () {
+          addToCartGuarded(context, ref, product, 1);
+        },
       );
     }
     return _QuantityStepper(

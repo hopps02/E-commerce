@@ -17,6 +17,8 @@ class CartState extends Equatable {
 
   bool get isEmpty => lines.isEmpty;
 
+  int? get cartBranchId => lines.isEmpty ? null : lines.first.product?.branchId;
+
   int get itemsCount => lines.fold(0, (sum, l) => sum + l.quantity);
 
   /// Gross products total — discounts are shown on their own row.
@@ -78,7 +80,9 @@ class CartNotifier extends Notifier<CartState> {
       quantity: applied,
       product: product,
     );
-    final existing = state.lines.indexWhere((l) => l.branchItemId == product.id);
+    final existing = state.lines.indexWhere(
+      (l) => l.branchItemId == product.id,
+    );
     final lines = [...state.lines];
     if (existing >= 0) {
       lines[existing] = line;
@@ -87,6 +91,11 @@ class CartNotifier extends Notifier<CartState> {
     }
     state = state.copyWith(lines: lines);
     return applied;
+  }
+
+  void clearAndAdd(BranchProduct product, int quantity) {
+    clear();
+    setQuantity(product, quantity);
   }
 
   void removeLine(int branchItemId) {
@@ -127,8 +136,7 @@ class CartNotifier extends Notifier<CartState> {
               ? null
               : product.copyWith(
                   priceHalalas: r.unitPriceHalalas ?? product.priceHalalas,
-                  discountHalalas:
-                      r.discountHalalas ?? product.discountHalalas,
+                  discountHalalas: r.discountHalalas ?? product.discountHalalas,
                   available: stock,
                 ),
         ),

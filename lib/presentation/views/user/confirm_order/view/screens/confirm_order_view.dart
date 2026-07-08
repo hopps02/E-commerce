@@ -5,6 +5,7 @@ import 'package:for_u/app/enums/enums.dart';
 import 'package:for_u/app/extensions/guest_gate.dart';
 import 'package:for_u/app/extensions/navigation_extension.dart';
 import 'package:for_u/app/extensions/view_extensions.dart';
+import 'package:for_u/presentation/common/cart_branch_resolution_state.dart';
 import 'package:for_u/presentation/res/router/app_router.dart';
 import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
 import 'package:for_u/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
@@ -86,7 +87,25 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
 
           18.verticalSpace,
 
-          Orders(lines: cart.lines),
+          if (checkout.requiresCartBranchResolution)
+            Expanded(
+              child: CartBranchResolutionState(
+                message: checkout.errorMessage,
+                onClearCart: () {
+                  ref.read(cartController.notifier).clear();
+                  context.goNamed(Routes.home);
+                },
+                onDismiss: () {
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).maybePop();
+                    return;
+                  }
+                  context.goNamed(Routes.home);
+                },
+              ),
+            )
+          else
+            Orders(lines: cart.lines),
         ],
       ),
 

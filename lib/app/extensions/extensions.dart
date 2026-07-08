@@ -1,5 +1,6 @@
 export 'string_extensions.dart';
 export 'int_extensions.dart';
+export 'cart_branch_guard.dart';
 export 'list_extensions.dart';
 export 'theme_extensions.dart';
 export 'widget_extensions.dart';
