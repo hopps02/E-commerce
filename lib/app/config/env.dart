@@ -11,7 +11,7 @@ class Env {
 
   static const String baseUrl = String.fromEnvironment(
     'BASE_URL',
-    defaultValue: 'https://4u-api.mawaeidk.com/api/v1',
+    defaultValue: 'https://api.try4u.co/api/v1',
   );
 
 }
