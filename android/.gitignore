@@ -17,3 +17,4 @@ key.properties
 fastlane/play_key.json
 fastlane/report.xml
 fastlane/README.md
+maps.properties
