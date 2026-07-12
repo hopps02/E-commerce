@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/request/customer/customer_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/data/response/captain/captain_response.dart';
-import 'package:for_u/data/response/cashier/cashier_response.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/data/response/customer/customer_response.dart';
-import 'package:for_u/data/response/customer/delivery_zone_response.dart';
-import 'package:for_u/data/response/customer/place_response.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
-import 'package:for_u/data/response/notification_response.dart';
-import 'package:for_u/data/network/envelope.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/request/customer/customer_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/data/response/captain/captain_response.dart';
+import 'package:store/data/response/cashier/cashier_response.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/data/response/customer/customer_response.dart';
+import 'package:store/data/response/customer/delivery_zone_response.dart';
+import 'package:store/data/response/customer/place_response.dart';
+import 'package:store/data/response/customer/support_response.dart';
+import 'package:store/data/response/notification_response.dart';
+import 'package:store/data/network/envelope.dart';
+import 'package:store/data/network/error_handler/failure.dart';
 
 /// A page of captain orders with its pagination block.
 typedef CaptainOrdersPage = ({List<CaptainOrder> orders, Meta? meta});

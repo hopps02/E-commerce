@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/data/response/cashier/cashier_response.dart';
+import 'package:store/app/enums/enums.dart';
+import 'package:store/data/response/cashier/cashier_response.dart';
 
 void main() {
   group('cashierStatusFromState', () {

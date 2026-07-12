@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:for_u/app/extensions/theme_extensions.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:store/app/extensions/theme_extensions.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 
 class NavigationItem {
   final String title;

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/domain/usecase/update_profile_usecase.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/domain/usecase/update_profile_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfileState extends Equatable {

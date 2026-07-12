@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/buttons/country_code_button.dart';
-import 'package:for_u/app/utils/formatters/phone_input_formatter.dart';
-import 'package:for_u/app/ui_kit/forms/simple_form.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/buttons/country_code_button.dart';
+import 'package:store/app/utils/formatters/phone_input_formatter.dart';
+import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
 import 'package:nice_text_form/nice_text_form.dart';
 
 class PhoneField extends StatelessWidget {

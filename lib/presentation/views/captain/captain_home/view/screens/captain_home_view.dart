@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/common/home_header_actions.dart';
-import 'package:for_u/presentation/common/home_top_app_bar.dart';
-import 'package:for_u/presentation/common/notification_bell.dart';
-import 'package:for_u/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_availability_switch.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_orders_slider.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_tabs_bar.dart';
+import 'package:store/presentation/common/home_header_actions.dart';
+import 'package:store/presentation/common/home_top_app_bar.dart';
+import 'package:store/presentation/common/notification_bell.dart';
+import 'package:store/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
+import 'package:store/presentation/views/captain/captain_home/view/widgets/captain_availability_switch.dart';
+import 'package:store/presentation/views/captain/captain_home/view/widgets/captain_orders_slider.dart';
+import 'package:store/presentation/views/captain/captain_home/view/widgets/captain_tabs_bar.dart';
 
 class CaptainHomeView extends ConsumerStatefulWidget {
   const CaptainHomeView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/validation/field_rules.dart';
+import 'package:store/app/validation/field_rules.dart';
 
 void main() {
   // FocusNode.requestFocus reaches into the binding's focus manager.

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
 
 import '../../../helpers/dummy_data.dart';
 

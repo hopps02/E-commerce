@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/ui_kit/default_app_bar.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/default_app_bar.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/app/extensions/extensions.dart';
 
 class OrderDetailsAppBar extends StatelessWidget {
   const OrderDetailsAppBar({super.key});

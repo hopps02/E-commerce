@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 /// Replaces the rate CTA the moment a rating is accepted, so the customer sees
 /// their feedback was received along with the stars they gave.

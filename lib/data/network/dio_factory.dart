@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:for_u/app/config/env.dart';
-import 'package:for_u/app/services/session_service.dart';
-import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/network/api/auth_api.dart';
-import 'package:for_u/data/network/interceptors/auth_interceptor.dart';
-import 'package:for_u/data/network/interceptors/language_interceptor.dart';
-import 'package:for_u/domain/usecase/guest_login_usecase.dart';
+import 'package:store/app/config/env.dart';
+import 'package:store/app/services/session_service.dart';
+import 'package:store/app/services/storage_services/storage_service.dart';
+import 'package:store/data/network/api/auth_api.dart';
+import 'package:store/data/network/interceptors/auth_interceptor.dart';
+import 'package:store/data/network/interceptors/language_interceptor.dart';
+import 'package:store/domain/usecase/guest_login_usecase.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Dio buildCleanDio() => Dio(_baseOptions());

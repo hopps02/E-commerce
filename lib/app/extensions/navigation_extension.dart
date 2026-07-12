@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 
 // ---------------------------------------------------------------------------
 // Navigation Extensions (go_router)

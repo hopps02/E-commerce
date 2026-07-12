@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/services/new_order_alarm_service.dart';
-import 'package:for_u/presentation/common/home_header_actions.dart';
-import 'package:for_u/presentation/common/home_top_app_bar.dart';
-import 'package:for_u/presentation/common/notification_bell.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_orders_slider.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_tabs_bar.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/new_order_alert_banner.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/services/new_order_alarm_service.dart';
+import 'package:store/presentation/common/home_header_actions.dart';
+import 'package:store/presentation/common/home_top_app_bar.dart';
+import 'package:store/presentation/common/notification_bell.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
+import 'package:store/presentation/views/cashier/cashier_home/view/widgets/cashier_orders_slider.dart';
+import 'package:store/presentation/views/cashier/cashier_home/view/widgets/cashier_tabs_bar.dart';
+import 'package:store/presentation/views/cashier/cashier_home/view/widgets/new_order_alert_banner.dart';
 
 class CashierHomeView extends ConsumerStatefulWidget {
   const CashierHomeView({super.key});

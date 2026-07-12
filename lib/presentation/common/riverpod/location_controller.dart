@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/services/location_service.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/domain/usecase/coverage_check_usecase.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/services/location_service.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/domain/usecase/coverage_check_usecase.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 enum ServingBranchStatus {
   noAddress,

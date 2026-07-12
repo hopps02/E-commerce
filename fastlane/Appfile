@@ -1,4 +1,4 @@
-app_identifier "com.utr.foryou" # iOS bundle id
+app_identifier "com.utr.store" # iOS bundle id
 
 # Apple account that owns the app (Admin / App Manager on UTR's account).
 # Fill these with UTR's real Apple Developer values before uploading:

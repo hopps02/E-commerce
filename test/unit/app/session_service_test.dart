@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/services/session_service.dart';
-import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
+import 'package:store/app/services/session_service.dart';
+import 'package:store/app/services/storage_services/storage_service.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/data/network/error_handler/failure.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/dummy_data.dart';

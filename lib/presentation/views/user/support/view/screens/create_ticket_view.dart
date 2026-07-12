@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:for_u/app/ui_kit/default_app_bar.dart';
-import 'package:for_u/app/ui_kit/forms/simple_form.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/shared/support/view/widgets/labeled_field.dart';
-import 'package:for_u/presentation/views/user/support/riverpod/create_ticket_controller.dart';
-import 'package:for_u/presentation/views/user/support/riverpod/tickets_controller.dart';
-import 'package:for_u/presentation/views/user/support/view/widgets/linked_order_picker.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:store/app/ui_kit/default_app_bar.dart';
+import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/shared/support/view/widgets/labeled_field.dart';
+import 'package:store/presentation/views/user/support/riverpod/create_ticket_controller.dart';
+import 'package:store/presentation/views/user/support/riverpod/tickets_controller.dart';
+import 'package:store/presentation/views/user/support/view/widgets/linked_order_picker.dart';
 
 class CreateTicketView extends ConsumerStatefulWidget {
   const CreateTicketView({super.key});

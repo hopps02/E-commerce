@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' hide DioErrorType;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/network/api/auth_api.dart';
-import 'package:for_u/data/network/api/captain_api.dart';
-import 'package:for_u/data/network/api/cashier_api.dart';
-import 'package:for_u/data/network/api/customer_api.dart';
-import 'package:for_u/data/network/error_handler/error_handler.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/data/repository/repository_impl.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/domain/repository/repository.dart';
+import 'package:store/data/network/api/auth_api.dart';
+import 'package:store/data/network/api/captain_api.dart';
+import 'package:store/data/network/api/cashier_api.dart';
+import 'package:store/data/network/api/customer_api.dart';
+import 'package:store/data/network/error_handler/error_handler.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/data/repository/repository_impl.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/domain/repository/repository.dart';
 
 import '../../helpers/dummy_data.dart';
 import '../../helpers/fake_http_adapter.dart';

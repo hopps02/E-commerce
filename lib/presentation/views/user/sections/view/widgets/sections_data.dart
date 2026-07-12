@@ -2,15 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
-import 'package:for_u/presentation/views/user/sections/riverpod/sections_controller.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
+import 'package:store/presentation/views/user/sections/riverpod/sections_controller.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
 
 class SectionsData extends ConsumerWidget {
   const SectionsData({super.key});

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/network/api/auth_api.dart';
-import 'package:for_u/domain/repository/repository.dart';
-import 'package:for_u/domain/usecase/get_me_usecase.dart';
-import 'package:for_u/domain/usecase/logout_usecase.dart';
-import 'package:for_u/domain/usecase/register_device_usecase.dart';
-import 'package:for_u/domain/usecase/unregister_device_usecase.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/network/api/auth_api.dart';
+import 'package:store/domain/repository/repository.dart';
+import 'package:store/domain/usecase/get_me_usecase.dart';
+import 'package:store/domain/usecase/logout_usecase.dart';
+import 'package:store/domain/usecase/register_device_usecase.dart';
+import 'package:store/domain/usecase/unregister_device_usecase.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockRepository extends Mock implements Repository {}

@@ -2,17 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/presentation/common/cart_branch_resolution_state.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
-import 'package:for_u/presentation/views/user/cart/view/widgets/cart_item_card.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/presentation/common/cart_branch_resolution_state.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
+import 'package:store/presentation/views/user/cart/view/widgets/cart_item_card.dart';
 
 class CartData extends ConsumerWidget {
   const CartData({super.key});

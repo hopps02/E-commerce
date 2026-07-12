@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
-import 'package:for_u/app/ui_kit/forms/otp_field.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
+import 'package:store/app/ui_kit/forms/otp_field.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
 
 class Otp extends StatelessWidget {
   final Function(String) onOtp;

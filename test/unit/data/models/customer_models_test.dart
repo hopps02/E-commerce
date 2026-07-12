@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/request/customer/customer_request.dart';
-import 'package:for_u/data/response/customer/customer_response.dart';
+import 'package:store/data/request/customer/customer_request.dart';
+import 'package:store/data/response/customer/customer_response.dart';
 
 void main() {
   group('orderTimelineStep', () {

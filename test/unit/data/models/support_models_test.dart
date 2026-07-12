@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
+import 'package:store/data/response/customer/support_response.dart';
 
 void main() {
   group('Ticket.fromJson', () {

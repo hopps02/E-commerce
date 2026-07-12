@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/request/customer/customer_request.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/request/customer/customer_request.dart';
+import 'package:store/data/response/customer/support_response.dart';
 
 class CreateTicketState extends Equatable {
   final bool submitting;

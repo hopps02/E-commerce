@@ -1,6 +1,6 @@
-import 'package:for_u/data/network/error_handler/error_handler.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/data/network/error_handler/error_handler.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 /// Maps a [Failure] to user-facing, localized copy.
 ///

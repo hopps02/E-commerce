@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/data/response/customer/customer_response.dart';
-import 'package:for_u/domain/usecase/checkout_quote_usecase.dart';
-import 'package:for_u/domain/usecase/create_order_usecase.dart';
-import 'package:for_u/presentation/common/riverpod/location_controller.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/data/response/customer/customer_response.dart';
+import 'package:store/domain/usecase/checkout_quote_usecase.dart';
+import 'package:store/domain/usecase/create_order_usecase.dart';
+import 'package:store/presentation/common/riverpod/location_controller.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 
 /// Identifies the exact (address, lines) a quote was priced for. Any change to
 /// the selected address or to a line's id/quantity yields a different

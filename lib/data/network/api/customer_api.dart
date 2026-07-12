@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/data/response/customer/delivery_zone_response.dart';
-import 'package:for_u/data/response/customer/place_response.dart';
-import 'package:for_u/data/request/customer/customer_request.dart';
-import 'package:for_u/data/response/customer/customer_response.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
-import 'package:for_u/data/response/notification_response.dart';
-import 'package:for_u/data/network/envelope.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/data/response/customer/delivery_zone_response.dart';
+import 'package:store/data/response/customer/place_response.dart';
+import 'package:store/data/request/customer/customer_request.dart';
+import 'package:store/data/response/customer/customer_response.dart';
+import 'package:store/data/response/customer/support_response.dart';
+import 'package:store/data/response/notification_response.dart';
+import 'package:store/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'customer_api.g.dart';

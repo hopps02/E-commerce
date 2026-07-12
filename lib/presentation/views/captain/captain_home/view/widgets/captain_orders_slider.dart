@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_orders_data.dart';
+import 'package:store/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
+import 'package:store/presentation/views/captain/captain_home/view/widgets/captain_orders_data.dart';
 
 class CaptainOrdersSlider extends ConsumerWidget {
   const CaptainOrdersSlider({super.key});

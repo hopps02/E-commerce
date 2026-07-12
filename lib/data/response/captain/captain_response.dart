@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:for_u/app/enums/enums.dart';
+import 'package:store/app/enums/enums.dart';
 
 part 'captain_response.freezed.dart';
 part 'captain_response.g.dart';

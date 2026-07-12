@@ -222,7 +222,7 @@ Sign up at https://developer.apple.com/programs/.
 
 1. Go to https://appstoreconnect.apple.com → **My Apps → +** → **New App**.
 2. Bundle ID must match the one in the iOS project — currently
-   `com.azsystem.fouru` (see `fastlane/Appfile`). The bundle ID must first be
+   `com.utr.store` (see `fastlane/Appfile`). The bundle ID must first be
    registered in https://developer.apple.com/account/resources/identifiers/list.
 3. Note your **Team ID** (Developer Portal → Membership) and
    **App Store Connect Team ID** (Users and Access → top-right). Update
@@ -230,7 +230,7 @@ Sign up at https://developer.apple.com/programs/.
 
    ```ruby
    # fastlane/Appfile
-   app_identifier "com.azsystem.fouru"
+   app_identifier "com.utr.store"
    apple_id "you@yourcompany.com"
    itc_team_id "<your App Store Connect team id>"
    team_id    "<your Developer Portal team id>"
@@ -245,7 +245,7 @@ For App Store distribution you need:
 
 - An **Apple Distribution** certificate (`.p12`).
 - An **App Store** provisioning profile bound to the bundle ID
-  `com.azsystem.fouru`.
+  `com.utr.store`.
 
 Two ways to manage these on CI:
 
@@ -456,7 +456,7 @@ The Play upload step needs:
 1. A **Google Play Console** developer account ($25 one-time fee).
 2. An **app record** created in the console with the same `applicationId`
    currently configured in `android/app/build.gradle.kts`
-   (`com.azsystem.fouru`). The **first** release must be uploaded manually
+   (`com.utr.store`). The **first** release must be uploaded manually
    through the Play Console UI — fastlane `supply` can only update existing
    tracks, not create the very first version.
 3. A **service account** with API access:

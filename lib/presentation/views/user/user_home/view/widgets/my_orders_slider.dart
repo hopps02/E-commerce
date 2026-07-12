@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/my_orders_data.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_data.dart';
 
 class MyOrdersSlider extends ConsumerWidget {
   const MyOrdersSlider({super.key, required this.bottomSafeAreaPadding});

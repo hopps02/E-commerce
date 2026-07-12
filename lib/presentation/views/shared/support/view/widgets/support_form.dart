@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/ui_kit/forms/simple_form.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/shared/support/riverpod/support_controller.dart';
-import 'package:for_u/presentation/views/shared/support/view/widgets/labeled_field.dart';
+import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/shared/support/riverpod/support_controller.dart';
+import 'package:store/presentation/views/shared/support/view/widgets/labeled_field.dart';
 
 class SupportForm extends ConsumerWidget {
   const SupportForm({super.key});

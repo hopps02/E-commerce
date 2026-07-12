@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:for_u/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 import 'color_manager.dart';

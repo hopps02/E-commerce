@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/my_order_tap_button.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/my_order_tap_button.dart';
 
 class MyOrdersTapsButton extends ConsumerWidget {
   const MyOrdersTapsButton({super.key});

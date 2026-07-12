@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/presentation/common/language_bottom_sheet.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/profile_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/presentation/common/language_bottom_sheet.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 
 class ProfileSettings extends ConsumerWidget {
   final bool guestMode;

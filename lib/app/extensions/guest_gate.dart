@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/presentation/common/login_required_bottom_sheet.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/presentation/common/login_required_bottom_sheet.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 
 final isGuestProvider = FutureProvider.autoDispose<bool>(
   (ref) => DI().sessionService.isGuest,

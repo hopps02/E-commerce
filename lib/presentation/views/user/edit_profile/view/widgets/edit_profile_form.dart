@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/forms/simple_form.dart';
-import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/edit_profile/view/widgets/profile_phone_field.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/profile_controller.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/edit_profile/view/widgets/profile_phone_field.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
 
 class EditProfileForm extends ConsumerStatefulWidget {
   const EditProfileForm({super.key});

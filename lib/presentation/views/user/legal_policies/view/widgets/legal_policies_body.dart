@@ -2,13 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/custom_scrollbar.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/legal_policies/riverpod/legal_policies_controller.dart';
-import 'package:for_u/presentation/views/user/legal_policies/view/widgets/policy_section.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/custom_scrollbar.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/legal_policies/riverpod/legal_policies_controller.dart';
+import 'package:store/presentation/views/user/legal_policies/view/widgets/policy_section.dart';
 
 class LegalPoliciesBody extends ConsumerStatefulWidget {
   const LegalPoliciesBody({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/color_manager.dart';
 
 class GradientBackground extends StatelessWidget {
   const GradientBackground({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
 
 import '../../../../../res/color_manager.dart';
 

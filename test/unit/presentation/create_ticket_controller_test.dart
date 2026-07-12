@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/presentation/views/user/support/riverpod/create_ticket_controller.dart';
+import 'package:store/presentation/views/user/support/riverpod/create_ticket_controller.dart';
 
 void main() {
   group('CreateTicketNotifier.selectOrder', () {

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/bottom_navigation_bar.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/gradient_background.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/page_slider.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/bottom_navigation_bar.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/gradient_background.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/page_slider.dart';
 
 class UserHomeView extends ConsumerStatefulWidget {
   const UserHomeView({super.key});

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/custom_cached_image.dart';
-import 'package:for_u/app/utils/money.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/mark_unavailable_bottom_sheet.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/custom_cached_image.dart';
+import 'package:store/app/utils/money.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/mark_unavailable_bottom_sheet.dart';
 
 class OrderProductsTable extends ConsumerWidget {
   final CashierOrderDetailsState state;

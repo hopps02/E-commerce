@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/data/network/envelope.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/data/network/envelope.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'auth_api.g.dart';

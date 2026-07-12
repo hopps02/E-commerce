@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_tab_button.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
+import 'package:store/presentation/views/cashier/cashier_home/view/widgets/cashier_tab_button.dart';
 
 class CashierTabsBar extends ConsumerStatefulWidget {
   const CashierTabsBar({super.key});

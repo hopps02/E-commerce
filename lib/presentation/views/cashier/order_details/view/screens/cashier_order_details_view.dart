@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/default_app_bar.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/common/general_padding.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/cashier_order_top_app_bar.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/order_bottom_bar.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/order_info_panel.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/order_products_table.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/default_app_bar.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/common/general_padding.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/cashier/order_details/riverpod/cashier_order_details_controller.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/cashier_order_top_app_bar.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/order_bottom_bar.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/order_info_panel.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/order_products_table.dart';
 
 class CashierOrderDetailsArgs {
   final int orderId;

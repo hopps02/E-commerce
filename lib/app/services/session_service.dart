@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/request/auth/auth_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/domain/usecase/get_me_usecase.dart';
-import 'package:for_u/domain/usecase/logout_usecase.dart';
-import 'package:for_u/domain/usecase/register_device_usecase.dart';
-import 'package:for_u/domain/usecase/unregister_device_usecase.dart';
+import 'package:store/app/services/storage_services/storage_service.dart';
+import 'package:store/data/request/auth/auth_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/domain/usecase/get_me_usecase.dart';
+import 'package:store/domain/usecase/logout_usecase.dart';
+import 'package:store/domain/usecase/register_device_usecase.dart';
+import 'package:store/domain/usecase/unregister_device_usecase.dart';
 
 /// Where a cold start should land.
 sealed class SessionStart {

@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/utils/fast_function.dart';
-import 'package:for_u/data/response/notification_response.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/utils/fast_function.dart';
+import 'package:store/data/response/notification_response.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
 
 class NotificationTile extends StatelessWidget {
   final MobileNotification notification;

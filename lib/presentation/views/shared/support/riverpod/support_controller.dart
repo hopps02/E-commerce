@@ -2,14 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
-import 'package:for_u/data/request/customer/customer_request.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/network/error_handler/failure.dart';
+import 'package:store/data/request/customer/customer_request.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/data/response/customer/support_response.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 class SupportState extends Equatable {
   /// True while the ticket is being opened — drives the in-button spinner.

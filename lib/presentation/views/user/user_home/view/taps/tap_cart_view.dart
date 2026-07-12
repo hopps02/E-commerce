@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
-import 'package:for_u/presentation/views/user/cart/view/widgets/cart_data.dart';
-import 'package:for_u/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
+import 'package:store/presentation/views/user/cart/view/widgets/cart_data.dart';
+import 'package:store/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
 
 /// The cart as a first-class tab — keeps the app's bottom navigation visible
 /// (unlike the pushed [CartView] reached from product details). Re-prices the

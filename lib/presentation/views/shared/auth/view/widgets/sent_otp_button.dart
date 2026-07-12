@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/theme_extensions.dart' show ThemeSettings;
-import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
+import 'package:store/app/extensions/theme_extensions.dart' show ThemeSettings;
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
 
 class SentOtpButton extends ConsumerWidget {
   const SentOtpButton({super.key, required this.onSendOtpCode});

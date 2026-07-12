@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 
 void main() {
   const banana = BranchProduct(

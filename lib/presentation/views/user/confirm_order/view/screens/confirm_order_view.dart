@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/presentation/common/cart_branch_resolution_state.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
-import 'package:for_u/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/cart_controller.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
-import 'package:for_u/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
-import 'package:for_u/presentation/views/user/confirm_order/view/widgets/confirm_order_app_bar.dart';
-import 'package:for_u/presentation/views/user/confirm_order/view/widgets/delivery_to.dart';
-import 'package:for_u/presentation/views/user/confirm_order/view/widgets/orders.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:store/app/enums/enums.dart';
+import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/presentation/common/cart_branch_resolution_state.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
+import 'package:store/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
+import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
+import 'package:store/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
+import 'package:store/presentation/views/user/confirm_order/view/widgets/confirm_order_app_bar.dart';
+import 'package:store/presentation/views/user/confirm_order/view/widgets/delivery_to.dart';
+import 'package:store/presentation/views/user/confirm_order/view/widgets/orders.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
 
 class ConfirmOrderView extends ConsumerStatefulWidget {
   const ConfirmOrderView({super.key});

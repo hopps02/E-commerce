@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/presentation/views/user/favorites/riverpod/favorites_controller.dart';
+import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 
 void main() {
   const banana = BranchProduct(

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/validation/phone_validation.dart';
+import 'package:store/app/validation/phone_validation.dart';
 
 void main() {
   group('validatePhoneNumber', () {

@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:for_u/app/app.dart';
+import 'package:store/app/app.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification_response.freezed.dart';

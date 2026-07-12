@@ -4,19 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart'
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
+import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     show GradientBorderSide;
-import 'package:for_u/app/utils/money.dart';
-import 'package:for_u/data/response/customer/place_response.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/addresses/model/map_location_picker_models.dart';
-import 'package:for_u/presentation/views/user/addresses/riverpod/map_location_picker_controller.dart';
+import 'package:store/app/utils/money.dart';
+import 'package:store/data/response/customer/place_response.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
+import 'package:store/presentation/views/user/addresses/riverpod/map_location_picker_controller.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class MapLocationPickerScreen extends ConsumerStatefulWidget {

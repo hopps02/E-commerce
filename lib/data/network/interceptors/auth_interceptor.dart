@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:for_u/app/app.dart';
-import 'package:for_u/app/services/session_service.dart';
-import 'package:for_u/app/services/storage_services/storage_service.dart';
-import 'package:for_u/data/network/api/auth_api.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
-import 'package:for_u/domain/usecase/guest_login_usecase.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:store/app/app.dart';
+import 'package:store/app/services/session_service.dart';
+import 'package:store/app/services/storage_services/storage_service.dart';
+import 'package:store/data/network/api/auth_api.dart';
+import 'package:store/data/response/auth/auth_response.dart';
+import 'package:store/domain/usecase/guest_login_usecase.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthInterceptor extends Interceptor {

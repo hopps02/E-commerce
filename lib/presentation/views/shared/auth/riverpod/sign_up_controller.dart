@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/app/validation/phone_validation.dart';
-import 'package:for_u/data/response/auth/auth_response.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/app/validation/phone_validation.dart';
+import 'package:store/data/response/auth/auth_response.dart';
 
 class AuthState extends Equatable {
   final String dialCode;

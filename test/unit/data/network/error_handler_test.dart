@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' hide DioErrorType;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/network/error_handler/error_handler.dart';
-import 'package:for_u/data/network/error_handler/failure.dart';
+import 'package:store/data/network/error_handler/error_handler.dart';
+import 'package:store/data/network/error_handler/failure.dart';
 
 import '../../../helpers/dummy_data.dart';
 

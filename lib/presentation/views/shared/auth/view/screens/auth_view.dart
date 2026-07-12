@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/validation/validate_phone_field.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/common/general_padding.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/content.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/logo.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/otp_bottom_sheet.dart';
+import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/validation/validate_phone_field.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/common/general_padding.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/views/shared/auth/riverpod/sign_up_controller.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/content.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/logo.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/otp_bottom_sheet.dart';
 
 class AuthView extends ConsumerStatefulWidget {
   const AuthView({super.key});

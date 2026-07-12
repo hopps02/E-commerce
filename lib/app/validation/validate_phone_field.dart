@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/app/validation/phone_validation.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/app/validation/phone_validation.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 /// Validates a phone field and reacts to the outcome for you:
 /// focuses [focusNode] when the field is empty, and shows the invalid-number

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:for_u/app/extensions/theme_extensions.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/ui_kit/shapes/gradient_border_side.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/extensions/theme_extensions.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 class DeliveryTo extends StatelessWidget {
   final String address;

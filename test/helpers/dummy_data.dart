@@ -1,4 +1,4 @@
-import 'package:for_u/data/response/auth/auth_response.dart';
+import 'package:store/data/response/auth/auth_response.dart';
 
 /// Canonical fixtures mirroring REAL backend payloads (MobileAuthResource /
 /// MobilePresenter / OtpService) — keep them in sync with the API, not with

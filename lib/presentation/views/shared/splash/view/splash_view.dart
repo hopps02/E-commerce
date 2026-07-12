@@ -1,21 +1,20 @@
 import 'dart:async';
 
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
 import 'package:flutter/material.dart';
 
-import 'package:for_u/app/utils/mixins/after_layout.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
+import 'package:store/app/utils/mixins/after_layout.dart';
+import 'package:store/presentation/res/color_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:for_u/app/config/constants.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/guest_gate.dart';
-import 'package:for_u/app/services/notification_deep_link.dart';
-import 'package:for_u/app/services/session_service.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
+import 'package:store/app/config/constants.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/services/session_service.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -61,19 +60,14 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
       switch (start) {
         case StartGuest():
           context.goNamed(Routes.home);
-          NotificationDeepLink.consumeColdStart();
         case StartHome(:final role):
           context.goNamed(role.homeRoute);
-          // A notification that cold-started the app now lands on its screen,
-          // stacked on top of the home the user just reached.
-          NotificationDeepLink.consumeColdStart();
         case StartAuth():
           // No stored session — open the storefront as a guest by default;
           // sign-in is prompted later, only when an action needs an account.
           final entered = await enterAsGuest();
           if (!context.mounted) return;
           context.goNamed(entered ? Routes.home : Routes.auth);
-          if (entered) NotificationDeepLink.consumeColdStart();
       }
     });
   }

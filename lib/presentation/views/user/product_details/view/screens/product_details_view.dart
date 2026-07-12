@@ -2,16 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/user/product_details/riverpod/product_details_controller.dart';
-import 'package:for_u/presentation/views/user/product_details/view/widgets/product_details_app_bar.dart';
-import 'package:for_u/presentation/views/user/product_details/view/widgets/product_details_bottom_bar.dart';
-import 'package:for_u/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
-import 'package:for_u/presentation/views/user/product_details/view/widgets/product_info_section.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/user/product_details/riverpod/product_details_controller.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_details_app_bar.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_details_bottom_bar.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
 
 class ProductDetailsViewArgs {
   final int productId;

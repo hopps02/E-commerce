@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:for_u/app/app.dart';
+import 'package:store/app/app.dart';
 
 class LanguageInterceptor extends Interceptor {
   LanguageInterceptor();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/presentation/res/gen/assets.gen.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/category_card.dart';
-import 'package:for_u/presentation/views/user/products/view/screens/products_view.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/category_card.dart';
+import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 class TopCategory extends StatelessWidget {
   const TopCategory({super.key});

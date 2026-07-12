@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/product_card.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/section_header.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/product_card.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/section_header.dart';
 
 class ProductsSection extends StatelessWidget {
   final String title;

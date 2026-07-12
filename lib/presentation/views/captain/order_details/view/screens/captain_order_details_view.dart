@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:for_u/presentation/common/general_padding.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/captain/order_details/riverpod/captain_order_details_controller.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_cancellation_reason_box.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_customer_card.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_order_details_app_bar.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_order_details_footer.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/widgets/captain_products_card.dart';
+import 'package:store/presentation/common/general_padding.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/captain/order_details/riverpod/captain_order_details_controller.dart';
+import 'package:store/presentation/views/captain/order_details/view/widgets/captain_cancellation_reason_box.dart';
+import 'package:store/presentation/views/captain/order_details/view/widgets/captain_customer_card.dart';
+import 'package:store/presentation/views/captain/order_details/view/widgets/captain_order_details_app_bar.dart';
+import 'package:store/presentation/views/captain/order_details/view/widgets/captain_order_details_footer.dart';
+import 'package:store/presentation/views/captain/order_details/view/widgets/captain_products_card.dart';
 
 class CaptainOrderDetailsArgs {
   final int orderId;

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
-import 'package:for_u/data/response/cashier/cashier_response.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/widgets/assign_captain_bottom_sheet.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
-import 'package:for_u/presentation/views/cashier/cashier_home/view/widgets/cashier_order_card.dart';
+import 'package:store/app/enums/enums.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/ui_kit/customized_smart_refresh.dart';
+import 'package:store/data/response/cashier/cashier_response.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
+import 'package:store/presentation/views/cashier/order_details/view/widgets/assign_captain_bottom_sheet.dart';
+import 'package:store/presentation/views/cashier/cashier_home/riverpod/cashier_tab_controller.dart';
+import 'package:store/presentation/views/cashier/cashier_home/view/widgets/cashier_order_card.dart';
 
 enum CashierOrdersDataType {
   preparation,

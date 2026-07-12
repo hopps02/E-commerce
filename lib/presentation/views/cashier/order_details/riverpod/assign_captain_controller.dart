@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/ui_kit/indicators/state_render.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/response/cashier/cashier_response.dart';
-import 'package:for_u/domain/usecase/assign_captain_usecase.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/response/cashier/cashier_response.dart';
+import 'package:store/domain/usecase/assign_captain_usecase.dart';
 
 class AssignCaptainState extends Equatable {
   final List<AvailableCaptain> captains;

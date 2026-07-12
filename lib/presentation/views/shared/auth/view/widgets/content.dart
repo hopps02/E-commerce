@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/auth_title.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/phone_field.dart';
-import 'package:for_u/presentation/views/shared/auth/view/widgets/sent_otp_button.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/auth_title.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/phone_field.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/sent_otp_button.dart';
 
 class Content extends StatelessWidget {
   final TextEditingController phoneNumberController;

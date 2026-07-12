@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/extensions/failure_display_extension.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/domain/usecase/create_address_usecase.dart';
-import 'package:for_u/domain/usecase/update_address_usecase.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/addresses/model/map_location_picker_models.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/domain/usecase/create_address_usecase.dart';
+import 'package:store/domain/usecase/update_address_usecase.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
 
 class AddressFormState extends Equatable {
   /// The coverage-verified point this address will be saved with.

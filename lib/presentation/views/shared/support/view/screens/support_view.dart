@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/shared/support/riverpod/support_controller.dart';
-import 'package:for_u/presentation/views/shared/support/view/widgets/support_app_bar.dart';
-import 'package:for_u/presentation/views/shared/support/view/widgets/support_body.dart';
-import 'package:for_u/presentation/views/shared/support/view/widgets/support_send_button.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/shared/support/riverpod/support_controller.dart';
+import 'package:store/presentation/views/shared/support/view/widgets/support_app_bar.dart';
+import 'package:store/presentation/views/shared/support/view/widgets/support_body.dart';
+import 'package:store/presentation/views/shared/support/view/widgets/support_send_button.dart';
 
 class SupportView extends ConsumerWidget {
   const SupportView({super.key});

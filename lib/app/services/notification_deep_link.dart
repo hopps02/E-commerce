@@ -1,29 +1,18 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
+import 'package:store/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
+import 'package:store/presentation/views/user/order_details/view/screens/order_details_view.dart';
+import 'package:store/presentation/views/user/support/view/screens/ticket_detail_view.dart';
 
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
-import 'package:for_u/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
-import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
-import 'package:for_u/presentation/views/user/support/view/screens/ticket_detail_view.dart';
-
-/// Turns a tapped push notification into in-app navigation.
+/// Turns a tapped in-app notification into navigation.
 ///
-/// The backend stamps every push with its notification `type` (e.g.
-/// `order.delivered`) alongside the target id (`order_id` / `ticket_id`). We
-/// route on the type because the type already implies the audience — a captain
-/// device only ever receives `delivery.*`, a branch device the `*_for_branch`
-/// events, and a customer device the rest — so the screen follows from the type
-/// without a separate role lookup.
+/// The backend stamps every notification with its `type` (e.g. `order.delivered`)
+/// alongside the target id (`order_id` / `ticket_id`). We route on the type
+/// because the type already implies the audience — a captain only ever sees
+/// `delivery.*`, a branch the `*_for_branch` events, and a customer the rest — so
+/// the screen follows from the type without a separate role lookup.
 class NotificationDeepLink {
   NotificationDeepLink._();
-
-  /// A tap that arrived while the app was alive (foreground or background). The
-  /// user is already on their home, so we can navigate straight away.
-  static void handleTap(RemoteMessage message) {
-    final target = _resolve(message.data);
-    if (target == null) return;
-    appRouter.pushNamed(target.routeName, extra: target.extra);
-  }
 
   static void open({
     required String type,
@@ -32,21 +21,6 @@ class NotificationDeepLink {
     final target = _resolve({'type': type, ...payload});
     if (target == null) return;
     appRouter.pushNamed(target.routeName, extra: target.extra);
-  }
-
-  /// A tap that cold-started the app. The notification is stashed and replayed
-  /// by the splash once the session resolves and the user lands on their home;
-  /// navigating any earlier would be wiped out by the splash's own redirect.
-  static RemoteMessage? _pendingColdStart;
-
-  static void stashColdStart(RemoteMessage message) =>
-      _pendingColdStart = message;
-
-  static void consumeColdStart() {
-    final message = _pendingColdStart;
-    if (message == null) return;
-    _pendingColdStart = null;
-    handleTap(message);
   }
 
   static _DeepLinkTarget? _resolve(Map<String, dynamic> data) {

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/extensions.dart';
-import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
-import 'package:for_u/app/ui_kit/default_app_bar.dart';
-import 'package:for_u/data/response/customer/support_response.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/res/fonts_manager.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
-import 'package:for_u/presentation/views/user/support/riverpod/tickets_controller.dart';
-import 'package:for_u/presentation/views/user/support/view/screens/ticket_detail_view.dart';
-import 'package:for_u/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
+import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/ui_kit/customized_smart_refresh.dart';
+import 'package:store/app/ui_kit/default_app_bar.dart';
+import 'package:store/data/response/customer/support_response.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/views/user/support/riverpod/tickets_controller.dart';
+import 'package:store/presentation/views/user/support/view/screens/ticket_detail_view.dart';
+import 'package:store/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
 
 /// The customer's support tickets (My Tickets). Replaces the old static FAQ as
 /// the destination of profile "Help & Support".

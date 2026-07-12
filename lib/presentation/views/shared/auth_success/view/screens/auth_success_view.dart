@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:for_u/app/enums/enums.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/shared/auth_success/view/widgets/body.dart';
-import 'package:for_u/presentation/views/shared/auth_success/view/widgets/loading.dart';
+import 'package:store/app/enums/enums.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/shared/auth_success/view/widgets/body.dart';
+import 'package:store/presentation/views/shared/auth_success/view/widgets/loading.dart';
 
 class AuthSuccessArgs {
   final SuccessViewType successViewType;

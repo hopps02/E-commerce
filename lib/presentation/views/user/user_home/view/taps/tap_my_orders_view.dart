@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/my_orders_app_bar.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/my_orders_slider.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/my_orders_taps_button.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_app_bar.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_slider.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_taps_button.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
 
 class TapMyOrdersView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;

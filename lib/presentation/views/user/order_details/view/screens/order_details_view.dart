@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/color_manager.dart';
-import 'package:for_u/presentation/views/user/order_details/riverpod/order_details_controller.dart';
-import 'package:for_u/presentation/views/user/order_details/view/widgets/order_details_app_bar.dart';
-import 'package:for_u/presentation/views/user/order_details/view/widgets/order_details_body.dart';
-import 'package:for_u/presentation/views/user/order_details/view/widgets/rate_order_bottom_sheet.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/views/user/order_details/riverpod/order_details_controller.dart';
+import 'package:store/presentation/views/user/order_details/view/widgets/order_details_app_bar.dart';
+import 'package:store/presentation/views/user/order_details/view/widgets/order_details_body.dart';
+import 'package:store/presentation/views/user/order_details/view/widgets/rate_order_bottom_sheet.dart';
 
 import '../../../../../../app/extensions/widget_extensions.dart';
 

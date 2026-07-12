@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/extensions/view_extensions.dart';
-import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
-import 'package:for_u/data/response/captain/captain_response.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/router/app_router.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
-import 'package:for_u/presentation/views/captain/captain_home/view/widgets/captain_order_card.dart';
-import 'package:for_u/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/ui_kit/customized_smart_refresh.dart';
+import 'package:store/data/response/captain/captain_response.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/captain/captain_home/riverpod/captain_tab_controller.dart';
+import 'package:store/presentation/views/captain/captain_home/view/widgets/captain_order_card.dart';
+import 'package:store/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 enum CaptainOrdersDataType {

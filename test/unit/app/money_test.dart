@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/app/utils/money.dart';
+import 'package:store/app/utils/money.dart';
 
 void main() {
   group('Money.amount', () {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:for_u/app/extensions/navigation_extension.dart';
-import 'package:for_u/app/extensions/widget_extensions.dart';
-import 'package:for_u/app/ui_kit/customized_smart_refresh.dart';
-import 'package:for_u/presentation/common/fast_state_render.dart';
-import 'package:for_u/presentation/res/sizes_manager.dart';
-import 'package:for_u/presentation/views/user/order_details/view/screens/order_details_view.dart';
-import 'package:for_u/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
-import 'package:for_u/presentation/views/user/user_home/view/widgets/order_card.dart';
+import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/app/ui_kit/customized_smart_refresh.dart';
+import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/views/user/order_details/view/screens/order_details_view.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/order_card.dart';
 
 import '../../../../../res/router/app_router.dart';
 

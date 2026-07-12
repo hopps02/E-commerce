@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:for_u/app/di/dependency_injection.dart';
-import 'package:for_u/app/utils/snackbar_helper.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/app/di/dependency_injection.dart';
+import 'package:store/app/utils/snackbar_helper.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 /// The customer's cart. Lines live client-side (the backend validates and
 /// prices them at checkout); single-branch per order is a v1 rule.

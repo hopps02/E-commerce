@@ -1,4 +1,4 @@
-import 'package:for_u/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/translations_manager.dart';
 
 /// Localized label for a backend delivery-failure reason. For the `other`
 /// reason it shows the captain's free-text note when present, falling back to

@@ -1,5 +1,5 @@
-import 'package:for_u/app/services/storage_services/secure_storage_service.dart';
-import 'package:for_u/app/services/storage_services/shared_prefrences_service.dart';
+import 'package:store/app/services/storage_services/secure_storage_service.dart';
+import 'package:store/app/services/storage_services/shared_prefrences_service.dart';
 import 'package:flutter/material.dart';
 
 // dart format off

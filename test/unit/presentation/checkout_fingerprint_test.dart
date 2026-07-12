@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_u/data/response/customer/catalog_response.dart';
-import 'package:for_u/presentation/views/user/cart/riverpod/checkout_controller.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
 
 /// The fingerprint is the heart of quote invalidation: it must change for any
 /// pricing-relevant edit (address, line set, or a line's quantity) and stay
