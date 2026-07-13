@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive_extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/auth_title.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/phone_field.dart';
@@ -20,6 +21,12 @@ class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: context.bySize<BoxConstraints?>(
+        mobile: null,
+        tablet: BoxConstraints(maxWidth: 350.w),
+        desktop: BoxConstraints(maxWidth: 350.w),
+        largeDesktop: BoxConstraints(maxWidth: 350.w),
+      ),
       padding: EdgeInsets.all(12.r),
       width: double.infinity,
       decoration: BoxDecoration(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive_extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/direction.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
@@ -27,21 +28,34 @@ class OnboardingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      child: Column(
-        mainAxisAlignment: .end,
-        crossAxisAlignment: .start,
-        children: [
-          DisplayedText(title: title, description: description),
-
-          SizedBox(height: 32.h),
-
-          Buttons(onNext: onNext, onLogin: onLogin),
-
-          SizedBox(height: context.bottomSafeAreaPadding + 15.h),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: .end,
+      crossAxisAlignment: .center,
+      children: [
+        Align(
+          alignment: .center,
+          child: Container(
+            constraints: context.bySize<BoxConstraints?>(mobile: null,
+              tablet: BoxConstraints(maxWidth: 450.w),
+              desktop: BoxConstraints(maxWidth: 450.w),
+              largeDesktop: BoxConstraints(maxWidth: 450.w),),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Column(
+              mainAxisAlignment: .end,
+              crossAxisAlignment: .start,
+              children: [
+                DisplayedText(title: title, description: description),
+          
+                SizedBox(height: 32.h),
+          
+                Buttons(onNext: onNext, onLogin: onLogin),
+          
+                SizedBox(height: context.bottomSafeAreaPadding + 15.h),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

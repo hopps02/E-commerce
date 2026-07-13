@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/extensions/navigation_extension.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/validation/validate_phone_field.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/common/general_padding.dart';
@@ -39,9 +40,6 @@ class _AuthViewState extends ConsumerState<AuthView> {
     }
   }
 
-  /// Closing the login screen returns to guest browsing. Re-establish a guest
-  /// session first so the home never lands on a dead session and bounces back
-  /// here — that produced an auth↔home loop when the old session was gone.
   Future<void> _returnToBrowsing() async {
     await enterAsGuest();
     if (mounted) context.goNamed(Routes.home);
@@ -87,8 +85,6 @@ class _AuthViewState extends ConsumerState<AuthView> {
               ),
             ),
           ),
-          // Reached on demand from a guest gate — let the user return to
-          // browsing without signing in.
           SafeArea(
             child: Align(
               alignment: AlignmentDirectional.topStart,

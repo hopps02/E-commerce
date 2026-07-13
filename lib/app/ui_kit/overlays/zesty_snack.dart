@@ -199,6 +199,7 @@ class _ZestySnackWidgetState extends State<_ZestySnackWidget>
           child: InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
             onTap: () {
               if (animationTimer.isActive) animationTimer.cancel();
               zestySnack.hide();

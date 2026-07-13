@@ -66,3 +66,4 @@ void _onError(Object error, StackTrace stack) {
 
 // dart pub global activate flutter_gen
 // fluttergen -c .\pubspec.yaml
+// msedge.exe --disable-web-security --user-data-dir="C:\edge-dev-session" http://localhost:59004

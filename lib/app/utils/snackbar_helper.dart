@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:store/app/app.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive_extensions.dart';
 import 'package:store/app/ui_kit/overlays/zesty_snack.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
@@ -41,33 +42,44 @@ class SnackbarHelper {
     List<Widget> actions = const [],
   ]) {
     ZestySnack.instance.show(
-      Padding(
-        padding: EdgeInsets.all(SizeM.pagePadding.dg),
-        child: Row(
-          children: [
-            ...actions,
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.w),
-                width: double.infinity,
-                decoration: ShapeDecoration(
-                  color: ColorM.white,
-                  shape: SmoothRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    smoothness: 1,
-                    side: GradientBorderSide(color: ColorM.primary, width: 1.w),
+      Builder(
+        builder: (context) {
+          return Align(
+            alignment: AlignmentDirectional.bottomStart,
+            child: Container(
+              constraints: context.bySize<BoxConstraints?>(mobile: null,
+              tablet: BoxConstraints(maxWidth: 450.w),
+              desktop: BoxConstraints(maxWidth: 450.w),
+              largeDesktop: BoxConstraints(maxWidth: 450.w),),
+              padding: EdgeInsets.all(SizeM.pagePadding.dg),
+              child: Row(
+                children: [
+                  ...actions,
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.w),
+                      width: double.infinity,
+                      decoration: ShapeDecoration(
+                        color: ColorM.white,
+                        shape: SmoothRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          smoothness: 1,
+                          side: GradientBorderSide(color: ColorM.primary, width: 1.w),
+                        ),
+                      ),
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        message,
+                        softWrap: true,
+                        style: NAVIGATOR_KEY.currentState!.context.labelMedium,
+                      ),
+                    ),
                   ),
-                ),
-                alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  message,
-                  softWrap: true,
-                  style: NAVIGATOR_KEY.currentState!.context.labelMedium,
-                ),
+                ],
               ),
             ),
-          ],
-        ),
+          );
+        }
       ),
     );
   }

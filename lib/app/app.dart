@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/global_keyboard_dismissal.dart';
 
 import 'package:store/presentation/res/router/app_router.dart';
@@ -35,51 +36,57 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = View.of(context);
-    final aspectRatio = mediaQuery.physicalSize.aspectRatio;
-
-    final designSize = (aspectRatio > 0.5)
-        // some designes are not working with the default design size
-        // so for 16:9 dimensions we use 375, 667
-        ? const Size(375, 667) // 16:9 (iPhone SE)
-        : const Size(375, 812); // 20:9 (Android base)
-    return ScreenUtilInit(
-      designSize: designSize,
-      builder: (context, details) {
-        return MaterialApp.router(
-          scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeManager.lightTheme(context),
-          themeMode: ThemeMode.light,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          routerConfig: appRouter,
-          builder: (context, child) {
-            return GlobalKeyboardDismissal(
-              child: Stack(
-                children: [
-                  child!,
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: context.topSafeAreaPadding,
-                    child: IgnorePointer(
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                          child: Container(color: Colors.transparent),
+    return ResponsiveScope(
+      child: Builder(
+        builder: (context) {
+          // Design canvas per form factor: phones/tablet keep the phone
+          // baseline; desktop uses a desktop canvas so .w/.sp don't explode.
+          final designSize = context.bySize<Size>(
+            mobile: const Size(375, 812),
+            tablet: const Size(768, 1024),
+            desktop: const Size(1440, 1024),
+            largeDesktop: const Size(1440, 1024),
+          );
+          return ScreenUtilInit(
+            designSize: designSize,
+            builder: (context, details) {
+              return MaterialApp.router(
+                scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeManager.lightTheme(context),
+                themeMode: ThemeMode.light,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                routerConfig: appRouter,
+                builder: (context, child) {
+                  return GlobalKeyboardDismissal(
+                    child: Stack(
+                      children: [
+                        child!,
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: context.topSafeAreaPadding,
+                          child: IgnorePointer(
+                            child: ClipRect(
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                                child: Container(color: Colors.transparent),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
