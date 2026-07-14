@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
@@ -37,45 +38,59 @@ class _CartViewState extends ConsumerState<CartView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          // Status bar space
-          SizedBox(height: context.topSafeAreaPadding),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            // Status bar space
+            SizedBox(height: context.topSafeAreaPadding),
 
-          // App Bar
-          CartAppBar().premiumAppear(index: 0),
+            // App Bar
+            CartAppBar().premiumAppear(index: 0),
 
-          // Thin divider
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+            // Thin divider
+            Container(
+              height: 6.h,
+              color: ColorM.gray150,
+            ).premiumAppear(index: 1),
 
-          // Scrollable body
-          const CartData(),
-        ],
+            // Scrollable body
+            const CartData(),
+          ],
+        ),
       ),
 
       // Summary Bottom Bar — totals are backend-quoted; product/discount rows
       // track local quantity edits live.
       bottomNavigationBar: guestMode && !cart.isEmpty
-          ? GuestCheckoutBottomBar(
-              subtotalHalalas: cart.subtotalHalalas,
-              discountHalalas: cart.discountHalalas,
-              onCheckout: () async {
-                if (!await requireLogin(context, ref)) return;
-                context.pushNamed(Routes.confirmOrder);
-              },
-            ).containerSlideUp()
+          ? ResponsiveConstrained(
+              maxWidth: 600,
+              heightFactor: 1,
+              child: GuestCheckoutBottomBar(
+                subtotalHalalas: cart.subtotalHalalas,
+                discountHalalas: cart.discountHalalas,
+                onCheckout: () async {
+                  if (!await requireLogin(context, ref)) return;
+                  context.pushNamed(Routes.confirmOrder);
+                },
+              ).containerSlideUp(),
+            )
           : checkout.reqState.isSuccess && !cart.isEmpty
-          ? CartSummaryBottomBar(
-              subtotalHalalas: cart.subtotalHalalas,
-              deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
-              discountHalalas: cart.discountHalalas,
-              totalHalalas: checkout.totals.totalHalalas,
-              requoting: checkout.requoting,
-              onCheckout: () async {
-                if (!await requireLogin(context, ref)) return;
-                context.pushNamed(Routes.confirmOrder);
-              },
-            ).containerSlideUp()
+          ? ResponsiveConstrained(
+              maxWidth: 600,
+              heightFactor: 1,
+              child: CartSummaryBottomBar(
+                subtotalHalalas: cart.subtotalHalalas,
+                deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
+                discountHalalas: cart.discountHalalas,
+                totalHalalas: checkout.totals.totalHalalas,
+                requoting: checkout.requoting,
+                onCheckout: () async {
+                  if (!await requireLogin(context, ref)) return;
+                  context.pushNamed(Routes.confirmOrder);
+                },
+              ).containerSlideUp(),
+            )
           : null,
     );
   }

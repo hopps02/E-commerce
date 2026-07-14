@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/services/new_order_alarm_service.dart';
 import 'package:store/presentation/common/home_header_actions.dart';
 import 'package:store/presentation/common/home_top_app_bar.dart';
@@ -33,16 +34,16 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    ref.listen(
-      cashierTabController.select((s) => s.hasNewOrder),
-      (previous, next) {
-        if (next) {
-          NewOrderAlarmService().start();
-          return;
-        }
-        NewOrderAlarmService().stop();
-      },
-    );
+    ref.listen(cashierTabController.select((s) => s.hasNewOrder), (
+      previous,
+      next,
+    ) {
+      if (next) {
+        NewOrderAlarmService().start();
+        return;
+      }
+      NewOrderAlarmService().stop();
+    });
 
     final cashierName = ref.watch(
       cashierTabController.select((s) => s.cashierName),
@@ -55,35 +56,38 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
     final notifier = ref.read(cashierTabController.notifier);
 
     return Scaffold(
-      body: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                HomeTopAppBar(
-                  welcomeName: cashierName,
-                  headerActions: const HomeHeaderActions(),
-                  tabsBar: const CashierTabsBar(),
-                  headerTrailing: const NotificationBell(dark: true),
-                  tabsAboveSearch: true,
-                ),
-              ];
-            },
-            body: const CashierOrdersSlider(),
-          ),
-          if (alertState.hasNewOrder)
-            PositionedDirectional(
-              top: context.topSafeAreaPadding + 92.h,
-              start: SizeM.pagePadding.w,
-              end: SizeM.pagePadding.w,
-              child: NewOrderAlertBanner(
-                newOrderCount: alertState.newOrderCount,
-                onViewOrders: notifier.onViewNewOrder,
-                onDismiss: notifier.dismissNewOrder,
-              ),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  HomeTopAppBar(
+                    welcomeName: cashierName,
+                    headerActions: const HomeHeaderActions(),
+                    tabsBar: const CashierTabsBar(),
+                    headerTrailing: const NotificationBell(dark: true),
+                    tabsAboveSearch: true,
+                  ),
+                ];
+              },
+              body: const CashierOrdersSlider(),
             ),
-        ],
+            if (alertState.hasNewOrder)
+              PositionedDirectional(
+                top: context.topSafeAreaPadding + 92.h,
+                start: SizeM.pagePadding.w,
+                end: SizeM.pagePadding.w,
+                child: NewOrderAlertBanner(
+                  newOrderCount: alertState.newOrderCount,
+                  onViewOrders: notifier.onViewNewOrder,
+                  onDismiss: notifier.dismissNewOrder,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

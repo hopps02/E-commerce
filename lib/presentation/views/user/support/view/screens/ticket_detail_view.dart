@@ -6,6 +6,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/data/response/customer/support_response.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
@@ -68,37 +69,40 @@ class _TicketDetailViewState extends ConsumerState<TicketDetailView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+                horizontal: SizeM.pagePadding.w,
+              ),
+              title: widget.args.number.isEmpty
+                  ? Translation.support.tr
+                  : widget.args.number,
             ),
-            title: widget.args.number.isEmpty
-                ? Translation.support.tr
-                : widget.args.number,
-          ),
-          Container(height: 6.h, color: ColorM.gray150),
-          Expanded(
-            child: FastStateRender(
-              reqState: state.reqState,
-              errorMessage: state.msgError,
-              onRetry: ref.read(ticketDetailController.notifier).retry,
-              child: ticket == null
-                  ? const SizedBox.shrink()
-                  : _Thread(ticket: ticket, arabic: arabic),
+            Container(height: 6.h, color: ColorM.gray150),
+            Expanded(
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.msgError,
+                onRetry: ref.read(ticketDetailController.notifier).retry,
+                child: ticket == null
+                    ? const SizedBox.shrink()
+                    : _Thread(ticket: ticket, arabic: arabic),
+              ),
             ),
-          ),
-          if (ticket != null)
-            _ReplyBar(
-              controller: _replyController,
-              sending: state.sending,
-              closed: ticket.isClosed,
-              onSend: _send,
-            ),
-        ],
+            if (ticket != null)
+              _ReplyBar(
+                controller: _replyController,
+                sending: state.sending,
+                closed: ticket.isClosed,
+                onSend: _send,
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -172,7 +176,9 @@ class _MessageBubble extends StatelessWidget {
         constraints: BoxConstraints(maxWidth: 0.78.sw),
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isOpener ? ColorM.primary.withValues(alpha: 0.10) : ColorM.gray100,
+          color: isOpener
+              ? ColorM.primary.withValues(alpha: 0.10)
+              : ColorM.gray100,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(14.r),
             topRight: Radius.circular(14.r),

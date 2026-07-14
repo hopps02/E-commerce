@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
@@ -40,8 +41,10 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
           SizedBox(height: context.topSafeAreaPadding),
           DefaultAppBar(
             padding: EdgeInsets.symmetric(
@@ -115,6 +118,7 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
             ),
           ),
         ],
+        ),
       ),
     );
   }

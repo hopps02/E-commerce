@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/services/notification_deep_link.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/customized_smart_refresh.dart';
@@ -38,80 +39,86 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
-            ),
-            title: Translation.notifications.tr,
-            actionButtons: state.unreadCount > 0
-                ? [
-                    Tooltip(
-                      message: Translation.mark_all_read.tr,
-                      child: CustomInkButton(
-                        onTap: notifier.markAllRead,
-                        width: 38.w,
-                        height: 38.w,
-                        borderRadius: 12.r,
-                        backgroundColor: ColorM.primary50,
-                        child: Icon(
-                          Icons.done_all_rounded,
-                          color: ColorM.primary700,
-                          size: 21.sp,
+      body: ResponsiveConstrained(
+        maxWidth: 550,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+                horizontal: SizeM.pagePadding.w,
+              ),
+              title: Translation.notifications.tr,
+              actionButtons: state.unreadCount > 0
+                  ? [
+                      Tooltip(
+                        message: Translation.mark_all_read.tr,
+                        child: CustomInkButton(
+                          onTap: notifier.markAllRead,
+                          width: 38.w,
+                          height: 38.w,
+                          borderRadius: 12.r,
+                          backgroundColor: ColorM.primary50,
+                          child: Icon(
+                            Icons.done_all_rounded,
+                            color: ColorM.primary700,
+                            size: 21.sp,
+                          ),
                         ),
                       ),
-                    ),
-                  ]
-                : null,
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          Expanded(
-            child: FastStateRender(
-              reqState: state.reqState,
-              errorMessage: state.reqState.isEmpty
-                  ? '${Translation.no_notifications_yet.tr}\n${Translation.no_notifications_hint.tr}'
-                  : state.msgError,
-              alignment: const Alignment(0, -0.2),
-              onRetry: notifier.retry,
-              emptyChild: const NotificationsEmptyState(),
-              child: CustomizedSmartRefresh(
-                enableLoading: true,
-                controller: notifier.refreshController,
-                classicFooterPadding: EdgeInsets.only(
-                  bottom: context.bottomSafeAreaPadding,
-                ),
-                onRefresh: notifier.refresh,
-                onLoading: notifier.loadMore,
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                      EdgeInsets.only(
-                        top: 16.h,
-                        bottom: context.bottomPadding + SizeM.pagePadding.w,
-                      ),
-                  itemCount: state.notifications.length,
-                  separatorBuilder: (_, _) => 12.verticalSpace,
-                  itemBuilder: (context, index) {
-                    final notification = state.notifications[index];
-                    return NotificationTile(
-                      notification: notification,
-                      onTap: () {
-                        unawaited(notifier.markRead(notification.id));
-                        NotificationDeepLink.open(
-                          type: notification.type,
-                          payload: notification.payload,
-                        );
-                      },
-                    );
-                  },
-                ),
-              ).premiumAppear(),
+                    ]
+                  : null,
+            ).premiumAppear(index: 0),
+            Container(
+              height: 6.h,
+              color: ColorM.gray150,
+            ).premiumAppear(index: 1),
+            Expanded(
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.reqState.isEmpty
+                    ? '${Translation.no_notifications_yet.tr}\n${Translation.no_notifications_hint.tr}'
+                    : state.msgError,
+                alignment: const Alignment(0, -0.2),
+                onRetry: notifier.retry,
+                emptyChild: const NotificationsEmptyState(),
+                child: CustomizedSmartRefresh(
+                  enableLoading: true,
+                  controller: notifier.refreshController,
+                  classicFooterPadding: EdgeInsets.only(
+                    bottom: context.bottomSafeAreaPadding,
+                  ),
+                  onRefresh: notifier.refresh,
+                  onLoading: notifier.loadMore,
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
+                        EdgeInsets.only(
+                          top: 16.h,
+                          bottom: context.bottomPadding + SizeM.pagePadding.w,
+                        ),
+                    itemCount: state.notifications.length,
+                    separatorBuilder: (_, _) => 12.verticalSpace,
+                    itemBuilder: (context, index) {
+                      final notification = state.notifications[index];
+                      return NotificationTile(
+                        notification: notification,
+                        onTap: () {
+                          unawaited(notifier.markRead(notification.id));
+                          NotificationDeepLink.open(
+                            type: notification.type,
+                            payload: notification.payload,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ).premiumAppear(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

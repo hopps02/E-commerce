@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
@@ -70,7 +71,10 @@ class _UserHomeViewState extends ConsumerState<UserHomeView>
         return Scaffold(
           body: Stack(
             children: [
-              PageSlider(bottomSafeAreaPadding: bottomSafeAreaPadding),
+              ResponsiveConstrained(
+                maxWidth: 600,
+                child: PageSlider(bottomSafeAreaPadding: bottomSafeAreaPadding),
+              ),
 
               GradientBackground(),
 

@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/failure_display_extension.dart';
+import 'package:store/app/services/location_service.dart';
 import 'package:store/app/services/reverse_geocode_service.dart';
 import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/data/network/error_handler/failure.dart';
@@ -16,7 +17,6 @@ import 'package:store/domain/usecase/coverage_check_usecase.dart';
 import 'package:store/domain/usecase/get_delivery_zones_usecase.dart';
 import 'package:store/domain/usecase/places_autocomplete_usecase.dart';
 import 'package:store/domain/usecase/places_details_usecase.dart';
-import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
 
@@ -172,16 +172,14 @@ class MapLocationPickerNotifier extends Notifier<MapLocationPickerState> {
     state = const MapLocationPickerState(zonesLoading: true);
 
     final editPoint = _editPoint(args);
-    final gpsPoint = args.useCurrentLocation || editPoint == null
-        ? await _fetchGpsPoint()
-        : null;
+    // Only auto-fetch GPS when the caller explicitly opened the "use my
+    // location" flow. Opening the picker normally must NOT jump to the user's
+    // location — it centers on the city/default and waits for the user.
+    final gpsPoint = args.useCurrentLocation ? await _fetchGpsPoint() : null;
     final target = editPoint ?? gpsPoint ?? _fallbackTarget;
-    if (editPoint == null && gpsPoint == null) {
-      DI().snackBarHelper.showMessage(
-        Translation.location_fetch_failed.tr,
-        ErrorMessage.snackBar,
-      );
-    }
+    // No auto-error snackbar here: when GPS is unavailable (common on web) we
+    // silently fall back to the city/default center and let the user place the
+    // pin manually or tap "use my location". The manual path still reports.
 
     await _loadZones(
       _ZoneLoadRequest(
@@ -367,10 +365,15 @@ class MapLocationPickerNotifier extends Notifier<MapLocationPickerState> {
   }
 
   Future<LatLng?> _fetchGpsPoint() async {
-    final location = ref.read(locationController.notifier);
-    final fetched = await location
-        .handleLocationPermissionAndFetch()
-        .timeout(const Duration(seconds: 12), onTimeout: () => false);
+    // Fetch the raw GPS position directly. We deliberately avoid
+    // handleLocationPermissionAndFetch()'s reverse-geocoding step: the
+    // `geocoding` package has no web implementation, so on web it throws and
+    // the whole fetch would report failure even when the browser granted the
+    // position. The picker only needs coordinates here — it reverse-geocodes
+    // itself later via ReverseGeocodeService.
+    final position = await LocationService.instance
+        .determinePosition()
+        .timeout(const Duration(seconds: 12), onTimeout: () => null);
 
     final permission = await Geolocator.checkPermission();
     state = state.copyWith(
@@ -378,11 +381,8 @@ class MapLocationPickerNotifier extends Notifier<MapLocationPickerState> {
       permissionDeniedForever: permission == LocationPermission.deniedForever,
     );
 
-    final picked = ref.read(locationController);
-    if (!fetched || picked.latitude == null || picked.longitude == null) {
-      return null;
-    }
-    return LatLng(picked.latitude!, picked.longitude!);
+    if (position == null) return null;
+    return LatLng(position.latitude, position.longitude);
   }
 
   Future<void> _loadZones(_ZoneLoadRequest zoneRequest) async {
@@ -472,17 +472,15 @@ class MapLocationPickerNotifier extends Notifier<MapLocationPickerState> {
   }
 
   Future<void> _checkCoverage(LatLng point) async {
-    if (state.zones.isEmpty &&
-        !state.zonesLoading &&
-        !state.hasZoneFetchFailure) {
-      state = state.copyWith(
-        coverageStatus: MapCoverageStatus.noZones,
-        clearCoverage: true,
-        clearReverseGeocode: true,
-      );
-      return;
-    }
+    // If the zones list itself failed to load, keep the retry affordance
+    // instead of firing a coverage check that would also fail.
+    if (state.hasZoneFetchFailure) return;
 
+    // NB: we deliberately do NOT short-circuit to "no zones" when the local
+    // zone list is empty. The backend coverage check is the per-point source
+    // of truth, so it must run wherever the user pans — even into a city we
+    // didn't preload zones for. An empty zone list only means we won't draw
+    // polygons; it must not block coverage.
     final requestId = ++_coverageRequestId;
     state = state.copyWith(
       coverageStatus: MapCoverageStatus.checking,

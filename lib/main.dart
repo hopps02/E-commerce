@@ -14,8 +14,6 @@ import 'package:store/app/utils/logger/app_logger.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
-
-
 /// dart format off
 void main() {
   runZonedGuarded(_initApp, _onError);
@@ -30,14 +28,17 @@ Future<void> _initApp() async {
 
   // Initialize Google Maps renderer
   try {
-    final GoogleMapsFlutterPlatform mapsImplementation = GoogleMapsFlutterPlatform.instance;
+    final GoogleMapsFlutterPlatform mapsImplementation =
+        GoogleMapsFlutterPlatform.instance;
     if (mapsImplementation is GoogleMapsFlutterAndroid) {
-      await mapsImplementation.initializeWithRenderer(AndroidMapRenderer.latest);
+      await mapsImplementation.initializeWithRenderer(
+        AndroidMapRenderer.latest,
+      );
       mapsImplementation.useAndroidViewSurface = true;
     }
   } catch (e) {
-      AppLogger.instance.e('Failed to initialize maps with latest renderer: $e');
-      AppLogger.instance.e('Falling back to platform default renderer');
+    AppLogger.instance.e('Failed to initialize maps with latest renderer: $e');
+    AppLogger.instance.e('Falling back to platform default renderer');
   }
 
   // System UI
@@ -66,4 +67,7 @@ void _onError(Object error, StackTrace stack) {
 
 // dart pub global activate flutter_gen
 // fluttergen -c .\pubspec.yaml
-// msedge.exe --disable-web-security --user-data-dir="C:\edge-dev-session" http://localhost:59004
+// C:\Program Files (x86)\Microsoft\Edge\Application\
+// msedge.exe --disable-web-security --user-data-dir="C:\edge-dev-session" http://localhost:60776
+
+// "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --disable-web-security --disable-site-isolation-trials --unsafely-treat-insecure-origin-as-secure="http://localhost:58535" --user-data-dir="C:\edge-dev-session" http://localhost:58535

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
@@ -63,8 +64,10 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
+      body: ResponsiveConstrained(
+        maxWidth: 550,
+        child: Column(
+          children: [
           SizedBox(height: context.topSafeAreaPadding),
           DefaultAppBar(
             padding: EdgeInsets.symmetric(
@@ -109,8 +112,12 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
             ),
           ),
         ],
+        ),
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: ResponsiveConstrained(
+        maxWidth: 550,
+        heightFactor: 1,
+        child: Padding(
         padding: EdgeInsets.fromLTRB(
           SizeM.pagePadding.w,
           12.h,
@@ -132,6 +139,7 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
             ),
           ),
         ),
+      ),
       ),
     );
   }

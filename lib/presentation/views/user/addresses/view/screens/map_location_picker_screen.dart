@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     show GradientBorderSide;
@@ -56,6 +57,33 @@ class _MapLocationPickerScreenState
     );
   }
 
+  /// Resolves the map's true center when the camera settles and forwards it to
+  /// the controller. We read it from [GoogleMapController.getVisibleRegion]
+  /// (the midpoint of the visible bounds) instead of trusting `onCameraMove`,
+  /// which is unreliable on `google_maps_flutter_web` and can leave
+  /// `_lastCameraCenter` stale, so panning wouldn't re-check coverage.
+  Future<void> _handleCameraIdle(MapLocationPickerState state) async {
+    final controller = _mapController;
+    var center = _lastCameraCenter ?? state.cameraTarget;
+    if (controller != null) {
+      try {
+        final region = await controller.getVisibleRegion();
+        final midLat =
+            (region.northeast.latitude + region.southwest.latitude) / 2;
+        final midLng =
+            (region.northeast.longitude + region.southwest.longitude) / 2;
+        // Guard against the (0,0) bounds the web plugin can briefly return.
+        if (midLat != 0 || midLng != 0) {
+          center = LatLng(midLat, midLng);
+        }
+      } catch (_) {
+        // Fall back to the last known center on any platform hiccup.
+      }
+    }
+    if (!mounted) return;
+    ref.read(mapLocationPickerController.notifier).onCameraIdle(center);
+  }
+
   void _confirm() {
     final pickedLocation = ref
         .read(mapLocationPickerController.notifier)
@@ -97,48 +125,44 @@ class _MapLocationPickerScreenState
               _moveCamera(state);
             },
             onCameraMove: (position) => _lastCameraCenter = position.target,
-            onCameraIdle: () => ref
-                .read(mapLocationPickerController.notifier)
-                .onCameraIdle(_lastCameraCenter ?? state.cameraTarget),
+            onCameraIdle: () => _handleCameraIdle(state),
           ),
           const _CenterPin(),
           PositionedDirectional(
             top: context.topSafeAreaPadding + 12.h,
             start: SizeM.pagePadding.w,
             end: SizeM.pagePadding.w,
-            child: _TopControls(
-              permissionDenied: state.permissionDenied,
-              permissionDeniedForever: state.permissionDeniedForever,
-              searching: state.searching,
-              suggestions: state.suggestions,
-              onSettings: () => ref
-                  .read(mapLocationPickerController.notifier)
-                  .openAppSettings(),
-            ),
-          ),
-          PositionedDirectional(
-            end: SizeM.pagePadding.w,
-            bottom: context.bottomSafeAreaPadding + 148.h,
-            child: _CurrentLocationButton(
-              locating: state.locating,
-              onTap: () => ref
-                  .read(mapLocationPickerController.notifier)
-                  .recenterToGps(),
+            child: ResponsiveConstrained(
+              maxWidth: 550,
+              child: _TopControls(
+                permissionDenied: state.permissionDenied,
+                permissionDeniedForever: state.permissionDeniedForever,
+                searching: state.searching,
+                suggestions: state.suggestions,
+                onSettings: () => ref
+                    .read(mapLocationPickerController.notifier)
+                    .openAppSettings(),
+              ),
             ),
           ),
           PositionedDirectional(
             start: SizeM.pagePadding.w,
             end: SizeM.pagePadding.w,
             bottom: context.bottomSafeAreaPadding + 12.h,
-            child: _CoverageBar(
-              state: state,
-              onRetryZones: () => ref
-                  .read(mapLocationPickerController.notifier)
-                  .retryZones(),
-              onRetryCoverage: () => ref
-                  .read(mapLocationPickerController.notifier)
-                  .retryCoverage(),
-              onConfirm: _confirm,
+            child: ResponsiveConstrained(
+              maxWidth: 550,
+              child: _CoverageBar(
+                state: state,
+                onRetryZones: () =>
+                    ref.read(mapLocationPickerController.notifier).retryZones(),
+                onRetryCoverage: () => ref
+                    .read(mapLocationPickerController.notifier)
+                    .retryCoverage(),
+                onLocate: () => ref
+                    .read(mapLocationPickerController.notifier)
+                    .recenterToGps(),
+                onConfirm: _confirm,
+              ),
             ),
           ),
         ],
@@ -154,7 +178,7 @@ class _MapLocationPickerScreenState
             polygonId: PolygonId('delivery-zone-${zone.id}'),
             points: zone.polygon,
             fillColor: ColorM.primary.withOpacity(0.14),
-            strokeColor: ColorM.primary500,
+            strokeColor: ColorM.primary900,
             strokeWidth: 1,
           ),
         )
@@ -206,7 +230,9 @@ class _TopControlsState extends ConsumerState<_TopControls> {
     final trimmedQuery = query.trim();
     if (trimmedQuery.isEmpty) return;
     FocusScope.of(context).unfocus();
-    ref.read(mapLocationPickerController.notifier).onSearchChanged(trimmedQuery);
+    ref
+        .read(mapLocationPickerController.notifier)
+        .onSearchChanged(trimmedQuery);
   }
 
   void _clearSearch() {
@@ -367,9 +393,7 @@ class _MapSearchField extends StatelessWidget {
               ),
               decoration: InputDecoration.collapsed(
                 hintText: Translation.map_search_hint.tr,
-                hintStyle: context.labelMedium.copyWith(
-                  color: ColorM.gray600,
-                ),
+                hintStyle: context.labelMedium.copyWith(color: ColorM.gray600),
               ),
               onChanged: onChanged,
               onSubmitted: onSubmitted,
@@ -468,11 +492,7 @@ class _PlaceSuggestionsDropdown extends StatelessWidget {
           itemCount: suggestions.length,
           separatorBuilder: (context, index) => Padding(
             padding: EdgeInsetsDirectional.only(start: 48.w),
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: ColorM.gray250,
-            ),
+            child: Divider(height: 1, thickness: 1, color: ColorM.gray250),
           ),
           itemBuilder: (context, index) => _PlaceSuggestionRow(
             suggestion: suggestions[index],
@@ -488,10 +508,7 @@ class _PlaceSuggestionRow extends StatelessWidget {
   final PlaceSuggestion suggestion;
   final VoidCallback onTap;
 
-  const _PlaceSuggestionRow({
-    required this.suggestion,
-    required this.onTap,
-  });
+  const _PlaceSuggestionRow({required this.suggestion, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -567,42 +584,18 @@ class _CenterPin extends StatelessWidget {
   }
 }
 
-class _CurrentLocationButton extends StatelessWidget {
-  final bool locating;
-  final VoidCallback onTap;
-
-  const _CurrentLocationButton({required this.locating, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: Translation.address_use_my_location.tr,
-      child: CustomInkButton(
-        onTap: locating ? null : onTap,
-        width: 48.w,
-        height: 48.w,
-        borderRadius: 16.r,
-        backgroundColor: ColorM.white,
-        alignment: Alignment.center,
-        side: GradientBorderSide(color: ColorM.gray250, width: 1.w),
-        isLoading: locating,
-        loadingColor: ColorM.primary500,
-        child: Icon(Icons.my_location, color: ColorM.primary500, size: 21.sp),
-      ),
-    );
-  }
-}
-
 class _CoverageBar extends StatelessWidget {
   final MapLocationPickerState state;
   final VoidCallback onRetryZones;
   final VoidCallback onRetryCoverage;
+  final VoidCallback onLocate;
   final VoidCallback onConfirm;
 
   const _CoverageBar({
     required this.state,
     required this.onRetryZones,
     required this.onRetryCoverage,
+    required this.onLocate,
     required this.onConfirm,
   });
 
@@ -697,6 +690,30 @@ class _CoverageBar extends StatelessWidget {
           ],
           12.verticalSpace,
           CustomInkButton(
+            onTap: state.locating ? null : onLocate,
+            isLoading: state.locating,
+            loadingColor: ColorM.primary500,
+            height: 46.h,
+            borderRadius: 14.r,
+            backgroundColor: ColorM.primary50,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.my_location, color: ColorM.primary500, size: 19.sp),
+                8.horizontalSpace,
+                Text(
+                  Translation.address_use_my_location.tr,
+                  style: context.labelLarge.copyWith(
+                    color: ColorM.primary500,
+                    fontWeight: FontWeightM.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          10.verticalSpace,
+          CustomInkButton(
             onTap: state.canConfirm ? onConfirm : null,
             enabled: state.canConfirm,
             height: 52.h,
@@ -724,10 +741,8 @@ class _CoverageBar extends StatelessWidget {
 
   String _message(BuildContext context) {
     return switch (state.coverageStatus) {
-      MapCoverageStatus.serviceable =>
-        Translation.map_inside_delivery_zone.tr,
-      MapCoverageStatus.unavailableBranch =>
-        Translation.map_zone_no_branch.tr,
+      MapCoverageStatus.serviceable => Translation.map_inside_delivery_zone.tr,
+      MapCoverageStatus.unavailableBranch => Translation.map_zone_no_branch.tr,
       MapCoverageStatus.outside => Translation.map_outside_delivery_zone.tr,
       MapCoverageStatus.networkError =>
         state.coverageErrorMessage.trim().isEmpty
@@ -777,23 +792,23 @@ class _CoverageBarStyle {
         background: Color(0xFFFFF3E8),
         icon: Icons.storefront_outlined,
       ),
-      MapCoverageStatus.outside || MapCoverageStatus.noZones =>
-        const _CoverageBarStyle(
-          color: ColorM.red,
-          background: Color(0xFFFFECEC),
-          icon: Icons.location_off_outlined,
-        ),
+      MapCoverageStatus.outside ||
+      MapCoverageStatus.noZones => const _CoverageBarStyle(
+        color: ColorM.red,
+        background: Color(0xFFFFECEC),
+        icon: Icons.location_off_outlined,
+      ),
       MapCoverageStatus.networkError => const _CoverageBarStyle(
         color: ColorM.gray700,
         background: ColorM.gray100,
         icon: Icons.wifi_off_outlined,
       ),
-      MapCoverageStatus.checking || MapCoverageStatus.idle =>
-        const _CoverageBarStyle(
-          color: ColorM.gray700,
-          background: ColorM.gray100,
-          icon: Icons.location_searching,
-        ),
+      MapCoverageStatus.checking ||
+      MapCoverageStatus.idle => const _CoverageBarStyle(
+        color: ColorM.gray700,
+        background: ColorM.gray100,
+        icon: Icons.location_searching,
+      ),
     };
   }
 }

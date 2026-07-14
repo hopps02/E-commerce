@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/customized_smart_refresh.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/data/response/customer/support_response.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
@@ -42,48 +43,54 @@ class TicketsView extends ConsumerWidget {
               ),
             ).premiumAppear(index: 2)
           : null,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+                horizontal: SizeM.pagePadding.w,
+              ),
+              title: Translation.my_tickets.tr,
+            ).premiumAppear(index: 0),
+            Container(
+              height: 6.h,
+              color: ColorM.gray150,
+            ).premiumAppear(index: 1),
+            Expanded(
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.msgError,
+                alignment: const Alignment(0, -0.2),
+                onRetry: notifier.retry,
+                emptyChild: const _NoTickets(),
+                child: CustomizedSmartRefresh(
+                  enableLoading: true,
+                  controller: notifier.refreshController,
+                  classicFooterPadding: EdgeInsets.only(
+                    bottom: context.bottomSafeAreaPadding,
+                  ),
+                  onRefresh: notifier.refresh,
+                  onLoading: notifier.loadMore,
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
+                        EdgeInsets.only(
+                          top: 16.h,
+                          bottom: context.bottomPadding + 80.h,
+                        ),
+                    itemCount: state.tickets.length,
+                    separatorBuilder: (_, _) => 12.verticalSpace,
+                    itemBuilder: (context, index) =>
+                        _TicketCard(ticket: state.tickets[index]),
+                  ),
+                ).premiumAppear(),
+              ),
             ),
-            title: Translation.my_tickets.tr,
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          Expanded(
-            child: FastStateRender(
-              reqState: state.reqState,
-              errorMessage: state.msgError,
-              alignment: const Alignment(0, -0.2),
-              onRetry: notifier.retry,
-              emptyChild: const _NoTickets(),
-              child: CustomizedSmartRefresh(
-                enableLoading: true,
-                controller: notifier.refreshController,
-                classicFooterPadding: EdgeInsets.only(
-                  bottom: context.bottomSafeAreaPadding,
-                ),
-                onRefresh: notifier.refresh,
-                onLoading: notifier.loadMore,
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                      EdgeInsets.only(
-                        top: 16.h,
-                        bottom: context.bottomPadding + 80.h,
-                      ),
-                  itemCount: state.tickets.length,
-                  separatorBuilder: (_, _) => 12.verticalSpace,
-                  itemBuilder: (context, index) =>
-                      _TicketCard(ticket: state.tickets[index]),
-                ),
-              ).premiumAppear(),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

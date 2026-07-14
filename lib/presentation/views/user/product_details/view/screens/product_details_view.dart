@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
@@ -11,7 +12,6 @@ import 'package:store/presentation/views/user/product_details/view/widgets/produ
 import 'package:store/presentation/views/user/product_details/view/widgets/product_details_bottom_bar.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
-import 'package:store/app/extensions/widget_extensions.dart';
 
 class ProductDetailsViewArgs {
   final int productId;
@@ -27,8 +27,7 @@ class ProductDetailsView extends ConsumerStatefulWidget {
   const ProductDetailsView({super.key, required this.args});
 
   @override
-  ConsumerState<ProductDetailsView> createState() =>
-      _ProductDetailsViewState();
+  ConsumerState<ProductDetailsView> createState() => _ProductDetailsViewState();
 }
 
 class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
@@ -50,13 +49,21 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
+      // NOTE: the width cap (ResponsiveConstrained) is applied to the app bar
+      // and the scroll content individually — NOT around this whole Column.
+      // Wrapping a full-height Column that contains an `Expanded` in the cap's
+      // `Align` collapses it to zero height on wide (tablet+) screens, which is
+      // what made the image/name disappear while the bottom bar stayed.
       body: Column(
         children: [
           // Status bar space
           SizedBox(height: context.topSafeAreaPadding),
 
           // App Bar
-          const ProductDetailsAppBar(),
+          const ResponsiveConstrained(
+            maxWidth: 600,
+            child: ProductDetailsAppBar(),
+          ),
 
           // Thin divider
           Container(height: 6.h, color: ColorM.gray150),
@@ -71,28 +78,32 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                   .load(widget.args.productId, initial: widget.args.initial),
               child: product == null
                   ? const SizedBox.shrink()
-                  : SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          16.verticalSpace,
+                  : ResponsiveConstrained(
+                      maxWidth: 600,
+                      alignment: Alignment.topCenter,
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            16.verticalSpace,
 
-                          // Product image with favorite + dots
-                          ProductImageSlider(
-                            imageUrls: [product.imageUrl ?? ''],
-                          ).premiumAppear(index: 0),
+                            // Product image with favorite + dots
+                            ProductImageSlider(
+                              imageUrls: [product.imageUrl ?? ''],
+                            ),
 
-                          14.verticalSpace,
+                            14.verticalSpace,
 
-                          // Product name + availability
-                          ProductInfoSection(
-                            name: product.name(arabic),
-                            isAvailable: product.inStock,
-                          ).premiumAppear(index: 1),
+                            // Product name + availability
+                            ProductInfoSection(
+                              name: product.name(arabic),
+                              isAvailable: product.inStock,
+                            ),
 
-                          SizedBox(height: 24.h),
-                        ],
+                            SizedBox(height: 24.h),
+                          ],
+                        ),
                       ),
                     ),
             ),
@@ -100,10 +111,22 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
         ],
       ),
 
-      // Fixed bottom bar
+      // Fixed bottom bar.
+      // NOTE: do NOT wrap this in ResponsiveConstrained — its `Align` fills the
+      // full height the Scaffold offers the bottom slot, so the bar would
+      // balloon to the whole screen and starve the body of height. We cap the
+      // width with an Align that uses `heightFactor: 1` so it shrink-wraps to
+      // the bar's own height.
       bottomNavigationBar: product == null
           ? null
-          : ProductDetailsBottomBar(product: product).containerSlideUp(),
+          : Align(
+              alignment: Alignment.bottomCenter,
+              heightFactor: 1,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: ProductDetailsBottomBar(product: product),
+              ),
+            ),
     );
   }
 }

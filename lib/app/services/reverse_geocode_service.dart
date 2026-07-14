@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 
 class ReverseGeocodeResult {
@@ -48,7 +47,10 @@ class ReverseGeocodeService {
         area: area,
         displayAddress: _displayAddress(street, building, area),
       );
-    } on PlatformException {
+    } catch (_) {
+      // Best-effort only. On web the `geocoding` plugin has no implementation
+      // and throws a non-PlatformException error, so we catch broadly and just
+      // skip the street/building enrichment — coverage & confirm still work.
       return null;
     }
   }

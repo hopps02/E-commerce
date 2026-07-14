@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/animations/animated_on_appear.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
@@ -27,7 +28,16 @@ class HomeTapAppBar extends StatelessWidget {
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 0,
-      expandedHeight: 125.h,
+      // On the desktop/tablet canvas, text scales by width (.sp) but .h scales
+      // by height, so a fixed 125.h is too short and the top content overlaps
+      // the search bar. Give it more (window-height-independent) room on wide
+      // form factors.
+      expandedHeight: context.bySize(
+        mobile: 125.h,
+        tablet: 150.0,
+        desktop: 170.0,
+        largeDesktop: 175.0,
+      ),
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.dark,

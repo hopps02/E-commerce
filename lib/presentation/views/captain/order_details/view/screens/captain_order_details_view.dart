@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:store/presentation/common/general_padding.dart';
@@ -54,47 +55,51 @@ class _CaptainOrderDetailsViewState
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          const CaptainOrderDetailsAppBar().premiumAppear(index: 0),
-          Expanded(
-            child: FastStateRender(
-              reqState: state.reqState,
-              errorMessage: state.msgError,
-              onRetry: () => notifier.load(widget.args.orderId),
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(top: 12.h, bottom: 24.h),
-                child: GeneralPadding(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      CaptainCustomerCard(
-                        customerName: state.customerName,
-                        address: state.address,
-                        status: state.status,
-                        onTapCall: () => _callCustomer(state.customerPhone),
-                      ).premiumAppear(index: 1),
-                      12.verticalSpace,
-                      CaptainProductsCard(
-                        items: state.items,
-                        totalHalalas: state.totalHalalas,
-                      ).premiumAppear(index: 2),
-                      if ((state.status.isCancelled || state.status.isFailed) &&
-                          state.cancellationReason != null) ...[
-                        16.verticalSpace,
-                        CaptainCancellationReasonBox(
-                          reason: state.cancellationReason!,
-                        ).premiumAppear(index: 3),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            const CaptainOrderDetailsAppBar().premiumAppear(index: 0),
+            Expanded(
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.msgError,
+                onRetry: () => notifier.load(widget.args.orderId),
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(top: 12.h, bottom: 24.h),
+                  child: GeneralPadding(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        CaptainCustomerCard(
+                          customerName: state.customerName,
+                          address: state.address,
+                          status: state.status,
+                          onTapCall: () => _callCustomer(state.customerPhone),
+                        ).premiumAppear(index: 1),
+                        12.verticalSpace,
+                        CaptainProductsCard(
+                          items: state.items,
+                          totalHalalas: state.totalHalalas,
+                        ).premiumAppear(index: 2),
+                        if ((state.status.isCancelled ||
+                                state.status.isFailed) &&
+                            state.cancellationReason != null) ...[
+                          16.verticalSpace,
+                          CaptainCancellationReasonBox(
+                            reason: state.cancellationReason!,
+                          ).premiumAppear(index: 3),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          CaptainOrderDetailsFooter(status: state.status),
-        ],
+            CaptainOrderDetailsFooter(status: state.status),
+          ],
+        ),
       ),
     );
   }

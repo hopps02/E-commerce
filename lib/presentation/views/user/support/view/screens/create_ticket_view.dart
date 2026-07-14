@@ -6,6 +6,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/ui_kit/forms/simple_form.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
@@ -75,126 +76,132 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
+      body: ResponsiveConstrained(
+        maxWidth: 550,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+                horizontal: SizeM.pagePadding.w,
+              ),
+              title: Translation.new_ticket.tr,
             ),
-            title: Translation.new_ticket.tr,
-          ),
-          Container(height: 6.h, color: ColorM.gray150),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                  EdgeInsets.only(top: 20.h, bottom: 24.h),
-              children: [
-                LabeledField(
-                  label: Translation.ticket_subject.tr,
-                  child: SimpleForm(
-                    controller: _titleController,
-                    hintText: Translation.ticket_subject_hint.tr,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    height: 52.h,
-                    borderRadius: 17.r,
-                    backgroundColor: ColorM.gray100,
-                    borderColor: ColorM.gray100,
-                    textAlign: TextAlign.start,
-                    onFieldSubmitted: (_) => _descriptionFocus.requestFocus(),
-                  ),
-                ),
-                18.verticalSpace,
-                LabeledField(
-                  label: Translation.ticket_message.tr,
-                  child: SimpleForm(
-                    controller: _descriptionController,
-                    focusNode: _descriptionFocus,
-                    hintText: Translation.ticket_message_hint.tr,
-                    keyboardType: TextInputType.multiline,
-                    height: 140.h,
-                    maxLines: 6,
-                    borderRadius: 15.r,
-                    backgroundColor: ColorM.gray100,
-                    borderColor: ColorM.gray100,
-                    alignment: AlignmentDirectional.topStart,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                18.verticalSpace,
-                LabeledField(
-                  label: Translation.link_order_optional.tr,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(17.r),
-                    onTap: _pickOrder,
-                    child: Container(
+            Container(height: 6.h, color: ColorM.gray150),
+            Expanded(
+              child: ListView(
+                padding:
+                    EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
+                    EdgeInsets.only(top: 20.h, bottom: 24.h),
+                children: [
+                  LabeledField(
+                    label: Translation.ticket_subject.tr,
+                    child: SimpleForm(
+                      controller: _titleController,
+                      hintText: Translation.ticket_subject_hint.tr,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
                       height: 52.h,
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      decoration: BoxDecoration(
-                        color: ColorM.gray100,
-                        borderRadius: BorderRadius.circular(17.r),
+                      borderRadius: 17.r,
+                      backgroundColor: ColorM.gray100,
+                      borderColor: ColorM.gray100,
+                      textAlign: TextAlign.start,
+                      onFieldSubmitted: (_) => _descriptionFocus.requestFocus(),
+                    ),
+                  ),
+                  18.verticalSpace,
+                  LabeledField(
+                    label: Translation.ticket_message.tr,
+                    child: SimpleForm(
+                      controller: _descriptionController,
+                      focusNode: _descriptionFocus,
+                      hintText: Translation.ticket_message_hint.tr,
+                      keyboardType: TextInputType.multiline,
+                      height: 140.h,
+                      maxLines: 6,
+                      borderRadius: 15.r,
+                      backgroundColor: ColorM.gray100,
+                      borderColor: ColorM.gray100,
+                      alignment: AlignmentDirectional.topStart,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 12.h,
                       ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.receipt_long_outlined,
-                            size: 20.w,
-                            color: ColorM.gray500,
-                          ),
-                          10.horizontalSpace,
-                          Expanded(
-                            child: Text(
-                              state.hasLinkedOrder
-                                  ? state.linkedOrderNumber
-                                  : Translation.no_linked_order.tr,
-                              style: context.bodyLarge.copyWith(
-                                color: state.hasLinkedOrder
-                                    ? ColorM.gray900
-                                    : ColorM.gray500,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  LabeledField(
+                    label: Translation.link_order_optional.tr,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(17.r),
+                      onTap: _pickOrder,
+                      child: Container(
+                        height: 52.h,
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        decoration: BoxDecoration(
+                          color: ColorM.gray100,
+                          borderRadius: BorderRadius.circular(17.r),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.receipt_long_outlined,
+                              size: 20.w,
+                              color: ColorM.gray500,
+                            ),
+                            10.horizontalSpace,
+                            Expanded(
+                              child: Text(
+                                state.hasLinkedOrder
+                                    ? state.linkedOrderNumber
+                                    : Translation.no_linked_order.tr,
+                                style: context.bodyLarge.copyWith(
+                                  color: state.hasLinkedOrder
+                                      ? ColorM.gray900
+                                      : ColorM.gray500,
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: ColorM.gray500,
-                          ),
-                        ],
+                            Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: ColorM.gray500,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              SizeM.pagePadding.w,
-              8.h,
-              SizeM.pagePadding.w,
-              12.h + context.bottomSafeAreaPadding,
-            ),
-            child: CustomInkButton(
-              onTap: _submit,
-              isLoading: state.submitting,
-              width: double.infinity,
-              height: 56.h,
-              backgroundColor: ColorM.primary,
-              borderRadius: 16.r,
-              alignment: Alignment.center,
-              child: Text(
-                Translation.send.tr,
-                style: context.bodyLarge.copyWith(
-                  color: ColorM.white,
-                  fontWeight: FontWeightM.medium,
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                SizeM.pagePadding.w,
+                8.h,
+                SizeM.pagePadding.w,
+                12.h + context.bottomSafeAreaPadding,
+              ),
+              child: CustomInkButton(
+                onTap: _submit,
+                isLoading: state.submitting,
+                width: double.infinity,
+                height: 56.h,
+                backgroundColor: ColorM.primary,
+                borderRadius: 16.r,
+                alignment: Alignment.center,
+                child: Text(
+                  Translation.send.tr,
+                  style: context.bodyLarge.copyWith(
+                    color: ColorM.white,
+                    fontWeight: FontWeightM.medium,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/order_details/riverpod/order_details_controller.dart';
@@ -84,25 +85,28 @@ class _OrderDetailsViewState extends ConsumerState<OrderDetailsView> {
     ref.listen(orderDetailsController, (_, next) => _maybeAutoOpenRating(next));
     return Scaffold(
       backgroundColor: ColorM.primary800, // The top app bar background
-      body: Column(
-        children: [
-          const OrderDetailsAppBar(),
-          Expanded(
-            child: FastStateRender(
-              reqState: orderDetailsState.reqState,
-              errorMessage: orderDetailsState.errorMessage,
-              alignment: const Alignment(0, -0.2),
-              onRetry: () => ref
-                  .read(orderDetailsController.notifier)
-                  .load(widget.args.orderId),
-              child: OrderDetailsBody(
-                state: orderDetailsState,
-                refreshController: _refreshController,
-                onRefresh: _onRefresh,
-              ).containerSlideUp(),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            const OrderDetailsAppBar(),
+            Expanded(
+              child: FastStateRender(
+                reqState: orderDetailsState.reqState,
+                errorMessage: orderDetailsState.errorMessage,
+                alignment: const Alignment(0, -0.2),
+                onRetry: () => ref
+                    .read(orderDetailsController.notifier)
+                    .load(widget.args.orderId),
+                child: OrderDetailsBody(
+                  state: orderDetailsState,
+                  refreshController: _refreshController,
+                  onRefresh: _onRefresh,
+                ).containerSlideUp(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

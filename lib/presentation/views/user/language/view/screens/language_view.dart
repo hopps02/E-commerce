@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/config/supported_locales.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
@@ -22,48 +23,51 @@ class LanguageView extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            16.verticalSpace,
-            DefaultAppBar(
-              title: Translation.languages.tr,
-            ).premiumAppear(index: 0),
-            32.verticalSpace,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                children: [
-                  _LanguageItem(
-                    title: Translation.english.tr,
-                    locale: SupportedLocales.EN.locale,
-                    currentLocale: currentLocale,
-                    icon: Assets.svg.language.svg(
-                      width: 24.w,
-                      height: 24.w,
-                      colorFilter: const ColorFilter.mode(
-                        ColorM.gray900,
-                        BlendMode.srcIn,
+        child: ResponsiveConstrained(
+          maxWidth: 500,
+          child: Column(
+            children: [
+              16.verticalSpace,
+              DefaultAppBar(
+                title: Translation.languages.tr,
+              ).premiumAppear(index: 0),
+              32.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  children: [
+                    _LanguageItem(
+                      title: Translation.english.tr,
+                      locale: SupportedLocales.EN.locale,
+                      currentLocale: currentLocale,
+                      icon: Assets.svg.language.svg(
+                        width: 24.w,
+                        height: 24.w,
+                        colorFilter: const ColorFilter.mode(
+                          ColorM.gray900,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                    ),
-                  ).premiumAppear(index: 1),
-                  16.verticalSpace,
-                  _LanguageItem(
-                    title: Translation.arabic.tr,
-                    locale: SupportedLocales.AR.locale,
-                    currentLocale: currentLocale,
-                    icon: Assets.svg.language.svg(
-                      width: 24.w,
-                      height: 24.w,
-                      colorFilter: const ColorFilter.mode(
-                        ColorM.gray900,
-                        BlendMode.srcIn,
+                    ).premiumAppear(index: 1),
+                    16.verticalSpace,
+                    _LanguageItem(
+                      title: Translation.arabic.tr,
+                      locale: SupportedLocales.AR.locale,
+                      currentLocale: currentLocale,
+                      icon: Assets.svg.language.svg(
+                        width: 24.w,
+                        height: 24.w,
+                        colorFilter: const ColorFilter.mode(
+                          ColorM.gray900,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                    ),
-                  ).premiumAppear(index: 2),
-                ],
+                    ).premiumAppear(index: 2),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

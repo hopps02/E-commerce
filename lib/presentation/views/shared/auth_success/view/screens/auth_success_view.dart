@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store/app/enums/enums.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/shared/auth_success/view/widgets/body.dart';
 import 'package:store/presentation/views/shared/auth_success/view/widgets/loading.dart';
@@ -29,23 +30,26 @@ class AuthSuccessView extends StatelessWidget {
           ? ColorM.greenPrimary
           : ColorM.white,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(flex: 2),
+        child: ResponsiveConstrained(
+          maxWidth: 450,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(flex: 2),
 
-            Loading(),
+              Loading(),
 
-            const Spacer(),
+              const Spacer(),
 
-            Body(
-              successViewType: args.successViewType,
-              orderId: args.orderId,
-              orderNumber: args.orderNumber,
-            ),
+              Body(
+                successViewType: args.successViewType,
+                orderId: args.orderId,
+                orderNumber: args.orderNumber,
+              ),
 
-            const Spacer(flex: 2),
-          ],
+              const Spacer(flex: 2),
+            ],
+          ),
         ),
       ),
     );

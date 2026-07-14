@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/common/general_padding.dart';
@@ -48,33 +49,36 @@ class _CashierOrderDetailsViewState
 
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: SafeArea(
-        child: FastStateRender(
-          reqState: state.reqState,
-          errorMessage: state.msgError,
-          onRetry: () => ref
-              .read(cashierOrderDetailsController.notifier)
-              .load(widget.args.orderId),
-          child: Column(
-            children: [
-              CashierOrderTopAppBar().premiumAppear(index: 0),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.only(bottom: 24.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      OrderInfoPanel(state: state).premiumAppear(index: 1),
-                      16.verticalSpace,
-                      GeneralPadding(
-                        child: OrderProductsTable(state: state),
-                      ).premiumAppear(index: 2),
-                    ],
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: SafeArea(
+          child: FastStateRender(
+            reqState: state.reqState,
+            errorMessage: state.msgError,
+            onRetry: () => ref
+                .read(cashierOrderDetailsController.notifier)
+                .load(widget.args.orderId),
+            child: Column(
+              children: [
+                CashierOrderTopAppBar().premiumAppear(index: 0),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.only(bottom: 24.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        OrderInfoPanel(state: state).premiumAppear(index: 1),
+                        16.verticalSpace,
+                        GeneralPadding(
+                          child: OrderProductsTable(state: state),
+                        ).premiumAppear(index: 2),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              OrderBottomBar(state: state).premiumAppear(index: 3),
-            ],
+                OrderBottomBar(state: state).premiumAppear(index: 3),
+              ],
+            ),
           ),
         ),
       ),

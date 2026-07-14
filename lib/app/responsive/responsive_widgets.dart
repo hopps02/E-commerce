@@ -163,6 +163,7 @@ class ResponsiveConstrained extends StatelessWidget {
     this.constrainOnMobile = false,
     this.alignment = Alignment.center,
     this.padding,
+    this.heightFactor,
   });
 
   final Widget child;
@@ -177,6 +178,13 @@ class ResponsiveConstrained extends StatelessWidget {
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry? padding;
 
+  /// Height factor for the centring [Align]. Leave `null` (default) to let the
+  /// box fill the available height. Pass `1` when this wraps intrinsic-height
+  /// content in a slot that offers full height (e.g. a Scaffold's
+  /// `bottomNavigationBar`), otherwise the `Align` balloons to the whole slot
+  /// and starves the sibling body of height.
+  final double? heightFactor;
+
   @override
   Widget build(BuildContext context) {
     Widget content = child;
@@ -187,6 +195,7 @@ class ResponsiveConstrained extends StatelessWidget {
 
     return Align(
       alignment: alignment,
+      heightFactor: heightFactor,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: maxWidth),
         child: content,

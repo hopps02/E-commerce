@@ -5,6 +5,7 @@ import 'package:store/app/enums/enums.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/extensions/navigation_extension.dart';
 import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/common/cart_branch_resolution_state.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/views/shared/auth_success/view/screens/auth_success_view.dart';
@@ -71,54 +72,61 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
     final checkout = ref.watch(checkoutController);
 
     return Scaffold(
-      body: Column(
-        children: [
-          // Status bar space
-          SizedBox(height: context.topSafeAreaPadding),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            // Status bar space
+            SizedBox(height: context.topSafeAreaPadding),
 
-          // App Bar
-          ConfirmOrderAppBar().premiumAppear(index: 0),
+            // App Bar
+            ConfirmOrderAppBar().premiumAppear(index: 0),
 
-          GestureDetector(
-            onTap: _changeAddress,
-            behavior: HitTestBehavior.opaque,
-            child: DeliveryTo(address: checkout.addressLine),
-          ).premiumAppear(index: 1),
+            GestureDetector(
+              onTap: _changeAddress,
+              behavior: HitTestBehavior.opaque,
+              child: DeliveryTo(address: checkout.addressLine),
+            ).premiumAppear(index: 1),
 
-          18.verticalSpace,
+            18.verticalSpace,
 
-          if (checkout.requiresCartBranchResolution)
-            Expanded(
-              child: CartBranchResolutionState(
-                message: checkout.errorMessage,
-                onClearCart: () {
-                  ref.read(cartController.notifier).clear();
-                  context.goNamed(Routes.home);
-                },
-                onDismiss: () {
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).maybePop();
-                    return;
-                  }
-                  context.goNamed(Routes.home);
-                },
-              ),
-            )
-          else
-            Orders(lines: cart.lines),
-        ],
+            if (checkout.requiresCartBranchResolution)
+              Expanded(
+                child: CartBranchResolutionState(
+                  message: checkout.errorMessage,
+                  onClearCart: () {
+                    ref.read(cartController.notifier).clear();
+                    context.goNamed(Routes.home);
+                  },
+                  onDismiss: () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).maybePop();
+                      return;
+                    }
+                    context.goNamed(Routes.home);
+                  },
+                ),
+              )
+            else
+              Orders(lines: cart.lines),
+          ],
+        ),
       ),
 
       bottomNavigationBar: checkout.reqState.isSuccess
-          ? CartSummaryBottomBar(
-              subtotalHalalas: cart.subtotalHalalas,
-              deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
-              discountHalalas: cart.discountHalalas,
-              totalHalalas: checkout.totals.totalHalalas,
-              requoting: checkout.requoting,
-              onConfirm: _placeOrder,
-              isLoading: checkout.placing,
-            ).containerSlideUp()
+          ? ResponsiveConstrained(
+              maxWidth: 600,
+              heightFactor: 1,
+              child: CartSummaryBottomBar(
+                subtotalHalalas: cart.subtotalHalalas,
+                deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
+                discountHalalas: cart.discountHalalas,
+                totalHalalas: checkout.totals.totalHalalas,
+                requoting: checkout.requoting,
+                onConfirm: _placeOrder,
+                isLoading: checkout.placing,
+              ).containerSlideUp(),
+            )
           : null,
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/enums/enums.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
@@ -23,21 +24,24 @@ class CaptainDeliveryOutcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorM.white,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Center(
-            child: SizedBox(
-              width: 250.w,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _OutcomeIcon(kind: args.kind),
-                  49.verticalSpace,
-                  _OutcomeText(kind: args.kind, orderId: args.orderId),
-                  49.verticalSpace,
-                  _BackHomeButton(),
-                ],
+      body: ResponsiveConstrained(
+        maxWidth: 450,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Center(
+              child: SizedBox(
+                width: 250.w,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _OutcomeIcon(kind: args.kind),
+                    49.verticalSpace,
+                    _OutcomeText(kind: args.kind, orderId: args.orderId),
+                    49.verticalSpace,
+                    _BackHomeButton(),
+                  ],
+                ),
               ),
             ),
           ),

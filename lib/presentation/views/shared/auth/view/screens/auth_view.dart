@@ -70,17 +70,20 @@ class _AuthViewState extends ConsumerState<AuthView> {
               ),
               alignment: Alignment.center,
               child: GeneralPadding(
-                child: Column(
-                  children: [
-                    119.verticalSpace,
-                    Logo(),
-                    76.verticalSpace,
-                    Content(
-                      phoneNumberController: phoneNumberController,
-                      phoneNumberFocusNode: phoneNumberFocusNode,
-                      onSendOtpCode: () => onSendOtpCode(authState.dialCode),
-                    ),
-                  ],
+                child: ResponsiveConstrained(
+                  maxWidth: 400,
+                  child: Column(
+                    children: [
+                      119.verticalSpace,
+                      Logo(),
+                      76.verticalSpace,
+                      Content(
+                        phoneNumberController: phoneNumberController,
+                        phoneNumberFocusNode: phoneNumberFocusNode,
+                        onSendOtpCode: () => onSendOtpCode(authState.dialCode),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

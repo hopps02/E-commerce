@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/search/riverpod/search_controller.dart';
 import 'package:store/presentation/views/user/search/view/widgets/search_bar_section.dart';
@@ -28,17 +29,23 @@ class _SearchViewState extends ConsumerState<SearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          SearchBarSection(
-            controller: _controller,
-            onChanged: (query) =>
-                ref.read(searchController.notifier).onQueryChanged(query),
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          const SearchData(),
-        ],
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: Column(
+          children: [
+            SizedBox(height: context.topSafeAreaPadding),
+            SearchBarSection(
+              controller: _controller,
+              onChanged: (query) =>
+                  ref.read(searchController.notifier).onQueryChanged(query),
+            ).premiumAppear(index: 0),
+            Container(
+              height: 6.h,
+              color: ColorM.gray150,
+            ).premiumAppear(index: 1),
+            const SearchData(),
+          ],
+        ),
       ),
     );
   }

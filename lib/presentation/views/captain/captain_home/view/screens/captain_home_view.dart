@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/common/home_header_actions.dart';
 import 'package:store/presentation/common/home_top_app_bar.dart';
 import 'package:store/presentation/common/notification_bell.dart';
@@ -28,19 +29,22 @@ class _CaptainHomeViewState extends ConsumerState<CaptainHomeView>
       captainHomeController.select((s) => s.captainName),
     );
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            HomeTopAppBar(
-              welcomeName: captainName,
-              headerActions: const HomeHeaderActions(),
-              tabsBar: const CaptainTabsBar(),
-              headerTrailing: const _CaptainHeaderTrailing(),
-              tabsAboveSearch: false,
-            ),
-          ];
-        },
-        body: const CaptainOrdersSlider(),
+      body: ResponsiveConstrained(
+        maxWidth: 600,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              HomeTopAppBar(
+                welcomeName: captainName,
+                headerActions: const HomeHeaderActions(),
+                tabsBar: const CaptainTabsBar(),
+                headerTrailing: const _CaptainHeaderTrailing(),
+                tabsAboveSearch: false,
+              ),
+            ];
+          },
+          body: const CaptainOrdersSlider(),
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
+import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/ui_kit/forms/simple_form.dart';
@@ -338,8 +339,10 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
       onWillPop: _confirmDiscard,
       child: Scaffold(
         backgroundColor: ColorM.white,
-        body: Column(
-          children: [
+        body: ResponsiveConstrained(
+          maxWidth: 550,
+          child: Column(
+            children: [
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
@@ -533,6 +536,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
               ),
             ),
           ],
+        ),
         ),
       ),
     );
