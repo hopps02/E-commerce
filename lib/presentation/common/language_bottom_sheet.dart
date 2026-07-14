@@ -54,8 +54,8 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 48.w,
-            height: 8.h,
+            width: 48,
+            height: 8,
             decoration: BoxDecoration(
               color: const Color(0xFFEEEEEE),
               borderRadius: BorderRadius.circular(100.r),
@@ -69,7 +69,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
               style: context.titleMedium.copyWith(
                 fontWeight: FontWeightM.medium,
                 color: const Color(0xFF2B2E48),
-                fontSize: 20.sp,
+                fontSize: 20,
               ),
             ),
           ),
@@ -90,11 +90,11 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
             onTap: () => setState(() => _selected = SupportedLocales.EN.locale),
           ),
           12.verticalSpace,
-          Container(height: 1.h, color: ColorM.gray200),
+          Container(height: 1, color: ColorM.gray200),
           12.verticalSpace,
           CustomInkButton(
             onTap: _onConfirm,
-            height: 48.h,
+            height: 48,
             width: double.infinity,
             borderRadius: SizeM.commonBorderRadius.r,
             backgroundColor: ColorM.primary500,
@@ -171,14 +171,14 @@ class _RadioDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24.w,
-      height: 24.w,
+      width: 24,
+      height: 24,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: isSelected ? ColorM.primary500 : Colors.transparent,
         border: Border.all(
           color: isSelected ? ColorM.primary500 : ColorM.gray300,
-          width: 2.w,
+          width: 2,
         ),
       ),
       alignment: Alignment.center,

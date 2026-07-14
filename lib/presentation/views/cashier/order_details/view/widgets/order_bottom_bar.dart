@@ -34,7 +34,7 @@ class OrderBottomBar extends StatelessWidget {
       ),
       child: GeneralPadding(
         child: Padding(
-          padding: EdgeInsets.only(top: 12.h, bottom: 10.h),
+          padding: EdgeInsets.only(top: 12, bottom: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -86,14 +86,14 @@ class _TotalsPanel extends StatelessWidget {
                 style: context.bodyLarge.copyWith(
                   color: ColorM.gray600,
                   fontWeight: FontWeightM.medium,
-                  fontSize: 16.45.sp,
+                  fontSize: 16.45,
                   height: 1.2,
                 ),
               ),
             ],
           ),
         ),
-        Container(height: 1.h, color: const Color(0xFFDFDFDF)),
+        Container(height: 1, color: const Color(0xFFDFDFDF)),
         8.verticalSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,7 +103,7 @@ class _TotalsPanel extends StatelessWidget {
               style: context.bodyLarge.copyWith(
                 color: ColorM.gray900,
                 fontWeight: FontWeightM.medium,
-                fontSize: 18.sp,
+                fontSize: 18,
                 height: 1.5,
               ),
             ),
@@ -112,8 +112,8 @@ class _TotalsPanel extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   Assets.svg.saudiRiyalSymbol.path,
-                  width: 12.w,
-                  height: 13.h,
+                  width: 12,
+                  height: 13,
                   colorFilter: const ColorFilter.mode(
                     ColorM.primary700,
                     BlendMode.srcIn,
@@ -125,7 +125,7 @@ class _TotalsPanel extends StatelessWidget {
                   style: context.bodyLarge.copyWith(
                     color: ColorM.primary700,
                     fontWeight: FontWeightM.semiBold,
-                    fontSize: 16.45.sp,
+                    fontSize: 16.45,
                     height: 1.2,
                   ),
                 ),
@@ -157,7 +157,7 @@ class _ActionButton extends ConsumerWidget {
     return CustomInkButton(
       onTap: enabled ? () => _onTap(context, ref) : null,
       enabled: enabled,
-      height: 56.h,
+      height: 56,
       width: double.infinity,
       borderRadius: SizeM.commonBorderRadius.r,
       backgroundColor: enabled ? ColorM.primary500 : ColorM.gray200,

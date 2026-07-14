@@ -28,7 +28,7 @@ class MProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height ?? 8.w,
+      height: height ?? 8,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius ?? 12.r),

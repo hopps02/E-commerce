@@ -22,7 +22,7 @@ class SentOtpButton extends ConsumerWidget {
       onTap: onSendOtpCode,
       enabled: enabled,
       borderRadius: SizeM.commonBorderRadius.r,
-      height: 56.h,
+      height: 56,
       alignment: Alignment.center,
       child: Text(
         Translation.send_verification_code.tr,

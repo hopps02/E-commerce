@@ -43,7 +43,7 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia),
-        padding: EdgeInsets.fromLTRB(24.w, 10.h, 24.w, 24.h),
+        padding: EdgeInsets.fromLTRB(24, 10, 24, 24.h),
         decoration: ShapeDecoration(
           color: ColorM.white,
           shape: SmoothRectangleBorder(
@@ -55,8 +55,8 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 48.w,
-              height: 8.h,
+              width: 48,
+              height: 8,
               decoration: BoxDecoration(
                 color: const Color(0xFFEEEEEE),
                 borderRadius: BorderRadius.circular(100.r),
@@ -65,7 +65,7 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
             16.verticalSpace,
             _Header(onClose: () => Navigator.of(context).maybePop()),
             22.verticalSpace,
-            Container(height: 1.h, color: ColorM.primary50),
+            Container(height: 1, color: ColorM.primary50),
             16.verticalSpace,
             // Reasons list is a fixed enum today, but FastStateRender lets us
             // swap to an API call without restructuring the sheet.
@@ -116,7 +116,7 @@ class DeliveryFailureReasonSheet extends ConsumerWidget {
               ),
             ),
             16.verticalSpace,
-            Container(height: 1.h, color: ColorM.primary50),
+            Container(height: 1, color: ColorM.primary50),
             16.verticalSpace,
             // `other` needs the free text — the backend rejects it without
             // a note, so don't let the captain submit an empty one.
@@ -183,8 +183,8 @@ class _Header extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 36.w,
-              height: 36.w,
+              width: 36,
+              height: 36,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 color: const Color(0xFFFFE2E2),
@@ -195,8 +195,8 @@ class _Header extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 Assets.svg.info.path,
-                width: 18.w,
-                height: 18.w,
+                width: 18,
+                height: 18,
                 colorFilter: const ColorFilter.mode(
                   Color(0xFFEF4444),
                   BlendMode.srcIn,
@@ -213,7 +213,7 @@ class _Header extends StatelessWidget {
                   style: context.bodyLarge.copyWith(
                     color: ColorM.gray900,
                     fontWeight: FontWeightM.semiBold,
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     height: 1.2,
                   ),
                 ),
@@ -222,7 +222,7 @@ class _Header extends StatelessWidget {
                   Translation.select_undelivered_reason.tr,
                   style: context.labelMedium.copyWith(
                     color: ColorM.gray600,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     height: 1.2,
                   ),
                 ),
@@ -234,14 +234,14 @@ class _Header extends StatelessWidget {
           onTap: onClose,
           behavior: HitTestBehavior.opaque,
           child: Container(
-            width: 28.w,
-            height: 28.w,
+            width: 28,
+            height: 28,
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: Color(0xFFEF4444),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.close_rounded, size: 18.w, color: ColorM.white),
+            child: Icon(Icons.close_rounded, size: 18, color: ColorM.white),
           ),
         ),
       ],
@@ -266,7 +266,7 @@ class _ReasonRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 11.h),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 11.h),
         decoration: ShapeDecoration(
           color: ColorM.gray100,
           shape: SmoothRectangleBorder(
@@ -282,7 +282,7 @@ class _ReasonRow extends StatelessWidget {
               style: context.labelMedium.copyWith(
                 color: ColorM.gray700,
                 fontWeight: FontWeightM.medium,
-                fontSize: 13.sp,
+                fontSize: 13,
                 height: 1.2,
               ),
             ),
@@ -301,19 +301,19 @@ class _RadioDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 16.w,
-      height: 16.w,
+      width: 16,
+      height: 16,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: isSelected ? ColorM.primary500 : Colors.transparent,
         border: Border.all(
           color: isSelected ? ColorM.primary500 : ColorM.gray300,
-          width: 1.5.w,
+          width: 1.5,
         ),
       ),
       alignment: Alignment.center,
       child: isSelected
-          ? Icon(Icons.check_rounded, size: 10.sp, color: ColorM.white)
+          ? Icon(Icons.check_rounded, size: 10, color: ColorM.white)
           : null,
     );
   }
@@ -330,13 +330,13 @@ class _OtherReasonField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       hintText: Translation.mention_reason_hint.tr,
-      height: 70.h,
+      height: 70,
       maxLines: 3,
       borderRadius: 15.r,
       backgroundColor: ColorM.gray100,
       borderColor: ColorM.gray100,
       alignment: AlignmentDirectional.topStart,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 11.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 11.h),
       textAlign: TextAlign.start,
       keyboardType: TextInputType.multiline,
     );
@@ -353,7 +353,7 @@ class _SendButton extends StatelessWidget {
     return CustomInkButton(
       onTap: enabled ? onTap : null,
       enabled: enabled,
-      height: 56.h,
+      height: 56,
       width: double.infinity,
       borderRadius: 16.r,
       smoothness: 1,
@@ -368,7 +368,7 @@ class _SendButton extends StatelessWidget {
         style: context.bodyLarge.copyWith(
           color: enabled ? ColorM.white : ColorM.gray600,
           fontWeight: FontWeightM.medium,
-          fontSize: 16.sp,
+          fontSize: 16,
           height: 1.5,
         ),
       ),

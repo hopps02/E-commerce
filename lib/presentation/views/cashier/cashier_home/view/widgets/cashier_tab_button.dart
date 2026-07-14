@@ -26,8 +26,8 @@ class CashierTabButton extends StatelessWidget {
       child: CustomInkButton(
         onTap: onTap,
         borderRadius: 29.r,
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        height: 42.h,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
+        height: 42,
         tap: const ButtonAnimationSettings(
           ButtonAnimation.scaleTap,
           intensity: .2,
@@ -46,7 +46,7 @@ class CashierTabButton extends StatelessWidget {
                 textAlign: TextAlign.right,
                 overflow: TextOverflow.ellipsis,
                 style: context.labelMedium.copyWith(
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeightM.semiBold,
                   color: isSelected ? ColorM.white : ColorM.gray800,
                   height: 20 / 14,
@@ -79,7 +79,7 @@ class _CountBadge extends StatelessWidget {
       child: Text(
         '$count',
         style: TextStyle(
-          fontSize: 8.sp,
+          fontSize: 8,
           fontWeight: FontWeightM.regular,
           color: ColorM.primary500,
           height: 1,

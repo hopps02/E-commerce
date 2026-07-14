@@ -280,8 +280,8 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
         initialSelection: widget.initialSelectionFlag ?? "EG",
         localization: context.deviceLocale,
         padding: EdgeInsets.zero,
-        width: 25.w,
-        height: 25.w,
+        width: 25,
+        height: 25,
         dialogWidth: .9 * 1.sw,
         dialogHeight: .8 * 1.sh,
         borderRadius: BorderRadius.circular(7.r),
@@ -297,7 +297,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
           : const SizedBox(width: 3),
       Icon(
         Icons.keyboard_arrow_down_rounded,
-        size: 30.sp,
+        size: 30,
         color: Colors.black.withOpacity(.3),
       ),
     ];
@@ -311,7 +311,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
     return Material(
       color: Colors.transparent,
       child: NiceTextForm(
-        height: 50.w,
+        height: 50,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         boxDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
@@ -321,11 +321,11 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
         textEditingController: textController,
         hintStyle: context.titleSmall.copyWith(
           color: Colors.black.withOpacity(.5),
-          fontSize: 18.sp,
+          fontSize: 18,
         ),
         textStyle: context.titleSmall.copyWith(
           color: Colors.black,
-          fontSize: 18.sp,
+          fontSize: 18,
         ),
       ),
     );
@@ -403,9 +403,9 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
 
   Widget _buildError() {
     return Padding(
-      padding: EdgeInsetsDirectional.only(top: 6.w, start: 20.w),
+      padding: EdgeInsetsDirectional.only(top: 6, start: 20.w),
       child: Row(
-        spacing: 5.w,
+        spacing: 5,
         children: [Text(errorMessage!, style: widget.validatorStyle)],
       ),
     );

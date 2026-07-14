@@ -69,8 +69,8 @@ class _CustomerRow extends StatelessWidget {
               backgroundColor: ColorM.gray100,
               child: SvgPicture.asset(
                 Assets.svg.user.path,
-                width: 14.w,
-                height: 14.w,
+                width: 14,
+                height: 14,
                 colorFilter: const ColorFilter.mode(
                   ColorM.gray700,
                   BlendMode.srcIn,
@@ -83,7 +83,7 @@ class _CustomerRow extends StatelessWidget {
               style: context.labelMedium.copyWith(
                 color: ColorM.gray700,
                 fontWeight: FontWeightM.medium,
-                fontSize: 12.sp,
+                fontSize: 12,
                 height: 18 / 12,
               ),
             ),
@@ -96,8 +96,8 @@ class _CustomerRow extends StatelessWidget {
             backgroundColor: const Color(0xFFDCFCE7),
             child: SvgPicture.asset(
               Assets.svg.callCalling.path,
-              width: 14.w,
-              height: 14.w,
+              width: 14,
+              height: 14,
               colorFilter: const ColorFilter.mode(
                 Color(0xFF16A34A),
                 BlendMode.srcIn,
@@ -129,8 +129,8 @@ class _AddressRow extends StatelessWidget {
         children: [
           SvgPicture.asset(
             Assets.svg.borderLocation.path,
-            width: 18.w,
-            height: 18.w,
+            width: 18,
+            height: 18,
             colorFilter: const ColorFilter.mode(
               ColorM.gray950,
               BlendMode.srcIn,
@@ -158,7 +158,7 @@ class _StatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     final spec = _specFor(status);
     return Container(
-      height: 34.h,
+      height: 34,
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: ShapeDecoration(
@@ -177,8 +177,8 @@ class _StatusPill extends StatelessWidget {
           ],
           if (spec.trailingDot) ...[
             Container(
-              width: 7.w,
-              height: 7.w,
+              width: 7,
+              height: 7,
               decoration: BoxDecoration(
                 color: spec.foreground,
                 shape: BoxShape.circle,
@@ -215,7 +215,7 @@ class _StatusPill extends StatelessWidget {
           foreground: ColorM.white,
           iconBuilder: () => Icon(
             Icons.check_circle_outline_rounded,
-            size: 16.w,
+            size: 16,
             color: ColorM.white,
           ),
         );
@@ -225,7 +225,7 @@ class _StatusPill extends StatelessWidget {
           background: ColorM.red,
           foreground: ColorM.white,
           iconBuilder: () =>
-              Icon(Icons.cancel_outlined, size: 16.w, color: ColorM.white),
+              Icon(Icons.cancel_outlined, size: 16, color: ColorM.white),
         );
       case CaptainOrderStatus.cancelled:
         return _StatusPillSpec(
@@ -233,7 +233,7 @@ class _StatusPill extends StatelessWidget {
           background: ColorM.red,
           foreground: ColorM.white,
           iconBuilder: () =>
-              Icon(Icons.cancel_outlined, size: 16.w, color: ColorM.white),
+              Icon(Icons.cancel_outlined, size: 16, color: ColorM.white),
         );
       default:
         return _StatusPillSpec(
@@ -270,8 +270,8 @@ class _IconBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 32.w,
-      height: 32.w,
+      width: 32,
+      height: 32,
       alignment: Alignment.center,
       decoration: ShapeDecoration(
         color: backgroundColor,

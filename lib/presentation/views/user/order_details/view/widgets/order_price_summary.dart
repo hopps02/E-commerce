@@ -47,7 +47,7 @@ class OrderPriceSummary extends StatelessWidget {
         12.verticalSpace,
         _SummaryRow(title: Translation.discount.tr, halalas: discountHalalas),
         24.verticalSpace,
-        Container(height: 1.h, color: ColorM.gray200),
+        Container(height: 1, color: ColorM.gray200),
         24.verticalSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +61,7 @@ class OrderPriceSummary extends StatelessWidget {
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
-              spacing: 3.w,
+              spacing: 3,
               children: [
                 Text(
                   Money.amount(totalHalalas),
@@ -72,7 +72,7 @@ class OrderPriceSummary extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   Assets.svg.saudiRiyalSymbol.path,
-                  width: 14.w,
+                  width: 14,
                   colorFilter: const ColorFilter.mode(
                     ColorM.primary700,
                     BlendMode.srcIn,
@@ -101,7 +101,7 @@ class _SummaryRow extends StatelessWidget {
         Text(title, style: context.bodyMedium.copyWith(color: ColorM.gray600)),
         Row(
           mainAxisSize: MainAxisSize.min,
-          spacing: 3.w,
+          spacing: 3,
           children: [
             Text(
               Money.amount(halalas),
@@ -112,7 +112,7 @@ class _SummaryRow extends StatelessWidget {
             ),
             SvgPicture.asset(
               Assets.svg.saudiRiyalSymbol.path,
-              width: 12.w,
+              width: 12,
               colorFilter: const ColorFilter.mode(
                 ColorM.gray600,
                 BlendMode.srcIn,

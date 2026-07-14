@@ -38,8 +38,8 @@ class CustomCheckBox extends StatelessWidget {
         onChange?.call(!value);
       },
       child: Container(
-        width: width ?? 25.w,
-        height: height ?? 25.w,
+        width: width ?? 25,
+        height: height ?? 25,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           // color: value
@@ -59,7 +59,7 @@ class CustomCheckBox extends StatelessWidget {
             ? Icon(
                 Icons.check_rounded,
                 color: checkColor ?? ColorM.primary,
-                size: checkSize ?? 17.w,
+                size: checkSize ?? 17,
               )
             : const SizedBox.shrink(),
       ),

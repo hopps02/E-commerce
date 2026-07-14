@@ -28,12 +28,8 @@ class HomeTapAppBar extends StatelessWidget {
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 0,
-      // On the desktop/tablet canvas, text scales by width (.sp) but .h scales
-      // by height, so a fixed 125.h is too short and the top content overlaps
-      // the search bar. Give it more (window-height-independent) room on wide
-      // form factors.
       expandedHeight: context.bySize(
-        mobile: 125.h,
+        mobile: 125,
         tablet: 150.0,
         desktop: 170.0,
         largeDesktop: 175.0,
@@ -46,7 +42,7 @@ class HomeTapAppBar extends StatelessWidget {
         background: const TopAppBarContent().slide,
       ),
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(55.h),
+        preferredSize: const Size.fromHeight(56),
         child: const BottomAppBarContent().slide,
       ),
     );
@@ -93,23 +89,20 @@ class TopAppBarContent extends ConsumerWidget {
                           .read(checkoutController.notifier)
                           .selectAddress(picked);
                     },
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8.h,
-                      horizontal: 4.w,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                     borderRadius: 8.r,
                     backgroundColor: ColorM.gray100,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      spacing: 4.w,
+                      spacing: 4,
                       children: [
                         SvgPicture.asset(
                           Assets.svg.location.path,
-                          width: 18.sp,
-                          height: 18.sp,
+                          width: 18,
+                          height: 18,
                         ),
                         SizedBox(
-                          width: 150.w,
+                          width: 150,
                           child: Text(
                             locationCity ?? Translation.select_your_location.tr,
                             maxLines: 1,
@@ -122,7 +115,7 @@ class TopAppBarContent extends ConsumerWidget {
                           quarterTurns: 2,
                           child: Icon(
                             Icons.arrow_back_ios_new,
-                            size: 16.sp,
+                            size: 16,
                             color: ColorM.gray600,
                           ),
                         ),
@@ -138,13 +131,13 @@ class TopAppBarContent extends ConsumerWidget {
                   const NotificationBell(),
                   10.horizontalSpace,
                   SvgPicture.asset(
-                    Assets.svg.appLogo.path,
-                    width: 39.w,
+                    Assets.svg.logo.path,
+                    width: 20,
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      ColorM.primary700,
-                      BlendMode.srcIn,
-                    ),
+                    // colorFilter: ColorFilter.mode(
+                    //   ColorM.primary700,
+                    //   BlendMode.srcIn,
+                    // ),
                   ),
                 ],
               ),
@@ -162,26 +155,23 @@ class BottomAppBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeM.pagePadding.w,
-        vertical: 3.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding, vertical: 3),
       child: CustomInkButton(
         onTap: () {
           context.pushNamed(Routes.search);
         },
-        height: 45.h,
+        height: 45,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         backgroundColor: ColorM.white,
         borderRadius: 14.r,
         side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
         child: Row(
-          spacing: 8.w,
+          spacing: 8,
           children: [
             SvgPicture.asset(
               Assets.svg.search.path,
-              width: 18.w,
-              height: 18.w,
+              width: 18,
+              height: 18,
               colorFilter: ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
             ),
             Text(
@@ -200,7 +190,7 @@ extension _Delay on Widget {
     delay: 300,
     animationTypes: {.slide},
     slideDirection: .down,
-    slideDistance: 125.h,
+    slideDistance: 125,
     child: this,
   );
 }

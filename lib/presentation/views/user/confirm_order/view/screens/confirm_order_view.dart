@@ -73,7 +73,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
 
     return Scaffold(
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             // Status bar space
@@ -115,7 +115,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
 
       bottomNavigationBar: checkout.reqState.isSuccess
           ? ResponsiveConstrained(
-              maxWidth: 600,
+              maxWidth: 450,
               heightFactor: 1,
               child: CartSummaryBottomBar(
                 subtotalHalalas: cart.subtotalHalalas,

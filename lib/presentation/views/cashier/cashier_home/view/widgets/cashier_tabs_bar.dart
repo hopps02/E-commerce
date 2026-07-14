@@ -20,7 +20,7 @@ class _CashierTabsBarState extends ConsumerState<CashierTabsBar> {
     final notifier = ref.read(cashierTabController.notifier);
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3.h),
       decoration: BoxDecoration(
         color: ColorM.white,
         borderRadius: BorderRadius.circular(24.r),

@@ -28,15 +28,12 @@ class _SectionsViewState extends ConsumerState<SectionsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
             TopAppBar(title: Translation.categories.tr).premiumAppear(index: 0),
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
             const SectionsData(),
           ],
         ),

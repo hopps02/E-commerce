@@ -13,12 +13,12 @@ class SearchEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off_rounded, size: 64.w, color: ColorM.gray300),
+          Icon(Icons.search_off_rounded, size: 64, color: ColorM.gray300),
           16.verticalSpace,
           Text(
             Translation.search_hint.tr,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 16,
               fontWeight: FontWeightM.semiBold,
               color: ColorM.gray500,
             ),

@@ -11,8 +11,8 @@ class ConfirmOrderAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultAppBar(
       padding: EdgeInsets.symmetric(
-        vertical: 17.h,
-        horizontal: SizeM.pagePadding.w,
+        vertical: 17,
+        horizontal: SizeM.pagePadding,
       ),
       title: Translation.confirm_order.tr,
     );

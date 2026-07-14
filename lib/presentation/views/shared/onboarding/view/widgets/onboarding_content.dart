@@ -35,21 +35,23 @@ class OnboardingContent extends StatelessWidget {
         Align(
           alignment: .center,
           child: Container(
-            constraints: context.bySize<BoxConstraints?>(mobile: null,
+            constraints: context.bySize<BoxConstraints?>(
+              mobile: null,
               tablet: BoxConstraints(maxWidth: 450.w),
               desktop: BoxConstraints(maxWidth: 450.w),
-              largeDesktop: BoxConstraints(maxWidth: 450.w),),
+              largeDesktop: BoxConstraints(maxWidth: 450.w),
+            ),
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Column(
               mainAxisAlignment: .end,
               crossAxisAlignment: .start,
               children: [
                 DisplayedText(title: title, description: description),
-          
+
                 SizedBox(height: 32.h),
-          
+
                 Buttons(onNext: onNext, onLogin: onLogin),
-          
+
                 SizedBox(height: context.bottomSafeAreaPadding + 15.h),
               ],
             ),
@@ -75,12 +77,12 @@ class DisplayedText extends StatelessWidget {
     return Column(
       mainAxisSize: .min,
       crossAxisAlignment: .start,
-      spacing: 8.h,
+      spacing: 8,
       children: [
         Text(
           title,
           style: context.labelLarge.copyWith(
-            fontSize: 28.sp,
+            fontSize: 28,
             fontWeight: .bold,
             color: ColorM.white,
             height: 1.5,
@@ -89,7 +91,7 @@ class DisplayedText extends StatelessWidget {
         Text(
           description,
           style: context.bodyLarge.copyWith(
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeightM.medium,
             color: ColorM.gray300,
             height: 1.5,
@@ -109,18 +111,18 @@ class Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 15.w,
+      spacing: 15,
       children: [
         Expanded(
           child: CustomInkButton(
             onTap: onNext,
             backgroundColor: ColorM.white,
             borderRadius: SizeM.commonBorderRadius.r,
-            height: 52.h,
+            height: 52,
             alignment: Alignment.center,
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              spacing: 4.w,
+              spacing: 4,
               children: [
                 Text(
                   Translation.next.tr,
@@ -151,7 +153,7 @@ class Buttons extends StatelessWidget {
             onTap: onLogin,
             backgroundColor: ColorM.primary900,
             borderRadius: SizeM.commonBorderRadius.r,
-            height: 52.h,
+            height: 52,
             alignment: Alignment.center,
             side: GradientBorderSide(color: ColorM.primary700, width: 1.w),
             child: Text(

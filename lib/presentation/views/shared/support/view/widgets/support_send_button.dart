@@ -23,7 +23,7 @@ class SupportSendButton extends ConsumerWidget {
         child: CustomInkButton(
           onTap: () => _onSend(context, ref),
           isLoading: submitting,
-          height: 56.h,
+          height: 56,
           width: double.infinity,
           borderRadius: SizeM.commonBorderRadius.r,
           backgroundColor: ColorM.primary500,

@@ -72,7 +72,7 @@ class _TapCartViewState extends ConsumerState<TapCartView>
               style: context.titleMedium.copyWith(fontWeight: FontWeightM.bold),
             ),
           ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
+          Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
           const CartData(),
           if (guestMode && !cart.isEmpty)
             GuestCheckoutBottomBar(

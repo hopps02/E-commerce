@@ -32,7 +32,7 @@ class AssignCaptainCard extends StatelessWidget {
       backgroundColor: isSelected ? ColorM.primary50 : ColorM.white,
       side: GradientBorderSide(
         color: isSelected ? ColorM.primary500 : ColorM.primary50,
-        width: 1.w,
+        width: 1,
       ),
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
@@ -44,7 +44,7 @@ class AssignCaptainCard extends StatelessWidget {
           ClipOval(
             // No captain avatars exist in the backend; the cached image's
             // own placeholder renders for the empty URL.
-            child: CustomCachedImage(imageUrl: '', width: 45.w, height: 45.w),
+            child: CustomCachedImage(imageUrl: '', width: 45, height: 45.w),
           ),
           6.horizontalSpace,
           Expanded(

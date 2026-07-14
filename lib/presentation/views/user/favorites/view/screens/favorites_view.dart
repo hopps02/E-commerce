@@ -42,82 +42,82 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
     return Scaffold(
       backgroundColor: ColorM.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
-            ),
-            title: Translation.favorites.tr,
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          Expanded(
-            child: FastStateRender(
-              reqState: favorites.reqState,
-              errorMessage: favorites.errorMessage.trim().isEmpty
-                  ? Translation.no_favorites.tr
-                  : favorites.errorMessage,
-              alignment: const Alignment(0, -0.22),
-              onRetry: () => favoritesNotifier.load(),
-              child: GridView.builder(
-                padding:
-                    EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                    EdgeInsets.only(
-                      top: 16.h,
-                      bottom: context.bottomPadding + SizeM.pagePadding.w,
-                    ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12.w,
-                  mainAxisSpacing: 12.h,
-                  childAspectRatio: .8,
-                ),
-                itemCount: favorites.products.length,
-                itemBuilder: (context, index) {
-                  final product = favorites.products[index];
-                  return ProductCard(
-                    fitForGridList: true,
-                    title: product.name(arabic),
-                    imageUrl: product.imageUrl ?? '',
-                    price: Money.asRiyals(product.effectivePriceHalalas),
-                    oldPrice: product.hasDiscount
-                        ? Money.asRiyals(product.priceHalalas)
-                        : null,
-                    quantity: cart.quantityOf(product.id),
-                    maxQuantity: product.available,
-                    isFavorite: favorites.contains(product.id),
-                    onFavTap: () async {
-                      if (!await requireLogin(context, ref)) return;
-                      await favoritesNotifier.toggle(product);
-                    },
-                    onTap: () {
-                      context.pushNamed(
-                        Routes.productDetails,
-                        arguments: ProductDetailsViewArgs(
-                          productId: product.id,
-                          initial: product,
-                        ),
-                      );
-                    },
-                    onLimitReached: () => cartNotifier.notifyStockLimit(),
-                    onQuantityChanged: (quantity) {
-                      final currentQuantity = cart.quantityOf(product.id);
-                      if (quantity < currentQuantity) {
-                        cartNotifier.setQuantity(product, quantity);
-                        return;
-                      }
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
+              ),
+              title: Translation.favorites.tr,
+            ).premiumAppear(index: 0),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
+            Expanded(
+              child: FastStateRender(
+                reqState: favorites.reqState,
+                errorMessage: favorites.errorMessage.trim().isEmpty
+                    ? Translation.no_favorites.tr
+                    : favorites.errorMessage,
+                alignment: const Alignment(0, -0.22),
+                onRetry: () => favoritesNotifier.load(),
+                child: GridView.builder(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
+                      EdgeInsets.only(
+                        top: 16,
+                        bottom: context.bottomPadding + SizeM.pagePadding,
+                      ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: .8,
+                  ),
+                  itemCount: favorites.products.length,
+                  itemBuilder: (context, index) {
+                    final product = favorites.products[index];
+                    return ProductCard(
+                      fitForGridList: true,
+                      title: product.name(arabic),
+                      imageUrl: product.imageUrl ?? '',
+                      price: Money.asRiyals(product.effectivePriceHalalas),
+                      oldPrice: product.hasDiscount
+                          ? Money.asRiyals(product.priceHalalas)
+                          : null,
+                      quantity: cart.quantityOf(product.id),
+                      maxQuantity: product.available,
+                      isFavorite: favorites.contains(product.id),
+                      onFavTap: () async {
+                        if (!await requireLogin(context, ref)) return;
+                        await favoritesNotifier.toggle(product);
+                      },
+                      onTap: () {
+                        context.pushNamed(
+                          Routes.productDetails,
+                          arguments: ProductDetailsViewArgs(
+                            productId: product.id,
+                            initial: product,
+                          ),
+                        );
+                      },
+                      onLimitReached: () => cartNotifier.notifyStockLimit(),
+                      onQuantityChanged: (quantity) {
+                        final currentQuantity = cart.quantityOf(product.id);
+                        if (quantity < currentQuantity) {
+                          cartNotifier.setQuantity(product, quantity);
+                          return;
+                        }
 
-                      addToCartGuarded(context, ref, product, quantity);
-                    },
-                  );
-                },
+                        addToCartGuarded(context, ref, product, quantity);
+                      },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
     );

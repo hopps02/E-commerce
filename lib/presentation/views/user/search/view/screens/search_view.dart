@@ -30,7 +30,7 @@ class _SearchViewState extends ConsumerState<SearchView> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
@@ -39,10 +39,7 @@ class _SearchViewState extends ConsumerState<SearchView> {
               onChanged: (query) =>
                   ref.read(searchController.notifier).onQueryChanged(query),
             ).premiumAppear(index: 0),
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
             const SearchData(),
           ],
         ),

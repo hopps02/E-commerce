@@ -83,8 +83,8 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h),
             child: Container(
-              width: 80.w,
-              height: 5.h,
+              width: 80,
+              height: 5,
               decoration: BoxDecoration(
                 color: ColorM.slate,
                 borderRadius: BorderRadius.circular(100.r),
@@ -93,13 +93,13 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
           ),
           Flexible(
             child: SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 14.h),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 14.h),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _Header(onClose: () => Navigator.of(context).pop()),
                   12.verticalSpace,
-                  Container(height: 1.h, color: ColorM.gray200),
+                  Container(height: 1, color: ColorM.gray200),
                   20.verticalSpace,
                   // Overall rating
                   Text(
@@ -113,12 +113,12 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                   ),
                   12.verticalSpace,
                   _Stars(
-                    size: 38.sp,
-                    spacing: 8.w,
+                    size: 38,
+                    spacing: 8,
                     onChanged: (v) => setState(() => _overall = v),
                   ),
                   16.verticalSpace,
-                  Container(height: 1.h, color: ColorM.gray200),
+                  Container(height: 1, color: ColorM.gray200),
                   16.verticalSpace,
                   // Aspect ratings
                   _AspectRow(
@@ -142,7 +142,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                     keyboardType: TextInputType.multiline,
                     hintText: Translation.share_experience_hint.tr,
                     maxLines: 4,
-                    height: 107.h,
+                    height: 107,
                     alignment: AlignmentDirectional.topStart,
                     textAlign: TextAlign.start,
                     backgroundColor: ColorM.gray100,
@@ -206,7 +206,7 @@ class _Header extends StatelessWidget {
             ButtonAnimation.scaleTap,
             intensity: 0.3,
           ),
-          child: Icon(Icons.cancel, size: 21.sp, color: ColorM.red),
+          child: Icon(Icons.cancel, size: 21, color: ColorM.red),
         ),
       ],
     );
@@ -233,7 +233,7 @@ class _AspectRow extends StatelessWidget {
             ),
           ),
         ),
-        _Stars(size: 18.sp, spacing: 4.w, onChanged: onChanged),
+        _Stars(size: 18, spacing: 4, onChanged: onChanged),
       ],
     );
   }
@@ -278,10 +278,10 @@ class _SendButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
-        16.w,
-        16.h,
-        16.w,
-        context.bottomSafeAreaPadding + 16.h,
+        16,
+        16,
+        16,
+        context.bottomSafeAreaPadding + 16,
       ),
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: ColorM.gray300)),
@@ -289,7 +289,7 @@ class _SendButton extends StatelessWidget {
       child: CustomInkButton(
         enabled: enabled,
         onTap: onTap,
-        height: 56.h,
+        height: 56,
         width: double.infinity,
         borderRadius: SizeM.commonBorderRadius.r,
         backgroundColor: enabled ? ColorM.orange : ColorM.gray300,

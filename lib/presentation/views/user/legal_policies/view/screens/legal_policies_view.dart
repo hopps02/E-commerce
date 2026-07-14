@@ -16,15 +16,12 @@ class LegalPoliciesView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
             const LegalPoliciesAppBar().premiumAppear(index: 0),
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
             Expanded(
               child: FastStateRender(
                 reqState: ref.watch(legalPoliciesController).reqState,

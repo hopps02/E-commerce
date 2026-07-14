@@ -39,7 +39,7 @@ class CartBranchResolutionState extends StatelessWidget {
             CustomInkButton(
               onTap: onClearCart,
               width: double.infinity,
-              height: 56.h,
+              height: 56,
               backgroundColor: ColorM.primary500,
               borderRadius: SizeM.commonBorderRadius.r,
               alignment: Alignment.center,
@@ -56,7 +56,7 @@ class CartBranchResolutionState extends StatelessWidget {
             CustomInkButton(
               onTap: onDismiss,
               width: double.infinity,
-              height: 56.h,
+              height: 56,
               backgroundColor: ColorM.transparent,
               side: const GradientBorderSide(
                 color: ColorM.primary500,

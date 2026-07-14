@@ -46,8 +46,8 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16.h,
-                horizontal: SizeM.pagePadding.w,
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
               ),
               title: Translation.notifications.tr,
               actionButtons: state.unreadCount > 0
@@ -56,24 +56,21 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                         message: Translation.mark_all_read.tr,
                         child: CustomInkButton(
                           onTap: notifier.markAllRead,
-                          width: 38.w,
-                          height: 38.w,
+                          width: 38,
+                          height: 38,
                           borderRadius: 12.r,
                           backgroundColor: ColorM.primary50,
                           child: Icon(
                             Icons.done_all_rounded,
                             color: ColorM.primary700,
-                            size: 21.sp,
+                            size: 21,
                           ),
                         ),
                       ),
                     ]
                   : null,
             ).premiumAppear(index: 0),
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
             Expanded(
               child: FastStateRender(
                 reqState: state.reqState,
@@ -95,8 +92,8 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                     padding:
                         EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                         EdgeInsets.only(
-                          top: 16.h,
-                          bottom: context.bottomPadding + SizeM.pagePadding.w,
+                          top: 16,
+                          bottom: context.bottomPadding + SizeM.pagePadding,
                         ),
                     itemCount: state.notifications.length,
                     separatorBuilder: (_, _) => 12.verticalSpace,

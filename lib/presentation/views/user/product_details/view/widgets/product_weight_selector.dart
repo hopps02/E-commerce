@@ -46,7 +46,7 @@ class _ProductWeightSelectorState extends State<ProductWeightSelector> {
           ),
           11.verticalSpace,
           Row(
-            spacing: 10.w,
+            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.start,
             children: List.generate(weights.length, (index) {
               final isSelected = selectedIndex == index;
@@ -79,19 +79,19 @@ class _WeightChip extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       borderRadius: 12.r,
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8.h),
       backgroundColor: ColorM.transparent,
       side: GradientBorderSide(
         color: isSelected ? ColorM.primary : ColorM.gray200,
-        width: 1.w,
+        width: 1,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        spacing: 4.w,
+        spacing: 4,
         children: [
           SizedBox(
-            width: 14.w,
-            height: 14.w,
+            width: 14,
+            height: 14,
             child: isSelected
                 ? SvgPicture.asset(
                     Assets.svg.circleCheck.path,

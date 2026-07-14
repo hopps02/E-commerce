@@ -59,16 +59,16 @@ class MyErrorWidget extends StatelessWidget {
         if (svgPath != null) ...[
           SvgPicture.asset(
             svgPath!,
-            height: svgSize ?? 270.w,
-            width: svgSize ?? 270.w,
+            height: svgSize ?? 270,
+            width: svgSize ?? 270,
           ),
           14.verticalSpace,
         ] else
           Lottie.asset(
             Assets.lottieAnimations.error.path,
             key: const Key("empty-lottie-error-render"),
-            width: 200.w,
-            height: 200.w,
+            width: 200,
+            height: 200,
             repeat: true,
             fit: BoxFit.contain,
           ),
@@ -77,7 +77,7 @@ class MyErrorWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: context.headlineMedium.copyWith(
             fontWeight: FontWeightM.medium,
-            fontSize: 24.sp,
+            fontSize: 24,
           ),
         ),
         if (subtitleMessage != null) ...[
@@ -111,13 +111,13 @@ class RetryButton extends StatelessWidget {
       onTap: onRetry,
       backgroundColor: ColorM.primary,
       borderRadius: 10.r,
-      padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 11.5.w),
+      padding: EdgeInsets.symmetric(horizontal: 46, vertical: 11.5.w),
       smoothness: 1,
       boxShadow: [
         BoxShadow(
           color: ColorM.primary.withValues(alpha: 0.2),
           blurRadius: 0,
-          offset: Offset(9.w, 9.w),
+          offset: Offset(9, 9.w),
         ),
       ],
       child: Text(

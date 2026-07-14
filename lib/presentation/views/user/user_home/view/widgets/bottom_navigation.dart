@@ -17,7 +17,7 @@ class BottomNavigation extends StatelessWidget {
         delay: 300,
         animationTypes: {.slide},
         slideDirection: .up,
-        slideDistance: context.bottomSafeAreaPadding + 8.h + 78.h,
+        slideDistance: context.bottomSafeAreaPadding + 8 + 78,
         child: CustomBottomNavigationBar(items: bottomNavItems),
       ),
     );

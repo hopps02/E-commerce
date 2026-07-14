@@ -38,7 +38,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
         alignment: Alignment.center,
         child: SvgPicture.asset(
           Assets.svg.appLogo.path,
-          width: 155.w,
+          width: 155,
           colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
         ).premiumAppear(),
       ),

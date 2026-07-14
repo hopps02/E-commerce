@@ -35,13 +35,13 @@ class _CustomDropDownButtonState<T> extends State<CustomDropDownButton> {
     }
 
     return Container(
-      height: 56.h,
+      height: 56,
       decoration: BoxDecoration(
         color: const Color(0xFFF7FCFF),
         borderRadius: BorderRadius.circular(14.r),
         border: Border.all(
           color: Colors.black.withValues(alpha: .03),
-          width: 1.w,
+          width: 1,
         ),
       ),
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -49,7 +49,7 @@ class _CustomDropDownButtonState<T> extends State<CustomDropDownButton> {
         child: DropdownButton<int>(
           value: selectedValue,
           menuMaxHeight: .9.sh,
-          menuWidth: 200.w,
+          menuWidth: 200,
           hint: Text(
             widget.hintText ?? "Select",
             style: context.labelMedium.copyWith(color: const Color(0xFF4A5E6D)),

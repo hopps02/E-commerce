@@ -13,7 +13,7 @@ class Loading extends StatelessWidget {
         Assets.lottieAnimations.succesfull.path,
         key: Key("Key"),
         width: 1.sw,
-        height: 378.h,
+        height: 378,
         repeat: false,
         fit: BoxFit.contain,
       ),

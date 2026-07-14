@@ -32,8 +32,8 @@ class Order extends StatelessWidget {
         children: [
           // Image Thumbnail (Back to original size)
           Container(
-            width: 73.w,
-            height: 80.h,
+            width: 73,
+            height: 80,
             decoration: BoxDecoration(
               border: Border.all(color: ColorM.gray150, width: 1.w),
               borderRadius: BorderRadius.circular(12.r),
@@ -67,14 +67,11 @@ class Order extends StatelessWidget {
                     if (weight.isNotEmpty)
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 4.h,
+                          horizontal: 8,
+                          vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorM.gray200,
-                            width: 1.w,
-                          ),
+                          border: Border.all(color: ColorM.gray200, width: 1),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
@@ -107,7 +104,7 @@ class Order extends StatelessWidget {
                         2.horizontalSpace,
                         SvgPicture.asset(
                           Assets.svg.saudiRiyalSymbol.path,
-                          width: 11.sp,
+                          width: 11,
                           colorFilter: const ColorFilter.mode(
                             ColorM.primary700,
                             BlendMode.srcIn,

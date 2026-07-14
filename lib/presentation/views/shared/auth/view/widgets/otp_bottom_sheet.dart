@@ -112,7 +112,7 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
 
           16.verticalSpace,
 
-          Container(width: double.infinity, height: 1.h, color: ColorM.gray300),
+          Container(width: double.infinity, height: 1, color: ColorM.gray300),
 
           16.verticalSpace,
 

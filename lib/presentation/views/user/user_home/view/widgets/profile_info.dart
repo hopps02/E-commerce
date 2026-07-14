@@ -27,8 +27,8 @@ class ProfileInfo extends ConsumerWidget {
           ),
           32.verticalSpace,
           Container(
-            height: 86.w,
-            width: 86.w,
+            height: 86,
+            width: 86,
             decoration: BoxDecoration(
               color: ColorM.white,
               shape: BoxShape.circle,
@@ -43,8 +43,8 @@ class ProfileInfo extends ConsumerWidget {
             ),
             alignment: Alignment.center,
             child: Container(
-              height: 76.w,
-              width: 76.w,
+              height: 76,
+              width: 76,
               decoration: const BoxDecoration(
                 color: ColorM.primary50,
                 shape: BoxShape.circle,
@@ -71,7 +71,7 @@ class ProfileInfo extends ConsumerWidget {
           ),
           6.verticalSpace,
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6.h),
             decoration: BoxDecoration(
               color: ColorM.gray50,
               borderRadius: BorderRadius.circular(20.r),

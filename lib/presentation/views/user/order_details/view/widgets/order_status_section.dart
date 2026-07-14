@@ -89,7 +89,7 @@ class OrderStatusSection extends StatelessWidget {
           16.verticalSpace,
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10.h),
             decoration: ShapeDecoration(
               color: ColorM.red.withValues(alpha: 0.08),
               shape: SmoothRectangleBorder(
@@ -100,7 +100,7 @@ class OrderStatusSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.error_outline_rounded, size: 18.w, color: ColorM.red),
+                Icon(Icons.error_outline_rounded, size: 18, color: ColorM.red),
                 8.horizontalSpace,
                 Expanded(
                   child: Column(
@@ -128,7 +128,7 @@ class OrderStatusSection extends StatelessWidget {
           ),
         ],
         24.verticalSpace,
-        Container(height: 1.h, color: ColorM.gray150),
+        Container(height: 1, color: ColorM.gray150),
       ],
     );
   }

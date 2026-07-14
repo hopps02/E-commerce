@@ -57,8 +57,8 @@ class OverlayLoadingManager implements LoadingManager {
           Lottie.asset(
             Assets.lottieAnimations.sandyLoading.path,
             key: Key("loading-lottie"),
-            width: 100.w,
-            height: 100.w,
+            width: 100,
+            height: 100,
             repeat: true,
             fit: BoxFit.contain,
           ),

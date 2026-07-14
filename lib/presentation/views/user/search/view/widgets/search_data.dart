@@ -47,13 +47,13 @@ class SearchData extends ConsumerWidget {
           onLoading: () => searchNotifier.loadMore(),
           child: GridView.builder(
             padding: EdgeInsets.symmetric(
-              horizontal: SizeM.pagePadding.w,
-              vertical: 16.h,
+              horizontal: SizeM.pagePadding,
+              vertical: 16,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 12.w,
-              mainAxisSpacing: 12.h,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               childAspectRatio: .8,
             ),
             itemCount: searchState.products.length,

@@ -14,7 +14,7 @@ class OfferBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 214.h,
+      height: 214,
       clipBehavior: Clip.hardEdge,
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
@@ -36,7 +36,7 @@ class OfferBanner extends StatelessWidget {
             child: Transform.scale(
               scaleX: context.isRTL ? 1 : -1,
               child: Assets.tempImages.offerGirl.image(
-                height: 200.h,
+                height: 200,
                 fit: BoxFit.contain,
               ),
             ),
@@ -44,18 +44,14 @@ class OfferBanner extends StatelessWidget {
 
           // Content - Positioned on the RIGHT (start in RTL)
           Padding(
-            padding: EdgeInsetsDirectional.only(
-              top: 18.h,
-              start: 10.w,
-              bottom: 28.h,
-            ),
+            padding: EdgeInsetsDirectional.only(top: 18, start: 10, bottom: 28),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Tag
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: const Color(0xFFC7FE7E),
                     borderRadius: BorderRadius.circular(40.r),
@@ -71,7 +67,7 @@ class OfferBanner extends StatelessWidget {
                 19.verticalSpace,
                 // Main Text
                 SizedBox(
-                  width: 200.w,
+                  width: 200,
                   child: Text(
                     "وفّر حتى 40% على خضار وفواكه طازجة",
                     style: context.headlineSmall.copyWith(
@@ -86,8 +82,8 @@ class OfferBanner extends StatelessWidget {
                 // Button
                 CustomInkButton(
                   onTap: () {},
-                  width: 110.w,
-                  height: 28.h,
+                  width: 110,
+                  height: 28,
                   backgroundColor: ColorM.white,
                   borderRadius: 9999,
                   alignment: .center,

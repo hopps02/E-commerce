@@ -15,13 +15,7 @@ class NavigationItem {
   final String title;
   final String svgPath;
   final String selectedSvgPath;
-
-  /// When true the item shows a live count badge sourced from the cart.
   final bool isCart;
-
-  /// Custom action for a the item
-  /// if 'null'     it will navigate to the screen with the same index
-  /// if 'not null' it will execute the action instead of navigating
   final void Function()? onTap;
 
   NavigationItem({
@@ -49,20 +43,20 @@ class _CustomBottomNavigationBarState
     final bottomNavState = ref.watch(bottomNavigationController);
     final cartCount = ref.watch(cartController.select((s) => s.itemsCount));
     return Padding(
-      padding: EdgeInsets.only(bottom: context.bottomSafeAreaPadding + 8.h),
+      padding: EdgeInsets.only(bottom: context.bottomSafeAreaPadding + 8),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(9999),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 13, sigmaY: 13),
           child: RepaintBoundary(
             child: Container(
-              width: 343.w,
-              height: 78.h,
+              width: 343,
+              height: 78,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(9999),
                 border: Border.all(
                   color: ColorM.white.withValues(alpha: 1),
-                  width: 1.w,
+                  width: 1,
                 ),
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
@@ -76,7 +70,7 @@ class _CustomBottomNavigationBarState
                 ),
               ),
 
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
 
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,8 +122,8 @@ class Button extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastEaseInToSlowEaseOut,
         padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 37.w : 15.w,
-          vertical: isSelected ? 10.h : 15.h,
+          horizontal: isSelected ? 37 : 15,
+          vertical: isSelected ? 10 : 15,
         ),
         decoration: BoxDecoration(
           color: ColorM.white,
@@ -143,8 +137,8 @@ class Button extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   isSelected ? item.selectedSvgPath : item.svgPath,
-                  width: 20.w,
-                  height: 20.w,
+                  width: 20,
+                  height: 20,
                   colorFilter: ColorFilter.mode(
                     isSelected ? ColorM.primary500 : ColorM.gray600,
                     BlendMode.srcIn,
@@ -152,23 +146,26 @@ class Button extends StatelessWidget {
                 ),
                 if (badgeCount > 0)
                   PositionedDirectional(
-                    top: -7.h,
-                    end: -9.w,
+                    top: -7,
+                    end: -9,
                     child: Container(
-                      constraints: BoxConstraints(minWidth: 16.w, minHeight: 16.w),
-                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                      constraints: BoxConstraints(
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 4),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: ColorM.primary500,
                         borderRadius: BorderRadius.circular(9999),
-                        border: Border.all(color: ColorM.white, width: 1.5.w),
+                        border: Border.all(color: ColorM.white, width: 1.5),
                       ),
                       child: Text(
                         badgeCount > 99 ? '99+' : '$badgeCount',
                         style: context.labelLarge.copyWith(
                           color: ColorM.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 9.sp,
+                          fontSize: 9,
                           height: 1,
                         ),
                       ),
@@ -191,7 +188,9 @@ class Button extends StatelessWidget {
                 child: Row(
                   mainAxisSize: .min,
                   children: [
-                    4.horizontalSpace,
+                    SizedBox(
+                      width: 4,
+                    ),
                     Text(
                       item.title,
                       style: context.labelLarge.copyWith(

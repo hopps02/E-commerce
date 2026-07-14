@@ -30,7 +30,7 @@ class OrderCard extends StatelessWidget {
     final summary = items.map((item) => item.name(arabic)).join(' · ');
     final step = order.timelineStep;
     return Container(
-      width: 343.w,
+      width: 343,
       padding: EdgeInsets.all(14.w),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
@@ -65,10 +65,10 @@ class OrderCard extends StatelessWidget {
             ],
           ),
           12.verticalSpace,
-          Container(height: 1.h, color: ColorM.gray250),
+          Container(height: 1, color: ColorM.gray250),
           12.verticalSpace,
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
             decoration: ShapeDecoration(
               color: ColorM.primary50.withValues(alpha: 0.4),
               shape: SmoothRectangleBorder(
@@ -77,7 +77,7 @@ class OrderCard extends StatelessWidget {
               ),
             ),
             child: Row(
-              spacing: 12.w,
+              spacing: 12,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
@@ -104,14 +104,14 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 67.w,
-                  height: 52.h,
+                  width: 67,
+                  height: 52,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       if (items.length > 1)
                         Positioned(
-                          right: 21.w,
+                          right: 21,
                           child: Transform.rotate(
                             angle: -19 * (3.14159 / 180),
                             child: DecoratedBox(
@@ -130,8 +130,8 @@ class OrderCard extends StatelessWidget {
                               ),
                               child: CustomCachedImage(
                                 imageUrl: _imageUrl(1),
-                                width: 38.w,
-                                height: 42.h,
+                                width: 38,
+                                height: 42,
                                 borderRadius: BorderRadius.circular(6.r),
                               ),
                             ),
@@ -139,8 +139,8 @@ class OrderCard extends StatelessWidget {
                         ),
                       if (items.length > 2)
                         Positioned(
-                          right: 4.w,
-                          top: 6.h,
+                          right: 4,
+                          top: 6,
                           child: Transform.rotate(
                             angle: 15 * (3.14159 / 180),
                             child: DecoratedBox(
@@ -159,8 +159,8 @@ class OrderCard extends StatelessWidget {
                               ),
                               child: CustomCachedImage(
                                 imageUrl: _imageUrl(2),
-                                width: 38.w,
-                                height: 42.h,
+                                width: 38,
+                                height: 42,
                                 borderRadius: BorderRadius.circular(6.r),
                               ),
                             ),
@@ -169,8 +169,8 @@ class OrderCard extends StatelessWidget {
                       Positioned(
                         child: CustomCachedImage(
                           imageUrl: _imageUrl(0),
-                          width: 38.w,
-                          height: 42.h,
+                          width: 38,
+                          height: 42,
                           borderRadius: BorderRadius.circular(6.r),
                         ),
                       ),
@@ -217,7 +217,7 @@ class OrderCard extends StatelessWidget {
             ],
           ),
           12.verticalSpace,
-          Container(height: 1.h, color: ColorM.gray250),
+          Container(height: 1, color: ColorM.gray250),
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,7 +226,7 @@ class OrderCard extends StatelessWidget {
                 backgroundColor: ColorM.primary600,
                 borderRadius: 10.r,
                 smoothness: 1,
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8.h),
                 onTap: onTapDetails,
                 child: Text(
                   Translation.view_details.tr,
@@ -255,7 +255,7 @@ class OrderCard extends StatelessWidget {
                       2.horizontalSpace,
                       SvgPicture.asset(
                         Assets.svg.saudiRiyalSymbol.path,
-                        height: 13.h,
+                        height: 13,
                         colorFilter: const ColorFilter.mode(
                           ColorM.primary700,
                           BlendMode.srcIn,
@@ -319,26 +319,18 @@ class TimeLineStep extends StatelessWidget {
           Row(
             children: [
               if (!isFirst)
-                Expanded(
-                  child: Container(
-                    height: 1.h,
-                    color: nodeColor,
-                  ),
-                ),
+                Expanded(child: Container(height: 1, color: nodeColor)),
               Container(
-                width: 24.w,
-                height: 24.w,
+                width: 24,
+                height: 24,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: nodeColor,
-                    width: 1.5.w,
-                  ),
+                  border: Border.all(color: nodeColor, width: 1.5),
                 ),
                 child: Center(
                   child: Container(
-                    width: 14.w,
-                    height: 14.w,
+                    width: 14,
+                    height: 14,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: nodeColor,
@@ -349,7 +341,7 @@ class TimeLineStep extends StatelessWidget {
               if (!isLast)
                 Expanded(
                   child: Container(
-                    height: 1.h,
+                    height: 1,
                     color: nextFailed
                         ? ColorM.red
                         : (isNextActive ? ColorM.primary600 : ColorM.gray250),

@@ -23,7 +23,7 @@ class ResendOtp extends ConsumerWidget {
           text: TextSpan(
             style: context.bodyMedium.copyWith(
               color: ColorM.gray600,
-              fontSize: 15.sp,
+              fontSize: 15,
             ),
             children: [
               TextSpan(text: Translation.resend_code_question.tr),

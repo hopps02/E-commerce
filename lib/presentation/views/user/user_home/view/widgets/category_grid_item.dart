@@ -24,13 +24,13 @@ class CategoryGridItem extends StatelessWidget {
         children: [
           CustomCachedImage(
             imageUrl: imageUrl,
-            width: 70.w,
-            height: 70.w,
+            width: 70,
+            height: 70,
             errorBackgroundColor: ColorM.gray50,
           ),
           8.verticalSpace,
           SizedBox(
-            width: 70.w,
+            width: 70,
             child: Text(
               title,
               maxLines: 2,

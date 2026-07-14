@@ -88,7 +88,7 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
                 style: context.titleMedium.copyWith(
                   color: ColorM.white,
                   fontWeight: FontWeightM.bold,
-                  fontSize: 16.sp,
+                  fontSize: 16,
                 ),
               ),
             ),

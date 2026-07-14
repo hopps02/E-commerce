@@ -66,7 +66,7 @@ class _CustomActionTileState extends State<CustomActionTile> {
                 duration: const Duration(milliseconds: 200),
                 child: Icon(
                   Icons.arrow_forward_ios_rounded,
-                  size: 16.w,
+                  size: 16,
                   color: ColorM.gray400,
                 ),
               ),
@@ -84,11 +84,7 @@ class _CustomActionTileState extends State<CustomActionTile> {
           ),
           if (widget.showDivider) ...[
             16.verticalSpace,
-            Container(
-              height: 1.h,
-              width: double.infinity,
-              color: ColorM.gray150,
-            ),
+            Container(height: 1, width: double.infinity, color: ColorM.gray150),
           ],
         ],
       ),

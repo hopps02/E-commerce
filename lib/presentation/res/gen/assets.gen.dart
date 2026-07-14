@@ -67,6 +67,16 @@ class $AssetsLottieAnimationsGen {
   ];
 }
 
+class $AssetsSoundsGen {
+  const $AssetsSoundsGen();
+
+  /// File path: assets/sounds/new_order_alert.wav
+  String get newOrderAlert => 'assets/sounds/new_order_alert.wav';
+
+  /// List of all assets
+  List<String> get values => [newOrderAlert];
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
@@ -179,6 +189,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
 
+  /// File path: assets/svg/logo.svg
+  SvgGenImage get logo => const SvgGenImage('assets/svg/logo.svg');
+
   /// File path: assets/svg/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
 
@@ -249,6 +262,7 @@ class $AssetsSvgGen {
     language2,
     locationMap,
     location,
+    logo,
     logout,
     logout2,
     manProfile,
@@ -299,12 +313,11 @@ class $AssetsTranslationsGen {
   List<String> get values => [ar, en];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieAnimationsGen lottieAnimations =
       $AssetsLottieAnimationsGen();
+  static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
   static const $AssetsTempImagesGen tempImages = $AssetsTempImagesGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();

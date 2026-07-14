@@ -81,7 +81,7 @@ class _GlassButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      height: 33.h,
+      height: 33,
       borderRadius: 14.r,
       backgroundColor: ColorM.white.withValues(alpha: 0.12),
       glassBlur: 10,
@@ -99,8 +99,8 @@ class _GlassButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             iconPath,
-            width: 18.w,
-            height: 18.w,
+            width: 18,
+            height: 18,
             colorFilter: const ColorFilter.mode(ColorM.white, BlendMode.srcIn),
           ),
           5.horizontalSpace,
@@ -110,7 +110,7 @@ class _GlassButton extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: FontsM.ibmPlexSansArabic.name,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeightM.regular,
                 color: ColorM.white,
                 height: 1,

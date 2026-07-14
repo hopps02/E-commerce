@@ -29,7 +29,7 @@ class CaptainCancellationReasonBox extends StatelessWidget {
             Translation.cancellation_reason.tr,
             style: context.labelMedium.copyWith(
               color: ColorM.gray500,
-              fontSize: 13.sp,
+              fontSize: 13,
               fontWeight: FontWeightM.regular,
               height: 1.2,
             ),
@@ -39,7 +39,7 @@ class CaptainCancellationReasonBox extends StatelessWidget {
             reason,
             style: context.labelMedium.copyWith(
               color: ColorM.gray800,
-              fontSize: 13.sp,
+              fontSize: 13,
               fontWeight: FontWeightM.medium,
               height: 1.2,
             ),

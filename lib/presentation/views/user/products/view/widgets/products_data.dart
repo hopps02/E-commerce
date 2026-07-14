@@ -50,13 +50,13 @@ class ProductsData extends ConsumerWidget {
             padding:
                 EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                 EdgeInsets.only(
-                  top: 16.h,
-                  bottom: context.bottomPadding + SizeM.pagePadding.w,
+                  top: 16,
+                  bottom: context.bottomPadding + SizeM.pagePadding,
                 ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 12.w,
-              mainAxisSpacing: 12.h,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               childAspectRatio: .8,
             ),
             itemCount: productsState.products.length,

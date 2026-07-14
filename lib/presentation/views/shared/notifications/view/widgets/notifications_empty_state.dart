@@ -9,7 +9,7 @@ class NotificationsEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       Icons.notifications_none_rounded,
-      size: 68.w,
+      size: 68,
       color: ColorM.gray300,
     );
   }

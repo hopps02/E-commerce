@@ -55,7 +55,8 @@ class _ProductCardState extends State<ProductCard> {
   late int _currentQuantity;
 
   /// The branch has no available units left for this product.
-  bool get _isOutOfStock => widget.maxQuantity != null && widget.maxQuantity! <= 0;
+  bool get _isOutOfStock =>
+      widget.maxQuantity != null && widget.maxQuantity! <= 0;
 
   @override
   void initState() {
@@ -106,7 +107,8 @@ class _ProductCardState extends State<ProductCard> {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return InkWell(
-      onTap: widget.onTap ??
+      onTap:
+          widget.onTap ??
           () {
             context.pushNamed(
               Routes.productDetails,
@@ -117,7 +119,7 @@ class _ProductCardState extends State<ProductCard> {
       splashColor: ColorM.transparent,
       highlightColor: ColorM.transparent,
       child: SizedBox(
-        width: widget.fitForGridList ? 9999999 : 156.w,
+        width: widget.fitForGridList ? 9999999 : 156,
         child: Column(
           crossAxisAlignment: .end,
           children: [
@@ -125,22 +127,19 @@ class _ProductCardState extends State<ProductCard> {
               children: [
                 // Background with Curve
                 CustomPaint(
-                  size: Size(widget.fitForGridList ? 9999999 : 156.w, 147.h),
+                  size: Size(widget.fitForGridList ? 9999999 : 156, 147.h),
                   painter: CardTopPainter(
                     isRtl: !isRtl,
                     innerBorderRadius: 10.r,
                     backgroundBorderRadius: 12.r,
-                    padding: 4.w,
-                    notchRadius: 55.w,
+                    padding: 4,
+                    notchRadius: 55,
                   ),
                 ),
                 // Product Image
                 Positioned.fill(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 40.w,
-                      vertical: 40.w,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
                     child: CustomCachedImage(
                       imageUrl: widget.imageUrl,
                       fit: BoxFit.contain,
@@ -149,22 +148,22 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 // Favorite Button - Positioned on the LEFT visually (End in RTL, Start in LTR)
                 PositionedDirectional(
-                  top: 4.w,
-                  end: 4.w,
+                  top: 4,
+                  end: 4,
                   child: CustomInkButton(
                     onTap: widget.onFavTap,
-                    width: 32.w,
-                    height: 32.w,
+                    width: 32,
+                    height: 32,
                     backgroundColor: ColorM.white,
                     borderRadius: 99999,
                     child: Center(
                       child: widget.isFavorite
                           ? Assets.svg.fillHeart.svg(
-                              width: 14.w,
+                              width: 14,
                               color: Colors.red,
                             )
                           : Assets.svg.borderHeart.svg(
-                              width: 14.w,
+                              width: 14,
                               color: ColorM.gray900,
                             ),
                     ),
@@ -203,7 +202,7 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                           2.horizontalSpace,
                           Assets.svg.saudiRiyalSymbol.svg(
-                            width: 9.w,
+                            width: 9,
                             color: ColorM.primary550,
                           ),
                           if (widget.oldPrice != null) ...[
@@ -214,13 +213,13 @@ class _ProductCardState extends State<ProductCard> {
                                 style: context.labelSmall.copyWith(
                                   color: ColorM.gray500,
                                   decoration: .lineThrough,
-                                  fontSize: 10.sp,
+                                  fontSize: 10,
                                 ),
                               ),
                             ),
                             4.horizontalSpace,
                             Assets.svg.saudiRiyalSymbol.svg(
-                              width: 7.w,
+                              width: 7,
                               color: ColorM.gray500,
                             ),
                           ],
@@ -236,8 +235,8 @@ class _ProductCardState extends State<ProductCard> {
                   child: _currentQuantity > 0
                       ? Container(
                           key: const ValueKey("counter"),
-                          width: 58.w,
-                          height: 22.h,
+                          width: 58,
+                          height: 22,
                           padding: EdgeInsets.symmetric(horizontal: 2.w),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF3F0FF),
@@ -250,7 +249,7 @@ class _ProductCardState extends State<ProductCard> {
                                 onTap: () => _handleQuantityChange(1),
                                 child: SvgPicture.asset(
                                   Assets.svg.addSquare.path,
-                                  width: 14.w,
+                                  width: 14,
                                   colorFilter: ColorFilter.mode(
                                     ColorM.primary550,
                                     BlendMode.srcIn,
@@ -261,7 +260,7 @@ class _ProductCardState extends State<ProductCard> {
                                 child: Text(
                                   "$_currentQuantity",
                                   style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 12,
                                     fontWeight: FontWeightM.medium,
                                     color: const Color(0xFF433F41),
                                   ),
@@ -271,54 +270,54 @@ class _ProductCardState extends State<ProductCard> {
                                 onTap: () => _handleQuantityChange(-1),
                                 child: SvgPicture.asset(
                                   Assets.svg.minusSquare.path,
-                                  width: 14.w,
+                                  width: 14,
                                 ),
                               ),
                             ],
                           ),
                         )
                       : _isOutOfStock
-                          ? Container(
-                              key: const ValueKey("out_of_stock"),
-                              height: 24.w,
-                              constraints: BoxConstraints(maxWidth: 80.w),
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: ColorM.gray50,
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              child: FlexText(
-                                child: Text(
-                                  Translation.out_of_stock.tr,
-                                  maxLines: 1,
-                                  overflow: .ellipsis,
-                                  style: context.labelSmall.copyWith(
-                                    color: ColorM.gray500,
-                                    fontWeight: FontWeightM.medium,
-                                    fontSize: 9.sp,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : GestureDetector(
-                              key: const ValueKey("add"),
-                              onTap: () => _handleQuantityChange(1),
-                              child: Container(
-                                width: 28.w,
-                                height: 28.w,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF3F0FF),
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                                child: Center(
-                                  child: Assets.svg.bagPlus.svg(
-                                    width: 16.w,
-                                    color: ColorM.primary,
-                                  ),
-                                ),
+                      ? Container(
+                          key: const ValueKey("out_of_stock"),
+                          height: 24,
+                          constraints: BoxConstraints(maxWidth: 80.w),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: ColorM.gray50,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: FlexText(
+                            child: Text(
+                              Translation.out_of_stock.tr,
+                              maxLines: 1,
+                              overflow: .ellipsis,
+                              style: context.labelSmall.copyWith(
+                                color: ColorM.gray500,
+                                fontWeight: FontWeightM.medium,
+                                fontSize: 9,
                               ),
                             ),
+                          ),
+                        )
+                      : GestureDetector(
+                          key: const ValueKey("add"),
+                          onTap: () => _handleQuantityChange(1),
+                          child: Container(
+                            width: 28,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF3F0FF),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Center(
+                              child: Assets.svg.bagPlus.svg(
+                                width: 16,
+                                color: ColorM.primary,
+                              ),
+                            ),
+                          ),
+                        ),
                 ),
               ],
             ),

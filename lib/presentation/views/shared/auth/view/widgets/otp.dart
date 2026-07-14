@@ -19,11 +19,11 @@ class Otp extends StatelessWidget {
         length: otpCodeLength,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 5.w,
+        spacing: 5,
         mainAxisSize: MainAxisSize.max,
         // 6 fields (backend code length) need a slimmer field to fit the row.
-        fieldWidth: 48.w,
-        fieldHeight: 48.w,
+        fieldWidth: 48,
+        fieldHeight: 48,
         unselectedFieldDecoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
@@ -42,7 +42,7 @@ class Otp extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              width: 1.w,
+              width: 1,
             ),
           ),
           color: ColorM.gray200,

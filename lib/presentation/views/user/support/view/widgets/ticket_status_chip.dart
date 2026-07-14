@@ -16,14 +16,20 @@ class TicketStatusChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final (color, label) = switch (status) {
       'open' => (ColorM.primary, Translation.ticket_status_open),
-      'in_progress' => (const Color(0xFFE08A1E), Translation.ticket_status_in_progress),
-      'resolved' => (const Color(0xFF2E9E5B), Translation.ticket_status_resolved),
+      'in_progress' => (
+        const Color(0xFFE08A1E),
+        Translation.ticket_status_in_progress,
+      ),
+      'resolved' => (
+        const Color(0xFF2E9E5B),
+        Translation.ticket_status_resolved,
+      ),
       'closed' => (ColorM.gray500, Translation.ticket_status_closed),
       _ => (ColorM.gray500, Translation.ticket_status_open),
     };
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4.h),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20.r),

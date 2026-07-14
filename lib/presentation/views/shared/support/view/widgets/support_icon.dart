@@ -8,11 +8,11 @@ class SupportIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 120.w,
-      height: 120.w,
+      width: 120,
+      height: 120,
       child: Assets.svg.coloredArrow.svg(
-        width: 120.w,
-        height: 120.w,
+        width: 120,
+        height: 120,
         fit: BoxFit.contain,
       ),
     );

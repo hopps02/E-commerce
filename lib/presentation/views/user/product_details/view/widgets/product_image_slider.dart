@@ -34,7 +34,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
     final images = widget.imageUrls;
 
     return SizedBox(
-      height: 260.h,
+      height: 260,
       child: Stack(
         children: [
           // Image PageView
@@ -45,8 +45,8 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
             itemBuilder: (context, index) {
               return CustomCachedImage(
                 imageUrl: images[index],
-                width: 200.w,
-                height: 200.w,
+                width: 200,
+                height: 200,
                 fit: BoxFit.contain,
                 borderRadius: BorderRadius.circular(16.r),
               );
@@ -54,8 +54,8 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
           ),
 
           PositionedDirectional(
-            top: 0.h,
-            end: 16.w,
+            top: 0,
+            end: 16,
             child: Builder(
               builder: (context) {
                 final product = ref.watch(
@@ -75,14 +75,16 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                               .read(favoritesController.notifier)
                               .toggle(product);
                         },
-                  width: 32.w,
-                  height: 32.w,
+                  width: 32,
+                  height: 32,
                   borderRadius: 99999,
                   backgroundColor: ColorM.gray100,
                   alignment: Alignment.center,
                   child: SvgPicture.asset(
-                    isFav ? Assets.svg.fillHeart.path : Assets.svg.borderHeart.path,
-                    width: 14.w,
+                    isFav
+                        ? Assets.svg.fillHeart.path
+                        : Assets.svg.borderHeart.path,
+                    width: 14,
                     colorFilter: ColorFilter.mode(
                       isFav ? Colors.red : ColorM.gray700,
                       BlendMode.srcIn,
@@ -96,7 +98,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
           // Page Indicator dots
           if (images.length > 1)
             Positioned(
-              bottom: 8.h,
+              bottom: 8,
               left: 0,
               right: 0,
               child: Row(
@@ -106,8 +108,8 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     margin: EdgeInsets.symmetric(horizontal: 3.w),
-                    width: 6.w,
-                    height: 6.h,
+                    width: 6,
+                    height: 6,
                     decoration: BoxDecoration(
                       color: isActive ? ColorM.gray600 : ColorM.gray300,
                       borderRadius: BorderRadius.circular(99),
@@ -119,7 +121,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
           else
             // Static 3-dot indicator for single image (matching Figma)
             Positioned(
-              bottom: 8.h,
+              bottom: 8,
               left: 0,
               right: 0,
               child: Row(
@@ -128,8 +130,8 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     margin: EdgeInsets.symmetric(horizontal: 3.w),
-                    width: 6.w,
-                    height: 6.h,
+                    width: 6,
+                    height: 6,
                     decoration: BoxDecoration(
                       color: index == 1 ? ColorM.gray600 : ColorM.gray300,
                       borderRadius: BorderRadius.circular(99),

@@ -23,7 +23,7 @@ class CaptainProductsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14.h),
       decoration: ShapeDecoration(
         color: ColorM.gray100,
         shape: SmoothRectangleBorder(
@@ -65,8 +65,8 @@ class _Header extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 32.w,
-              height: 32.w,
+              width: 32,
+              height: 32,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 color: ColorM.primary50,
@@ -77,8 +77,8 @@ class _Header extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 Assets.svg.box.path,
-                width: 16.w,
-                height: 16.w,
+                width: 16,
+                height: 16,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -91,7 +91,7 @@ class _Header extends StatelessWidget {
               style: context.bodyLarge.copyWith(
                 color: ColorM.gray800,
                 fontWeight: FontWeightM.medium,
-                fontSize: 16.sp,
+                fontSize: 16,
                 height: 1.2,
               ),
             ),
@@ -102,7 +102,7 @@ class _Header extends StatelessWidget {
           style: context.labelMedium.copyWith(
             color: ColorM.primary400,
             fontWeight: FontWeightM.medium,
-            fontSize: 11.sp,
+            fontSize: 11,
             height: 16.5 / 11,
           ),
         ),
@@ -114,7 +114,7 @@ class _Header extends StatelessWidget {
 class _Divider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(height: 1.h, color: ColorM.gray250);
+    return Container(height: 1, color: ColorM.gray250);
   }
 }
 
@@ -131,8 +131,8 @@ class _ProductRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 20.w,
-              height: 20.w,
+              width: 20,
+              height: 20,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 color: const Color(0xFFF3F4F6),
@@ -144,7 +144,7 @@ class _ProductRow extends StatelessWidget {
               child: Text(
                 '×${item.quantity}',
                 style: TextStyle(
-                  fontSize: 10.sp,
+                  fontSize: 10,
                   fontWeight: FontWeightM.medium,
                   color: ColorM.gray700,
                   height: 1.2,
@@ -157,7 +157,7 @@ class _ProductRow extends StatelessWidget {
               style: context.labelMedium.copyWith(
                 color: ColorM.gray700,
                 fontWeight: FontWeightM.medium,
-                fontSize: 12.sp,
+                fontSize: 12,
                 height: 1.2,
               ),
             ),
@@ -171,15 +171,15 @@ class _ProductRow extends StatelessWidget {
               style: context.labelSmall.copyWith(
                 color: ColorM.gray700,
                 fontWeight: FontWeightM.semiBold,
-                fontSize: 10.7.sp,
+                fontSize: 10.7,
                 height: 1.2,
               ),
             ),
             1.5.horizontalSpace,
             SvgPicture.asset(
               Assets.svg.saudiRiyalSymbol.path,
-              width: 7.7.w,
-              height: 8.5.h,
+              width: 7.7,
+              height: 8.5,
               colorFilter: const ColorFilter.mode(
                 ColorM.gray700,
                 BlendMode.srcIn,
@@ -206,7 +206,7 @@ class _TotalRow extends StatelessWidget {
           style: context.bodyLarge.copyWith(
             color: ColorM.gray900,
             fontWeight: FontWeightM.medium,
-            fontSize: 14.sp,
+            fontSize: 14,
             height: 1.5,
           ),
         ),
@@ -218,15 +218,15 @@ class _TotalRow extends StatelessWidget {
               style: context.bodyLarge.copyWith(
                 color: ColorM.primary700,
                 fontWeight: FontWeightM.semiBold,
-                fontSize: 16.45.sp,
+                fontSize: 16.45,
                 height: 1.2,
               ),
             ),
             3.horizontalSpace,
             SvgPicture.asset(
               Assets.svg.saudiRiyalSymbol.path,
-              width: 12.w,
-              height: 13.2.h,
+              width: 12,
+              height: 13.2,
               colorFilter: const ColorFilter.mode(
                 ColorM.primary700,
                 BlendMode.srcIn,

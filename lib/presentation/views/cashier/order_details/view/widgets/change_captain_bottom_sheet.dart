@@ -19,7 +19,8 @@ import 'package:store/presentation/views/cashier/order_details/view/widgets/assi
 import 'package:store/presentation/views/cashier/order_details/view/widgets/assign_captain_header.dart';
 
 String _reasonLabel(ReassignReason reason) => switch (reason) {
-  ReassignReason.captainUnavailable => Translation.reason_captain_unavailable.tr,
+  ReassignReason.captainUnavailable =>
+    Translation.reason_captain_unavailable.tr,
   ReassignReason.captainSick => Translation.reason_captain_sick.tr,
   ReassignReason.captainBrokeDown => Translation.reason_captain_broke_down.tr,
   ReassignReason.customerRequest => Translation.reason_customer_request.tr,
@@ -95,7 +96,7 @@ class _ChangeCaptainBottomSheetState
 
     return Container(
       width: double.infinity,
-      height: 720.h,
+      height: 720,
       margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia, top: 10.h),
       decoration: BoxDecoration(
         color: ColorM.white,
@@ -109,8 +110,8 @@ class _ChangeCaptainBottomSheetState
         child: Column(
           children: [
             Container(
-              width: 48.w,
-              height: 8.h,
+              width: 48,
+              height: 8,
               decoration: BoxDecoration(
                 color: const Color(0xFFEEEEEE),
                 borderRadius: BorderRadius.circular(100.r),
@@ -143,8 +144,8 @@ class _ChangeCaptainBottomSheetState
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: SimpleForm(
-                        height: 44.h,
-                        fontSize: 14.sp,
+                        height: 44,
+                        fontSize: 14,
                         borderRadius: 38.r,
                         borderColor: ColorM.primary50,
                         hintText: Translation.search_hint.tr,
@@ -153,8 +154,8 @@ class _ChangeCaptainBottomSheetState
                         onChanged: notifier.setQuery,
                         prefixWidget: SvgPicture.asset(
                           Assets.svg.search.path,
-                          width: 18.w,
-                          height: 18.w,
+                          width: 18,
+                          height: 18,
                           colorFilter: const ColorFilter.mode(
                             ColorM.gray600,
                             BlendMode.srcIn,
@@ -166,8 +167,8 @@ class _ChangeCaptainBottomSheetState
                     Expanded(
                       child: ListView.separated(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.h,
+                          horizontal: 16,
+                          vertical: 8,
                         ),
                         itemCount: state.filtered.length,
                         separatorBuilder: (_, _) => 11.verticalSpace,
@@ -216,7 +217,7 @@ class _CurrentCaptainBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10.h),
       decoration: BoxDecoration(
         color: ColorM.gray100,
         borderRadius: BorderRadius.circular(14.r),
@@ -228,7 +229,7 @@ class _CurrentCaptainBanner extends StatelessWidget {
             children: [
               Icon(
                 Icons.person_outline_rounded,
-                size: 18.sp,
+                size: 18,
                 color: ColorM.gray600,
               ),
               6.horizontalSpace,
@@ -252,7 +253,7 @@ class _CurrentCaptainBanner extends StatelessWidget {
             8.verticalSpace,
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8.h),
               decoration: BoxDecoration(
                 color: const Color(0xFFF59E0B).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10.r),
@@ -262,7 +263,7 @@ class _CurrentCaptainBanner extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.info_outline_rounded,
-                    size: 16.sp,
+                    size: 16,
                     color: const Color(0xFFB45309),
                   ),
                   6.horizontalSpace,
@@ -314,8 +315,8 @@ class _ReasonPicker extends StatelessWidget {
           ),
           8.verticalSpace,
           Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
+            spacing: 8,
+            runSpacing: 8,
             children: [
               for (final reason in ReassignReason.values)
                 _ReasonChip(
@@ -328,8 +329,8 @@ class _ReasonPicker extends StatelessWidget {
           if (selected?.isOther ?? false) ...[
             10.verticalSpace,
             SimpleForm(
-              height: 44.h,
-              fontSize: 14.sp,
+              height: 44,
+              fontSize: 14,
               borderRadius: 14.r,
               borderColor: ColorM.primary50,
               hintText: Translation.change_reason_note_hint.tr,
@@ -359,13 +360,13 @@ class _ReasonChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 9.h),
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 9.h),
       borderRadius: 30.r,
       smoothness: 1,
       backgroundColor: isSelected ? ColorM.primary50 : ColorM.white,
       side: GradientBorderSide(
         color: isSelected ? ColorM.primary500 : ColorM.primary50,
-        width: 1.w,
+        width: 1,
       ),
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
@@ -394,7 +395,7 @@ class _ConfirmButton extends StatelessWidget {
     return CustomInkButton(
       onTap: enabled ? onConfirm : null,
       enabled: enabled,
-      height: 56.h,
+      height: 56,
       width: double.infinity,
       borderRadius: SizeM.commonBorderRadius.r,
       backgroundColor: enabled ? ColorM.primary500 : const Color(0xFF9CA3AF),

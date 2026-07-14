@@ -91,8 +91,8 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
           children: [
             12.verticalSpace,
             Container(
-              width: 44.w,
-              height: 4.h,
+              width: 44,
+              height: 4,
               decoration: BoxDecoration(
                 color: ColorM.gray200,
                 borderRadius: BorderRadius.circular(4.r),
@@ -114,10 +114,10 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
                 onRetry: _load,
                 child: ListView.separated(
                   shrinkWrap: true,
-                  padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16.h),
                   itemCount: _orders.length + 1,
                   separatorBuilder: (_, _) =>
-                      Divider(height: 1.h, color: ColorM.gray150),
+                      Divider(height: 1, color: ColorM.gray150),
                   itemBuilder: (context, index) {
                     if (index == 0) {
                       return _OrderTile(
@@ -129,10 +129,9 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
                     final order = _orders[index - 1];
                     return _OrderTile(
                       title: order.orderNumber,
-                      onTap: () => Navigator.of(context).pop((
-                        id: order.id,
-                        number: order.orderNumber,
-                      )),
+                      onTap: () => Navigator.of(
+                        context,
+                      ).pop((id: order.id, number: order.orderNumber)),
                     );
                   },
                 ),

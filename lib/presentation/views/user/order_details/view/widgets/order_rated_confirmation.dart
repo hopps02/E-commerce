@@ -19,13 +19,13 @@ class OrderRatedConfirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        16.w,
-        16.h,
-        16.w,
-        context.bottomSafeAreaPadding + 16.h,
+        16,
+        16,
+        16,
+        context.bottomSafeAreaPadding + 16,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
         decoration: BoxDecoration(
           color: ColorM.lightGreen,
           borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
@@ -34,14 +34,14 @@ class OrderRatedConfirmation extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 40.w,
-              height: 40.w,
+              width: 40,
+              height: 40,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 color: ColorM.primary600,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.check_rounded, color: ColorM.white, size: 22.sp),
+              child: Icon(Icons.check_rounded, color: ColorM.white, size: 22),
             ),
             12.horizontalSpace,
             Expanded(
@@ -93,8 +93,8 @@ class _Stars extends StatelessWidget {
           padding: EdgeInsets.only(right: i == 4 ? 0.0 : 4.w),
           child: SvgPicture.asset(
             Assets.svg.star.path,
-            width: 16.sp,
-            height: 16.sp,
+            width: 16,
+            height: 16,
             colorFilter: ColorFilter.mode(
               i < filled ? ColorM.gold : ColorM.gray300,
               BlendMode.srcIn,

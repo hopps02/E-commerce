@@ -29,7 +29,7 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 8.h,
+      spacing: 8,
       children: [
         Text(
           Translation.mobile_number.tr,
@@ -53,8 +53,8 @@ class PhoneField extends StatelessWidget {
                       padding: EdgeInsetsDirectional.only(end: 6.w),
                       child: SvgPicture.asset(
                         Assets.svg.circleCheck.path,
-                        width: 20.w,
-                        height: 20.w,
+                        width: 20,
+                        height: 20,
                         colorFilter: const ColorFilter.mode(
                           ColorM.primary500,
                           BlendMode.srcIn,
@@ -63,7 +63,7 @@ class PhoneField extends StatelessWidget {
                     )
                   : null,
               prefixWidget: Row(
-                spacing: 5.w,
+                spacing: 5,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FastCountryCodeButton(
@@ -78,7 +78,7 @@ class PhoneField extends StatelessWidget {
                       );
                     },
                   ),
-                  Container(width: 1.w, height: 32.w, color: ColorM.gray300),
+                  Container(width: 1, height: 32, color: ColorM.gray300),
 
                   AnimatedVisibility(
                     visible: authState.textActive,
@@ -105,7 +105,7 @@ class PhoneField extends StatelessWidget {
                             Text(
                               Translation.mobile_number.tr,
                               style: context.bodyMedium.copyWith(
-                                fontSize: 8.sp,
+                                fontSize: 8,
                                 color: ColorM.gray600,
                               ),
                             ),
@@ -124,8 +124,8 @@ class PhoneField extends StatelessWidget {
                           mainAxisAlignment: .end,
                           children: [
                             Container(
-                              width: 1.w,
-                              height: 22.w,
+                              width: 1,
+                              height: 22,
                               color: ColorM.gray300,
                             ),
                             10.verticalSpace,

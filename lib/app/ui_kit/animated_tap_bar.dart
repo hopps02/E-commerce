@@ -225,7 +225,7 @@ class _AnimatedTapsNavigatorState extends State<AnimatedTapsNavigator> {
                   top: stickTopMargin,
                   child: Container(
                     width: 1.sw,
-                    height: 1.w,
+                    height: 1,
                     color: context.colorScheme.surface.withValues(alpha: 0.1),
                   ),
                 ),

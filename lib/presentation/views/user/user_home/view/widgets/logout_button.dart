@@ -48,8 +48,8 @@ class LogoutButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Assets.svg.logout.svg(
-                  width: 22.w,
-                  height: 22.w,
+                  width: 22,
+                  height: 22,
                   colorFilter: const ColorFilter.mode(
                     ColorM.red,
                     BlendMode.srcIn,
@@ -61,7 +61,7 @@ class LogoutButton extends StatelessWidget {
                   style: context.titleMedium.copyWith(
                     color: ColorM.red,
                     fontWeight: FontWeightM.bold,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                   ),
                 ),
               ],

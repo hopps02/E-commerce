@@ -26,8 +26,8 @@ class _FastCountryCodeButtonState extends State<FastCountryCodeButton> {
   Widget build(BuildContext context) {
     return CountryCodePicker(
       controller: widget.controller,
-      buttonWidth: 26.w,
-      buttonHeight: 21.w,
+      buttonWidth: 26,
+      buttonHeight: 21,
       buttonBorderRadius: 4.r,
       bottomSheetSettings: CountryPickerBottomSheetSettings(
         isDarkMode: context.isDark,

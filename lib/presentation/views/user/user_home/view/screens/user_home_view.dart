@@ -72,7 +72,7 @@ class _UserHomeViewState extends ConsumerState<UserHomeView>
           body: Stack(
             children: [
               ResponsiveConstrained(
-                maxWidth: 600,
+                maxWidth: 450,
                 child: PageSlider(bottomSafeAreaPadding: bottomSafeAreaPadding),
               ),
 

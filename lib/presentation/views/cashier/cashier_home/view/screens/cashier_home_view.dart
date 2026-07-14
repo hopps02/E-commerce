@@ -57,7 +57,7 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
 
     return Scaffold(
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -77,9 +77,9 @@ class _CashierHomeViewState extends ConsumerState<CashierHomeView>
             ),
             if (alertState.hasNewOrder)
               PositionedDirectional(
-                top: context.topSafeAreaPadding + 92.h,
-                start: SizeM.pagePadding.w,
-                end: SizeM.pagePadding.w,
+                top: context.topSafeAreaPadding + 92,
+                start: SizeM.pagePadding,
+                end: SizeM.pagePadding,
                 child: NewOrderAlertBanner(
                   newOrderCount: alertState.newOrderCount,
                   onViewOrders: notifier.onViewNewOrder,

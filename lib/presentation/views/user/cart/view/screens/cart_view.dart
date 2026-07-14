@@ -39,7 +39,7 @@ class _CartViewState extends ConsumerState<CartView> {
     return Scaffold(
       backgroundColor: ColorM.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             // Status bar space
@@ -49,10 +49,7 @@ class _CartViewState extends ConsumerState<CartView> {
             CartAppBar().premiumAppear(index: 0),
 
             // Thin divider
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
 
             // Scrollable body
             const CartData(),
@@ -64,7 +61,7 @@ class _CartViewState extends ConsumerState<CartView> {
       // track local quantity edits live.
       bottomNavigationBar: guestMode && !cart.isEmpty
           ? ResponsiveConstrained(
-              maxWidth: 600,
+              maxWidth: 450,
               heightFactor: 1,
               child: GuestCheckoutBottomBar(
                 subtotalHalalas: cart.subtotalHalalas,
@@ -77,7 +74,7 @@ class _CartViewState extends ConsumerState<CartView> {
             )
           : checkout.reqState.isSuccess && !cart.isEmpty
           ? ResponsiveConstrained(
-              maxWidth: 600,
+              maxWidth: 450,
               heightFactor: 1,
               child: CartSummaryBottomBar(
                 subtotalHalalas: cart.subtotalHalalas,

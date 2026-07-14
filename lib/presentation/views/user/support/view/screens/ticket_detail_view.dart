@@ -70,20 +70,20 @@ class _TicketDetailViewState extends ConsumerState<TicketDetailView> {
     return Scaffold(
       backgroundColor: ColorM.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16.h,
-                horizontal: SizeM.pagePadding.w,
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
               ),
               title: widget.args.number.isEmpty
                   ? Translation.support.tr
                   : widget.args.number,
             ),
-            Container(height: 6.h, color: ColorM.gray150),
+            Container(height: 6, color: ColorM.gray150),
             Expanded(
               child: FastStateRender(
                 reqState: state.reqState,
@@ -120,7 +120,7 @@ class _Thread extends StatelessWidget {
     return ListView(
       padding:
           EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-          EdgeInsets.only(top: 16.h, bottom: 16.h),
+          EdgeInsets.only(top: 16, bottom: 16.h),
       children: [
         Row(
           children: [
@@ -174,7 +174,7 @@ class _MessageBubble extends StatelessWidget {
           : AlignmentDirectional.centerStart,
       child: Container(
         constraints: BoxConstraints(maxWidth: 0.78.sw),
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
         decoration: BoxDecoration(
           color: isOpener
               ? ColorM.primary.withValues(alpha: 0.10)
@@ -227,9 +227,9 @@ class _ReplyBar extends StatelessWidget {
         width: double.infinity,
         color: ColorM.gray100,
         padding: EdgeInsets.fromLTRB(
-          SizeM.pagePadding.w,
-          14.h,
-          SizeM.pagePadding.w,
+          SizeM.pagePadding,
+          14,
+          SizeM.pagePadding,
           14.h + context.bottomSafeAreaPadding,
         ),
         child: Text(
@@ -252,9 +252,9 @@ class _ReplyBar extends StatelessWidget {
         ],
       ),
       padding: EdgeInsets.fromLTRB(
-        SizeM.pagePadding.w,
-        10.h,
-        SizeM.pagePadding.w,
+        SizeM.pagePadding,
+        10,
+        SizeM.pagePadding,
         10.h + context.bottomSafeAreaPadding,
       ),
       child: Row(
@@ -270,7 +270,7 @@ class _ReplyBar extends StatelessWidget {
               backgroundColor: ColorM.gray100,
               borderColor: ColorM.gray100,
               alignment: AlignmentDirectional.topStart,
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
               textAlign: TextAlign.start,
             ),
           ),
@@ -278,8 +278,8 @@ class _ReplyBar extends StatelessWidget {
           CustomInkButton(
             onTap: onSend,
             isLoading: sending,
-            width: 52.w,
-            height: 52.w,
+            width: 52,
+            height: 52,
             backgroundColor: ColorM.primary,
             borderRadius: 15.r,
             alignment: Alignment.center,

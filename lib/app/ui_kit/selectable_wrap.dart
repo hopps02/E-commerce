@@ -32,8 +32,8 @@ class _SelectableWrapState extends State<SelectableWrap> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 10.w,
-      runSpacing: 10.w,
+      spacing: 10,
+      runSpacing: 10,
       children: List.generate(
         widget.count,
         (index) => GestureDetector(
@@ -49,7 +49,7 @@ class _SelectableWrapState extends State<SelectableWrap> {
             });
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 10.w),
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10.w),
             decoration: BoxDecoration(
               color: selected == index ? Colors.purple : Colors.transparent,
               borderRadius: BorderRadius.circular(12.r),
@@ -57,7 +57,7 @@ class _SelectableWrapState extends State<SelectableWrap> {
                 color: selected == index
                     ? Colors.purple
                     : Colors.black.withValues(alpha: .1),
-                width: 1.w,
+                width: 1,
               ),
             ),
             child: Text(

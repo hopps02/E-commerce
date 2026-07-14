@@ -49,8 +49,8 @@ class DefaultAppBar extends StatelessWidget {
     return CustomInkButton(
       onTap: backFunction ?? () => Navigator.of(context).maybePop(),
       padding: EdgeInsets.zero,
-      width: 38.w,
-      height: 38.w,
+      width: 38,
+      height: 38,
       smoothness: 0,
       backgroundColor: backgroundColor,
       borderRadius: 12.r,
@@ -59,7 +59,7 @@ class DefaultAppBar extends StatelessWidget {
       child: Icon(
         Icons.arrow_back_ios_new_rounded,
         color: arrowColor,
-        size: 20.sp,
+        size: 20,
       ),
     );
   }
@@ -106,7 +106,7 @@ class DefaultAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Back button sits on the right (= start in RTL)
-              SizedBox(width: 40.w, child: leading),
+              SizedBox(width: 40, child: leading),
 
               // Actions sit on the left (= end in RTL)
               if (actions.isNotEmpty)

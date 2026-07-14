@@ -211,7 +211,7 @@ class _HomeLocationState extends StatelessWidget {
     return ListView(
       padding:
           EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-          EdgeInsets.only(top: 24.h, bottom: bottomSafeAreaPadding + 24.h),
+          EdgeInsets.only(top: 24, bottom: bottomSafeAreaPadding + 24.h),
       children: [
         Align(
           alignment: Alignment.center,
@@ -225,8 +225,8 @@ class _HomeLocationState extends StatelessWidget {
         26.verticalSpace,
         SvgPicture.asset(
           Assets.svg.locationMap.path,
-          width: 280.w,
-          height: 196.h,
+          width: 280,
+          height: 196,
           fit: BoxFit.fitWidth,
         ),
         22.verticalSpace,
@@ -253,7 +253,7 @@ class _HomeLocationState extends StatelessWidget {
           onTap: () {
             onAction();
           },
-          height: 50.h,
+          height: 50,
           width: double.infinity,
           borderRadius: SizeM.commonBorderRadius.r,
           backgroundColor: ColorM.primary500,
@@ -292,7 +292,7 @@ class _LocationStateBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8.h),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(100.r),

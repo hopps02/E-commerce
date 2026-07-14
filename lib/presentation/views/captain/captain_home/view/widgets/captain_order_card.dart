@@ -81,7 +81,7 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 1.h, color: ColorM.gray250);
+    return Container(height: 1, color: ColorM.gray250);
   }
 }
 
@@ -99,8 +99,8 @@ class _OrderHeader extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 36.w,
-              height: 36.w,
+              width: 36,
+              height: 36,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 color: ColorM.primary50,
@@ -111,8 +111,8 @@ class _OrderHeader extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 Assets.svg.box.path,
-                width: 18.w,
-                height: 18.w,
+                width: 18,
+                height: 18,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -154,8 +154,8 @@ class _LocationRow extends StatelessWidget {
       children: [
         SvgPicture.asset(
           Assets.svg.borderLocation.path,
-          width: 18.w,
-          height: 18.w,
+          width: 18,
+          height: 18,
           colorFilter: const ColorFilter.mode(ColorM.gray950, BlendMode.srcIn),
         ),
         6.horizontalSpace,
@@ -195,8 +195,8 @@ class _CustomerRow extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 32.w,
-                height: 32.w,
+                width: 32,
+                height: 32,
                 alignment: Alignment.center,
                 decoration: ShapeDecoration(
                   color: ColorM.gray100,
@@ -207,8 +207,8 @@ class _CustomerRow extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   Assets.svg.user.path,
-                  width: 14.w,
-                  height: 14.w,
+                  width: 14,
+                  height: 14,
                   colorFilter: const ColorFilter.mode(
                     ColorM.gray700,
                     BlendMode.srcIn,
@@ -221,7 +221,7 @@ class _CustomerRow extends StatelessWidget {
                 style: context.labelMedium.copyWith(
                   color: ColorM.gray700,
                   fontWeight: FontWeightM.medium,
-                  fontSize: 12.sp,
+                  fontSize: 12,
                 ),
               ),
             ],
@@ -230,8 +230,8 @@ class _CustomerRow extends StatelessWidget {
             onTap: onTapCall,
             behavior: HitTestBehavior.opaque,
             child: Container(
-              width: 32.w,
-              height: 32.w,
+              width: 32,
+              height: 32,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 color: const Color(0xFFDCFCE7),
@@ -242,8 +242,8 @@ class _CustomerRow extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 Assets.svg.callCalling.path,
-                width: 14.w,
-                height: 14.w,
+                width: 14,
+                height: 14,
                 colorFilter: const ColorFilter.mode(
                   Color(0xFF16A34A),
                   BlendMode.srcIn,
@@ -283,12 +283,12 @@ class _OpenButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      height: 36.h,
-      width: 115.w,
+      height: 36,
+      width: 115,
       backgroundColor: ColorM.primary500,
       borderRadius: 29.r,
       smoothness: 1,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
         intensity: 0.2,
@@ -309,7 +309,7 @@ class _OpenButton extends StatelessWidget {
             context.isLTR
                 ? Icons.arrow_circle_right_rounded
                 : Icons.arrow_circle_left_rounded,
-            size: 14.w,
+            size: 14,
             color: ColorM.white,
           ),
         ],
@@ -345,8 +345,8 @@ class _StatusLabel extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 7.w,
-          height: 7.w,
+          width: 7,
+          height: 7,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         6.horizontalSpace,

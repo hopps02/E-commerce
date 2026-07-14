@@ -39,7 +39,7 @@ class NotificationTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.r),
           border: Border.all(
             color: unread ? ColorM.primary100 : ColorM.gray150,
-            width: 1.w,
+            width: 1,
           ),
         ),
         child: Row(
@@ -88,8 +88,8 @@ class NotificationTile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(top: 5.h),
                           child: Container(
-                            width: 8.w,
-                            height: 8.w,
+                            width: 8,
+                            height: 8,
                             decoration: const BoxDecoration(
                               color: ColorM.red,
                               shape: BoxShape.circle,
@@ -130,14 +130,14 @@ class _TypeIcon extends StatelessWidget {
         ? Icon(style.icon, color: style.color, size: 22.sp)
         : SvgPicture.asset(
             style.assetPath!,
-            width: 22.sp,
-            height: 22.sp,
+            width: 22,
+            height: 22,
             colorFilter: ColorFilter.mode(style.color, BlendMode.srcIn),
           );
 
     return Container(
-      width: 42.w,
-      height: 42.w,
+      width: 42,
+      height: 42,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: style.color.withValues(alpha: .12),

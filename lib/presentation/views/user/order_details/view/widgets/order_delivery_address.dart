@@ -15,7 +15,7 @@ class OrderDeliveryAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,

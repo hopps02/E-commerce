@@ -25,7 +25,7 @@ class ProfilePhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 8.h,
+      spacing: 8,
       children: [
         Text(
           Translation.mobile_number.tr,
@@ -40,7 +40,7 @@ class ProfilePhoneField extends StatelessWidget {
           prefixWidget: IgnorePointer(
             ignoring: true,
             child: Row(
-              spacing: 5.w,
+              spacing: 5,
               mainAxisSize: MainAxisSize.min,
               children: [
                 FastCountryCodeButton(
@@ -50,7 +50,7 @@ class ProfilePhoneField extends StatelessWidget {
                   ),
                   onSelectionChange: (cCode) {},
                 ),
-                Container(width: 1.w, height: 32.w, color: ColorM.gray300),
+                Container(width: 1, height: 32, color: ColorM.gray300),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -62,7 +62,7 @@ class ProfilePhoneField extends StatelessWidget {
                         Text(
                           Translation.mobile_number.tr,
                           style: context.bodyMedium.copyWith(
-                            fontSize: 8.sp,
+                            fontSize: 8,
                             color: ColorM.gray600,
                           ),
                         ),
@@ -80,11 +80,7 @@ class ProfilePhoneField extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          width: 1.w,
-                          height: 22.w,
-                          color: ColorM.gray300,
-                        ),
+                        Container(width: 1, height: 22, color: ColorM.gray300),
                         10.verticalSpace,
                       ],
                     ),

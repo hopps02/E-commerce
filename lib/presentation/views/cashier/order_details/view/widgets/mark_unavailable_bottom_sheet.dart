@@ -17,7 +17,10 @@ class MarkUnavailableBottomSheet extends StatefulWidget {
 
   /// Returns the reason string (possibly empty) when confirmed, or null when
   /// the cashier backs out without confirming.
-  static Future<String?> show(BuildContext context, {required String itemName}) {
+  static Future<String?> show(
+    BuildContext context, {
+    required String itemName,
+  }) {
     return showModalBottomSheet<String>(
       context: context,
       isScrollControlled: true,
@@ -56,15 +59,15 @@ class _MarkUnavailableBottomSheetState
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 24.h),
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 24.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Container(
-                width: 48.w,
-                height: 8.h,
+                width: 48,
+                height: 8,
                 decoration: BoxDecoration(
                   color: const Color(0xFFEEEEEE),
                   borderRadius: BorderRadius.circular(100.r),
@@ -91,8 +94,8 @@ class _MarkUnavailableBottomSheetState
             ),
             16.verticalSpace,
             SimpleForm(
-              height: 48.h,
-              fontSize: 14.sp,
+              height: 48,
+              fontSize: 14,
               borderRadius: 16.r,
               borderColor: ColorM.gray250,
               hintText: Translation.mark_unavailable_reason_hint.tr,
@@ -103,7 +106,7 @@ class _MarkUnavailableBottomSheetState
             CustomInkButton(
               onTap: () =>
                   Navigator.of(context).pop(_reasonController.text.trim()),
-              height: 56.h,
+              height: 56,
               width: double.infinity,
               borderRadius: SizeM.commonBorderRadius.r,
               backgroundColor: const Color(0xFFDC2626),
@@ -120,7 +123,7 @@ class _MarkUnavailableBottomSheetState
             12.verticalSpace,
             CustomInkButton(
               onTap: () => Navigator.of(context).maybePop(),
-              height: 56.h,
+              height: 56,
               width: double.infinity,
               borderRadius: SizeM.commonBorderRadius.r,
               backgroundColor: ColorM.gray50,

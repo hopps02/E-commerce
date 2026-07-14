@@ -61,12 +61,12 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
 
           // App Bar
           const ResponsiveConstrained(
-            maxWidth: 600,
+            maxWidth: 450,
             child: ProductDetailsAppBar(),
           ),
 
           // Thin divider
-          Container(height: 6.h, color: ColorM.gray150),
+          Container(height: 6, color: ColorM.gray150),
 
           // Scrollable body
           Expanded(
@@ -79,7 +79,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
               child: product == null
                   ? const SizedBox.shrink()
                   : ResponsiveConstrained(
-                      maxWidth: 600,
+                      maxWidth: 450,
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),

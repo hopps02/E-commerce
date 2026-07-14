@@ -30,12 +30,12 @@ class SectionsData extends ConsumerWidget {
           padding:
               EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
               EdgeInsets.only(
-                top: 16.h,
-                bottom: context.bottomPadding + SizeM.pagePadding.w,
+                top: 16,
+                bottom: context.bottomPadding + SizeM.pagePadding,
               ),
           child: Wrap(
-            spacing: 15.w,
-            runSpacing: 16.h,
+            spacing: 15,
+            runSpacing: 16,
             alignment: WrapAlignment.start,
             children: [
               for (final category in sectionsState.categories)

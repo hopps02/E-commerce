@@ -21,7 +21,7 @@ class Orders extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
         child: Column(
-          spacing: 10.h,
+          spacing: 10,
           crossAxisAlignment: .start,
           children: [
             Text(

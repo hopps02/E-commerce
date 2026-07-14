@@ -12,7 +12,7 @@ class GradientBackground extends StatelessWidget {
       child: IgnorePointer(
         ignoring: true,
         child: Container(
-          height: 140.h,
+          height: 140,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,

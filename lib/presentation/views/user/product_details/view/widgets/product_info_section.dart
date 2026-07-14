@@ -56,10 +56,10 @@ class _AvailabilityBadge extends StatelessWidget {
 
     return Container(
       padding: EdgeInsetsDirectional.only(
-        start: 10.w,
-        end: 12.w,
-        top: 7.h,
-        bottom: 7.h,
+        start: 10,
+        end: 12,
+        top: 7,
+        bottom: 7,
       ),
       decoration: ShapeDecoration(
         color: backgroundColor,
@@ -68,26 +68,24 @@ class _AvailabilityBadge extends StatelessWidget {
           borderRadius: BorderRadius.circular(99.r),
           side: GradientBorderSide(
             color: accentColor.withValues(alpha: 0.18),
-            width: 1.w,
+            width: 1,
           ),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        spacing: 6.w,
+        spacing: 6,
         children: [
           Container(
-            width: 6.w,
-            height: 6.w,
+            width: 6,
+            height: 6,
             decoration: BoxDecoration(
               color: accentColor,
               borderRadius: BorderRadius.circular(99),
             ),
           ),
           Text(
-            isAvailable
-                ? Translation.available.tr
-                : Translation.unavailable.tr,
+            isAvailable ? Translation.available.tr : Translation.unavailable.tr,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: context.labelMedium.copyWith(

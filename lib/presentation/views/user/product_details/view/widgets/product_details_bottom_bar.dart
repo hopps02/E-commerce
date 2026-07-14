@@ -42,12 +42,12 @@ class ProductDetailsBottomBar extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(height: 1.h, color: ColorM.gray150),
+          Container(height: 1, color: ColorM.gray150),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
-              16.w,
-              14.h,
-              16.w,
+              16,
+              14,
+              16,
               14.h + context.bottomSafeAreaPadding,
             ),
             child: Row(
@@ -143,7 +143,7 @@ class _PriceBlock extends StatelessWidget {
                 style: context.titleMedium.copyWith(
                   color: ColorM.primary700,
                   fontWeight: FontWeightM.bold,
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   height: 1,
                 ),
               ),
@@ -178,7 +178,7 @@ class _SaveBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3.h),
       decoration: ShapeDecoration(
         color: ColorM.primary50,
         shape: SmoothRectangleBorder(
@@ -191,7 +191,7 @@ class _SaveBadge extends StatelessWidget {
         style: context.labelMedium.copyWith(
           color: ColorM.primary600,
           fontWeight: FontWeightM.bold,
-          fontSize: 11.sp,
+          fontSize: 11,
           height: 1,
         ),
       ),
@@ -208,7 +208,7 @@ class _AddToCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      height: 48.h,
+      height: 48,
       borderRadius: 15.r,
       smoothness: 0.8,
       backgroundColor: ColorM.primary500,
@@ -229,11 +229,7 @@ class _AddToCartButton extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.add_shopping_cart_rounded,
-            color: ColorM.white,
-            size: 19.sp,
-          ),
+          Icon(Icons.add_shopping_cart_rounded, color: ColorM.white, size: 19),
           8.horizontalSpace,
           Text(
             Translation.add_to_cart.tr,
@@ -255,7 +251,7 @@ class _OutOfStockChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48.h,
+      height: 48,
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: ShapeDecoration(
@@ -312,8 +308,8 @@ class _QuantityStepper extends StatelessWidget {
         : [decreaseControl, quantityLabel, increaseControl];
 
     return Container(
-      width: 132.w,
-      height: 48.h,
+      width: 132,
+      height: 48,
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: ShapeDecoration(
         color: ColorM.gray100,
@@ -347,14 +343,14 @@ class _StepperControl extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       enabled: enabled,
-      width: 36.w,
-      height: 36.w,
+      width: 36,
+      height: 36,
       borderRadius: 11.r,
       smoothness: 0.8,
       backgroundColor: enabled ? ColorM.white : ColorM.gray150,
       side: GradientBorderSide(
         color: enabled ? ColorM.primary50 : ColorM.gray250,
-        width: 1.w,
+        width: 1,
       ),
       pressEffect: const ButtonAnimationSettings(
         ButtonAnimation.scaleHold,
@@ -363,7 +359,7 @@ class _StepperControl extends StatelessWidget {
       ),
       child: Icon(
         icon,
-        size: 20.sp,
+        size: 20,
         color: enabled ? ColorM.primary550 : ColorM.gray500,
       ),
     );
@@ -378,7 +374,7 @@ class _QuantityLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 34.w,
+      width: 34,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 180),
         switchInCurve: Curves.easeOutCubic,

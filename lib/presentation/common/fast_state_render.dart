@@ -61,8 +61,8 @@ class FastStateRender extends StatelessWidget {
           child: Lottie.asset(
             Assets.lottieAnimations.sandyLoading.path,
             key: const Key("loading-lottie-fast-render"),
-            width: 100.w,
-            height: 100.w,
+            width: 100,
+            height: 100,
             repeat: true,
             fit: BoxFit.contain,
           ),
@@ -80,7 +80,7 @@ class FastStateRender extends StatelessWidget {
         alignment: alignment,
         child: GeneralPadding(
           child: Column(
-            spacing: 10.w,
+            spacing: 10,
             mainAxisSize: .min,
             mainAxisAlignment: .center,
             crossAxisAlignment: .center,
@@ -89,12 +89,12 @@ class FastStateRender extends StatelessWidget {
                   Lottie.asset(
                     Assets.lottieAnimations.empty.path,
                     key: const Key("empty-lottie-fast-render"),
-                    width: 200.w,
-                    height: 200.w,
+                    width: 200,
+                    height: 200,
                     repeat: true,
                     fit: BoxFit.contain,
                   ),
-          
+
               Text(
                 errorMessage.trim().isEmpty
                     ? Translation.no_data_found.tr
@@ -105,7 +105,7 @@ class FastStateRender extends StatelessWidget {
                   color: ColorM.gray600,
                 ),
               ),
-          
+
               if (onRetry != null) ...[
                 10.verticalSpace,
                 RetryButton(onRetry: onRetry),

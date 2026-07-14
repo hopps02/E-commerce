@@ -95,8 +95,8 @@ class _CartItemCardState extends State<CartItemCard> {
         children: [
           // Right Side in RTL (Start): Image
           Container(
-            width: 73.w,
-            height: 80.h,
+            width: 73,
+            height: 80,
             decoration: BoxDecoration(
               border: Border.all(color: ColorM.gray200, width: 1.w),
               borderRadius: BorderRadius.circular(12.r),
@@ -139,13 +139,13 @@ class _CartItemCardState extends State<CartItemCard> {
                             6.verticalSpace,
                             Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8.w,
-                                vertical: 4.h,
+                                horizontal: 8,
+                                vertical: 4,
                               ),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: ColorM.gray200,
-                                  width: 1.w,
+                                  width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
@@ -167,13 +167,10 @@ class _CartItemCardState extends State<CartItemCard> {
                       onTap: widget.onDelete,
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(
-                          start: 8.w,
-                          bottom: 8.h,
+                          start: 8,
+                          bottom: 8,
                         ),
-                        child: SvgPicture.asset(
-                          Assets.svg.bin.path,
-                          width: 20.w,
-                        ),
+                        child: SvgPicture.asset(Assets.svg.bin.path, width: 20),
                       ),
                     ),
                   ],
@@ -188,7 +185,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     // Price (Right Side in RTL)
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      spacing: 3.w,
+                      spacing: 3,
                       children: [
                         Text(
                           Money.amount(widget.priceHalalas),
@@ -199,7 +196,7 @@ class _CartItemCardState extends State<CartItemCard> {
                         ),
                         SvgPicture.asset(
                           Assets.svg.saudiRiyalSymbol.path,
-                          width: 13.sp,
+                          width: 13,
                           colorFilter: const ColorFilter.mode(
                             ColorM.primary700,
                             BlendMode.srcIn,
@@ -210,14 +207,11 @@ class _CartItemCardState extends State<CartItemCard> {
 
                     // Counter (Left Side in RTL)
                     Container(
-                      width: 71.w,
+                      width: 71,
                       padding: EdgeInsets.all(2.w),
                       decoration: BoxDecoration(
                         color: ColorM.primary50,
-                        border: Border.all(
-                          color: ColorM.primary50,
-                          width: 0.5.w,
-                        ),
+                        border: Border.all(color: ColorM.primary50, width: 0.5),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
@@ -228,7 +222,7 @@ class _CartItemCardState extends State<CartItemCard> {
                             onTap: () => _handleQuantityChange(1),
                             child: SvgPicture.asset(
                               Assets.svg.addSquare.path,
-                              width: 20.w,
+                              width: 20,
                               colorFilter: ColorFilter.mode(
                                 ColorM.primary550,
                                 BlendMode.srcIn,
@@ -240,14 +234,14 @@ class _CartItemCardState extends State<CartItemCard> {
                             style: context.bodySmall.copyWith(
                               color: ColorM.gray1000,
                               fontWeight: FontWeightM.bold,
-                              fontSize: 12.sp,
+                              fontSize: 12,
                             ),
                           ),
                           GestureDetector(
                             onTap: () => _handleQuantityChange(-1),
                             child: SvgPicture.asset(
                               Assets.svg.minusSquare.path,
-                              width: 20.w,
+                              width: 20,
                             ),
                           ),
                         ],

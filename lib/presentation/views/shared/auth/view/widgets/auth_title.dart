@@ -21,7 +21,7 @@ class AuthTitle extends StatelessWidget {
         Text(
           Translation.enter_mobile_to_continue.tr,
           style: context.bodyMedium.copyWith(
-            fontSize: 15.sp,
+            fontSize: 15,
             color: ColorM.gray500,
           ),
         ),

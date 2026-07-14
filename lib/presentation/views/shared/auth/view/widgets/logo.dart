@@ -13,7 +13,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       Assets.svg.appLogo.path,
-      width: 155.w,
+      width: 155,
       colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
     ).premiumAppear(index: 0);
   }

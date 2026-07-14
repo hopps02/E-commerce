@@ -21,8 +21,8 @@ class AssignCaptainHeader extends StatelessWidget {
             children: [
               CustomInkButton(
                 onTap: onClose,
-                width: 28.w,
-                height: 28.w,
+                width: 28,
+                height: 28,
                 padding: EdgeInsets.zero,
                 borderRadius: 999,
                 backgroundColor: const Color(0xFFFEE2E2),
@@ -33,7 +33,7 @@ class AssignCaptainHeader extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.close_rounded,
-                  size: 16.sp,
+                  size: 16,
                   color: const Color(0xFFDC2626),
                 ),
               ),
@@ -46,7 +46,7 @@ class AssignCaptainHeader extends StatelessWidget {
                       style: context.bodyLarge.copyWith(
                         color: const Color(0xFF231F20),
                         fontWeight: FontWeightM.medium,
-                        fontSize: 20.sp,
+                        fontSize: 20,
                       ),
                     ),
                   ],
@@ -55,7 +55,7 @@ class AssignCaptainHeader extends StatelessWidget {
             ],
           ),
           16.verticalSpace,
-          Container(height: 1.h, color: ColorM.primary50),
+          Container(height: 1, color: ColorM.primary50),
         ],
       ),
     );

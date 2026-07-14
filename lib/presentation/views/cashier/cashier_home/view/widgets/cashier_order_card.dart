@@ -87,10 +87,7 @@ class CashierOnTheWayCard extends StatelessWidget {
         12.verticalSpace,
         const _Divider(),
         12.verticalSpace,
-        _OnTheWayFooter(
-          status: order.uiStatus,
-          onTapDetails: onTapDetails,
-        ),
+        _OnTheWayFooter(status: order.uiStatus, onTapDetails: onTapDetails),
       ],
     );
   }
@@ -159,7 +156,7 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 1.h, color: ColorM.gray250);
+    return Container(height: 1, color: ColorM.gray250);
   }
 }
 
@@ -175,7 +172,7 @@ class _ProductsRow extends StatelessWidget {
     final count = order.itemsCount ?? items.length;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
       decoration: ShapeDecoration(
         color: ColorM.primary50.withValues(alpha: 0.4),
         shape: SmoothRectangleBorder(
@@ -224,14 +221,14 @@ class _ProductImagesStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 67.w,
-      height: 52.h,
+      width: 67,
+      height: 52,
       child: Stack(
         alignment: Alignment.center,
         children: [
           if (imageUrls.length > 1)
             Positioned(
-              right: 21.w,
+              right: 21,
               child: Transform.rotate(
                 angle: -19 * (math.pi / 180),
                 child: _productThumb(_url(1), offset: Offset(-5, 10)),
@@ -239,8 +236,8 @@ class _ProductImagesStack extends StatelessWidget {
             ),
           if (imageUrls.length > 2)
             Positioned(
-              right: 4.w,
-              top: 6.h,
+              right: 4,
+              top: 6,
               child: Transform.rotate(
                 angle: 15 * (math.pi / 180),
                 child: _productThumb(_url(2), offset: Offset(5, 10)),
@@ -249,8 +246,8 @@ class _ProductImagesStack extends StatelessWidget {
           Positioned(
             child: CustomCachedImage(
               imageUrl: _url(0),
-              width: 38.w,
-              height: 42.h,
+              width: 38,
+              height: 42,
               borderRadius: BorderRadius.circular(6.r),
             ),
           ),
@@ -273,8 +270,8 @@ class _ProductImagesStack extends StatelessWidget {
       ),
       child: CustomCachedImage(
         imageUrl: url,
-        width: 38.w,
-        height: 42.h,
+        width: 38,
+        height: 42,
         borderRadius: BorderRadius.circular(6.r),
       ),
     );
@@ -291,8 +288,8 @@ class _LocationRow extends StatelessWidget {
       children: [
         SvgPicture.asset(
           Assets.svg.borderLocation.path,
-          width: 18.w,
-          height: 18.w,
+          width: 18,
+          height: 18,
           colorFilter: const ColorFilter.mode(ColorM.gray950, BlendMode.srcIn),
         ),
         6.horizontalSpace,
@@ -329,8 +326,8 @@ class _CaptainAndLocationRow extends StatelessWidget {
           children: [
             SvgPicture.asset(
               Assets.svg.borderLocation.path,
-              width: 16.w,
-              height: 16.w,
+              width: 16,
+              height: 16,
               colorFilter: const ColorFilter.mode(
                 ColorM.gray950,
                 BlendMode.srcIn,
@@ -356,7 +353,7 @@ class _CaptainAndLocationRow extends StatelessWidget {
             ),
             6.horizontalSpace,
             ClipOval(
-              child: CustomCachedImage(imageUrl: '', width: 18.w, height: 18.w),
+              child: CustomCachedImage(imageUrl: '', width: 18, height: 18.w),
             ),
             6.horizontalSpace,
             Expanded(
@@ -386,11 +383,11 @@ class _PrimaryActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      height: 42.h,
+      height: 42,
       backgroundColor: ColorM.primary50,
       borderRadius: 29.r,
       smoothness: 1,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
         intensity: 0.2,
@@ -445,8 +442,8 @@ class _OnTheWayFooter extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 7.w,
-              height: 7.w,
+              width: 7,
+              height: 7,
               decoration: BoxDecoration(
                 color: statusColor,
                 shape: BoxShape.circle,
@@ -464,11 +461,11 @@ class _OnTheWayFooter extends StatelessWidget {
         ),
         CustomInkButton(
           onTap: onTapDetails,
-          height: 42.h,
+          height: 42,
           backgroundColor: ColorM.primary50,
           borderRadius: 29.r,
           smoothness: 1,
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
           tap: const ButtonAnimationSettings(
             ButtonAnimation.scaleTap,
             intensity: 0.2,
@@ -503,7 +500,7 @@ class _LeadingArrow extends StatelessWidget {
       context.isLTR
           ? Icons.arrow_circle_right_rounded
           : Icons.arrow_circle_left_rounded,
-      size: 18.w,
+      size: 18,
       color: color,
     );
   }

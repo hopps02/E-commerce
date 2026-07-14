@@ -25,7 +25,7 @@ class MyOrderTapButton extends StatelessWidget {
           ? GradientBorderSide.none
           : const GradientBorderSide(color: ColorM.primary50, width: 1),
       borderRadius: 29.r,
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8.h),
       child: Text(
         title,
         style: context.labelMedium.copyWith(

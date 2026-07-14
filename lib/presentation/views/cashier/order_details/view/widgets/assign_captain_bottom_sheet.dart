@@ -63,7 +63,7 @@ class _AssignCaptainBottomSheetState
 
     return Container(
       width: double.infinity,
-      height: 668.h,
+      height: 668,
       margin: EdgeInsets.only(bottom: context.bottomViewInsetsMedia, top: 10.h),
       decoration: BoxDecoration(
         color: ColorM.white,
@@ -77,8 +77,8 @@ class _AssignCaptainBottomSheetState
         child: Column(
           children: [
             Container(
-              width: 48.w,
-              height: 8.h,
+              width: 48,
+              height: 8,
               decoration: BoxDecoration(
                 color: const Color(0xFFEEEEEE),
                 borderRadius: BorderRadius.circular(100.r),
@@ -100,8 +100,8 @@ class _AssignCaptainBottomSheetState
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: SimpleForm(
-                        height: 44.h,
-                        fontSize: 14.sp,
+                        height: 44,
+                        fontSize: 14,
                         borderRadius: 38.r,
                         borderColor: ColorM.primary50,
                         hintText: Translation.search_hint.tr,
@@ -110,8 +110,8 @@ class _AssignCaptainBottomSheetState
                         onChanged: notifier.setQuery,
                         prefixWidget: SvgPicture.asset(
                           Assets.svg.search.path,
-                          width: 18.w,
-                          height: 18.w,
+                          width: 18,
+                          height: 18,
                           colorFilter: const ColorFilter.mode(
                             ColorM.gray600,
                             BlendMode.srcIn,
@@ -123,8 +123,8 @@ class _AssignCaptainBottomSheetState
                     Expanded(
                       child: ListView.separated(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.h,
+                          horizontal: 16,
+                          vertical: 8,
                         ),
                         itemCount: state.filtered.length,
                         separatorBuilder: (_, _) => 11.verticalSpace,

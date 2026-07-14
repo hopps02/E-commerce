@@ -83,17 +83,17 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16.h,
-                horizontal: SizeM.pagePadding.w,
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
               ),
               title: Translation.new_ticket.tr,
             ),
-            Container(height: 6.h, color: ColorM.gray150),
+            Container(height: 6, color: ColorM.gray150),
             Expanded(
               child: ListView(
                 padding:
                     EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                    EdgeInsets.only(top: 20.h, bottom: 24.h),
+                    EdgeInsets.only(top: 20, bottom: 24.h),
                 children: [
                   LabeledField(
                     label: Translation.ticket_subject.tr,
@@ -102,7 +102,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       hintText: Translation.ticket_subject_hint.tr,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      height: 52.h,
+                      height: 52,
                       borderRadius: 17.r,
                       backgroundColor: ColorM.gray100,
                       borderColor: ColorM.gray100,
@@ -118,15 +118,15 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       focusNode: _descriptionFocus,
                       hintText: Translation.ticket_message_hint.tr,
                       keyboardType: TextInputType.multiline,
-                      height: 140.h,
+                      height: 140,
                       maxLines: 6,
                       borderRadius: 15.r,
                       backgroundColor: ColorM.gray100,
                       borderColor: ColorM.gray100,
                       alignment: AlignmentDirectional.topStart,
                       padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                        vertical: 12.h,
+                        horizontal: 16,
+                        vertical: 12,
                       ),
                       textAlign: TextAlign.start,
                     ),
@@ -138,7 +138,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       borderRadius: BorderRadius.circular(17.r),
                       onTap: _pickOrder,
                       child: Container(
-                        height: 52.h,
+                        height: 52,
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         decoration: BoxDecoration(
                           color: ColorM.gray100,
@@ -148,7 +148,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                           children: [
                             Icon(
                               Icons.receipt_long_outlined,
-                              size: 20.w,
+                              size: 20,
                               color: ColorM.gray500,
                             ),
                             10.horizontalSpace,
@@ -178,16 +178,16 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(
-                SizeM.pagePadding.w,
-                8.h,
-                SizeM.pagePadding.w,
+                SizeM.pagePadding,
+                8,
+                SizeM.pagePadding,
                 12.h + context.bottomSafeAreaPadding,
               ),
               child: CustomInkButton(
                 onTap: _submit,
                 isLoading: state.submitting,
                 width: double.infinity,
-                height: 56.h,
+                height: 56,
                 backgroundColor: ColorM.primary,
                 borderRadius: 16.r,
                 alignment: Alignment.center,

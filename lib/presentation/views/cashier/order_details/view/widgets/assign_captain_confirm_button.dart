@@ -24,7 +24,7 @@ class AssignCaptainConfirmButton extends StatelessWidget {
     return CustomInkButton(
       onTap: enabled ? onConfirm : null,
       enabled: enabled,
-      height: 56.h,
+      height: 56,
       width: double.infinity,
       borderRadius: SizeM.commonBorderRadius.r,
       backgroundColor: enabled ? ColorM.primary500 : const Color(0xFF9CA3AF),

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomizedSmartRefresh extends StatelessWidget {
   final Widget child;
@@ -34,6 +33,31 @@ class CustomizedSmartRefresh extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final refresher = _buildRefresher(context);
+    if (!enableLoading) return refresher;
+
+    // Web / desktop infinite scroll: SmartRefresher's pull-up only fires on an
+    // overscroll drag, which mouse-wheel scrolling never produces — so lists
+    // would stall at the footer. Listen for the scroll approaching the bottom
+    // and trigger the load through the package's own requestLoading(), which
+    // respects the current footer status (idle only → no double-loads, and it
+    // won't fire when there's no more data or a load is in flight).
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        final metrics = notification.metrics;
+        if (metrics.axis == Axis.vertical &&
+            metrics.hasContentDimensions &&
+            metrics.pixels >= metrics.maxScrollExtent - 320 &&
+            controller.footerStatus == LoadStatus.idle) {
+          controller.requestLoading(needMove: false);
+        }
+        return false;
+      },
+      child: refresher,
+    );
+  }
+
+  Widget _buildRefresher(BuildContext context) {
     return SmartRefresher(
       controller: controller,
       scrollController: scrollController,
@@ -45,7 +69,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
         releaseIcon: Icon(Icons.refresh, color: ColorM.primary),
         refreshingIcon: SizedBox(
           width: 25.0,
-          height: 50.0.w,
+          height: 50.0,
           child: Center(
             child: SizedBox(
               width: 25.0,
@@ -82,11 +106,11 @@ class CustomizedSmartRefresh extends StatelessWidget {
         failedText: Translation.failed_loading.tr,
         idleText: Translation.load_more.tr,
         canLoadingText: Translation.load_more.tr,
-        spacing: 12.w,
+        spacing: 12,
         height: 50 + (classicFooterPadding?.vertical ?? 0),
         loadingIcon: SizedBox(
-          width: 15.w,
-          height: 15.w,
+          width: 15,
+          height: 15,
           child: CircularProgressIndicator(
             color: ColorM.primary,
             valueColor: AlwaysStoppedAnimation<Color>(ColorM.primary),

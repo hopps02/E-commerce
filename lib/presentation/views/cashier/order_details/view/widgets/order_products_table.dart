@@ -21,7 +21,7 @@ class OrderProductsTable extends ConsumerWidget {
     final notifier = ref.read(cashierOrderDetailsController.notifier);
     final headerStyle = context.labelLarge.copyWith(
       color: ColorM.gray600,
-      fontSize: 12.sp,
+      fontSize: 12,
       height: 16 / 12,
     );
 
@@ -32,17 +32,17 @@ class OrderProductsTable extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 181.w,
+              width: 181,
               child: Text(Translation.product.tr, style: headerStyle),
             ),
             SizedBox(
-              width: 43.w,
+              width: 43,
               child: Center(
                 child: Text(Translation.quantity.tr, style: headerStyle),
               ),
             ),
             SizedBox(
-              width: 43.w,
+              width: 43,
               child: Center(
                 child: Text(Translation.prepared.tr, style: headerStyle),
               ),
@@ -50,7 +50,7 @@ class OrderProductsTable extends ConsumerWidget {
           ],
         ),
         12.verticalSpace,
-        Container(height: 1.h, color: ColorM.gray250),
+        Container(height: 1, color: ColorM.gray250),
         for (final product in state.products) ...[
           12.verticalSpace,
           GestureDetector(
@@ -77,7 +77,7 @@ class OrderProductsTable extends ConsumerWidget {
             ),
           ),
           12.verticalSpace,
-          Container(height: 1.h, color: ColorM.gray250),
+          Container(height: 1, color: ColorM.gray250),
         ],
       ],
     );
@@ -102,12 +102,12 @@ class _ProductRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          width: 181.w,
+          width: 181,
           child: Row(
             children: [
               Container(
-                width: 38.w,
-                height: 34.h,
+                width: 38,
+                height: 34,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7.r),
                   border: Border.all(color: ColorM.gray250, width: 0.7.w),
@@ -115,8 +115,8 @@ class _ProductRow extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 child: CustomCachedImage(
                   imageUrl: product.imageUrl,
-                  width: 38.w,
-                  height: 34.h,
+                  width: 38,
+                  height: 34,
                 ),
               ),
               6.horizontalSpace,
@@ -129,7 +129,7 @@ class _ProductRow extends StatelessWidget {
                       product.name,
                       style: context.labelSmall.copyWith(
                         color: ColorM.gray900,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         height: 1.2,
                       ),
                       maxLines: 2,
@@ -140,8 +140,8 @@ class _ProductRow extends StatelessWidget {
                       children: [
                         SvgPicture.asset(
                           Assets.svg.saudiRiyalSymbol.path,
-                          width: 7.w,
-                          height: 8.h,
+                          width: 7,
+                          height: 8,
                           colorFilter: const ColorFilter.mode(
                             ColorM.primary700,
                             BlendMode.srcIn,
@@ -153,7 +153,7 @@ class _ProductRow extends StatelessWidget {
                           style: context.labelSmall.copyWith(
                             color: ColorM.primary700,
                             fontWeight: FontWeightM.semiBold,
-                            fontSize: 10.7.sp,
+                            fontSize: 10.7,
                             height: 1.2,
                           ),
                         ),
@@ -166,19 +166,19 @@ class _ProductRow extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 43.w,
+          width: 43,
           child: Text(
             '${product.quantity}',
             textAlign: TextAlign.center,
             style: context.labelLarge.copyWith(
               color: ColorM.gray600,
-              fontSize: 12.sp,
+              fontSize: 12,
               height: 1.2,
             ),
           ),
         ),
         SizedBox(
-          width: 43.w,
+          width: 43,
           child: InkResponse(
             onTap: editable ? onToggle : null,
             radius: 18.r,
@@ -197,19 +197,19 @@ class _Checkbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 16.w,
-      height: 16.w,
+      width: 16,
+      height: 16,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: checked ? ColorM.primary500 : ColorM.transparent,
         border: Border.all(
           color: checked ? ColorM.primary500 : ColorM.gray300,
-          width: 1.5.w,
+          width: 1.5,
         ),
       ),
       alignment: Alignment.center,
       child: checked
-          ? Icon(Icons.check_rounded, size: 10.sp, color: ColorM.white)
+          ? Icon(Icons.check_rounded, size: 10, color: ColorM.white)
           : null,
     );
   }

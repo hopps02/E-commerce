@@ -50,7 +50,7 @@ class _CashierOrderDetailsViewState
     return Scaffold(
       backgroundColor: ColorM.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: SafeArea(
           child: FastStateRender(
             reqState: state.reqState,

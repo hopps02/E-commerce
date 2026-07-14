@@ -53,6 +53,7 @@ class MyAppState extends State<MyApp> {
               return MaterialApp.router(
                 scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
                 debugShowCheckedModeBanner: false,
+                scrollBehavior: const AppScrollBehavior(),
                 theme: ThemeManager.lightTheme(context),
                 themeMode: ThemeMode.light,
                 localizationsDelegates: context.localizationDelegates,
@@ -91,4 +92,21 @@ class MyAppState extends State<MyApp> {
   }
 
   ThemeMode get themeMode => ThemeMode.light;
+}
+
+/// Lets the mouse drag-scroll (and drive pull-to-refresh / pull-up gestures) on
+/// web and desktop. Flutter's default behaviour only allows wheel/scrollbar
+/// input for a mouse, so `SmartRefresher`'s pull gestures never fired there.
+class AppScrollBehavior extends MaterialScrollBehavior {
+  const AppScrollBehavior();
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.trackpad,
+    PointerDeviceKind.stylus,
+    PointerDeviceKind.invertedStylus,
+    PointerDeviceKind.unknown,
+  };
 }

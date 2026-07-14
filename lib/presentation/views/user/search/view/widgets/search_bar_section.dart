@@ -23,15 +23,15 @@ class SearchBarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      // height: 72.h,
+      // height: 72,
       padding: EdgeInsets.symmetric(vertical: 17.h),
       child: DefaultAppBar(
         actionButtons: [
           16.horizontalSpace,
           Expanded(
             child: SimpleForm(
-              height: 38.h,
-              fontSize: 14.sp,
+              height: 38,
+              fontSize: 14,
               borderRadius: 12.r,
               smoothness: 0,
               enableActiveBorder: true,
@@ -40,7 +40,7 @@ class SearchBarSection extends StatelessWidget {
               keyboardType: TextInputType.text,
               controller: controller,
               onChanged: onChanged,
-              prefixWidget: Assets.svg.search.svg(width: 18.w, height: 18.w),
+              prefixWidget: Assets.svg.search.svg(width: 18, height: 18.w),
             ),
           ),
         ],

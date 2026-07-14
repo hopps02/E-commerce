@@ -14,7 +14,7 @@ class OtpBottomSheetTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 8.h,
+      spacing: 8,
       crossAxisAlignment: .start,
       children: [
         Text(
@@ -28,7 +28,7 @@ class OtpBottomSheetTitle extends StatelessWidget {
           text: TextSpan(
             style: context.bodyMedium.copyWith(
               color: ColorM.gray500,
-              fontSize: 13.sp,
+              fontSize: 13,
             ),
             children: [
               TextSpan(text: Translation.verification_code_sent_part1.tr),

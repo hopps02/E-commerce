@@ -68,78 +68,78 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
         maxWidth: 550,
         child: Column(
           children: [
-          SizedBox(height: context.topSafeAreaPadding),
-          DefaultAppBar(
-            padding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: SizeM.pagePadding.w,
-            ),
-            title: Translation.addresses.tr,
-          ).premiumAppear(index: 0),
-          Container(height: 6.h, color: ColorM.gray150).premiumAppear(index: 1),
-          Expanded(
-            child: FastStateRender(
-              reqState: state.reqState,
-              errorMessage: state.errorMessage.trim().isEmpty
-                  ? Translation.no_addresses_yet.tr
-                  : state.errorMessage,
-              alignment: const Alignment(0, -0.22),
-              onRetry: _ensureAccessAndLoad,
-              emptyChild: null,
-              child: ListView.separated(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeM.pagePadding.w,
-                  vertical: 16.h,
+            SizedBox(height: context.topSafeAreaPadding),
+            DefaultAppBar(
+              padding: EdgeInsets.symmetric(
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
+              ),
+              title: Translation.addresses.tr,
+            ).premiumAppear(index: 0),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
+            Expanded(
+              child: FastStateRender(
+                reqState: state.reqState,
+                errorMessage: state.errorMessage.trim().isEmpty
+                    ? Translation.no_addresses_yet.tr
+                    : state.errorMessage,
+                alignment: const Alignment(0, -0.22),
+                onRetry: _ensureAccessAndLoad,
+                emptyChild: null,
+                child: ListView.separated(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeM.pagePadding,
+                    vertical: 16,
+                  ),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: state.addresses.length,
+                  separatorBuilder: (_, _) => 12.verticalSpace,
+                  itemBuilder: (context, index) {
+                    final address = state.addresses[index];
+                    return AddressCard(
+                      address: address,
+                      onEdit: () => _openForm(existing: address),
+                      onDelete: () => _delete(address),
+                      onSetDefault: () async {
+                        if (!await requireLogin(context, ref)) return;
+                        await ref
+                            .read(addressesController.notifier)
+                            .setDefault(address.id);
+                      },
+                    ).premiumAppear(index: index);
+                  },
                 ),
-                physics: const BouncingScrollPhysics(),
-                itemCount: state.addresses.length,
-                separatorBuilder: (_, _) => 12.verticalSpace,
-                itemBuilder: (context, index) {
-                  final address = state.addresses[index];
-                  return AddressCard(
-                    address: address,
-                    onEdit: () => _openForm(existing: address),
-                    onDelete: () => _delete(address),
-                    onSetDefault: () async {
-                      if (!await requireLogin(context, ref)) return;
-                      await ref
-                          .read(addressesController.notifier)
-                          .setDefault(address.id);
-                    },
-                  ).premiumAppear(index: index);
-                },
               ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
       bottomNavigationBar: ResponsiveConstrained(
         maxWidth: 550,
         heightFactor: 1,
         child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          SizeM.pagePadding.w,
-          12.h,
-          SizeM.pagePadding.w,
-          context.bottomSafeAreaPadding + 12.h,
-        ),
-        child: CustomInkButton(
-          onTap: () => _openForm(),
-          height: 56.h,
-          width: double.infinity,
-          backgroundColor: ColorM.primary,
-          borderRadius: 16.r,
-          alignment: Alignment.center,
-          child: Text(
-            Translation.add_address.tr,
-            style: context.bodyLarge.copyWith(
-              color: ColorM.white,
-              fontWeight: FontWeightM.medium,
+          padding: EdgeInsets.fromLTRB(
+            SizeM.pagePadding,
+            12,
+            SizeM.pagePadding,
+            context.bottomSafeAreaPadding + 12,
+          ),
+          child: CustomInkButton(
+            onTap: () => _openForm(),
+            height: 56,
+            width: double.infinity,
+            backgroundColor: ColorM.primary,
+            borderRadius: 16.r,
+            alignment: Alignment.center,
+            child: Text(
+              Translation.add_address.tr,
+              style: context.bodyLarge.copyWith(
+                color: ColorM.white,
+                fontWeight: FontWeightM.medium,
+              ),
             ),
           ),
         ),
-      ),
       ),
     );
   }

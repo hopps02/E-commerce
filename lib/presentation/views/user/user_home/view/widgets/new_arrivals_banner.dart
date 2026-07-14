@@ -17,7 +17,7 @@ class NewArrivalsBanner extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
       child: SizedBox(
-        height: 329.h,
+        height: 329,
         width: double.infinity,
         child: Stack(
           alignment: Alignment.center,
@@ -35,7 +35,7 @@ class NewArrivalsBanner extends StatelessWidget {
 
             // ── Text + button column ───────────────────────────────────
             Positioned(
-              top: 24.h,
+              top: 24,
               left: 0,
               right: 0,
               child: Column(
@@ -46,7 +46,7 @@ class NewArrivalsBanner extends StatelessWidget {
                     Translation.discover_latest_products.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeightM.bold,
                       color: ColorM.white,
                       height: 1.4,
@@ -58,7 +58,7 @@ class NewArrivalsBanner extends StatelessWidget {
                     Translation.fresh_100_percent.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 22.sp,
+                      fontSize: 22,
                       fontWeight: FontWeightM.semiBold,
                       color: ColorM.white,
                       height: 1.5,
@@ -73,15 +73,15 @@ class NewArrivalsBanner extends StatelessWidget {
                         onTap: onShopNowTap,
                         backgroundColor: ColorM.white,
                         borderRadius: 23.r,
-                        // width: 127.w,
-                        height: 36.h,
+                        // width: 127,
+                        height: 36,
                         padding: EdgeInsets.symmetric(horizontal: 23.w),
                         alignment: Alignment.center,
                         child: Text(
                           Translation.start_shopping_now.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 14,
                             fontWeight: FontWeightM.medium,
                             color: ColorM.primary500,
                           ),

@@ -41,7 +41,7 @@ class ProfileMenuItem extends StatelessWidget {
         onTap: onTap,
         borderRadius: 20.r,
         backgroundColor: Colors.transparent,
-        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16.w),
         child: Row(
           children: [
             Container(
@@ -61,14 +61,14 @@ class ProfileMenuItem extends StatelessWidget {
                 style: context.titleMedium.copyWith(
                   fontWeight: FontWeightM.semiBold,
                   color: isDestructive ? ColorM.red : ColorM.gray900,
-                  fontSize: 16.sp,
+                  fontSize: 16,
                 ),
               ),
             ),
             if (showArrow)
               Icon(
                 Icons.arrow_forward_ios_rounded,
-                size: 18.w,
+                size: 18,
                 color: ColorM.gray300,
               ),
           ],

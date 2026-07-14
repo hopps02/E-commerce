@@ -49,7 +49,7 @@ class SupportContactCard extends StatelessWidget {
                   ),
                   child: Icon(
                     Icons.phone_rounded,
-                    size: 20.w,
+                    size: 20,
                     color: ColorM.primary500,
                   ),
                 ),

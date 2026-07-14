@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/extensions/navigation_extension.dart';
 import 'package:store/app/responsive/responsive.dart';
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/validation/validate_phone_field.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/common/general_padding.dart';
@@ -71,11 +72,11 @@ class _AuthViewState extends ConsumerState<AuthView> {
               alignment: Alignment.center,
               child: GeneralPadding(
                 child: ResponsiveConstrained(
-                  maxWidth: 400,
+                  maxWidth: 450,
                   child: Column(
                     children: [
                       119.verticalSpace,
-                      Logo(),
+                      const Logo(),
                       76.verticalSpace,
                       Content(
                         phoneNumberController: phoneNumberController,
@@ -92,13 +93,16 @@ class _AuthViewState extends ConsumerState<AuthView> {
             child: Align(
               alignment: AlignmentDirectional.topStart,
               child: Padding(
-                padding: EdgeInsets.all(8.w),
-                child: IconButton(
-                  onPressed: _returnToBrowsing,
-                  icon: Icon(
+                padding: EdgeInsets.all(20),
+                child: CustomInkButton(
+                  padding: EdgeInsetsDirectional.all(10),
+                  backgroundColor: Colors.black.withValues(alpha: .1),
+                  borderRadius: 9999,
+                  onTap: _returnToBrowsing,
+                  child: Icon(
                     Icons.close_rounded,
                     color: ColorM.primary700,
-                    size: 28.sp,
+                    size: 28,
                   ),
                 ),
               ),

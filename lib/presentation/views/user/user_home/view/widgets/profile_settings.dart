@@ -34,8 +34,8 @@ class ProfileSettings extends ConsumerWidget {
           if (!guestMode) ...[
             ProfileMenuItem(
               icon: Assets.svg.userPen.svg(
-                width: 22.w,
-                height: 22.w,
+                width: 22,
+                height: 22,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -48,8 +48,8 @@ class ProfileSettings extends ConsumerWidget {
             ),
             ProfileMenuItem(
               icon: Assets.svg.borderHeart.svg(
-                width: 22.w,
-                height: 22.w,
+                width: 22,
+                height: 22,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -62,8 +62,8 @@ class ProfileSettings extends ConsumerWidget {
             ),
             ProfileMenuItem(
               icon: Assets.svg.borderLocation.svg(
-                width: 22.w,
-                height: 22.w,
+                width: 22,
+                height: 22,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -77,8 +77,8 @@ class ProfileSettings extends ConsumerWidget {
           ],
           ProfileMenuItem(
             icon: Assets.svg.language.svg(
-              width: 22.w,
-              height: 22.w,
+              width: 22,
+              height: 22,
               colorFilter: const ColorFilter.mode(
                 ColorM.primary500,
                 BlendMode.srcIn,
@@ -96,8 +96,8 @@ class ProfileSettings extends ConsumerWidget {
           if (!guestMode)
             ProfileMenuItem(
               icon: Assets.svg.headphone.svg(
-                width: 22.w,
-                height: 22.w,
+                width: 22,
+                height: 22,
                 colorFilter: const ColorFilter.mode(
                   ColorM.primary500,
                   BlendMode.srcIn,
@@ -110,8 +110,8 @@ class ProfileSettings extends ConsumerWidget {
             ),
           ProfileMenuItem(
             icon: Assets.svg.infoNote.svg(
-              width: 22.w,
-              height: 22.w,
+              width: 22,
+              height: 22,
               colorFilter: const ColorFilter.mode(
                 ColorM.primary500,
                 BlendMode.srcIn,
@@ -125,9 +125,12 @@ class ProfileSettings extends ConsumerWidget {
           if (!guestMode)
             ProfileMenuItem(
               icon: Assets.svg.deleteAccount.svg(
-                width: 22.w,
-                height: 22.w,
-                colorFilter: const ColorFilter.mode(ColorM.red, BlendMode.srcIn),
+                width: 22,
+                height: 22,
+                colorFilter: const ColorFilter.mode(
+                  ColorM.red,
+                  BlendMode.srcIn,
+                ),
               ),
               title: Translation.delete_account.tr,
               isDestructive: true,

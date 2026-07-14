@@ -44,12 +44,10 @@ class ProductsSection extends StatelessWidget {
               ),
               16.verticalSpace,
               SizedBox(
-                height: 200.h,
+                height: 200,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeM.pagePadding.w,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding),
                   itemCount: products.length,
                   separatorBuilder: (context, index) => 12.horizontalSpace,
                   itemBuilder: (context, index) {
@@ -61,7 +59,9 @@ class ProductsSection extends StatelessWidget {
                       quantity: products[index]['quantity'],
                       maxQuantity: products[index]['available'],
                       isFavorite: products[index]['isFavorite'] == true,
-                      onFavTap: onFavTap == null ? null : () => onFavTap!(index),
+                      onFavTap: onFavTap == null
+                          ? null
+                          : () => onFavTap!(index),
                       onTap: onProductTap == null
                           ? null
                           : () => onProductTap!(index),

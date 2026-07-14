@@ -56,7 +56,7 @@ class _CaptainOrderDetailsViewState
     return Scaffold(
       backgroundColor: ColorM.white,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
@@ -67,7 +67,7 @@ class _CaptainOrderDetailsViewState
                 errorMessage: state.msgError,
                 onRetry: () => notifier.load(widget.args.orderId),
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.only(top: 12.h, bottom: 24.h),
+                  padding: EdgeInsets.only(top: 12, bottom: 24.h),
                   child: GeneralPadding(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,

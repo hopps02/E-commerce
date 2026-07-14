@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
             style: context.displaySmall.copyWith(
               fontWeight: FontWeightM.semiBold,
               color: successViewType.isAuth ? ColorM.gray900 : ColorM.white,
-              fontSize: successViewType.isAuth ? 24.sp : 28.sp,
+              fontSize: successViewType.isAuth ? 24.sp : 28,
             ),
           ),
           8.verticalSpace,
@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
             textAlign: TextAlign.center,
             style: context.bodyMedium.copyWith(
               color: successViewType.isAuth ? ColorM.gray600 : ColorM.white,
-              fontSize: 15.sp,
+              fontSize: 15,
             ),
           ),
           31.verticalSpace,
@@ -76,7 +76,7 @@ class Body extends StatelessWidget {
               }
             },
             borderRadius: 12.r,
-            height: 50.h,
+            height: 50,
             backgroundColor: successViewType.isAuth
                 ? ColorM.primary
                 : ColorM.transparent,
@@ -91,7 +91,7 @@ class Body extends StatelessWidget {
               style: context.bodyLarge.copyWith(
                 fontWeight: FontWeightM.semiBold,
                 color: ColorM.white,
-                fontSize: 16.sp,
+                fontSize: 16,
               ),
             ),
           ),

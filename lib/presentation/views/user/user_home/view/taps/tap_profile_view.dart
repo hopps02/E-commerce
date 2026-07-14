@@ -112,9 +112,7 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
   Widget _buildLoadingScaffold() {
     return const Scaffold(
       backgroundColor: Colors.transparent,
-      body: Center(
-        child: CircularProgressIndicator(color: ColorM.primary500),
-      ),
+      body: Center(child: CircularProgressIndicator(color: ColorM.primary500)),
     );
   }
 }
@@ -126,8 +124,8 @@ class _GuestProfileState extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 86.w,
-            width: 86.w,
+            height: 86,
+            width: 86,
             decoration: BoxDecoration(
               color: ColorM.white,
               shape: BoxShape.circle,
@@ -142,8 +140,8 @@ class _GuestProfileState extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: Container(
-              height: 76.w,
-              width: 76.w,
+              height: 76,
+              width: 76,
               decoration: const BoxDecoration(
                 color: ColorM.primary50,
                 shape: BoxShape.circle,
@@ -152,7 +150,7 @@ class _GuestProfileState extends StatelessWidget {
               child: Icon(
                 Icons.lock_person_rounded,
                 color: ColorM.primary600,
-                size: 36.sp,
+                size: 36,
               ),
             ),
           ),
@@ -171,9 +169,7 @@ class _GuestProfileState extends StatelessWidget {
             child: Text(
               Translation.guest_profile_subtitle.tr,
               textAlign: TextAlign.center,
-              style: context.bodyMedium.copyWith(
-                color: ColorM.gray500,
-              ),
+              style: context.bodyMedium.copyWith(color: ColorM.gray500),
             ),
           ),
           24.verticalSpace,
@@ -181,7 +177,7 @@ class _GuestProfileState extends StatelessWidget {
             onTap: () => context.goNamed(Routes.auth),
             backgroundColor: ColorM.primary500,
             borderRadius: SizeM.commonBorderRadius.r,
-            height: 56.h,
+            height: 56,
             width: double.infinity,
             alignment: Alignment.center,
             child: Text(

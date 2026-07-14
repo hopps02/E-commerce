@@ -23,7 +23,7 @@ class OrderInfoPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14.h),
       color: ColorM.gray100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,12 +76,12 @@ class _InfoRow extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 64.w,
+          width: 64,
           child: Text(
             label,
             style: context.labelLarge.copyWith(
               color: ColorM.gray600,
-              fontSize: 12.sp,
+              fontSize: 12,
               height: 16 / 12,
             ),
           ),
@@ -89,8 +89,8 @@ class _InfoRow extends StatelessWidget {
         6.horizontalSpace,
         SvgPicture.asset(
           valueIcon,
-          width: 16.w,
-          height: 16.w,
+          width: 16,
+          height: 16,
           colorFilter: const ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
         ),
         6.horizontalSpace,
@@ -122,12 +122,12 @@ class _CaptainRow extends ConsumerWidget {
     final content = Row(
       children: [
         SizedBox(
-          width: 64.w,
+          width: 64,
           child: Text(
             Translation.captain_label.tr,
             style: context.labelLarge.copyWith(
               color: ColorM.gray600,
-              fontSize: 12.sp,
+              fontSize: 12,
               height: 16 / 12,
             ),
           ),
@@ -136,8 +136,8 @@ class _CaptainRow extends ConsumerWidget {
         ClipOval(
           child: CustomCachedImage(
             imageUrl: state.captainAvatarUrl ?? '',
-            width: 21.w,
-            height: 21.w,
+            width: 21,
+            height: 21,
           ),
         ),
         6.horizontalSpace,
@@ -193,7 +193,7 @@ class _ChangePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 4.h),
       decoration: BoxDecoration(
         color: ColorM.primary50,
         borderRadius: BorderRadius.circular(20.r),
@@ -201,7 +201,7 @@ class _ChangePill extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.edit_outlined, size: 12.sp, color: ColorM.primary700),
+          Icon(Icons.edit_outlined, size: 12, color: ColorM.primary700),
           3.horizontalSpace,
           Text(
             Translation.change.tr,
@@ -247,7 +247,7 @@ class _StatusBadge extends StatelessWidget {
     if (label.isEmpty) return const SizedBox.shrink();
 
     return Container(
-      height: 34.h,
+      height: 34,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
@@ -267,8 +267,8 @@ class _StatusBadge extends StatelessWidget {
           ),
           3.horizontalSpace,
           Container(
-            width: 7.w,
-            height: 7.w,
+            width: 7,
+            height: 7,
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
         ],
@@ -285,7 +285,7 @@ class _FailureReasonBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10.h),
       decoration: BoxDecoration(
         color: ColorM.red.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12.r),
@@ -293,7 +293,7 @@ class _FailureReasonBox extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.error_outline_rounded, size: 18.w, color: ColorM.red),
+          Icon(Icons.error_outline_rounded, size: 18, color: ColorM.red),
           8.horizontalSpace,
           Expanded(
             child: Column(

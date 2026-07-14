@@ -69,10 +69,10 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
         onRefresh: () => notifier.refreshGroup(widget.myOrdersDataType.group),
         child: ListView.separated(
           padding: EdgeInsets.only(
-            left: SizeM.pagePadding.w,
-            right: SizeM.pagePadding.w,
-            top: 8.h,
-            bottom: SizeM.pagePadding.h,
+            left: SizeM.pagePadding,
+            right: SizeM.pagePadding,
+            top: 8,
+            bottom: SizeM.pagePadding,
           ),
           itemCount: state.orders.length,
           separatorBuilder: (context, index) => 16.verticalSpace,

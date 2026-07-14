@@ -30,10 +30,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
             const EditProfileAppBar().premiumAppear(index: 0),
 
             // Thin divider
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
 
             // Scrollable body
             Expanded(

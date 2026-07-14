@@ -30,12 +30,12 @@ class Content extends StatelessWidget {
       padding: EdgeInsets.all(12.r),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorM.lightGreen,
+        color: ColorM.lightPrimary,
         borderRadius: BorderRadius.circular(24.r),
       ),
       child: Column(
         mainAxisSize: .min,
-        spacing: 10.h,
+        spacing: 10,
         children: [
           AuthTitle().premiumAppear(index: 1),
           PhoneField(
@@ -43,7 +43,7 @@ class Content extends StatelessWidget {
             phoneNumberFocusNode: phoneNumberFocusNode,
           ).premiumAppear(index: 2),
           Container(
-            height: 1.w,
+            height: 1,
             color: ColorM.white,
             width: double.infinity,
           ).premiumAppear(index: 3),

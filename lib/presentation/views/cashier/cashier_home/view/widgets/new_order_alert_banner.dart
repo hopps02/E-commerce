@@ -25,9 +25,7 @@ class NewOrderAlertBanner extends StatelessWidget {
     context.locale;
 
     final title = newOrderCount > 1
-        ? Translation.new_orders_received.trNamed({
-            'count': '$newOrderCount',
-          })
+        ? Translation.new_orders_received.trNamed({'count': '$newOrderCount'})
         : Translation.new_order_received.tr;
 
     return DecoratedBox(
@@ -50,13 +48,13 @@ class NewOrderAlertBanner extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(14.w, 14.h, 12.w, 14.h),
+        padding: EdgeInsetsDirectional.fromSTEB(14, 14, 12, 14.h),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 44.w,
-              height: 44.w,
+              width: 44,
+              height: 44,
               decoration: BoxDecoration(
                 color: ColorM.white.withValues(alpha: .18),
                 borderRadius: BorderRadius.circular(14.r),
@@ -65,7 +63,7 @@ class NewOrderAlertBanner extends StatelessWidget {
               child: Icon(
                 Icons.notifications_active_rounded,
                 color: ColorM.white,
-                size: 24.sp,
+                size: 24,
               ),
             ),
             12.horizontalSpace,
@@ -92,7 +90,7 @@ class NewOrderAlertBanner extends StatelessWidget {
                   12.verticalSpace,
                   CustomInkButton(
                     onTap: onViewOrders,
-                    height: 38.h,
+                    height: 38,
                     borderRadius: 999.r,
                     backgroundColor: ColorM.white,
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -111,16 +109,12 @@ class NewOrderAlertBanner extends StatelessWidget {
             8.horizontalSpace,
             CustomInkButton(
               onTap: onDismiss,
-              width: 34.w,
-              height: 34.w,
+              width: 34,
+              height: 34,
               borderRadius: 12.r,
               backgroundColor: ColorM.white.withValues(alpha: .14),
               alignment: Alignment.center,
-              child: Icon(
-                Icons.close_rounded,
-                color: ColorM.white,
-                size: 20.sp,
-              ),
+              child: Icon(Icons.close_rounded, color: ColorM.white, size: 20),
             ),
           ],
         ),

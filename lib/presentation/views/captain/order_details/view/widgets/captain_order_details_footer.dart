@@ -40,7 +40,7 @@ class CaptainOrderDetailsFooter extends ConsumerWidget {
       ),
       child: GeneralPadding(
         child: Padding(
-          padding: EdgeInsets.only(top: 14.h, bottom: 14.h),
+          padding: EdgeInsets.only(top: 14, bottom: 14.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,7 @@ class _PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      height: 56.h,
+      height: 56,
       borderRadius: 16.r,
       smoothness: 1,
       backgroundColor: backgroundColor,
@@ -144,14 +144,14 @@ class _PrimaryButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20.w, color: ColorM.white),
+          Icon(icon, size: 20, color: ColorM.white),
           8.horizontalSpace,
           Text(
             label,
             style: context.bodyLarge.copyWith(
               color: ColorM.white,
               fontWeight: FontWeightM.semiBold,
-              fontSize: 16.sp,
+              fontSize: 16,
               height: 1.2,
             ),
           ),
@@ -168,7 +168,7 @@ class _FailureButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomInkButton(
       onTap: () => _onTap(context, ref),
-      height: 56.h,
+      height: 56,
       borderRadius: 16.r,
       smoothness: 1,
       backgroundColor: const Color(0xFFFEE2E2),
@@ -181,18 +181,14 @@ class _FailureButton extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.cancel_outlined,
-            size: 16.w,
-            color: const Color(0xFFEF4444),
-          ),
+          Icon(Icons.cancel_outlined, size: 16, color: const Color(0xFFEF4444)),
           8.horizontalSpace,
           Text(
             Translation.delivery_failed.tr,
             style: context.bodyLarge.copyWith(
               color: const Color(0xFFEF4444),
               fontWeight: FontWeightM.semiBold,
-              fontSize: 16.sp,
+              fontSize: 16,
               height: 1.2,
             ),
           ),

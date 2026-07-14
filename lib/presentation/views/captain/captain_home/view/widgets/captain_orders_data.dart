@@ -72,16 +72,16 @@ class _CaptainOrdersDataState extends ConsumerState<CaptainOrdersData>
         enableLoading: true,
         enableRefresh: true,
         classicFooterPadding: EdgeInsets.only(
-          bottom: context.bottomSafeAreaPadding + 16.h,
+          bottom: context.bottomSafeAreaPadding + 16,
         ),
         onLoading: () => notifier.loadMore(widget.type.queue),
         onRefresh: () => notifier.refreshQueue(widget.type.queue),
         child: ListView.separated(
           padding: EdgeInsets.only(
-            left: SizeM.pagePadding.w,
-            right: SizeM.pagePadding.w,
-            top: 12.h,
-            bottom: 16.h,
+            left: SizeM.pagePadding,
+            right: SizeM.pagePadding,
+            top: 12,
+            bottom: 16,
           ),
           itemCount: state.orders.length,
           separatorBuilder: (_, _) => 16.verticalSpace,

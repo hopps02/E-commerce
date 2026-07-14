@@ -46,8 +46,8 @@ class LoginRequiredBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 48.w,
-            height: 4.h,
+            width: 48,
+            height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
               borderRadius: BorderRadius.circular(100.r),
@@ -55,8 +55,8 @@ class LoginRequiredBottomSheet extends StatelessWidget {
           ),
           32.verticalSpace,
           Container(
-            width: 80.w,
-            height: 80.w,
+            width: 80,
+            height: 80,
             decoration: const BoxDecoration(
               color: ColorM.primary50,
               shape: BoxShape.circle,
@@ -64,7 +64,7 @@ class LoginRequiredBottomSheet extends StatelessWidget {
             alignment: Alignment.center,
             child: Icon(
               Icons.lock_person_rounded,
-              size: 36.sp,
+              size: 36,
               color: ColorM.primary600,
             ),
           ),
@@ -81,15 +81,13 @@ class LoginRequiredBottomSheet extends StatelessWidget {
           Text(
             Translation.login_required_subtitle.tr,
             textAlign: TextAlign.center,
-            style: context.bodyMedium.copyWith(
-              color: ColorM.gray500,
-            ),
+            style: context.bodyMedium.copyWith(color: ColorM.gray500),
           ),
           32.verticalSpace,
           CustomInkButton(
             onTap: () => Navigator.pop(context, true),
             backgroundColor: ColorM.primary500,
-            height: 56.h,
+            height: 56,
             borderRadius: SizeM.commonBorderRadius.r,
             alignment: Alignment.center,
             child: Text(
@@ -105,7 +103,7 @@ class LoginRequiredBottomSheet extends StatelessWidget {
             onTap: () => Navigator.pop(context, false),
             backgroundColor: ColorM.transparent,
             side: const GradientBorderSide(color: ColorM.primary500, width: 1),
-            height: 56.h,
+            height: 56,
             borderRadius: SizeM.commonBorderRadius.r,
             alignment: Alignment.center,
             child: Text(

@@ -15,17 +15,17 @@ class CaptainRefreshButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8.r),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.refresh_rounded, size: 18.w, color: ColorM.primary400),
+            Icon(Icons.refresh_rounded, size: 18, color: ColorM.primary400),
             6.horizontalSpace,
             Text(
               Translation.refresh.tr,
               style: context.labelMedium.copyWith(
                 color: ColorM.primary400,
-                fontSize: 15.sp,
+                fontSize: 15,
                 fontWeight: FontWeightM.regular,
               ),
             ),

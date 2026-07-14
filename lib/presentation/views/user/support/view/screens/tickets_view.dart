@@ -44,21 +44,18 @@ class TicketsView extends ConsumerWidget {
             ).premiumAppear(index: 2)
           : null,
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16.h,
-                horizontal: SizeM.pagePadding.w,
+                vertical: 16,
+                horizontal: SizeM.pagePadding,
               ),
               title: Translation.my_tickets.tr,
             ).premiumAppear(index: 0),
-            Container(
-              height: 6.h,
-              color: ColorM.gray150,
-            ).premiumAppear(index: 1),
+            Container(height: 6, color: ColorM.gray150).premiumAppear(index: 1),
             Expanded(
               child: FastStateRender(
                 reqState: state.reqState,
@@ -78,8 +75,8 @@ class TicketsView extends ConsumerWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                         EdgeInsets.only(
-                          top: 16.h,
-                          bottom: context.bottomPadding + 80.h,
+                          top: 16,
+                          bottom: context.bottomPadding + 80,
                         ),
                     itemCount: state.tickets.length,
                     separatorBuilder: (_, _) => 12.verticalSpace,
@@ -183,7 +180,7 @@ class _NoTickets extends StatelessWidget {
           children: [
             Icon(
               Icons.confirmation_number_outlined,
-              size: 64.w,
+              size: 64,
               color: ColorM.gray300,
             ),
             16.verticalSpace,

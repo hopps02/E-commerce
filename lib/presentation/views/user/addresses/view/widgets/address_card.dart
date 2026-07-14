@@ -55,8 +55,8 @@ class AddressCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  width: 36.w,
-                  height: 36.w,
+                  width: 36,
+                  height: 36,
                   alignment: Alignment.center,
                   decoration: ShapeDecoration(
                     color: ColorM.primary50,
@@ -67,8 +67,8 @@ class AddressCard extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(
                     Assets.svg.borderLocation.path,
-                    width: 18.w,
-                    height: 18.w,
+                    width: 18,
+                    height: 18,
                     colorFilter: const ColorFilter.mode(
                       ColorM.primary500,
                       BlendMode.srcIn,
@@ -87,10 +87,7 @@ class AddressCard extends StatelessWidget {
                 ),
                 if (address.isDefault)
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 4.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: ShapeDecoration(
                       color: ColorM.primary50,
                       shape: SmoothRectangleBorder(
@@ -125,7 +122,7 @@ class AddressCard extends StatelessWidget {
               ),
             ],
             10.verticalSpace,
-            Container(height: 1.h, color: ColorM.gray250),
+            Container(height: 1, color: ColorM.gray250),
             10.verticalSpace,
             Row(
               children: [
@@ -133,10 +130,7 @@ class AddressCard extends StatelessWidget {
                   CustomInkButton(
                     onTap: onSetDefault,
                     backgroundColor: ColorM.transparent,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 6.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
                     borderRadius: 10.r,
                     child: Text(
                       Translation.address_set_default.tr,
@@ -178,15 +172,15 @@ class _ActionIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      width: 32.w,
-      height: 32.w,
+      width: 32,
+      height: 32,
       backgroundColor: ColorM.gray100,
       borderRadius: 10.r,
       alignment: Alignment.center,
       child: SvgPicture.asset(
         asset,
-        width: 15.w,
-        height: 15.w,
+        width: 15,
+        height: 15,
         colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
       ),
     );

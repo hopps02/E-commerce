@@ -126,8 +126,8 @@ class _AddressPickerBottomSheetState
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 48.w,
-            height: 4.h,
+            width: 48,
+            height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
               borderRadius: BorderRadius.circular(100.r),
@@ -172,7 +172,7 @@ class _AddressPickerBottomSheetState
                 Expanded(
                   child: CustomInkButton(
                     onTap: _addNew,
-                    height: 50.h,
+                    height: 50,
                     backgroundColor: ColorM.primary50,
                     borderRadius: 14.r,
                     alignment: Alignment.center,
@@ -189,7 +189,7 @@ class _AddressPickerBottomSheetState
                 Expanded(
                   child: CustomInkButton(
                     onTap: _deliverDifferentLocation,
-                    height: 50.h,
+                    height: 50,
                     backgroundColor: ColorM.gray100,
                     borderRadius: 14.r,
                     alignment: Alignment.center,
@@ -228,8 +228,8 @@ class _AddressEmptyState extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 58.w,
-            height: 58.w,
+            width: 58,
+            height: 58,
             alignment: Alignment.center,
             decoration: ShapeDecoration(
               color: ColorM.primary50,
@@ -240,8 +240,8 @@ class _AddressEmptyState extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               Assets.svg.borderLocation.path,
-              width: 26.w,
-              height: 26.w,
+              width: 26,
+              height: 26,
               colorFilter: const ColorFilter.mode(
                 ColorM.primary500,
                 BlendMode.srcIn,
@@ -265,7 +265,7 @@ class _AddressEmptyState extends StatelessWidget {
           16.verticalSpace,
           CustomInkButton(
             onTap: onAddAddress,
-            height: 46.h,
+            height: 46,
             width: double.infinity,
             backgroundColor: ColorM.primary500,
             borderRadius: 14.r,
@@ -281,7 +281,7 @@ class _AddressEmptyState extends StatelessWidget {
           10.verticalSpace,
           CustomInkButton(
             onTap: onDifferentLocation,
-            height: 46.h,
+            height: 46,
             width: double.infinity,
             backgroundColor: ColorM.gray100,
             borderRadius: 14.r,
@@ -324,8 +324,8 @@ class _PickerRow extends StatelessWidget {
           children: [
             SvgPicture.asset(
               Assets.svg.borderLocation.path,
-              width: 18.w,
-              height: 18.w,
+              width: 18,
+              height: 18,
               colorFilter: const ColorFilter.mode(
                 ColorM.greenSecondary,
                 BlendMode.srcIn,
@@ -359,7 +359,7 @@ class _PickerRow extends StatelessWidget {
             if (address.isDefault) ...[
               8.horizontalSpace,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3.h),
                 decoration: ShapeDecoration(
                   color: ColorM.primary50,
                   shape: SmoothRectangleBorder(
@@ -509,8 +509,8 @@ class _OneOffAddressDetailsSheetState
           children: [
             Center(
               child: Container(
-                width: 48.w,
-                height: 4.h,
+                width: 48,
+                height: 4,
                 decoration: BoxDecoration(
                   color: ColorM.gray300,
                   borderRadius: BorderRadius.circular(100.r),
@@ -558,7 +558,7 @@ class _OneOffAddressDetailsSheetState
             18.verticalSpace,
             CustomInkButton(
               onTap: _save,
-              height: 52.h,
+              height: 52,
               borderRadius: 16.r,
               isLoading: _saving,
               backgroundColor: _canSave ? ColorM.primary500 : ColorM.gray300,

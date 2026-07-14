@@ -44,7 +44,7 @@ class HomeTopAppBar extends StatelessWidget {
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 0,
-      expandedHeight: 255.h,
+      expandedHeight: 255,
       backgroundColor: ColorM.transparent,
       surfaceTintColor: Colors.transparent,
       flexibleSpace: _TopSection(
@@ -121,7 +121,7 @@ class _TopSection extends StatelessWidget {
                               style: context.labelMedium.copyWith(
                                 color: ColorM.white,
                                 fontWeight: FontWeightM.semiBold,
-                                fontSize: 18.sp,
+                                fontSize: 18,
                                 height: 1.1,
                               ),
                             ),
@@ -158,8 +158,8 @@ class _BottomSection extends StatelessWidget {
     context.locale;
 
     final search = SimpleForm(
-      height: 44.h,
-      fontSize: 14.sp,
+      height: 44,
+      fontSize: 14,
       borderRadius: 99999,
       removeBorders: false,
       borderColor: ColorM.gray300,
@@ -168,8 +168,8 @@ class _BottomSection extends StatelessWidget {
       controller: TextEditingController(),
       prefixWidget: SvgPicture.asset(
         Assets.svg.search.path,
-        width: 18.w,
-        height: 18.w,
+        width: 18,
+        height: 18,
         colorFilter: const ColorFilter.mode(ColorM.gray600, BlendMode.srcIn),
       ),
     );

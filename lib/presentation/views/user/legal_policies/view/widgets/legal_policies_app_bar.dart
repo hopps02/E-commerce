@@ -11,8 +11,8 @@ class LegalPoliciesAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultAppBar(
       padding: EdgeInsets.symmetric(
-        vertical: 16.h,
-        horizontal: SizeM.pagePadding.w,
+        vertical: 16,
+        horizontal: SizeM.pagePadding,
       ),
       title: Translation.legal_and_policies.tr,
     );

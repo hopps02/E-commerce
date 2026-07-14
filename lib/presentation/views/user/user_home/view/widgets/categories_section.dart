@@ -133,15 +133,11 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
               final end = start + _categoryItemsPerPage;
               final pageCategories = widget.categories.sublist(
                 start,
-                end > widget.categories.length
-                    ? widget.categories.length
-                    : end,
+                end > widget.categories.length ? widget.categories.length : end,
               );
 
               return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeM.pagePadding.w,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding),
                 child: _CategoryCarouselPage(
                   categories: pageCategories,
                   arabic: widget.arabic,
@@ -179,11 +175,13 @@ class _CategoryCarouselPage extends StatelessWidget {
     final rows = <Widget>[];
     for (var rowIndex = 0; rowIndex < _categoryRowsPerPage; rowIndex++) {
       rows.add(
-        _CategoryCarouselRow(
-          categories: categories,
-          arabic: arabic,
-          startIndex: rowIndex * _categoryColumnsPerPage,
-          tileHeight: tileHeight,
+        Expanded(
+          child: _CategoryCarouselRow(
+            categories: categories,
+            arabic: arabic,
+            startIndex: rowIndex * _categoryColumnsPerPage,
+            tileHeight: tileHeight,
+          ),
         ),
       );
 
@@ -217,7 +215,7 @@ class _CategoryCarouselRow extends StatelessWidget {
       children: List<Widget>.generate(_categoryColumnsPerPage, (columnIndex) {
         final categoryIndex = startIndex + columnIndex;
         if (categoryIndex >= categories.length) {
-          return SizedBox(width: _categoryTileImageSize.w, height: tileHeight);
+          return SizedBox(width: _categoryTileImageSize, height: tileHeight);
         }
 
         final category = categories[categoryIndex];
@@ -260,8 +258,8 @@ class _CategoryCarouselDots extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
           margin: EdgeInsets.symmetric(horizontal: 3.w),
-          width: isActive ? 20.w : 6.w,
-          height: 6.h,
+          width: isActive ? 20.w : 6,
+          height: 6,
           decoration: BoxDecoration(
             color: isActive ? ColorM.primary : ColorM.gray300,
             borderRadius: BorderRadius.circular(99),

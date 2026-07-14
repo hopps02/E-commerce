@@ -30,7 +30,7 @@ class _CaptainHomeViewState extends ConsumerState<CaptainHomeView>
     );
     return Scaffold(
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [

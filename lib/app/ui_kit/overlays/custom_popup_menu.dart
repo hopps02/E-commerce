@@ -37,7 +37,7 @@ class CustomPopupMenu<T> extends StatelessWidget {
       onSelected: onSelected,
       borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
       constraints: constraints ?? const BoxConstraints(),
-      padding: padding ?? EdgeInsets.symmetric(vertical: 6.w, horizontal: 8.w),
+      padding: padding ?? EdgeInsets.symmetric(vertical: 6, horizontal: 8.w),
       menuPadding: menuPadding ?? EdgeInsets.zero,
       icon: child,
       clipBehavior: Clip.hardEdge,
@@ -87,7 +87,7 @@ class CustomPopupMenuItem<T> {
                         : context.isDark
                         ? Colors.white
                         : Color(0xFF040302),
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: isSelected ? FontWeight.w400 : FontWeight.w300,
                   ),
                 ),
@@ -115,7 +115,7 @@ class CustomPopupMenuItem<T> {
       onTap: onTap,
       leading: Icon(
         icon,
-        size: 16.w,
+        size: 16,
         color:
             iconColor ??
             (isSelected ? const Color(0xFFD16F9A) : const Color(0xFF040302)),

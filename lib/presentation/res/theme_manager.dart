@@ -42,7 +42,7 @@ class ThemeManager {
           ),
         ),
         textStyle: WidgetStatePropertyAll(
-          TextStyle(fontSize: 18.sp, color: ColorM.white),
+          TextStyle(fontSize: 18, color: ColorM.white),
         ),
       ),
     ),
@@ -84,7 +84,7 @@ class ThemeManager {
   //                   borderRadius:
   //                       BorderRadius.circular(SizeM.commonBorderRadius.r))),
   //               textStyle: WidgetStatePropertyAll(
-  //                   TextStyle(fontSize: 18.sp, color: ColorM.white)))),
+  //                   TextStyle(fontSize: 18, color: ColorM.white)))),
   //       textSelectionTheme: TextSelectionThemeData(
   //           cursorColor: ColorM.white,
   //           selectionColor: ColorM.white.withValues(alpha: .1),
@@ -96,77 +96,77 @@ class TextStyles {
   static TextTheme customTextTheme(Color color, [additionalFontSize = 0.0]) =>
       TextTheme(
         labelSmall: TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         labelMedium: TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         labelLarge: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         bodySmall: TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         bodyMedium: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         bodyLarge: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         titleSmall: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         titleMedium: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         titleLarge: TextStyle(
-          fontSize: 20.sp,
+          fontSize: 20,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         headlineSmall: TextStyle(
-          fontSize: 22.sp,
+          fontSize: 22,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         headlineMedium: TextStyle(
-          fontSize: 26.sp,
+          fontSize: 26,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         headlineLarge: TextStyle(
-          fontSize: 30.sp,
+          fontSize: 30,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         displaySmall: TextStyle(
-          fontSize: 34.sp,
+          fontSize: 34,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         displayMedium: TextStyle(
-          fontSize: 40.sp,
+          fontSize: 40,
           color: color,
           fontWeight: FontWeightM.regular,
         ),
         displayLarge: TextStyle(
-          fontSize: 48.sp,
+          fontSize: 48,
           color: color,
           fontWeight: FontWeightM.regular,
         ),

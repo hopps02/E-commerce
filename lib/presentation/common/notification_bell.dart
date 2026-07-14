@@ -57,8 +57,8 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
                   .read(notificationsController.notifier)
                   .refreshUnreadCount();
             },
-            width: 38.w,
-            height: 38.w,
+            width: 38,
+            height: 38,
             borderRadius: 12.r,
             backgroundColor: widget.dark
                 ? ColorM.white.withValues(alpha: .14)
@@ -69,17 +69,17 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
             alignment: Alignment.center,
             child: SvgPicture.asset(
               Assets.svg.bell.path,
-              width: 20.w,
-              height: 20.w,
+              width: 20,
+              height: 20,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
           ),
           if (unread > 0)
             PositionedDirectional(
-              top: -4.h,
-              end: -5.w,
+              top: -4,
+              end: -5,
               child: Container(
-                constraints: BoxConstraints(minWidth: 17.w, minHeight: 17.w),
+                constraints: BoxConstraints(minWidth: 17, minHeight: 17.w),
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -92,7 +92,7 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: FontsM.ibmPlexSansArabic.name,
-                    fontSize: 9.sp,
+                    fontSize: 9,
                     color: ColorM.white,
                     fontWeight: FontWeightM.bold,
                     height: 1,

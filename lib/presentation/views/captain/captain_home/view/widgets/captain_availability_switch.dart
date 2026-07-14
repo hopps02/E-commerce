@@ -25,7 +25,7 @@ class CaptainAvailabilitySwitch extends ConsumerWidget {
           style: context.labelMedium.copyWith(
             color: ColorM.white,
             fontWeight: FontWeightM.semiBold,
-            fontSize: 14.sp,
+            fontSize: 14,
             height: 1,
           ),
         ),
@@ -53,8 +53,8 @@ class _Pill extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
-        width: 42.w,
-        height: 24.h,
+        width: 42,
+        height: 24,
         padding: EdgeInsets.all(2.w),
         decoration: BoxDecoration(
           color: isAvailable ? trackOn : trackOff,
@@ -68,8 +68,8 @@ class _Pill extends StatelessWidget {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeOut,
-              width: 20.w,
-              height: 20.w,
+              width: 20,
+              height: 20,
               decoration: const BoxDecoration(
                 color: ColorM.white,
                 shape: BoxShape.circle,

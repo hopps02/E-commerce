@@ -348,7 +348,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
               child: CircularProgressIndicator(
                 color: widget.spinnerColor,
                 strokeCap: StrokeCap.round,
-                strokeWidth: 3.w,
+                strokeWidth: 3,
               ),
             );
           },
@@ -365,8 +365,8 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                 final animationValue = (dotsAnimation.value + delay) % 1.0;
                 return Container(
                   margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  width: 12.w,
-                  height: 12.w,
+                  width: 12,
+                  height: 12,
                   decoration: BoxDecoration(
                     color: widget.spinnerColor.withValues(
                       alpha: animationValue,
@@ -384,8 +384,8 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
           animation: pulseAnimationController,
           builder: (context, child) {
             return Container(
-              width: 60.w,
-              height: 60.w,
+              width: 60,
+              height: 60,
               decoration: BoxDecoration(
                 color: widget.spinnerColor.withValues(
                   alpha: pulseAnimation.value,
@@ -398,8 +398,8 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
 
       case LoadingType.custom:
         return Container(
-          width: 50.w,
-          height: 50.w,
+          width: 50,
+          height: 50,
           decoration: BoxDecoration(
             color: widget.spinnerColor,
             shape: BoxShape.circle,
@@ -407,7 +407,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
           child: Icon(
             Icons.hourglass_empty,
             color: widget.backgroundColor,
-            size: 24.w,
+            size: 24,
           ),
         );
       case LoadingType.widget:
@@ -415,7 +415,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
             CircularProgressIndicator(
               color: widget.spinnerColor,
               strokeCap: StrokeCap.round,
-              strokeWidth: 3.w,
+              strokeWidth: 3,
             );
     }
   }
@@ -443,8 +443,8 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                       16.verticalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.w,
+                          horizontal: 16,
+                          vertical: 8,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),
@@ -454,7 +454,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                           widget.customMessage!,
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 14.sp,
+                            fontSize: 14,
                             fontWeight: FontWeightM.medium,
                           ),
                           textAlign: TextAlign.center,
@@ -467,8 +467,8 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                       16.verticalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.w,
+                          horizontal: 16,
+                          vertical: 8,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),
@@ -478,7 +478,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                           Translation.loading.tr,
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 14.sp,
+                            fontSize: 14,
                             fontWeight: FontWeightM.medium,
                           ),
                           textAlign: TextAlign.center,

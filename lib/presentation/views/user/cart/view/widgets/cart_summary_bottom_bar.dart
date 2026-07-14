@@ -63,7 +63,7 @@ class CartSummaryBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -130,7 +130,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                   onTap: onCheckout ?? onConfirm,
                   isLoading: isLoading || requoting,
                   width: double.infinity,
-                  height: 56.h,
+                  height: 56,
                   backgroundColor: ColorM.primary,
                   borderRadius: 16.r,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -187,7 +187,7 @@ class GuestCheckoutBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -217,7 +217,7 @@ class GuestCheckoutBottomBar extends StatelessWidget {
                 CustomInkButton(
                   onTap: onCheckout,
                   width: double.infinity,
-                  height: 56.h,
+                  height: 56,
                   backgroundColor: ColorM.primary,
                   borderRadius: 16.r,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -291,14 +291,14 @@ class _PriceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (loading) {
       return SizedBox(
-        width: 16.w,
-        height: 16.w,
+        width: 16,
+        height: 16,
         child: CircularProgressIndicator(strokeWidth: 1.8, color: color),
       );
     }
     return Row(
       mainAxisSize: MainAxisSize.min,
-      spacing: 3.w,
+      spacing: 3,
       children: [
         Text(
           Money.amount(halalas),
@@ -309,7 +309,7 @@ class _PriceWidget extends StatelessWidget {
         ),
         SvgPicture.asset(
           Assets.svg.saudiRiyalSymbol.path,
-          width: 12.w,
+          width: 12,
           colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
         ),
       ],

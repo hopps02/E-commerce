@@ -48,90 +48,92 @@ class OrderDetailsBody extends StatelessWidget {
               controller: refreshController,
               onRefresh: onRefresh,
               child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  OrderStatusSection(
-                    step: state.step,
-                    orderNumber: state.orderNumber,
-                    orderState: state.orderState,
-                    failureReason: state.failureReason,
-                    failureNote: state.failureNote,
-                  ).premiumAppear(index: 0),
-                  24.verticalSpace,
-                  OrderDeliveryAddress(
-                    address: state.address,
-                  ).premiumAppear(index: 1),
-                  24.verticalSpace,
-                  Text(
-                    Translation.orders.tr,
-                    style: context.bodyLarge.copyWith(
-                      fontWeight: FontWeightM.bold,
-                    ),
-                  ).premiumAppear(index: 2),
-                  16.verticalSpace,
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemCount: state.items.length,
-                    separatorBuilder: (context, index) => 16.verticalSpace,
-                    itemBuilder: (context, index) {
-                      final item = state.items[index];
-                      return Order(
-                        title: item.name(arabic),
-                        weight: "",
-                        price: Money.amount(item.unitPriceHalalas),
-                        count: "${item.quantity}",
-                        image: item.imageUrl ?? "",
-                      ).premiumAppear(index: 3 + index);
-                    },
-                  ),
-                  if (state.removedItems.isNotEmpty) ...[
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    OrderStatusSection(
+                      step: state.step,
+                      orderNumber: state.orderNumber,
+                      orderState: state.orderState,
+                      failureReason: state.failureReason,
+                      failureNote: state.failureNote,
+                    ).premiumAppear(index: 0),
+                    24.verticalSpace,
+                    OrderDeliveryAddress(
+                      address: state.address,
+                    ).premiumAppear(index: 1),
                     24.verticalSpace,
                     Text(
-                      Translation.unavailable_items.tr,
+                      Translation.orders.tr,
                       style: context.bodyLarge.copyWith(
                         fontWeight: FontWeightM.bold,
                       ),
-                    ),
-                    4.verticalSpace,
-                    Text(
-                      Translation.unavailable_items_note.tr,
-                      style: context.labelMedium.copyWith(color: ColorM.gray500),
-                    ),
+                    ).premiumAppear(index: 2),
                     16.verticalSpace,
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
-                      itemCount: state.removedItems.length,
+                      itemCount: state.items.length,
                       separatorBuilder: (context, index) => 16.verticalSpace,
                       itemBuilder: (context, index) {
-                        final item = state.removedItems[index];
-                        return Opacity(
-                          opacity: 0.5,
-                          child: Order(
-                            title: item.name(arabic),
-                            weight: "",
-                            price: Money.amount(item.unitPriceHalalas),
-                            count: "${item.quantity}",
-                            image: item.imageUrl ?? "",
-                          ),
-                        );
+                        final item = state.items[index];
+                        return Order(
+                          title: item.name(arabic),
+                          weight: "",
+                          price: Money.amount(item.unitPriceHalalas),
+                          count: "${item.quantity}",
+                          image: item.imageUrl ?? "",
+                        ).premiumAppear(index: 3 + index);
                       },
                     ),
+                    if (state.removedItems.isNotEmpty) ...[
+                      24.verticalSpace,
+                      Text(
+                        Translation.unavailable_items.tr,
+                        style: context.bodyLarge.copyWith(
+                          fontWeight: FontWeightM.bold,
+                        ),
+                      ),
+                      4.verticalSpace,
+                      Text(
+                        Translation.unavailable_items_note.tr,
+                        style: context.labelMedium.copyWith(
+                          color: ColorM.gray500,
+                        ),
+                      ),
+                      16.verticalSpace,
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        itemCount: state.removedItems.length,
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                        itemBuilder: (context, index) {
+                          final item = state.removedItems[index];
+                          return Opacity(
+                            opacity: 0.5,
+                            child: Order(
+                              title: item.name(arabic),
+                              weight: "",
+                              price: Money.amount(item.unitPriceHalalas),
+                              count: "${item.quantity}",
+                              image: item.imageUrl ?? "",
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                    32.verticalSpace,
+                    OrderPriceSummary(
+                      subtotalHalalas: state.totals.subtotalHalalas,
+                      shippingHalalas: state.totals.deliveryFeeHalalas,
+                      discountHalalas: state.totals.discountHalalas,
+                    ).premiumAppear(index: 6),
                   ],
-                  32.verticalSpace,
-                  OrderPriceSummary(
-                    subtotalHalalas: state.totals.subtotalHalalas,
-                    shippingHalalas: state.totals.deliveryFeeHalalas,
-                    discountHalalas: state.totals.discountHalalas,
-                  ).premiumAppear(index: 6),
-                ],
+                ),
               ),
-            ),
             ),
           ),
           // Eligibility comes from the backend: delivered, unrated, in window.

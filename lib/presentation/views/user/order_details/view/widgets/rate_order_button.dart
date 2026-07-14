@@ -36,14 +36,14 @@ class RateOrderButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        16.w,
-        16.h,
-        16.w,
-        context.bottomSafeAreaPadding + 16.h,
+        16,
+        16,
+        16,
+        context.bottomSafeAreaPadding + 16,
       ),
       child: CustomInkButton(
         onTap: () => _rate(context, ref),
-        height: 56.h,
+        height: 56,
         width: double.infinity,
         borderRadius: SizeM.commonBorderRadius.r,
         backgroundColor: ColorM.orange,
@@ -66,7 +66,7 @@ class RateOrderButton extends ConsumerWidget {
             8.horizontalSpace,
             SvgPicture.asset(
               Assets.svg.star.path,
-              width: 18.sp,
+              width: 18,
               colorFilter: const ColorFilter.mode(
                 ColorM.white,
                 BlendMode.srcIn,

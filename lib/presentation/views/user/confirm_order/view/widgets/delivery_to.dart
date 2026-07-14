@@ -17,7 +17,7 @@ class DeliveryTo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
       margin: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
@@ -29,7 +29,7 @@ class DeliveryTo extends StatelessWidget {
       alignment: .centerStart,
       child: Column(
         crossAxisAlignment: .start,
-        spacing: 8.h,
+        spacing: 8,
         children: [
           Text(
             Translation.deliver_to.tr,

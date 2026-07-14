@@ -48,8 +48,8 @@ class DeleteAccountBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 48.w,
-            height: 4.h,
+            width: 48,
+            height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
               borderRadius: BorderRadius.circular(100.r),
@@ -59,16 +59,16 @@ class DeleteAccountBottomSheet extends StatelessWidget {
           32.verticalSpace,
 
           Container(
-            width: 80.w,
-            height: 80.w,
+            width: 80,
+            height: 80,
             decoration: const BoxDecoration(
               color: ColorM.gray50,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
             child: Assets.svg.deleteAccount.svg(
-              width: 32.w,
-              height: 32.w,
+              width: 32,
+              height: 32,
               colorFilter: const ColorFilter.mode(ColorM.red, BlendMode.srcIn),
             ),
           ),
@@ -93,7 +93,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                 child: CustomInkButton(
                   onTap: () => Navigator.pop(context, true),
                   backgroundColor: ColorM.red,
-                  height: 54.h,
+                  height: 54,
                   borderRadius: 16.r,
                   alignment: Alignment.center,
                   child: Text(
@@ -114,7 +114,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                     color: ColorM.gray900,
                     width: 1,
                   ),
-                  height: 54.h,
+                  height: 54,
                   borderRadius: 16.r,
                   alignment: Alignment.center,
                   child: Text(

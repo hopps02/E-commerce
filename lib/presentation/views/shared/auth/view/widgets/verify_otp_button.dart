@@ -16,7 +16,7 @@ class VerifyOtpButton extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       borderRadius: SizeM.commonBorderRadius.r,
-      height: 56.h,
+      height: 56,
       alignment: Alignment.center,
       child: Text(
         Translation.confirm.tr,

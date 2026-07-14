@@ -14,10 +14,7 @@ class SupportBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(
-        top: 40.h,
-        bottom: context.bottomViewInsets + 24.h,
-      ),
+      padding: EdgeInsets.only(top: 40, bottom: context.bottomViewInsets + 24),
       child: Column(
         children: [
           const SupportIcon().premiumAppear(index: 1),
@@ -28,7 +25,7 @@ class SupportBody extends StatelessWidget {
               fontWeight: FontWeightM.semiBold,
               color: ColorM.gray1000,
               height: 24 / 18,
-              fontSize: 18.sp,
+              fontSize: 18,
             ),
           ).premiumAppear(index: 2),
           40.verticalSpace,

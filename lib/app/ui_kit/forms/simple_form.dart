@@ -100,7 +100,7 @@ class SimpleForm extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       prefixWidget: prefixWidget,
-      height: height ?? 52.h,
+      height: height ?? 52,
       width: double.infinity,
       textLength: textLength,
       controller: securityController,
@@ -109,7 +109,7 @@ class SimpleForm extends StatelessWidget {
       inputFormatters: inputFormatters,
       validatorStyle: context.labelSmall.copyWith(
         color: Colors.red,
-        fontSize: 9.sp,
+        fontSize: 9,
         fontWeight: FontWeightM.medium,
       ),
       boxDecoration: ShapeDecoration(
@@ -121,7 +121,7 @@ class SimpleForm extends StatelessWidget {
           ),
           side: GradientBorderSide(
             color: borderColor ?? ColorM.gray100,
-            width: 1.w,
+            width: 1,
           ),
         ),
       ),

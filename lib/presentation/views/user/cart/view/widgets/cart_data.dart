@@ -60,8 +60,8 @@ class CartData extends ConsumerWidget {
         onRetry: () => ref.read(checkoutController.notifier).retry(),
         child: ListView.separated(
           padding: EdgeInsets.symmetric(
-            horizontal: SizeM.pagePadding.w,
-            vertical: 16.h,
+            horizontal: SizeM.pagePadding,
+            vertical: 16,
           ),
           physics: const BouncingScrollPhysics(),
           itemCount: cart.lines.length,
@@ -97,4 +97,3 @@ class CartData extends ConsumerWidget {
     );
   }
 }
-

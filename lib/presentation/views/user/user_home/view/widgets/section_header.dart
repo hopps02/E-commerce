@@ -51,7 +51,7 @@ class SectionHeader extends StatelessWidget {
             style: context.labelSmall.copyWith(
               color: ColorM.gray700,
               fontWeight: FontWeightM.medium,
-              fontSize: 10.sp,
+              fontSize: 10,
             ),
           ),
         ],

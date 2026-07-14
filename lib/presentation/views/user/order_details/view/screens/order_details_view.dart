@@ -86,7 +86,7 @@ class _OrderDetailsViewState extends ConsumerState<OrderDetailsView> {
     return Scaffold(
       backgroundColor: ColorM.primary800, // The top app bar background
       body: ResponsiveConstrained(
-        maxWidth: 600,
+        maxWidth: 450,
         child: Column(
           children: [
             const OrderDetailsAppBar(),

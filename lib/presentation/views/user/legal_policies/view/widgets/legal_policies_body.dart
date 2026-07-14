@@ -36,21 +36,21 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
       thumbColor: ColorM.primary500,
       trackColor: ColorM.gray200,
       thumbRadius: 28.r,
-      thumbWidth: 6.w,
-      trackWidth: 4.w,
+      thumbWidth: 6,
+      trackWidth: 4,
       position: context.isLTR ? .right : .left,
       margin: EdgeInsets.only(
-        right: 8.w,
-        left: context.isLTR ? 0 : 8.w,
-        top: 16.h,
-        bottom: 16.h,
+        right: 8,
+        left: context.isLTR ? 0 : 8,
+        top: 16,
+        bottom: 16,
       ),
       child: ListView(
         controller: scrollController,
         padding:
             EdgeInsets.symmetric(
-              horizontal: SizeM.pagePadding.w,
-              vertical: SizeM.pagePadding.h,
+              horizontal: SizeM.pagePadding,
+              vertical: SizeM.pagePadding,
             ) +
             EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
         children: [

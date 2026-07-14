@@ -43,8 +43,8 @@ class _CartIconButton extends ConsumerWidget {
         CustomInkButton(
           onTap: () => context.pushNamed(Routes.cart),
           padding: EdgeInsets.zero,
-          width: 38.w,
-          height: 38.w,
+          width: 38,
+          height: 38,
           smoothness: 0,
           backgroundColor: ColorM.white,
           borderRadius: 12.r,
@@ -52,22 +52,22 @@ class _CartIconButton extends ConsumerWidget {
           side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
           child: SvgPicture.asset(
             Assets.svg.borderBag.path,
-            width: 22.w,
-            height: 22.w,
+            width: 22,
+            height: 22,
             colorFilter: ColorFilter.mode(ColorM.gray900, BlendMode.srcIn),
           ),
         ),
         if (cartCount > 0)
           PositionedDirectional(
-            top: -6.h,
-            end: -6.w,
+            top: -6,
+            end: -6,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 220),
               transitionBuilder: (child, animation) =>
                   ScaleTransition(scale: animation, child: child),
               child: Container(
                 key: ValueKey(cartCount),
-                constraints: BoxConstraints(minWidth: 18.w, minHeight: 18.w),
+                constraints: BoxConstraints(minWidth: 18, minHeight: 18.w),
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -80,7 +80,7 @@ class _CartIconButton extends ConsumerWidget {
                   style: context.labelLarge.copyWith(
                     color: ColorM.white,
                     fontWeight: FontWeightM.bold,
-                    fontSize: 9.sp,
+                    fontSize: 9,
                     height: 1,
                   ),
                 ),

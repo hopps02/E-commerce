@@ -22,8 +22,8 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      width: 109.w,
-      height: 112.h,
+      width: 109,
+      height: 112,
       backgroundColor: ColorM.lightGreen,
       borderRadius: 12.r,
       child: Stack(
@@ -39,7 +39,7 @@ class CategoryCard extends StatelessWidget {
                   style: context.labelMedium.copyWith(
                     fontWeight: FontWeight.bold,
                     color: ColorM.gray900,
-                    fontSize: 13.sp,
+                    fontSize: 13,
                     height: 1.2,
                   ),
                   textAlign: TextAlign.start,
@@ -50,7 +50,7 @@ class CategoryCard extends StatelessWidget {
                   subtitle,
                   style: context.labelSmall.copyWith(
                     color: ColorM.gray600,
-                    fontSize: 10.sp,
+                    fontSize: 10,
                   ),
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -60,10 +60,10 @@ class CategoryCard extends StatelessWidget {
             ),
           ),
           PositionedDirectional(
-            bottom: 0.h,
+            bottom: 0,
             start: 0,
-            end: -30.w,
-            child: Image.asset(imagePath, height: 55.h, fit: BoxFit.contain),
+            end: -30,
+            child: Image.asset(imagePath, height: 55, fit: BoxFit.contain),
           ),
         ],
       ),

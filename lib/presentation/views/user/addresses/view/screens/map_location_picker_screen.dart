@@ -129,9 +129,9 @@ class _MapLocationPickerScreenState
           ),
           const _CenterPin(),
           PositionedDirectional(
-            top: context.topSafeAreaPadding + 12.h,
-            start: SizeM.pagePadding.w,
-            end: SizeM.pagePadding.w,
+            top: context.topSafeAreaPadding + 12,
+            start: SizeM.pagePadding,
+            end: SizeM.pagePadding,
             child: ResponsiveConstrained(
               maxWidth: 550,
               child: _TopControls(
@@ -146,9 +146,9 @@ class _MapLocationPickerScreenState
             ),
           ),
           PositionedDirectional(
-            start: SizeM.pagePadding.w,
-            end: SizeM.pagePadding.w,
-            bottom: context.bottomSafeAreaPadding + 12.h,
+            start: SizeM.pagePadding,
+            end: SizeM.pagePadding,
+            bottom: context.bottomSafeAreaPadding + 12,
             child: ResponsiveConstrained(
               maxWidth: 550,
               child: _CoverageBar(
@@ -258,8 +258,8 @@ class _TopControlsState extends ConsumerState<_TopControls> {
           children: [
             CustomInkButton(
               onTap: () => context.pop(),
-              width: 42.w,
-              height: 42.w,
+              width: 42,
+              height: 42,
               borderRadius: 14.r,
               backgroundColor: ColorM.white,
               alignment: Alignment.center,
@@ -268,7 +268,7 @@ class _TopControlsState extends ConsumerState<_TopControls> {
                 quarterTurns: context.isRTL ? 2 : 0,
                 child: Icon(
                   Icons.arrow_back_ios_new,
-                  size: 18.sp,
+                  size: 18,
                   color: ColorM.gray900,
                 ),
               ),
@@ -325,10 +325,7 @@ class _TopControlsState extends ConsumerState<_TopControls> {
                     onTap: widget.onSettings,
                     backgroundColor: ColorM.primary50,
                     borderRadius: 10.r,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 7.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                     child: Text(
                       Translation.open_settings.tr,
                       style: context.labelMedium.copyWith(
@@ -367,8 +364,8 @@ class _MapSearchField extends StatelessWidget {
     final hasQuery = controller.text.trim().isNotEmpty;
 
     return Container(
-      height: 42.w,
-      padding: EdgeInsetsDirectional.only(start: 12.w, end: 8.w),
+      height: 42,
+      padding: EdgeInsetsDirectional.only(start: 12, end: 8.w),
       decoration: ShapeDecoration(
         color: ColorM.white,
         shape: SmoothRectangleBorder(
@@ -379,7 +376,7 @@ class _MapSearchField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, size: 19.sp, color: ColorM.gray600),
+          Icon(Icons.search, size: 19, color: ColorM.gray600),
           8.horizontalSpace,
           Expanded(
             child: TextField(
@@ -427,14 +424,14 @@ class _SearchTrailingAction extends StatelessWidget {
   Widget build(BuildContext context) {
     if (searching) {
       return SizedBox(
-        width: 28.w,
-        height: 28.w,
+        width: 28,
+        height: 28,
         child: Center(
           child: SizedBox(
-            width: 16.w,
-            height: 16.w,
+            width: 16,
+            height: 16,
             child: CircularProgressIndicator(
-              strokeWidth: 2.w,
+              strokeWidth: 2,
               color: ColorM.primary500,
             ),
           ),
@@ -442,16 +439,16 @@ class _SearchTrailingAction extends StatelessWidget {
       );
     }
 
-    if (!hasQuery) return SizedBox(width: 28.w, height: 28.w);
+    if (!hasQuery) return SizedBox(width: 28, height: 28.w);
 
     return CustomInkButton(
       onTap: onClear,
-      width: 28.w,
-      height: 28.w,
+      width: 28,
+      height: 28,
       borderRadius: 10.r,
       backgroundColor: ColorM.gray100,
       alignment: Alignment.center,
-      child: Icon(Icons.close, size: 16.sp, color: ColorM.gray600),
+      child: Icon(Icons.close, size: 16, color: ColorM.gray600),
     );
   }
 }
@@ -519,7 +516,7 @@ class _PlaceSuggestionRow extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       backgroundColor: ColorM.white,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -527,7 +524,7 @@ class _PlaceSuggestionRow extends StatelessWidget {
             padding: EdgeInsets.only(top: 2.h),
             child: Icon(
               Icons.location_on_outlined,
-              size: 20.sp,
+              size: 20,
               color: ColorM.gray500,
             ),
           ),
@@ -572,8 +569,8 @@ class _CenterPin extends StatelessWidget {
         offset: Offset(0, -18.h),
         child: SvgPicture.asset(
           Assets.svg.borderLocation.path,
-          width: 42.w,
-          height: 42.w,
+          width: 42,
+          height: 42,
           colorFilter: const ColorFilter.mode(
             ColorM.primary500,
             BlendMode.srcIn,
@@ -629,8 +626,8 @@ class _CoverageBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 32.w,
-                height: 32.w,
+                width: 32,
+                height: 32,
                 alignment: Alignment.center,
                 decoration: ShapeDecoration(
                   color: barStyle.background,
@@ -639,7 +636,7 @@ class _CoverageBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
-                child: Icon(barStyle.icon, size: 18.sp, color: barStyle.color),
+                child: Icon(barStyle.icon, size: 18, color: barStyle.color),
               ),
               10.horizontalSpace,
               Expanded(
@@ -677,7 +674,7 @@ class _CoverageBar extends StatelessWidget {
                     : onRetryCoverage,
                 backgroundColor: ColorM.gray100,
                 borderRadius: 10.r,
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
                 child: Text(
                   Translation.retry_button.tr,
                   style: context.labelMedium.copyWith(
@@ -693,7 +690,7 @@ class _CoverageBar extends StatelessWidget {
             onTap: state.locating ? null : onLocate,
             isLoading: state.locating,
             loadingColor: ColorM.primary500,
-            height: 46.h,
+            height: 46,
             borderRadius: 14.r,
             backgroundColor: ColorM.primary50,
             alignment: Alignment.center,
@@ -716,7 +713,7 @@ class _CoverageBar extends StatelessWidget {
           CustomInkButton(
             onTap: state.canConfirm ? onConfirm : null,
             enabled: state.canConfirm,
-            height: 52.h,
+            height: 52,
             borderRadius: 16.r,
             backgroundColor: state.canConfirm
                 ? ColorM.primary500

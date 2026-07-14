@@ -27,8 +27,8 @@ class OutOfCoverageBody extends StatelessWidget {
               32.verticalSpace,
               SvgPicture.asset(
                 Assets.svg.locationMap.path,
-                width: 288.w,
-                height: 208.h,
+                width: 288,
+                height: 208,
                 fit: BoxFit.fitWidth,
               ),
               // 32.verticalSpace,
@@ -67,7 +67,7 @@ class _UnavailablePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8.h),
       decoration: BoxDecoration(
         color: ColorM.gray150,
         borderRadius: BorderRadius.circular(100.r),
@@ -76,8 +76,8 @@ class _UnavailablePill extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 8.w,
-            height: 8.w,
+            width: 8,
+            height: 8,
             decoration: const BoxDecoration(
               color: ColorM.primary,
               shape: BoxShape.circle,
@@ -111,7 +111,7 @@ class _RetryButton extends StatelessWidget {
     return CustomInkButton(
       onTap: () => onTap?.call(),
       enabled: onTap != null,
-      height: 50.h,
+      height: 50,
       width: double.infinity,
       borderRadius: SizeM.commonBorderRadius.r,
       backgroundColor: ColorM.primary500,

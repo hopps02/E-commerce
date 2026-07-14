@@ -41,8 +41,8 @@ class LanguageView extends StatelessWidget {
                       locale: SupportedLocales.EN.locale,
                       currentLocale: currentLocale,
                       icon: Assets.svg.language.svg(
-                        width: 24.w,
-                        height: 24.w,
+                        width: 24,
+                        height: 24,
                         colorFilter: const ColorFilter.mode(
                           ColorM.gray900,
                           BlendMode.srcIn,
@@ -55,8 +55,8 @@ class LanguageView extends StatelessWidget {
                       locale: SupportedLocales.AR.locale,
                       currentLocale: currentLocale,
                       icon: Assets.svg.language.svg(
-                        width: 24.w,
-                        height: 24.w,
+                        width: 24,
+                        height: 24,
                         colorFilter: const ColorFilter.mode(
                           ColorM.gray900,
                           BlendMode.srcIn,
@@ -97,7 +97,7 @@ class _LanguageItem extends StatelessWidget {
           await context.setLocale(locale);
         }
       },
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
       backgroundColor: Colors.transparent,
       borderRadius: 16.r,
       side: gradient_border.GradientBorderSide(

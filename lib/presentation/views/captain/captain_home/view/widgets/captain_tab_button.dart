@@ -24,8 +24,8 @@ class CaptainTabButton extends StatelessWidget {
       child: CustomInkButton(
         onTap: onTap,
         borderRadius: 29.r,
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        height: 42.h,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8.h),
+        height: 42,
         tap: const ButtonAnimationSettings(
           ButtonAnimation.scaleTap,
           intensity: .2,
@@ -40,7 +40,7 @@ class CaptainTabButton extends StatelessWidget {
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: context.labelMedium.copyWith(
-              fontSize: 12.sp,
+              fontSize: 12,
               fontWeight: FontWeightM.semiBold,
               color: isSelected ? ColorM.white : ColorM.gray800,
               height: 20 / 12,

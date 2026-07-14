@@ -47,24 +47,32 @@ class SnackbarHelper {
           return Align(
             alignment: AlignmentDirectional.bottomStart,
             child: Container(
-              constraints: context.bySize<BoxConstraints?>(mobile: null,
-              tablet: BoxConstraints(maxWidth: 450.w),
-              desktop: BoxConstraints(maxWidth: 450.w),
-              largeDesktop: BoxConstraints(maxWidth: 450.w),),
+              constraints: context.bySize<BoxConstraints?>(
+                mobile: null,
+                tablet: BoxConstraints(maxWidth: 450.w),
+                desktop: BoxConstraints(maxWidth: 450.w),
+                largeDesktop: BoxConstraints(maxWidth: 450.w),
+              ),
               padding: EdgeInsets.all(SizeM.pagePadding.dg),
               child: Row(
                 children: [
                   ...actions,
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 12.w,
+                      ),
                       width: double.infinity,
                       decoration: ShapeDecoration(
                         color: ColorM.white,
                         shape: SmoothRectangleBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           smoothness: 1,
-                          side: GradientBorderSide(color: ColorM.primary, width: 1.w),
+                          side: GradientBorderSide(
+                            color: ColorM.primary,
+                            width: 1.w,
+                          ),
                         ),
                       ),
                       alignment: AlignmentDirectional.centerStart,
@@ -79,7 +87,7 @@ class SnackbarHelper {
               ),
             ),
           );
-        }
+        },
       ),
     );
   }
