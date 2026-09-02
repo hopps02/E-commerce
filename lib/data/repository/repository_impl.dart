@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:store/data/request/auth/auth_request.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/auth/auth_response.dart';
-import 'package:store/data/response/captain/captain_response.dart';
-import 'package:store/data/response/cashier/cashier_response.dart';
+
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/data/response/customer/delivery_zone_response.dart';
@@ -11,8 +10,7 @@ import 'package:store/data/response/customer/place_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
 import 'package:store/data/response/notification_response.dart';
 import 'package:store/data/network/api/auth_api.dart';
-import 'package:store/data/network/api/captain_api.dart';
-import 'package:store/data/network/api/cashier_api.dart';
+
 import 'package:store/data/network/api/customer_api.dart';
 import 'package:store/data/network/error_handler/error_handler.dart';
 import 'package:store/data/network/error_handler/failure.dart';
@@ -20,14 +18,12 @@ import 'package:store/domain/repository/repository.dart';
 
 class RepositoryImpl implements Repository {
   final AuthApi _authApi;
-  final CaptainApi _captainApi;
-  final CashierApi _cashierApi;
+
   final CustomerApi _customerApi;
 
   RepositoryImpl(
     this._authApi,
-    this._captainApi,
-    this._cashierApi,
+
     this._customerApi,
   );
 
@@ -112,170 +108,6 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, int>> markAllNotificationsRead() => fastHandler(
     request: () async =>
         (await _customerApi.markAllNotificationsRead()).data.marked,
-  );
-
-  // ---- Captain ----
-  @override
-  Future<Either<Failure, CaptainProfile>> captainMe() =>
-      fastHandler(request: () async => (await _captainApi.me()).data);
-
-  @override
-  Future<Either<Failure, Unit>> setAvailability(bool isAvailable) =>
-      fastHandler(
-        request: () async {
-          await _captainApi.availability({'is_available': isAvailable});
-          return unit;
-        },
-      );
-
-  @override
-  Future<Either<Failure, CaptainOrdersPage>> captainOrders({
-    required String queue,
-    required int page,
-    int pageSize = 20,
-  }) => fastHandler(
-    request: () async {
-      final envelope = await _captainApi.orders(queue, page, pageSize);
-      return (orders: envelope.data, meta: envelope.meta);
-    },
-  );
-
-  @override
-  Future<Either<Failure, CaptainOrder>> captainOrderDetail(int id) =>
-      fastHandler(
-        request: () async => (await _captainApi.orderDetail(id)).data,
-      );
-
-  @override
-  Future<Either<Failure, CaptainOrder>> acceptOrder(int orderId) => fastHandler(
-    request: () async => (await _captainApi.accept(orderId)).data,
-  );
-
-  @override
-  Future<Either<Failure, CaptainOrder>> startDelivery(int orderId) =>
-      fastHandler(
-        request: () async => (await _captainApi.startDelivery(orderId)).data,
-      );
-
-  @override
-  Future<Either<Failure, CaptainOrder>> markDelivered(
-    int orderId, {
-    double? lat,
-    double? lng,
-  }) => fastHandler(
-    request: () async => (await _captainApi.markDelivered(orderId, {
-      'lat': lat,
-      'lng': lng,
-    })).data,
-  );
-
-  @override
-  Future<Either<Failure, CaptainOrder>> markFailed(
-    int orderId, {
-    required String reason,
-    String? note,
-    double? lat,
-    double? lng,
-  }) => fastHandler(
-    request: () async => (await _captainApi.markFailed(orderId, {
-      'reason': reason,
-      'note': note,
-      'lat': lat,
-      'lng': lng,
-    })).data,
-  );
-
-  // ---- Cashier ----
-  @override
-  Future<Either<Failure, CashierProfile>> cashierMe() =>
-      fastHandler(request: () async => (await _cashierApi.me()).data);
-
-  @override
-  Future<Either<Failure, CashierOrdersPage>> cashierOrders({
-    required String queue,
-    required int page,
-    int pageSize = 20,
-  }) => fastHandler(
-    request: () async {
-      final envelope = await _cashierApi.orders(queue, page, pageSize);
-      return (orders: envelope.data, meta: envelope.meta);
-    },
-  );
-
-  @override
-  Future<Either<Failure, CashierOrder>> cashierOrderDetail(int id) =>
-      fastHandler(
-        request: () async => (await _cashierApi.orderDetail(id)).data,
-      );
-
-  @override
-  Future<Either<Failure, CashierOrder>> markItemPrepared(
-    int orderId,
-    int itemId, {
-    required bool prepared,
-  }) => fastHandler(
-    request: () async => (await _cashierApi.markItemPrepared(orderId, itemId, {
-      'prepared': prepared,
-    })).data,
-  );
-
-  @override
-  Future<Either<Failure, CashierOrder>> markItemUnavailable(
-    int orderId,
-    int itemId, {
-    String? reason,
-  }) => fastHandler(
-    request: () async => (await _cashierApi.markItemUnavailable(
-      orderId,
-      itemId,
-      {'reason': reason},
-    )).data,
-  );
-
-  @override
-  Future<Either<Failure, CashierOrder>> confirmReady(int orderId) =>
-      fastHandler(
-        request: () async => (await _cashierApi.confirmReady(orderId)).data,
-      );
-
-  @override
-  Future<Either<Failure, CashierOrder>> rejectOrder(
-    int orderId, {
-    String? reason,
-  }) => fastHandler(
-    request: () async =>
-        (await _cashierApi.reject(orderId, {'reason': reason})).data,
-  );
-
-  @override
-  Future<Either<Failure, List<AvailableCaptain>>> availableCaptains(
-    int orderId,
-  ) => fastHandler(
-    request: () async => (await _cashierApi.availableCaptains(orderId)).data,
-  );
-
-  @override
-  Future<Either<Failure, CashierOrder>> assignCaptain(
-    int orderId,
-    int captainId,
-  ) => fastHandler(
-    request: () async => (await _cashierApi.assignCaptain(orderId, {
-      'captain_id': captainId,
-    })).data,
-  );
-
-  @override
-  Future<Either<Failure, CashierOrder>> reassignCaptain(
-    int orderId,
-    int captainId,
-    String reason,
-    String? note,
-  ) => fastHandler(
-    request: () async => (await _cashierApi.reassignCaptain(orderId, {
-      'captain_id': captainId,
-      'reason': reason,
-      if (note != null && note.isNotEmpty) 'note': note,
-    })).data,
   );
 
   // ---- Customer ----
@@ -548,17 +380,7 @@ class RepositoryImpl implements Repository {
         )).data,
       );
 
-  @override
-  Future<Either<Failure, Ticket>> openCashierTicket(OpenTicketBody body) =>
-      fastHandler(
-        request: () async => (await _cashierApi.openTicket(body)).data,
-      );
 
-  @override
-  Future<Either<Failure, Ticket>> openCaptainTicket(OpenTicketBody body) =>
-      fastHandler(
-        request: () async => (await _captainApi.openTicket(body)).data,
-      );
 
   @override
   Future<Either<Failure, List<LegalSection>>> legalPolicies() => fastHandler(

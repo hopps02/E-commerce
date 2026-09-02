@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:store/data/request/auth/auth_request.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/auth/auth_response.dart';
-import 'package:store/data/response/captain/captain_response.dart';
-import 'package:store/data/response/cashier/cashier_response.dart';
+
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/data/response/customer/delivery_zone_response.dart';
@@ -13,11 +12,6 @@ import 'package:store/data/response/notification_response.dart';
 import 'package:store/data/network/envelope.dart';
 import 'package:store/data/network/error_handler/failure.dart';
 
-/// A page of captain orders with its pagination block.
-typedef CaptainOrdersPage = ({List<CaptainOrder> orders, Meta? meta});
-
-/// A page of cashier orders with its pagination block.
-typedef CashierOrdersPage = ({List<CashierOrder> orders, Meta? meta});
 
 /// A page of customer orders with its pagination block.
 typedef CustomerOrdersPage = ({List<CustomerOrder> orders, Meta? meta});
@@ -62,82 +56,7 @@ abstract class Repository {
 
   Future<Either<Failure, int>> markAllNotificationsRead();
 
-  // ---- Captain ----
-  Future<Either<Failure, CaptainProfile>> captainMe();
 
-  Future<Either<Failure, Unit>> setAvailability(bool isAvailable);
-
-  Future<Either<Failure, CaptainOrdersPage>> captainOrders({
-    required String queue,
-    required int page,
-    int pageSize,
-  });
-
-  Future<Either<Failure, CaptainOrder>> captainOrderDetail(int id);
-
-  Future<Either<Failure, CaptainOrder>> acceptOrder(int orderId);
-
-  Future<Either<Failure, CaptainOrder>> startDelivery(int orderId);
-
-  Future<Either<Failure, CaptainOrder>> markDelivered(
-    int orderId, {
-    double? lat,
-    double? lng,
-  });
-
-  Future<Either<Failure, CaptainOrder>> markFailed(
-    int orderId, {
-    required String reason,
-    String? note,
-    double? lat,
-    double? lng,
-  });
-
-  // ---- Cashier ----
-  Future<Either<Failure, CashierProfile>> cashierMe();
-
-  Future<Either<Failure, CashierOrdersPage>> cashierOrders({
-    required String queue,
-    required int page,
-    int pageSize,
-  });
-
-  Future<Either<Failure, CashierOrder>> cashierOrderDetail(int id);
-
-  Future<Either<Failure, CashierOrder>> markItemPrepared(
-    int orderId,
-    int itemId, {
-    required bool prepared,
-  });
-
-  Future<Either<Failure, CashierOrder>> markItemUnavailable(
-    int orderId,
-    int itemId, {
-    String? reason,
-  });
-
-  Future<Either<Failure, CashierOrder>> confirmReady(int orderId);
-
-  Future<Either<Failure, CashierOrder>> rejectOrder(
-    int orderId, {
-    String? reason,
-  });
-
-  Future<Either<Failure, List<AvailableCaptain>>> availableCaptains(
-    int orderId,
-  );
-
-  Future<Either<Failure, CashierOrder>> assignCaptain(
-    int orderId,
-    int captainId,
-  );
-
-  Future<Either<Failure, CashierOrder>> reassignCaptain(
-    int orderId,
-    int captainId,
-    String reason,
-    String? note,
-  );
 
   // ---- Customer ----
   Future<Either<Failure, CustomerProfile>> profile();
@@ -255,9 +174,7 @@ abstract class Repository {
 
   Future<Either<Failure, Ticket>> replyTicket(int id, String body);
 
-  Future<Either<Failure, Ticket>> openCashierTicket(OpenTicketBody body);
 
-  Future<Either<Failure, Ticket>> openCaptainTicket(OpenTicketBody body);
 
   Future<Either<Failure, List<LegalSection>>> legalPolicies();
 

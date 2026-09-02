@@ -1,14 +1,14 @@
-import 'package:dartz/dartz.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/failure_display_extension.dart';
 import 'package:store/app/utils/snackbar_helper.dart';
-import 'package:store/data/network/error_handler/failure.dart';
+
 import 'package:store/data/request/customer/customer_request.dart';
-import 'package:store/data/response/auth/auth_response.dart';
-import 'package:store/data/response/customer/support_response.dart';
+
+
 import 'package:store/presentation/res/translations_manager.dart';
 
 class SupportState extends Equatable {
@@ -53,26 +53,10 @@ class SupportNotifier extends Notifier<SupportState> {
 
     state = const SupportState(submitting: true);
 
-    final role = await DI().sessionService.storedRole();
+
     final body = OpenTicketBody(title: title, description: description);
 
-    // Staff open-ticket is cashier- or captain-only; the backend routes to a
-    // different endpoint per role. Anything else (customer/null) has no staff
-    // ticket endpoint, so fail loudly instead of silently using the cashier one.
-    final Future<Either<Failure, Ticket>> request;
-    switch (role) {
-      case MobileRole.cashier:
-        request = DI().openCashierTicketUseCase.execute(body);
-      case MobileRole.captain:
-        request = DI().openCaptainTicketUseCase.execute(body);
-      default:
-        DI().snackBarHelper.showMessage(
-          Translation.something_is_wrong.tr,
-          ErrorMessage.snackBar,
-        );
-        state = const SupportState(submitting: false);
-        return;
-    }
+    final request = DI().openTicketUseCase.execute(body);
 
     final result = await request;
 

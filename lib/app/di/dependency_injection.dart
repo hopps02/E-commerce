@@ -7,8 +7,7 @@ import 'package:store/app/services/storage_services/storage_service.dart';
 import 'package:store/app/utils/overlay_loading/overlay_loading_manager.dart';
 import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/data/network/api/auth_api.dart';
-import 'package:store/data/network/api/captain_api.dart';
-import 'package:store/data/network/api/cashier_api.dart';
+
 import 'package:store/data/network/api/customer_api.dart';
 import 'package:store/data/network/dio_factory.dart';
 import 'package:store/data/repository/repository_impl.dart';
@@ -20,24 +19,7 @@ import 'package:store/domain/usecase/register_device_usecase.dart';
 import 'package:store/domain/usecase/request_otp_usecase.dart';
 import 'package:store/domain/usecase/unregister_device_usecase.dart';
 import 'package:store/domain/usecase/verify_otp_usecase.dart';
-import 'package:store/domain/usecase/accept_order_usecase.dart';
-import 'package:store/domain/usecase/get_captain_order_detail_usecase.dart';
-import 'package:store/domain/usecase/get_captain_orders_usecase.dart';
-import 'package:store/domain/usecase/get_captain_profile_usecase.dart';
-import 'package:store/domain/usecase/mark_delivered_usecase.dart';
-import 'package:store/domain/usecase/mark_failed_usecase.dart';
-import 'package:store/domain/usecase/set_captain_availability_usecase.dart';
-import 'package:store/domain/usecase/start_delivery_usecase.dart';
-import 'package:store/domain/usecase/assign_captain_usecase.dart';
-import 'package:store/domain/usecase/available_captains_usecase.dart';
-import 'package:store/domain/usecase/reassign_captain_usecase.dart';
-import 'package:store/domain/usecase/confirm_ready_usecase.dart';
-import 'package:store/domain/usecase/get_cashier_order_detail_usecase.dart';
-import 'package:store/domain/usecase/get_cashier_orders_usecase.dart';
-import 'package:store/domain/usecase/get_cashier_profile_usecase.dart';
-import 'package:store/domain/usecase/mark_item_prepared_usecase.dart';
-import 'package:store/domain/usecase/mark_item_unavailable_usecase.dart';
-import 'package:store/domain/usecase/reject_order_usecase.dart';
+
 import 'package:store/domain/usecase/add_favorite_usecase.dart';
 import 'package:store/domain/usecase/cancel_order_usecase.dart';
 import 'package:store/domain/usecase/checkout_quote_usecase.dart';
@@ -61,8 +43,7 @@ import 'package:store/domain/usecase/open_ticket_usecase.dart';
 import 'package:store/domain/usecase/get_tickets_usecase.dart';
 import 'package:store/domain/usecase/get_ticket_usecase.dart';
 import 'package:store/domain/usecase/reply_ticket_usecase.dart';
-import 'package:store/domain/usecase/open_cashier_ticket_usecase.dart';
-import 'package:store/domain/usecase/open_captain_ticket_usecase.dart';
+
 import 'package:store/domain/usecase/get_delivery_zones_usecase.dart';
 import 'package:store/domain/usecase/get_legal_policies_usecase.dart';
 import 'package:store/domain/usecase/mark_notification_read_usecase.dart';
@@ -99,16 +80,14 @@ class DI {
                                             ));
 
   static final Provider<AuthApi> _authApi = Provider((ref) => AuthApi(ref.read(_dio)));
-  static final _cashierApi                = Provider((ref) => CashierApi(ref.read(_dio)));
-  static final _captainApi                = Provider((ref) => CaptainApi(ref.read(_dio)));
+
   static final _customerApi               = Provider((ref) => CustomerApi(ref.read(_dio)));
 
   // --- Domain & Data ---
   // One repository, backed by every API. Features reach it only through use cases.
   static final Provider<Repository> _repository = Provider((ref) => RepositoryImpl(
                                               ref.read(_authApi),
-                                              ref.read(_captainApi),
-                                              ref.read(_cashierApi),
+
                                               ref.read(_customerApi),
                                             ));
 
@@ -165,27 +144,7 @@ extension DIUseCasesExtension on DI {
   RegisterDeviceUseCase       get registerDeviceUseCase       => RegisterDeviceUseCase(_repo);
   UnregisterDeviceUseCase     get unregisterDeviceUseCase     => UnregisterDeviceUseCase(_repo);
 
-  // --- Captain ---
-  GetCaptainProfileUseCase    get getCaptainProfileUseCase    => GetCaptainProfileUseCase(_repo);
-  SetCaptainAvailabilityUseCase get setCaptainAvailabilityUseCase => SetCaptainAvailabilityUseCase(_repo);
-  GetCaptainOrdersUseCase     get getCaptainOrdersUseCase     => GetCaptainOrdersUseCase(_repo);
-  GetCaptainOrderDetailUseCase get getCaptainOrderDetailUseCase => GetCaptainOrderDetailUseCase(_repo);
-  AcceptOrderUseCase          get acceptOrderUseCase          => AcceptOrderUseCase(_repo);
-  StartDeliveryUseCase        get startDeliveryUseCase        => StartDeliveryUseCase(_repo);
-  MarkDeliveredUseCase        get markDeliveredUseCase        => MarkDeliveredUseCase(_repo);
-  MarkFailedUseCase           get markFailedUseCase           => MarkFailedUseCase(_repo);
 
-  // --- Cashier ---
-  GetCashierProfileUseCase    get getCashierProfileUseCase    => GetCashierProfileUseCase(_repo);
-  GetCashierOrdersUseCase     get getCashierOrdersUseCase     => GetCashierOrdersUseCase(_repo);
-  GetCashierOrderDetailUseCase get getCashierOrderDetailUseCase => GetCashierOrderDetailUseCase(_repo);
-  MarkItemPreparedUseCase     get markItemPreparedUseCase     => MarkItemPreparedUseCase(_repo);
-  MarkItemUnavailableUseCase  get markItemUnavailableUseCase  => MarkItemUnavailableUseCase(_repo);
-  ConfirmReadyUseCase         get confirmReadyUseCase         => ConfirmReadyUseCase(_repo);
-  RejectOrderUseCase          get rejectOrderUseCase          => RejectOrderUseCase(_repo);
-  AvailableCaptainsUseCase    get availableCaptainsUseCase    => AvailableCaptainsUseCase(_repo);
-  AssignCaptainUseCase        get assignCaptainUseCase        => AssignCaptainUseCase(_repo);
-  ReassignCaptainUseCase      get reassignCaptainUseCase      => ReassignCaptainUseCase(_repo);
 
   // --- Customer ---
   GetProfileUseCase           get getProfileUseCase           => GetProfileUseCase(_repo);
@@ -219,8 +178,7 @@ extension DIUseCasesExtension on DI {
   GetTicketsUseCase           get getTicketsUseCase           => GetTicketsUseCase(_repo);
   GetTicketUseCase            get getTicketUseCase            => GetTicketUseCase(_repo);
   ReplyTicketUseCase          get replyTicketUseCase          => ReplyTicketUseCase(_repo);
-  OpenCashierTicketUseCase    get openCashierTicketUseCase    => OpenCashierTicketUseCase(_repo);
-  OpenCaptainTicketUseCase    get openCaptainTicketUseCase    => OpenCaptainTicketUseCase(_repo);
+
   GetLegalPoliciesUseCase     get getLegalPoliciesUseCase     => GetLegalPoliciesUseCase(_repo);
   DeleteAccountUseCase        get deleteAccountUseCase        => DeleteAccountUseCase(_repo);
 }

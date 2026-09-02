@@ -1,6 +1,5 @@
 import 'package:store/presentation/res/router/app_router.dart';
-import 'package:store/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
-import 'package:store/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
+
 import 'package:store/presentation/views/user/order_details/view/screens/order_details_view.dart';
 import 'package:store/presentation/views/user/support/view/screens/ticket_detail_view.dart';
 
@@ -30,23 +29,6 @@ class NotificationDeepLink {
     final orderId = int.tryParse((data['order_id'] ?? '').toString());
     final ticketId = int.tryParse((data['ticket_id'] ?? '').toString());
 
-    // Captain — new assignment / hand-off to another captain.
-    if (type.startsWith('delivery.')) {
-      if (orderId == null) return null;
-      return _DeepLinkTarget(
-        Routes.captainOrderDetails.name,
-        CaptainOrderDetailsArgs(orderId: orderId),
-      );
-    }
-
-    // Cashier — branch-facing order events.
-    if (type == 'order.new_for_branch' || type == 'order.failed_for_branch') {
-      if (orderId == null) return null;
-      return _DeepLinkTarget(
-        Routes.cashierOrderDetails.name,
-        CashierOrderDetailsArgs(orderId: orderId),
-      );
-    }
 
     // Customer — every other order event opens the order details screen;
     // `order.delivered` additionally pops the rating sheet so the prompt to

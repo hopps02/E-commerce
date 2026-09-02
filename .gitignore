@@ -53,3 +53,6 @@ app.*.map.json
 # Google Maps API keys — committed on purpose: the keys are restricted in Google Cloud
 # to our bundle id / package + SHA and the Maps SDK only, so they are safe to ship in-repo
 # (a mobile maps key ships inside the app binary regardless).
+
+# FVM Version Cache
+.fvm/

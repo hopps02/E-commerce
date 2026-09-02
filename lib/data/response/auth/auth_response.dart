@@ -10,9 +10,7 @@ const int otpCodeLength = 6;
 /// Server-assigned mobile role. The backend resolves it from the phone at
 /// verify-otp; the app never chooses it (the role dialog was dev-only).
 enum MobileRole {
-  customer('customer'),
-  cashier('cashier'),
-  captain('captain');
+  customer('customer');
 
   final String value;
 

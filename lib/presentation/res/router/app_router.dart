@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/app/app.dart';
 import 'package:store/data/response/auth/auth_response.dart';
-import 'package:store/presentation/views/captain/captain_home/view/screens/captain_home_view.dart';
-import 'package:store/presentation/views/captain/delivery_outcome/view/screens/captain_delivery_outcome_view.dart';
-import 'package:store/presentation/views/captain/order_details/view/screens/captain_order_details_view.dart';
-import 'package:store/presentation/views/cashier/cashier_home/view/screens/cashier_home_view.dart';
 import 'package:store/app/enums/enums.dart';
-import 'package:store/presentation/views/cashier/order_details/view/screens/cashier_order_details_view.dart';
 import 'package:store/presentation/views/shared/notifications/view/screens/notifications_view.dart';
 import 'package:store/presentation/views/shared/support/view/screens/support_view.dart';
 import 'package:go_router/go_router.dart';
@@ -68,16 +63,7 @@ enum Routes {
   mapLocationPicker ('map-location-picker'),
   favorites      ('favorites'),
 
-  // Cashier routes
-  cashierHome           ('cashier-home'),
-  cashierOrderDetails   ('cashier-order-details'),
-
-  // Captain routes
-  captainHome             ('captain-home'),
-  captainOrderDetails     ('captain-order-details'),
-  captainDeliveryOutcome  ('captain-delivery-outcome'),
-
-  // Shared (cashier + captain)
+  // Shared
   support               ('support');
 
   final String name;
@@ -96,8 +82,6 @@ enum Routes {
 extension MobileRoleHome on MobileRole {
   Routes get homeRoute => switch (this) {
     MobileRole.customer => Routes.home,
-    MobileRole.cashier => Routes.cashierHome,
-    MobileRole.captain => Routes.captainHome,
   };
 }
 
@@ -299,49 +283,9 @@ final GoRouter appRouter = GoRouter(
       ),
     ),
     _r(
-      name: Routes.cashierHome.name,
-      path: Routes.cashierHome.path,
-      builder: (_, _) => const CashierHomeView(),
-    ),
-    _r(
       name: Routes.support.name,
       path: Routes.support.path,
       builder: (_, _) => const SupportView(),
-    ),
-    _r(
-      name: Routes.cashierOrderDetails.name,
-      path: Routes.cashierOrderDetails.path,
-      builder: (_, state) => CashierOrderDetailsView(
-        args: state.extra is CashierOrderDetailsArgs
-            ? state.extra as CashierOrderDetailsArgs
-            : const CashierOrderDetailsArgs(orderId: 0),
-      ),
-    ),
-    _r(
-      name: Routes.captainHome.name,
-      path: Routes.captainHome.path,
-      builder: (_, _) => const CaptainHomeView(),
-    ),
-    _r(
-      name: Routes.captainOrderDetails.name,
-      path: Routes.captainOrderDetails.path,
-      builder: (_, state) => CaptainOrderDetailsView(
-        args: state.extra is CaptainOrderDetailsArgs
-            ? state.extra as CaptainOrderDetailsArgs
-            : const CaptainOrderDetailsArgs(orderId: 0),
-      ),
-    ),
-    _r(
-      name: Routes.captainDeliveryOutcome.name,
-      path: Routes.captainDeliveryOutcome.path,
-      builder: (_, state) => CaptainDeliveryOutcomeView(
-        args: state.extra is CaptainDeliveryOutcomeArgs
-            ? state.extra as CaptainDeliveryOutcomeArgs
-            : const CaptainDeliveryOutcomeArgs(
-                kind: CaptainDeliveryOutcomeKind.success,
-                orderId: '',
-              ),
-      ),
     ),
   ],
 );
