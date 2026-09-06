@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:equatable/equatable.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/failure_display_extension.dart';
@@ -19,8 +19,8 @@ class AuthState extends Equatable {
   final String? validatedPhone;
 
   const AuthState({
-    this.countryCode = "SA",
-    this.dialCode = "+966",
+    this.countryCode = "EG",
+    this.dialCode = "+20",
     this.textActive = false,
     this.phoneValid = false,
     this.validatedPhone,

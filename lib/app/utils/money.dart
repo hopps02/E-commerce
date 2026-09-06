@@ -1,11 +1,11 @@
-/// Money on the 4U wire is always integer halalas (1 SAR = 100 halalas).
+﻿/// Money on the 4U wire is always integer halalas (1 EGP = 100 piasters; the wire keeps the halalas name).
 /// This is the only place that converts them for display — widgets must never
 /// divide by 100 inline. Integer math throughout: no doubles, no rounding drift.
 class Money {
   Money._();
 
-  static const String _arSymbol = 'ر.س';
-  static const String _enSymbol = 'SAR';
+  static const String _arSymbol = 'ج.م';
+  static const String _enSymbol = 'EGP';
 
   /// Amount only, always two decimals: 1250 -> "12.50", -90 -> "-0.90".
   static String amount(int halalas) {
@@ -15,7 +15,7 @@ class Money {
     return '$sign${abs ~/ 100}.$fraction';
   }
 
-  /// Localized amount with currency: "12.50 ر.س" (ar) / "SAR 12.50" (en).
+  /// Localized amount with currency: "12.50 ج.م" (ar) / "EGP 12.50" (en).
   static String format(int halalas, {required bool arabic}) => arabic
       ? '${amount(halalas)} $_arSymbol'
       : '$_enSymbol ${amount(halalas)}';

@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +20,7 @@ import 'package:store/domain/usecase/places_details_usecase.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
 
-const _fallbackTarget = LatLng(24.7136, 46.6753);
+const _fallbackTarget = LatLng(30.0444, 31.2357);
 
 enum MapCoverageStatus {
   idle,
