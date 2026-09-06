@@ -47,6 +47,7 @@ app.*.map.json
 # GitLab Runner
 /builds/
 /config.toml
+/.runner_system_id
 
 .claude/
 
