@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:store/app/ui_kit/currency_mark.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
 
 class Order extends StatelessWidget {
   final String title;
@@ -102,14 +101,7 @@ class Order extends StatelessWidget {
                           ),
                         ),
                         2.horizontalSpace,
-                        SvgPicture.asset(
-                          Assets.svg.saudiRiyalSymbol.path,
-                          width: 11,
-                          colorFilter: const ColorFilter.mode(
-                            ColorM.primary700,
-                            BlendMode.srcIn,
-                          ),
-                        ),
+                        const CurrencyMark(size: 11, color: ColorM.primary700),
                       ],
                     ),
                   ],

@@ -208,10 +208,6 @@ class $AssetsSvgGen {
   SvgGenImage get minusSquare =>
       const SvgGenImage('assets/svg/minus-square.svg');
 
-  /// File path: assets/svg/saudi-riyal-symbol.svg
-  SvgGenImage get saudiRiyalSymbol =>
-      const SvgGenImage('assets/svg/saudi-riyal-symbol.svg');
-
   /// File path: assets/svg/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svg/search.svg');
 
@@ -268,7 +264,6 @@ class $AssetsSvgGen {
     manProfile,
     messages,
     minusSquare,
-    saudiRiyalSymbol,
     search,
     shoppingBasket,
     star,

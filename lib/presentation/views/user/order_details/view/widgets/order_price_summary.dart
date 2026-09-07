@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:store/app/ui_kit/currency_mark.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 
 class OrderPriceSummary extends StatelessWidget {
@@ -70,14 +69,7 @@ class OrderPriceSummary extends StatelessWidget {
                     fontWeight: FontWeightM.bold,
                   ),
                 ),
-                SvgPicture.asset(
-                  Assets.svg.saudiRiyalSymbol.path,
-                  width: 14,
-                  colorFilter: const ColorFilter.mode(
-                    ColorM.primary700,
-                    BlendMode.srcIn,
-                  ),
-                ),
+                const CurrencyMark(size: 14, color: ColorM.primary700),
               ],
             ),
           ],
@@ -110,14 +102,7 @@ class _SummaryRow extends StatelessWidget {
                 fontWeight: FontWeightM.medium,
               ),
             ),
-            SvgPicture.asset(
-              Assets.svg.saudiRiyalSymbol.path,
-              width: 12,
-              colorFilter: const ColorFilter.mode(
-                ColorM.gray600,
-                BlendMode.srcIn,
-              ),
-            ),
+            const CurrencyMark(size: 12, color: ColorM.gray600),
           ],
         ),
       ],

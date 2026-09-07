@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:store/app/ui_kit/currency_mark.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:store/app/ui_kit/flex_text.dart';
@@ -201,10 +202,7 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                           ),
                           2.horizontalSpace,
-                          Assets.svg.saudiRiyalSymbol.svg(
-                            width: 9,
-                            color: ColorM.primary550,
-                          ),
+                          const CurrencyMark(size: 9, color: ColorM.primary550),
                           if (widget.oldPrice != null) ...[
                             8.horizontalSpace,
                             FlexText(
@@ -218,10 +216,7 @@ class _ProductCardState extends State<ProductCard> {
                               ),
                             ),
                             4.horizontalSpace,
-                            Assets.svg.saudiRiyalSymbol.svg(
-                              width: 7,
-                              color: ColorM.gray500,
-                            ),
+                            const CurrencyMark(size: 8, color: ColorM.gray500),
                           ],
                         ],
                       ),

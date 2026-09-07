@@ -1,17 +1,28 @@
-/// Build-time backend selection. The default is the deployed API; pass
-/// `--dart-define=BASE_URL=...` to point a build elsewhere:
-///
-/// - Local backend (iOS sim):  --dart-define=BASE_URL=http://127.0.0.1:8000/api/v1
-/// - Local (Android emulator): --dart-define=BASE_URL=http://10.0.2.2:8000/api/v1
-///
-/// NOTE: the mobile API ships with the backend `development` branch — the
-/// server must be deployed from it for this default to work.
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+/// Where the app looks for its backend.
 class Env {
   Env._();
 
-  static const String baseUrl = String.fromEnvironment(
-    'BASE_URL',
-    defaultValue: 'https://api.try4u.co/api/v1',
-  );
+  static const String _override = String.fromEnvironment('BASE_URL');
 
+  /// A `--dart-define=BASE_URL=...` always wins.
+  ///
+  /// Failing that, a web build talks to whatever host served it, so one bundle
+  /// works on localhost, staging and production without a rebuild — and never
+  /// trips CORS, because every call is same-origin. Put the API behind
+  /// `/api/v1` on that host (the bundled dev server and any reverse proxy in
+  /// front of Laravel already do).
+  ///
+  /// A mobile build has no origin to borrow, so it falls back to the Android
+  /// emulator's route to the host machine and must be given a real one at
+  /// build time:
+  ///
+  ///   flutter build apk --dart-define=BASE_URL=https://api.example.com/api/v1
+  static String get baseUrl {
+    if (_override.isNotEmpty) return _override;
+    if (kIsWeb) return '${Uri.base.origin}/api/v1';
+
+    return 'http://10.0.2.2:8000/api/v1';
+  }
 }

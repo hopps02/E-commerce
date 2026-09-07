@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:store/app/ui_kit/currency_mark.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 
 class CartSummaryBottomBar extends StatelessWidget {
@@ -307,11 +306,7 @@ class _PriceWidget extends StatelessWidget {
             fontWeight: fontWeight,
           ),
         ),
-        SvgPicture.asset(
-          Assets.svg.saudiRiyalSymbol.path,
-          width: 12,
-          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-        ),
+        CurrencyMark(size: 12, color: color),
       ],
     );
   }
