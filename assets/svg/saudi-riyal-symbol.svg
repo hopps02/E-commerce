@@ -1,11 +1,5 @@
-<svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_13077_737)">
-<path d="M4.50409 7.08693C4.37492 7.37015 4.28954 7.67751 4.25684 7.99983L6.99016 7.42523C7.11933 7.14207 7.20464 6.83465 7.23741 6.51233L4.50409 7.08693Z" fill="#9CA3AF"/>
-<path d="M6.99085 5.70408C7.12001 5.42092 7.20539 5.1135 7.2381 4.79118L5.10892 5.239V4.37813L6.99078 3.98264C7.11994 3.69948 7.20532 3.39206 7.23803 3.06974L5.10885 3.51718V0.421201C4.7826 0.602355 4.49286 0.843491 4.25732 1.12792V3.69623L3.4058 3.87522V0.00012207C3.07954 0.181212 2.7898 0.422411 2.55427 0.706845V4.05415L0.648965 4.45453C0.519803 4.73769 0.43436 5.04512 0.401587 5.36744L2.55427 4.91503V5.99915L0.247249 6.48397C0.118087 6.76713 0.032709 7.07455 0 7.39687L2.4148 6.88938C2.61138 6.84895 2.78033 6.73402 2.89018 6.57585L3.33304 5.92656V5.92643C3.37901 5.85926 3.4058 5.77826 3.4058 5.69103V4.73604L4.25732 4.55705V6.27881L6.99078 5.70396L6.99085 5.70408Z" fill="#9CA3AF"/>
-</g>
-<defs>
-<clipPath id="clip0_13077_737">
-<rect width="7.2381" height="8" fill="white"/>
-</clipPath>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 40" width="64" height="40">
+  <!-- Egyptian pound mark. The file keeps its historical name because nine
+       widgets reference Assets.svg.saudiRiyalSymbol; only the glyph changed. -->
+  <text x="32" y="30" text-anchor="middle" font-family="IBM Plex Sans Arabic, Arial, sans-serif" font-weight="700" font-size="30" fill="#000">ج.م</text>
 </svg>

@@ -57,3 +57,5 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+# Playwright MCP scratch output
+.playwright-mcp/
