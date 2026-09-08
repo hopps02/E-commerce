@@ -5,7 +5,6 @@ import 'package:store/app/extensions/failure_display_extension.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/domain/usecase/get_products_usecase.dart';
-import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProductsState extends Equatable {
@@ -46,7 +45,6 @@ class ProductsState extends Equatable {
 class ProductsNotifier extends Notifier<ProductsState> {
   final RefreshController refreshController = RefreshController();
 
-  int? _branchId;
   int? _categoryId;
   String? _search;
 
@@ -58,22 +56,13 @@ class ProductsNotifier extends Notifier<ProductsState> {
     return const ProductsState();
   }
 
-  /// Loads the first page for a category and/or search term. The browse
-  /// branch comes from the selected delivery address.
+  /// Loads the first page for a category and/or search term. The shelf is the
+  /// store's own — the server picks the branch, so no address is needed to
+  /// browse.
   Future<void> init({int? categoryId, String? search}) async {
-    final location = ref.read(locationController);
-    _branchId = location.servingBranchId;
     _categoryId = categoryId;
     _search = search;
     state = const ProductsState();
-    if (_branchId == null) {
-      state = state.copyWith(
-        reqState: ReqState.empty,
-        errorMessage: location.browseUnavailableMessage,
-        hasMore: false,
-      );
-      return;
-    }
     await _loadPage(1);
   }
 
@@ -94,15 +83,8 @@ class ProductsNotifier extends Notifier<ProductsState> {
   }
 
   Future<void> _loadPage(int page) async {
-    final branchId = _branchId;
-    if (branchId == null) {
-      state = state.copyWith(reqState: ReqState.empty, hasMore: false);
-      return;
-    }
-
     final result = await DI().getProductsUseCase.execute(
       ProductsParams(
-        branchId: branchId,
         categoryId: _categoryId,
         search: _search,
         page: page,

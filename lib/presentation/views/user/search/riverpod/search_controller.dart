@@ -7,7 +7,6 @@ import 'package:store/app/extensions/failure_display_extension.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/domain/usecase/get_products_usecase.dart';
-import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchState extends Equatable {
@@ -102,21 +101,8 @@ class SearchNotifier extends Notifier<SearchState> {
 
   Future<void> _loadPage(int page) async {
     final term = state.query;
-    final location = ref.read(locationController);
-    final branchId = location.servingBranchId;
-    if (branchId == null) {
-      state = state.copyWith(
-        reqState: ReqState.empty,
-        errorMessage: location.browseUnavailableMessage,
-        products: const [],
-        page: 1,
-        hasMore: false,
-      );
-      return;
-    }
-
     final result = await DI().getProductsUseCase.execute(
-      ProductsParams(branchId: branchId, search: term, page: page),
+      ProductsParams(search: term, page: page),
     );
     // A newer query superseded this response; drop it.
     if (term != state.query) return;

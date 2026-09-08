@@ -1,28 +1,20 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/extensions.dart';
-import 'package:store/app/extensions/failure_display_extension.dart';
-import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/forms/simple_form.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
-import 'package:store/app/utils/money.dart';
-import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
-import 'package:store/domain/usecase/create_address_usecase.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
-import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
-import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
+import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/presentation/views/user/addresses/riverpod/addresses_controller.dart';
 import 'package:store/presentation/views/user/addresses/view/screens/address_form_view.dart';
 import 'package:smooth_corner/smooth_corner.dart';
@@ -32,10 +24,11 @@ import 'package:smooth_corner/smooth_corner.dart';
 class AddressPickerBottomSheet extends ConsumerStatefulWidget {
   const AddressPickerBottomSheet({super.key});
 
-  static Future<DeliveryAddress?> show(BuildContext context) async {
-    final isGuest = await DI().sessionService.isGuest;
+  /// Saved addresses belong to a real account, so a guest is asked to sign
+  /// in before the list opens rather than meeting a 401 inside it.
+  static Future<DeliveryAddress?> show(BuildContext context, WidgetRef ref) async {
+    if (!await requireLogin(context, ref)) return null;
     if (!context.mounted) return null;
-    if (isGuest) return _showGuestMapPicker(context);
 
     return showModalBottomSheet<DeliveryAddress>(
       context: context,
@@ -44,25 +37,6 @@ class AddressPickerBottomSheet extends ConsumerStatefulWidget {
       useSafeArea: true,
       builder: (context) => const AddressPickerBottomSheet(),
     );
-  }
-
-  static Future<DeliveryAddress?> _showGuestMapPicker(
-    BuildContext context,
-  ) async {
-    final locationState = ProviderScope.containerOf(
-      context,
-      listen: false,
-    ).read(locationController);
-    final selectedAddress = locationState.selectedAddress;
-    final pickerArgs = selectedAddress == null
-        ? const MapLocationPickerArgs(useCurrentLocation: true)
-        : MapLocationPickerArgs.fromAddress(selectedAddress);
-
-    final picked = await context.pushNamed<MapLocationPickerResult>(
-      Routes.mapLocationPicker,
-      arguments: pickerArgs,
-    );
-    return picked?.toSessionAddress();
   }
 
   @override
@@ -89,17 +63,6 @@ class _AddressPickerBottomSheetState
       return;
     }
     ref.read(addressesController.notifier).load();
-  }
-
-  Future<void> _deliverDifferentLocation() async {
-    final picked = await context.pushNamed<MapLocationPickerResult>(
-      Routes.mapLocationPicker,
-      arguments: const MapLocationPickerArgs(),
-    );
-    if (picked == null || !mounted) return;
-
-    final created = await _OneOffAddressDetailsSheet.show(context, picked);
-    if (created != null && mounted) Navigator.pop(context, created);
   }
 
   @override
@@ -141,10 +104,7 @@ class _AddressPickerBottomSheetState
           16.verticalSpace,
           Flexible(
             child: state.reqState == ReqState.empty
-                ? _AddressEmptyState(
-                    onAddAddress: _addNew,
-                    onDifferentLocation: _deliverDifferentLocation,
-                  )
+                ? _AddressEmptyState(onAddAddress: _addNew)
                 : FastStateRender(
                     reqState: state.reqState,
                     errorMessage: state.errorMessage,
@@ -185,24 +145,6 @@ class _AddressPickerBottomSheetState
                     ),
                   ),
                 ),
-                10.horizontalSpace,
-                Expanded(
-                  child: CustomInkButton(
-                    onTap: _deliverDifferentLocation,
-                    height: 50,
-                    backgroundColor: ColorM.gray100,
-                    borderRadius: 14.r,
-                    alignment: Alignment.center,
-                    child: Text(
-                      Translation.deliver_to_different_location.tr,
-                      textAlign: TextAlign.center,
-                      style: context.labelLarge.copyWith(
-                        color: ColorM.gray800,
-                        fontWeight: FontWeightM.medium,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ],
@@ -214,12 +156,8 @@ class _AddressPickerBottomSheetState
 
 class _AddressEmptyState extends StatelessWidget {
   final VoidCallback onAddAddress;
-  final VoidCallback onDifferentLocation;
 
-  const _AddressEmptyState({
-    required this.onAddAddress,
-    required this.onDifferentLocation,
-  });
+  const _AddressEmptyState({required this.onAddAddress});
 
   @override
   Widget build(BuildContext context) {
@@ -274,22 +212,6 @@ class _AddressEmptyState extends StatelessWidget {
               Translation.add_address.tr,
               style: context.labelLarge.copyWith(
                 color: ColorM.white,
-                fontWeight: FontWeightM.medium,
-              ),
-            ),
-          ),
-          10.verticalSpace,
-          CustomInkButton(
-            onTap: onDifferentLocation,
-            height: 46,
-            width: double.infinity,
-            backgroundColor: ColorM.gray100,
-            borderRadius: 14.r,
-            alignment: Alignment.center,
-            child: Text(
-              Translation.deliver_to_different_location.tr,
-              style: context.labelLarge.copyWith(
-                color: ColorM.gray800,
                 fontWeight: FontWeightM.medium,
               ),
             ),
@@ -383,262 +305,3 @@ class _PickerRow extends StatelessWidget {
   }
 }
 
-class _OneOffAddressDetailsSheet extends ConsumerStatefulWidget {
-  final MapLocationPickerResult mapResult;
-
-  const _OneOffAddressDetailsSheet({required this.mapResult});
-
-  static Future<DeliveryAddress?> show(
-    BuildContext context,
-    MapLocationPickerResult mapResult,
-  ) {
-    return showModalBottomSheet<DeliveryAddress>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      useSafeArea: true,
-      builder: (context) => _OneOffAddressDetailsSheet(mapResult: mapResult),
-    );
-  }
-
-  @override
-  ConsumerState<_OneOffAddressDetailsSheet> createState() =>
-      _OneOffAddressDetailsSheetState();
-}
-
-class _OneOffAddressDetailsSheetState
-    extends ConsumerState<_OneOffAddressDetailsSheet> {
-  late final TextEditingController _displayAddress;
-  late final TextEditingController _street;
-  late final TextEditingController _building;
-  bool _submitted = false;
-  bool _saving = false;
-
-  @override
-  void initState() {
-    super.initState();
-    final mapResult = widget.mapResult;
-    _displayAddress = TextEditingController(
-      text: mapResult.displayAddressSuggestion ?? mapResult.area ?? '',
-    );
-    _street = TextEditingController(text: mapResult.street ?? '');
-    _building = TextEditingController(text: mapResult.buildingNumber ?? '');
-    _displayAddress.addListener(_refresh);
-    _street.addListener(_refresh);
-    _building.addListener(_refresh);
-  }
-
-  @override
-  void dispose() {
-    _displayAddress.removeListener(_refresh);
-    _street.removeListener(_refresh);
-    _building.removeListener(_refresh);
-    _displayAddress.dispose();
-    _street.dispose();
-    _building.dispose();
-    super.dispose();
-  }
-
-  bool get _canSave =>
-      _displayAddress.text.trim().isNotEmpty &&
-      _street.text.trim().isNotEmpty &&
-      _building.text.trim().isNotEmpty;
-
-  void _refresh() {
-    if (mounted) setState(() {});
-  }
-
-  Future<void> _save() async {
-    setState(() => _submitted = true);
-    if (!_canSave || _saving) return;
-    if (!await requireLogin(context, ref)) return;
-
-    setState(() => _saving = true);
-    final mapResult = widget.mapResult;
-    final created = await DI().createAddressUseCase.execute(
-      CreateAddressParams(
-        cityId: mapResult.cityId,
-        displayAddress: _displayAddress.text.trim(),
-        lat: mapResult.lat,
-        lng: mapResult.lng,
-        label: 'other',
-        street: _street.text.trim(),
-        buildingNumber: _building.text.trim(),
-        isDefault: false,
-      ),
-    );
-    if (!mounted) return;
-    setState(() => _saving = false);
-
-    created.fold(
-      (failure) => DI().snackBarHelper.showMessage(
-        failure.displayMessage,
-        ErrorMessage.snackBar,
-      ),
-      (address) => Navigator.pop(context, address),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
-    final arabic = context.locale.languageCode == 'ar';
-    final fee = widget.mapResult.deliveryFeeHalalas;
-
-    return AnimatedPadding(
-      duration: const Duration(milliseconds: 180),
-      padding: EdgeInsets.only(bottom: bottomInset),
-      child: Container(
-        width: double.infinity,
-        padding:
-            EdgeInsets.all(SizeM.pagePadding.w) +
-            EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
-        decoration: ShapeDecoration(
-          color: ColorM.white,
-          shape: SmoothRectangleBorder(
-            smoothness: 1,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(28.r),
-              topRight: Radius.circular(28.r),
-            ),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Center(
-              child: Container(
-                width: 48,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: ColorM.gray300,
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-              ),
-            ),
-            18.verticalSpace,
-            Text(
-              Translation.complete_delivery_address.tr,
-              style: context.bodyLarge.copyWith(fontWeight: FontWeightM.bold),
-            ),
-            if (fee != null) ...[
-              8.verticalSpace,
-              Text(
-                Translation.delivery_fee_value.trNamed({
-                  'fee': Money.format(fee, arabic: arabic),
-                }),
-                style: context.labelMedium.copyWith(color: ColorM.primary700),
-              ),
-            ],
-            16.verticalSpace,
-            _RequiredSheetField(
-              label: Translation.address_details_label.tr,
-              hint: Translation.address_details_hint.tr,
-              controller: _displayAddress,
-              submitted: _submitted,
-              keyboardType: TextInputType.streetAddress,
-            ),
-            12.verticalSpace,
-            _RequiredSheetField(
-              label: Translation.street.tr,
-              hint: Translation.street.tr,
-              controller: _street,
-              submitted: _submitted,
-              keyboardType: TextInputType.streetAddress,
-            ),
-            12.verticalSpace,
-            _RequiredSheetField(
-              label: Translation.building_number.tr,
-              hint: '12',
-              controller: _building,
-              submitted: _submitted,
-              keyboardType: TextInputType.text,
-            ),
-            18.verticalSpace,
-            CustomInkButton(
-              onTap: _save,
-              height: 52,
-              borderRadius: 16.r,
-              isLoading: _saving,
-              backgroundColor: _canSave ? ColorM.primary500 : ColorM.gray300,
-              alignment: Alignment.center,
-              child: Text(
-                Translation.confirm.tr,
-                style: context.bodyLarge.copyWith(
-                  color: ColorM.white,
-                  fontWeight: FontWeightM.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _RequiredSheetField extends StatelessWidget {
-  final String label;
-  final String hint;
-  final TextEditingController controller;
-  final bool submitted;
-  final TextInputType keyboardType;
-
-  const _RequiredSheetField({
-    required this.label,
-    required this.hint,
-    required this.controller,
-    required this.submitted,
-    required this.keyboardType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final hasError = submitted && controller.text.trim().isEmpty;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: context.bodyMedium.copyWith(
-                fontWeight: FontWeightM.medium,
-              ),
-            ),
-            3.horizontalSpace,
-            Text(
-              '*',
-              style: context.bodyMedium.copyWith(
-                color: ColorM.red,
-                fontWeight: FontWeightM.bold,
-              ),
-            ),
-          ],
-        ),
-        8.verticalSpace,
-        SimpleForm(
-          hintText: hint,
-          keyboardType: keyboardType,
-          controller: controller,
-          borderColor: hasError ? ColorM.red : null,
-          enableActiveBorder: true,
-        ),
-        if (hasError)
-          Padding(
-            padding: EdgeInsets.only(top: 6.h),
-            child: Text(
-              Translation.required_field.tr,
-              style: context.labelSmall.copyWith(
-                color: ColorM.red,
-                fontWeight: FontWeightM.medium,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}

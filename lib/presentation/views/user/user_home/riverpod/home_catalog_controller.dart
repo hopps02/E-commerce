@@ -49,7 +49,7 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
   @override
   HomeCatalogState build() => const HomeCatalogState();
 
-  Future<void> load(int branchId) async {
+  Future<void> load() async {
     state = const HomeCatalogState();
 
     final categoriesResult = await DI().getCategoriesUseCase.execute(null);
@@ -65,7 +65,7 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
     if (categories == null) return;
 
     final productsResult = await DI().getProductsUseCase.execute(
-      ProductsParams(branchId: branchId, page: 1, pageSize: 50),
+      ProductsParams(page: 1, pageSize: 50),
     );
     productsResult.fold(
       (failure) => state = state.copyWith(

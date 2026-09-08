@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/responsive/responsive.dart';
@@ -11,26 +10,20 @@ import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/app/ui_kit/forms/simple_form.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     show GradientBorderSide;
-import 'package:store/app/utils/money.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
-import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
-import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
 import 'package:store/presentation/views/user/addresses/riverpod/address_form_controller.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class AddressFormArgs {
   final DeliveryAddress? existing;
-  final MapLocationPickerResult? initialMapResult;
-
-  const AddressFormArgs({this.existing, this.initialMapResult});
+  const AddressFormArgs({this.existing});
 }
 
-enum _AddressField { map, displayAddress, street, building }
+enum _AddressField { city, displayAddress, street, building }
 
 class AddressFormView extends ConsumerStatefulWidget {
   final AddressFormArgs args;
@@ -51,7 +44,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   final _instructions = TextEditingController();
 
   final _fieldKeys = {
-    _AddressField.map: GlobalKey(),
+    _AddressField.city: GlobalKey(),
     _AddressField.displayAddress: GlobalKey(),
     _AddressField.street: GlobalKey(),
     _AddressField.building: GlobalKey(),
@@ -72,8 +65,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
     Future.microtask(() {
       final notifier = ref.read(addressFormController.notifier);
       notifier.initFrom(_existing);
-      final initialMapResult = widget.args.initialMapResult;
-      if (initialMapResult != null) _applyMapResult(initialMapResult);
+      notifier.loadCities();
     });
   }
 
@@ -114,38 +106,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
     if (mounted) setState(() {});
   }
 
-  Future<void> _openMap({required bool useCurrentLocation}) async {
-    final form = ref.read(addressFormController);
-    final args = MapLocationPickerArgs(
-      initialLat: useCurrentLocation ? null : form.lat ?? _existing?.lat,
-      initialLng: useCurrentLocation ? null : form.lng ?? _existing?.lng,
-      cityId: useCurrentLocation ? null : form.cityId ?? _existing?.cityId,
-      useCurrentLocation: useCurrentLocation,
-    );
-
-    final pickedLocation = await context.pushNamed<MapLocationPickerResult>(
-      Routes.mapLocationPicker,
-      arguments: args,
-    );
-    if (pickedLocation == null || !mounted) return;
-    _applyMapResult(pickedLocation);
-  }
-
-  void _applyMapResult(MapLocationPickerResult mapResult) {
-    ref.read(addressFormController.notifier).applyMapResult(mapResult);
-    _setIfPresent(_displayAddress, mapResult.displayAddressSuggestion);
-    _setIfPresent(_street, mapResult.street);
-    _setIfPresent(_building, mapResult.buildingNumber);
-    _dirty = true;
-    setState(() {});
-  }
-
-  void _setIfPresent(TextEditingController controller, String? text) {
-    final trimmed = text?.trim();
-    if (trimmed == null || trimmed.isEmpty) return;
-    controller.text = trimmed;
-  }
-
   Future<void> _save() async {
     if (!await requireLogin(context, ref)) return;
     if (!_validateAndScroll()) return;
@@ -183,7 +143,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   }
 
   _AddressField? _firstInvalidField(AddressFormState form) {
-    if (!form.hasLocation) return _AddressField.map;
+    if (!form.hasCity) return _AddressField.city;
     if (_displayAddress.text.trim().isEmpty)
       return _AddressField.displayAddress;
     if (_street.text.trim().isEmpty) return _AddressField.street;
@@ -365,17 +325,20 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _MapField(
-                        key: _fieldKeys[_AddressField.map],
+                      _CityField(
+                        key: _fieldKeys[_AddressField.city],
                         form: form,
-                        hasError: _hasError(_AddressField.map, form),
-                        onPickMap: () => _openMap(useCurrentLocation: false),
-                        onUseCurrentLocation: () =>
-                            _openMap(useCurrentLocation: true),
+                        hasError: _hasError(_AddressField.city, form),
+                        onSelect: (cityId) {
+                          _dirty = true;
+                          ref
+                              .read(addressFormController.notifier)
+                              .selectCity(cityId);
+                        },
                       ),
                       _requiredHelper(
-                        _hasError(_AddressField.map, form),
-                        Translation.map_location_required.tr,
+                        _hasError(_AddressField.city, form),
+                        Translation.address_city_missing.tr,
                       ),
 
                       20.verticalSpace,
@@ -548,141 +511,92 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   }
 }
 
-class _MapField extends StatelessWidget {
+/// The city this address sits in. There is no map: the customer writes the
+/// address and names its city, which is what the store filters and reports on.
+class _CityField extends StatelessWidget {
   final AddressFormState form;
   final bool hasError;
-  final VoidCallback onPickMap;
-  final VoidCallback onUseCurrentLocation;
+  final ValueChanged<int> onSelect;
 
-  const _MapField({
+  const _CityField({
     super.key,
     required this.form,
     required this.hasError,
-    required this.onPickMap,
-    required this.onUseCurrentLocation,
+    required this.onSelect,
   });
 
   @override
   Widget build(BuildContext context) {
     final arabic = context.locale.languageCode == 'ar';
-    final zoneName = form.zoneName(arabic);
-    final fee = form.deliveryFeeHalalas;
+    final selected = form.cities
+        .where((city) => city.id == form.cityId)
+        .firstOrNull;
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(14.w),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          smoothness: 1,
-          borderRadius: BorderRadius.circular(12.r),
-          side: BorderSide(
-            color: hasError
-                ? ColorM.red
-                : form.hasLocation
-                ? ColorM.primary500
-                : ColorM.gray250,
-            width: 1,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          Translation.address_city_label.tr,
+          style: context.labelMedium.copyWith(
+            color: ColorM.gray700,
+            fontWeight: FontWeightM.medium,
           ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              SvgPicture.asset(
-                Assets.svg.borderLocation.path,
-                width: 18,
-                height: 18,
-                colorFilter: ColorFilter.mode(
-                  hasError ? ColorM.red : ColorM.primary500,
-                  BlendMode.srcIn,
-                ),
-              ),
-              8.horizontalSpace,
-              Expanded(
-                child: Text(
-                  form.hasLocation
-                      ? form.locationLabel
-                      : Translation.map_location_required.tr,
-                  style: context.labelLarge.copyWith(
-                    color: form.hasLocation ? ColorM.gray950 : ColorM.gray600,
-                    fontWeight: FontWeightM.medium,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          if (form.hasLocation &&
-              (zoneName.isNotEmpty || fee != null || form.area != null)) ...[
-            10.verticalSpace,
-            Container(
-              padding: EdgeInsets.all(10.w),
-              decoration: ShapeDecoration(
-                color: ColorM.primary50,
-                shape: SmoothRectangleBorder(
-                  smoothness: 1,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-              ),
-              child: Text(
-                [
-                  if (zoneName.isNotEmpty) zoneName,
-                  if (form.area != null) form.area!,
-                  if (fee != null)
-                    Translation.delivery_fee_value.trNamed({
-                      'fee': Money.format(fee, arabic: arabic),
-                    }),
-                ].join(' · '),
-                style: context.labelMedium.copyWith(
-                  color: ColorM.primary700,
-                  fontWeight: FontWeightM.medium,
-                ),
+        8.verticalSpace,
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 14.w),
+          decoration: ShapeDecoration(
+            shape: SmoothRectangleBorder(
+              smoothness: 1,
+              borderRadius: BorderRadius.circular(12.r),
+              side: BorderSide(
+                color: hasError
+                    ? ColorM.red
+                    : selected != null
+                    ? ColorM.primary500
+                    : ColorM.gray250,
+                width: 1,
               ),
             ),
-          ],
-          12.verticalSpace,
-          Row(
-            children: [
-              Expanded(
-                child: CustomInkButton(
-                  onTap: onPickMap,
-                  borderRadius: 12.r,
-                  backgroundColor: ColorM.primary500,
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
-                  alignment: Alignment.center,
-                  child: Text(
-                    Translation.pick_location_on_map.tr,
-                    style: context.labelLarge.copyWith(
-                      color: ColorM.white,
-                      fontWeight: FontWeightM.medium,
-                    ),
-                  ),
-                ),
-              ),
-              10.horizontalSpace,
-              Expanded(
-                child: CustomInkButton(
-                  onTap: onUseCurrentLocation,
-                  borderRadius: 12.r,
-                  backgroundColor: ColorM.primary50,
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
-                  alignment: Alignment.center,
-                  child: Text(
-                    Translation.address_use_my_location.tr,
-                    style: context.labelLarge.copyWith(
-                      color: ColorM.primary500,
-                      fontWeight: FontWeightM.medium,
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
-        ],
-      ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<int>(
+              value: selected?.id,
+              isExpanded: true,
+              borderRadius: BorderRadius.circular(12.r),
+              padding: EdgeInsets.symmetric(vertical: 4.h),
+              icon: form.loadingCities
+                  ? SizedBox(
+                      width: 16.w,
+                      height: 16.w,
+                      child: const CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.keyboard_arrow_down_rounded),
+              hint: Text(
+                Translation.address_city_hint.tr,
+                style: context.labelLarge.copyWith(color: ColorM.gray600),
+              ),
+              items: [
+                for (final city in form.cities)
+                  DropdownMenuItem(
+                    value: city.id,
+                    child: Text(
+                      city.name(arabic),
+                      style: context.labelLarge.copyWith(
+                        color: ColorM.gray950,
+                        fontWeight: FontWeightM.medium,
+                      ),
+                    ),
+                  ),
+              ],
+              onChanged: (value) {
+                if (value != null) onSelect(value);
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

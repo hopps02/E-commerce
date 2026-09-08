@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/utils/mixins/after_layout.dart';
 import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:store/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
@@ -44,24 +43,13 @@ class _TapHomeViewState extends ConsumerState<TapHomeView>
   }
 
   Future<void> _showLocationPicker() async {
-    final picked = await AddressPickerBottomSheet.show(context);
-    if (!mounted) return;
-    if (picked != null) {
-      await ref.read(locationController.notifier).setSelectedAddress(picked);
-      return;
-    }
-
-    final storage = DI().storageService;
-    if (storage.shouldShowLocationDialog) {
-      await storage.incrementLocationDismissedCount();
-    }
+    final picked = await AddressPickerBottomSheet.show(context, ref);
+    if (!mounted || picked == null) return;
+    await ref.read(locationController.notifier).setSelectedAddress(picked);
   }
 
+  /// Nothing is asked on arrival: the store has one catalogue and delivers
+  /// anywhere, so an address is only needed at checkout.
   @override
-  Future<void> afterLayout(BuildContext context) async {
-    final storage = DI().storageService;
-    if (!storage.isLocationSelected && storage.shouldShowLocationDialog) {
-      await _showLocationPicker();
-    }
-  }
+  Future<void> afterLayout(BuildContext context) async {}
 }

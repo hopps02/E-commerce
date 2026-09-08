@@ -55,38 +55,22 @@ abstract class ProductCategory with _$ProductCategory {
       (arabic ? nameAr : nameEn) ?? nameAr ?? nameEn ?? '';
 }
 
-/// Store assigned to the delivery zone matched by coverage-check.
+/// One option in the address form's city list (GET /mobile/cities).
 @freezed
-abstract class CoverageServingBranch with _$CoverageServingBranch {
-  const factory CoverageServingBranch({
+abstract class ServiceCity with _$ServiceCity {
+  const ServiceCity._();
+
+  const factory ServiceCity({
     required int id,
     @JsonKey(name: 'name_ar') String? nameAr,
     @JsonKey(name: 'name_en') String? nameEn,
-    @JsonKey(name: 'merchant_id') int? merchantId,
-  }) = _CoverageServingBranch;
+  }) = _ServiceCity;
 
-  factory CoverageServingBranch.fromJson(Map<String, dynamic> json) =>
-      _$CoverageServingBranchFromJson(json);
-}
+  factory ServiceCity.fromJson(Map<String, dynamic> json) =>
+      _$ServiceCityFromJson(json);
 
-/// POST /mobile/location/coverage-check response.
-@freezed
-abstract class CoverageResult with _$CoverageResult {
-  const factory CoverageResult({
-    @JsonKey(name: 'is_serviceable') @Default(false) bool isServiceable,
-    @JsonKey(name: 'in_active_zone') @Default(false) bool inActiveZone,
-    @JsonKey(name: 'branch_id') int? branchId,
-    @JsonKey(name: 'serving_branch') CoverageServingBranch? servingBranch,
-    @JsonKey(name: 'delivery_zone_id') int? deliveryZoneId,
-    @JsonKey(name: 'delivery_zone_name_ar') String? deliveryZoneNameAr,
-    @JsonKey(name: 'delivery_zone_name_en') String? deliveryZoneNameEn,
-    @JsonKey(name: 'city_id') int? cityId,
-    @JsonKey(name: 'district_id') int? districtId,
-    @JsonKey(name: 'delivery_fee_halalas') int? deliveryFeeHalalas,
-  }) = _CoverageResult;
-
-  factory CoverageResult.fromJson(Map<String, dynamic> json) =>
-      _$CoverageResultFromJson(json);
+  String name(bool arabic) =>
+      (arabic ? nameAr : nameEn) ?? nameAr ?? nameEn ?? '';
 }
 
 /// GET /mobile/addresses row.
@@ -106,8 +90,7 @@ abstract class DeliveryAddress with _$DeliveryAddress {
     String? landmark,
     @JsonKey(name: 'delivery_instructions') String? deliveryInstructions,
     @JsonKey(name: 'city_id') int? cityId,
-    double? lat,
-    double? lng,
+    @JsonKey(name: 'city_name') String? cityName,
     @JsonKey(name: 'is_default') @Default(false) bool isDefault,
   }) = _DeliveryAddress;
 

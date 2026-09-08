@@ -2,22 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/extensions/guest_gate.dart';
-import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:store/app/ui_kit/indicators/state_render.dart';
-import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/app/utils/money.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
-import 'package:store/presentation/common/riverpod/location_controller.dart';
-import 'package:store/presentation/res/color_manager.dart';
-import 'package:store/presentation/res/fonts_manager.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
-import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
@@ -45,278 +35,36 @@ class ContentBody extends ConsumerStatefulWidget {
 }
 
 class _ContentBodyState extends ConsumerState<ContentBody> {
-  int? _loadedBranchId;
+  bool _requestedCatalog = false;
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<int?>(
-      locationController.select((s) => s.servingBranchId),
-      _onServingBranchChanged,
-    );
-
-    final location = ref.watch(locationController);
     final catalog = ref.watch(homeCatalogController);
-    final branchId = location.servingBranchId;
 
-    if (!location.canBrowseCatalog || branchId == null) {
-      _loadedBranchId = null;
-      return _LocationGateBody(
-        location: location,
-        bottomSafeAreaPadding: widget.bottomSafeAreaPadding,
-        onChooseAddress: widget.onChooseAddress,
-        onRetryCoverage: () => ref
-            .read(locationController.notifier)
-            .resolveSelectedAddressBranch(),
-      );
-    }
-
-    final shouldLoad = _loadedBranchId != branchId;
-    if (shouldLoad) {
-      _scheduleCatalogLoad(branchId);
+    // The store has one catalogue and no coverage area, so it loads on first
+    // build — an address is only needed to check out.
+    if (!_requestedCatalog) {
+      _requestedCatalog = true;
+      Future.microtask(() {
+        if (!mounted) return;
+        ref.read(homeCatalogController.notifier).load();
+      });
     }
 
     return FastStateRender(
-      reqState: shouldLoad ? ReqState.loading : catalog.reqState,
+      reqState: catalog.reqState,
       alignment: const Alignment(0, -0.2),
       errorMessage: catalog.errorMessage,
-      onRetry: () => ref.read(homeCatalogController.notifier).load(branchId),
+      onRetry: () => ref.read(homeCatalogController.notifier).load(),
       child: Body(
         bottomSafeAreaPadding: widget.bottomSafeAreaPadding,
         catalog: catalog,
       ),
     );
   }
-
-  void _scheduleCatalogLoad(int branchId) {
-    _loadedBranchId = branchId;
-    Future.microtask(() {
-      if (!mounted) return;
-      ref.read(homeCatalogController.notifier).load(branchId);
-    });
-  }
-
-  void _onServingBranchChanged(int? previous, int? next) {
-    if (previous == next || next == null) return;
-
-    final cart = ref.read(cartController);
-    final cartBranchId = cart.cartBranchId;
-    if (cart.isEmpty || cartBranchId == null || cartBranchId == next) return;
-
-    ref.read(cartController.notifier).clear();
-    DI().snackBarHelper.showMessage(
-      Translation.cart_cleared_location_changed.tr,
-      ErrorMessage.snackBar,
-    );
-  }
 }
 
-class _LocationGateBody extends StatelessWidget {
-  final LocationState location;
-  final double bottomSafeAreaPadding;
-  final Future<void> Function() onChooseAddress;
-  final Future<void> Function() onRetryCoverage;
 
-  const _LocationGateBody({
-    required this.location,
-    required this.bottomSafeAreaPadding,
-    required this.onChooseAddress,
-    required this.onRetryCoverage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (location.servingBranchStatus == ServingBranchStatus.resolving) {
-      return const FastStateRender(
-        reqState: ReqState.loading,
-        alignment: Alignment(0, -0.2),
-        child: SizedBox.shrink(),
-      );
-    }
-
-    if (location.servingBranchErrorMessage.isNotEmpty) {
-      return FastStateRender(
-        reqState: ReqState.error,
-        alignment: const Alignment(0, -0.2),
-        errorMessage: location.servingBranchErrorMessage,
-        onRetry: () {
-          onRetryCoverage();
-        },
-        child: const SizedBox.shrink(),
-      );
-    }
-
-    return switch (location.servingBranchStatus) {
-      ServingBranchStatus.noStoreInZone => _HomeLocationState(
-        bottomSafeAreaPadding: bottomSafeAreaPadding,
-        badge: Translation.service_unavailable_in_area.tr,
-        icon: Icons.storefront_outlined,
-        accentColor: ColorM.orange,
-        accentBackground: const Color(0xFFFFF3E8),
-        title: Translation.home_no_store_title.tr,
-        description: Translation.home_no_store_desc.tr,
-        actionLabel: Translation.change_delivery_address.tr,
-        onAction: onChooseAddress,
-      ),
-      ServingBranchStatus.outsideZone => _HomeLocationState(
-        bottomSafeAreaPadding: bottomSafeAreaPadding,
-        badge: Translation.out_of_delivery_range.tr,
-        icon: Icons.location_off_outlined,
-        accentColor: ColorM.red,
-        accentBackground: const Color(0xFFFFECEC),
-        title: Translation.out_of_delivery_range.tr,
-        description: Translation.out_of_delivery_range_desc.tr,
-        actionLabel: Translation.change_delivery_address.tr,
-        onAction: onChooseAddress,
-      ),
-      _ => _HomeLocationState(
-        bottomSafeAreaPadding: bottomSafeAreaPadding,
-        badge: Translation.deliver_to.tr,
-        icon: Icons.location_on_outlined,
-        accentColor: ColorM.primary500,
-        accentBackground: ColorM.primary50,
-        title: Translation.home_choose_location_title.tr,
-        description: Translation.home_choose_location_desc.tr,
-        actionLabel: Translation.home_choose_location_cta.tr,
-        onAction: onChooseAddress,
-      ),
-    };
-  }
-}
-
-class _HomeLocationState extends StatelessWidget {
-  final double bottomSafeAreaPadding;
-  final String badge;
-  final IconData icon;
-  final Color accentColor;
-  final Color accentBackground;
-  final String title;
-  final String description;
-  final String actionLabel;
-  final Future<void> Function() onAction;
-
-  const _HomeLocationState({
-    required this.bottomSafeAreaPadding,
-    required this.badge,
-    required this.icon,
-    required this.accentColor,
-    required this.accentBackground,
-    required this.title,
-    required this.description,
-    required this.actionLabel,
-    required this.onAction,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding:
-          EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-          EdgeInsets.only(top: 24, bottom: bottomSafeAreaPadding + 24.h),
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: _LocationStateBadge(
-            label: badge,
-            icon: icon,
-            color: accentColor,
-            background: accentBackground,
-          ),
-        ),
-        26.verticalSpace,
-        SvgPicture.asset(
-          Assets.svg.locationMap.path,
-          width: 280,
-          height: 196,
-          fit: BoxFit.fitWidth,
-        ),
-        22.verticalSpace,
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: context.headlineSmall.copyWith(
-            color: ColorM.gray950,
-            fontWeight: FontWeightM.bold,
-            letterSpacing: 0,
-          ),
-        ),
-        12.verticalSpace,
-        Text(
-          description,
-          textAlign: TextAlign.center,
-          style: context.bodyMedium.copyWith(
-            color: ColorM.gray600,
-            height: 1.5,
-          ),
-        ),
-        24.verticalSpace,
-        CustomInkButton(
-          onTap: () {
-            onAction();
-          },
-          height: 50,
-          width: double.infinity,
-          borderRadius: SizeM.commonBorderRadius.r,
-          backgroundColor: ColorM.primary500,
-          alignment: Alignment.center,
-          tap: const ButtonAnimationSettings(
-            ButtonAnimation.scaleTap,
-            intensity: 0.2,
-          ),
-          child: Text(
-            actionLabel,
-            style: context.bodyLarge.copyWith(
-              color: ColorM.white,
-              fontWeight: FontWeightM.medium,
-              height: 1.5,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _LocationStateBadge extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color color;
-  final Color background;
-
-  const _LocationStateBadge({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.background,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(100.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: color, size: 18.sp),
-          8.horizontalSpace,
-          Flexible(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: context.labelMedium.copyWith(
-                color: color,
-                fontWeight: FontWeightM.medium,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class Body extends ConsumerWidget {
   const Body({

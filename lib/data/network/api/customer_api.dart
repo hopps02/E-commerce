@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
-import 'package:store/data/response/customer/delivery_zone_response.dart';
-import 'package:store/data/response/customer/place_response.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
@@ -26,7 +24,7 @@ abstract class CustomerApi {
 
   @GET('/mobile/products')
   Future<Envelope<List<BranchProduct>>> products(
-    @Query('branch_id') int branchId,
+    @Query('branch_id') int? branchId,
     @Query('category_id') int? categoryId,
     @Query('search') String? search,
     @Query('page') int page,
@@ -35,6 +33,9 @@ abstract class CustomerApi {
 
   @GET('/mobile/products/{id}')
   Future<Envelope<BranchProduct>> productDetail(@Path('id') int id);
+
+  @GET('/mobile/cities')
+  Future<Envelope<List<ServiceCity>>> cities();
 
   @GET('/mobile/categories')
   Future<Envelope<List<ProductCategory>>> categories();
@@ -80,30 +81,6 @@ abstract class CustomerApi {
   /// 204 with no body — the return type must not try to parse an envelope.
   @DELETE('/mobile/addresses/{id}')
   Future<void> deleteAddress(@Path('id') int id);
-
-  @POST('/mobile/location/coverage-check')
-  Future<Envelope<CoverageResult>> coverageCheck(
-    @Body() Map<String, dynamic> body,
-  );
-
-  @GET('/mobile/delivery-zones')
-  Future<DeliveryZonesResult> deliveryZones(
-    @Query('city_id') int? cityId,
-    @Query('lat') double? lat,
-    @Query('lng') double? lng,
-  );
-
-  @GET('/mobile/places/autocomplete')
-  Future<PlacesAutocompleteResult> placesAutocomplete(
-    @Query('q') String query,
-    @Query('session') String session,
-  );
-
-  @GET('/mobile/places/details')
-  Future<PlaceDetailsResult> placeDetails(
-    @Query('place_id') String placeId,
-    @Query('session') String session,
-  );
 
   @POST('/mobile/cart/validate')
   Future<Envelope<CartValidationResult>> validateCart(

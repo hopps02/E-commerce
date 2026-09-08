@@ -36,8 +36,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
   }
 
   Future<void> _changeAddress() async {
-    if (!await requireLogin(context, ref)) return;
-    final picked = await AddressPickerBottomSheet.show(context);
+    final picked = await AddressPickerBottomSheet.show(context, ref);
     if (picked == null || !mounted) return;
     await ref.read(checkoutController.notifier).selectAddress(picked);
   }

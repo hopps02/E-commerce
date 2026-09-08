@@ -7,93 +7,47 @@ import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/domain/usecase/create_address_usecase.dart';
 import 'package:store/domain/usecase/update_address_usecase.dart';
 import 'package:store/presentation/res/translations_manager.dart';
-import 'package:store/presentation/views/user/addresses/model/map_location_picker_models.dart';
 
 class AddressFormState extends Equatable {
-  /// The coverage-verified point this address will be saved with.
-  final double? lat;
-  final double? lng;
+  /// The city this address belongs to, chosen from [cities].
   final int? cityId;
-  final int? deliveryZoneId;
-  final String? deliveryZoneNameAr;
-  final String? deliveryZoneNameEn;
-  final int? deliveryFeeHalalas;
-  final String? area;
-  final bool coverageVerified;
 
-  /// Geocoded name shown next to the map picker.
-  final String locationLabel;
+  /// Cities the store serves, loaded once when the form opens.
+  final List<ServiceCity> cities;
+  final bool loadingCities;
+
   final String label;
 
   const AddressFormState({
-    this.lat,
-    this.lng,
     this.cityId,
-    this.deliveryZoneId,
-    this.deliveryZoneNameAr,
-    this.deliveryZoneNameEn,
-    this.deliveryFeeHalalas,
-    this.area,
-    this.coverageVerified = false,
-    this.locationLabel = '',
+    this.cities = const [],
+    this.loadingCities = false,
     this.label = 'home',
   });
 
-  bool get hasLocation =>
-      coverageVerified && lat != null && lng != null && cityId != null;
-
-  String zoneName(bool arabic) =>
-      (arabic ? deliveryZoneNameAr : deliveryZoneNameEn) ??
-      deliveryZoneNameAr ??
-      deliveryZoneNameEn ??
-      '';
+  bool get hasCity => cityId != null;
 
   AddressFormState copyWith({
-    double? lat,
-    double? lng,
     int? cityId,
-    int? deliveryZoneId,
-    String? deliveryZoneNameAr,
-    String? deliveryZoneNameEn,
-    int? deliveryFeeHalalas,
-    String? area,
-    bool? coverageVerified,
-    String? locationLabel,
+    List<ServiceCity>? cities,
+    bool? loadingCities,
     String? label,
   }) {
     return AddressFormState(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
       cityId: cityId ?? this.cityId,
-      deliveryZoneId: deliveryZoneId ?? this.deliveryZoneId,
-      deliveryZoneNameAr: deliveryZoneNameAr ?? this.deliveryZoneNameAr,
-      deliveryZoneNameEn: deliveryZoneNameEn ?? this.deliveryZoneNameEn,
-      deliveryFeeHalalas: deliveryFeeHalalas ?? this.deliveryFeeHalalas,
-      area: area ?? this.area,
-      coverageVerified: coverageVerified ?? this.coverageVerified,
-      locationLabel: locationLabel ?? this.locationLabel,
+      cities: cities ?? this.cities,
+      loadingCities: loadingCities ?? this.loadingCities,
       label: label ?? this.label,
     );
   }
 
   @override
-  List<Object?> get props => [
-    lat,
-    lng,
-    cityId,
-    deliveryZoneId,
-    deliveryZoneNameAr,
-    deliveryZoneNameEn,
-    deliveryFeeHalalas,
-    area,
-    coverageVerified,
-    locationLabel,
-    label,
-  ];
+  List<Object?> get props => [cityId, cities, loadingCities, label];
 }
 
-/// Backs the add/edit address form: holds the coverage-verified location and
-/// the label choice, and persists through the repository.
+/// Backs the add/edit address form: the city choice, the label choice, and
+/// persistence. The address itself is what the customer types — there is no
+/// map and no coverage check behind it.
 class AddressFormNotifier extends Notifier<AddressFormState> {
   @override
   AddressFormState build() => const AddressFormState();
@@ -101,36 +55,40 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
   /// Pre-fills the form from the address being edited.
   void initFrom(DeliveryAddress? existing) {
     if (existing == null) return;
-    state = AddressFormState(
-      lat: existing.lat,
-      lng: existing.lng,
+    state = state.copyWith(
       cityId: existing.cityId,
-      locationLabel: existing.displayAddress,
       label: existing.label ?? 'home',
-      coverageVerified: false,
     );
   }
+
+  Future<void> loadCities() async {
+    if (state.cities.isNotEmpty || state.loadingCities) return;
+    state = state.copyWith(loadingCities: true);
+
+    final result = await DI().getCitiesUseCase.execute(null);
+
+    result.fold(
+      (failure) {
+        state = state.copyWith(loadingCities: false);
+        DI().snackBarHelper.showMessage(
+          failure.displayMessage,
+          ErrorMessage.snackBar,
+        );
+      },
+      (cities) {
+        state = state.copyWith(
+          cities: cities,
+          loadingCities: false,
+          // One city to choose from is not a choice — pick it.
+          cityId: state.cityId ?? (cities.length == 1 ? cities.first.id : null),
+        );
+      },
+    );
+  }
+
+  void selectCity(int cityId) => state = state.copyWith(cityId: cityId);
 
   void selectLabel(String label) => state = state.copyWith(label: label);
-
-  void applyMapResult(MapLocationPickerResult mapResult) {
-    state = AddressFormState(
-      lat: mapResult.lat,
-      lng: mapResult.lng,
-      cityId: mapResult.cityId,
-      deliveryZoneId: mapResult.deliveryZoneId,
-      deliveryZoneNameAr: mapResult.deliveryZoneNameAr,
-      deliveryZoneNameEn: mapResult.deliveryZoneNameEn,
-      deliveryFeeHalalas: mapResult.deliveryFeeHalalas,
-      area: mapResult.area,
-      coverageVerified: true,
-      locationLabel:
-          mapResult.displayAddressSuggestion ??
-          mapResult.area ??
-          Translation.map_inside_delivery_zone.tr,
-      label: state.label,
-    );
-  }
 
   /// Saves the form. Returns the persisted address when successful.
   Future<DeliveryAddress?> save({
@@ -143,9 +101,9 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
     String? landmark,
     String? deliveryInstructions,
   }) async {
-    if (!state.hasLocation) {
+    if (!state.hasCity) {
       DI().snackBarHelper.showMessage(
-        Translation.address_location_missing.tr,
+        Translation.address_city_missing.tr,
         ErrorMessage.snackBar,
       );
       return null;
@@ -157,8 +115,6 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
             CreateAddressParams(
               cityId: state.cityId!,
               displayAddress: displayAddress,
-              lat: state.lat!,
-              lng: state.lng!,
               label: state.label,
               street: street,
               buildingNumber: buildingNumber,
@@ -175,8 +131,6 @@ class AddressFormNotifier extends Notifier<AddressFormState> {
               changes: {
                 'city_id': state.cityId,
                 'display_address': displayAddress,
-                'lat': state.lat,
-                'lng': state.lng,
                 'label': state.label,
                 'street': street ?? '',
                 'building_number': buildingNumber ?? '',

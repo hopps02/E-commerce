@@ -4,14 +4,14 @@ import 'package:store/domain/repository/repository.dart';
 import 'package:store/domain/usecase/base.dart';
 
 class ProductsParams {
-  final int branchId;
+  final int? branchId;
   final int? categoryId;
   final String? search;
   final int page;
   final int pageSize;
 
   const ProductsParams({
-    required this.branchId,
+    this.branchId,
     this.categoryId,
     this.search,
     required this.page,

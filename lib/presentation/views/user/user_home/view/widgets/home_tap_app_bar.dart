@@ -77,6 +77,7 @@ class TopAppBarContent extends ConsumerWidget {
                     onTap: () async {
                       final picked = await AddressPickerBottomSheet.show(
                         context,
+                        ref,
                       );
                       if (picked == null) return;
                       if (ref.read(cartController).isEmpty) {

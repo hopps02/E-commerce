@@ -189,6 +189,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svg/location.svg');
 
+  /// File path: assets/svg/logo-background.svg
+  SvgGenImage get logoBackground =>
+      const SvgGenImage('assets/svg/logo-background.svg');
+
   /// File path: assets/svg/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/svg/logo.svg');
 
@@ -258,6 +262,7 @@ class $AssetsSvgGen {
     language2,
     locationMap,
     location,
+    logoBackground,
     logo,
     logout,
     logout2,
@@ -308,7 +313,9 @@ class $AssetsTranslationsGen {
   List<String> get values => [ar, en];
 }
 
-abstract final class Assets {
+class Assets {
+  const Assets._();
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieAnimationsGen lottieAnimations =
       $AssetsLottieAnimationsGen();

@@ -5,8 +5,6 @@ import 'package:store/data/response/auth/auth_response.dart';
 
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
-import 'package:store/data/response/customer/delivery_zone_response.dart';
-import 'package:store/data/response/customer/place_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
 import 'package:store/data/response/notification_response.dart';
 import 'package:store/data/network/api/auth_api.dart';
@@ -128,7 +126,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, ProductsPage>> products({
-    required int branchId,
+    int? branchId,
     int? categoryId,
     String? search,
     required int page,
@@ -150,6 +148,10 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, BranchProduct>> productDetail(int id) => fastHandler(
     request: () async => (await _customerApi.productDetail(id)).data,
   );
+
+  @override
+  Future<Either<Failure, List<ServiceCity>>> cities() =>
+      fastHandler(request: () async => (await _customerApi.cities()).data);
 
   @override
   Future<Either<Failure, List<ProductCategory>>> categories() =>
@@ -183,8 +185,6 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, DeliveryAddress>> createAddress({
     required int cityId,
     required String displayAddress,
-    required double lat,
-    required double lng,
     String label = 'home',
     String? street,
     String? buildingNumber,
@@ -205,8 +205,6 @@ class RepositoryImpl implements Repository {
       request: () async => (await _customerApi.createAddress({
         'city_id': cityId,
         'display_address': displayAddress.trim(),
-        'lat': lat,
-        'lng': lng,
         'label': label,
         if (trimmedStreet != null && trimmedStreet.isNotEmpty)
           'street': trimmedStreet,
@@ -239,50 +237,6 @@ class RepositoryImpl implements Repository {
       await _customerApi.deleteAddress(id);
       return unit;
     },
-  );
-
-  @override
-  Future<Either<Failure, CoverageResult>> coverageCheck({
-    required double lat,
-    required double lng,
-    int? cityId,
-    int? districtId,
-  }) => fastHandler(
-    request: () async => (await _customerApi.coverageCheck({
-      'lat': lat,
-      'lng': lng,
-      'city_id': ?cityId,
-      'district_id': ?districtId,
-    })).data,
-  );
-
-  @override
-  Future<Either<Failure, DeliveryZonesResult>> deliveryZones({
-    int? cityId,
-    double? lat,
-    double? lng,
-  }) => fastHandler(
-    request: () async => _customerApi.deliveryZones(cityId, lat, lng),
-  );
-
-  @override
-  Future<Either<Failure, List<PlaceSuggestion>>> placesAutocomplete({
-    required String query,
-    required String session,
-  }) => fastHandler(
-    request: () async => (await _customerApi.placesAutocomplete(
-      query.trim(),
-      session,
-    )).suggestions,
-  );
-
-  @override
-  Future<Either<Failure, PlaceLocation>> placeDetails({
-    required String placeId,
-    required String session,
-  }) => fastHandler(
-    request: () async =>
-        (await _customerApi.placeDetails(placeId, session)).location,
   );
 
   @override

@@ -7,8 +7,6 @@ import 'package:store/domain/usecase/base.dart';
 class CreateAddressParams {
   final int cityId;
   final String displayAddress;
-  final double lat;
-  final double lng;
   final String label;
   final String? street;
   final String? buildingNumber;
@@ -21,8 +19,6 @@ class CreateAddressParams {
   const CreateAddressParams({
     required this.cityId,
     required this.displayAddress,
-    required this.lat,
-    required this.lng,
     this.label = 'home',
     this.street,
     this.buildingNumber,
@@ -45,8 +41,6 @@ class CreateAddressUseCase
       _repository.createAddress(
         cityId: params.cityId,
         displayAddress: params.displayAddress,
-        lat: params.lat,
-        lng: params.lng,
         label: params.label,
         street: params.street,
         buildingNumber: params.buildingNumber,

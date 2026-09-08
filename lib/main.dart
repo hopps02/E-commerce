@@ -15,8 +15,6 @@ import 'package:store/app/config/constants.dart';
 import 'package:store/app/config/supported_locales.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/utils/logger/app_logger.dart';
-import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 /// dart format off
 void main() {
@@ -29,21 +27,6 @@ Future<void> _initApp() async {
   await EasyLocalization.ensureInitialized();
   await libphonenumber.init();
   await DI.init();
-
-  // Initialize Google Maps renderer
-  try {
-    final GoogleMapsFlutterPlatform mapsImplementation =
-        GoogleMapsFlutterPlatform.instance;
-    if (mapsImplementation is GoogleMapsFlutterAndroid) {
-      await mapsImplementation.initializeWithRenderer(
-        AndroidMapRenderer.latest,
-      );
-      mapsImplementation.useAndroidViewSurface = true;
-    }
-  } catch (e) {
-    AppLogger.instance.e('Failed to initialize maps with latest renderer: $e');
-    AppLogger.instance.e('Falling back to platform default renderer');
-  }
 
   // System UI
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

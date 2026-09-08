@@ -5,8 +5,6 @@ import 'package:store/data/response/auth/auth_response.dart';
 
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
-import 'package:store/data/response/customer/delivery_zone_response.dart';
-import 'package:store/data/response/customer/place_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
 import 'package:store/data/response/notification_response.dart';
 import 'package:store/data/network/envelope.dart';
@@ -67,7 +65,7 @@ abstract class Repository {
   });
 
   Future<Either<Failure, ProductsPage>> products({
-    required int branchId,
+    int? branchId,
     int? categoryId,
     String? search,
     required int page,
@@ -75,6 +73,8 @@ abstract class Repository {
   });
 
   Future<Either<Failure, BranchProduct>> productDetail(int id);
+
+  Future<Either<Failure, List<ServiceCity>>> cities();
 
   Future<Either<Failure, List<ProductCategory>>> categories();
 
@@ -89,8 +89,6 @@ abstract class Repository {
   Future<Either<Failure, DeliveryAddress>> createAddress({
     required int cityId,
     required String displayAddress,
-    required double lat,
-    required double lng,
     String label,
     String? street,
     String? buildingNumber,
@@ -109,29 +107,6 @@ abstract class Repository {
   );
 
   Future<Either<Failure, Unit>> deleteAddress(int id);
-
-  Future<Either<Failure, CoverageResult>> coverageCheck({
-    required double lat,
-    required double lng,
-    int? cityId,
-    int? districtId,
-  });
-
-  Future<Either<Failure, DeliveryZonesResult>> deliveryZones({
-    int? cityId,
-    double? lat,
-    double? lng,
-  });
-
-  Future<Either<Failure, List<PlaceSuggestion>>> placesAutocomplete({
-    required String query,
-    required String session,
-  });
-
-  Future<Either<Failure, PlaceLocation>> placeDetails({
-    required String placeId,
-    required String session,
-  });
 
   Future<Either<Failure, CartValidationResult>> validateCart(
     List<CartLine> lines,
