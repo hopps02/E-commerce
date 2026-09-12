@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/app/services/whatsapp_service.dart';
+import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/utils/failure_reason.dart';
+import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
@@ -16,6 +19,10 @@ class OrderStatusSection extends StatelessWidget {
   /// The exact status in the customer's words. Three nodes cannot show seven
   /// states, so this is what changes on every move staff make.
   final String stateLabel;
+
+  /// A ready wa.me link that re-sends this order to the store, for a customer
+  /// who closed the success screen before sending it. Empty hides the action.
+  final String whatsappUrl;
   final String? failureReason;
   final String? failureNote;
   const OrderStatusSection({
@@ -24,6 +31,7 @@ class OrderStatusSection extends StatelessWidget {
     required this.orderNumber,
     required this.orderState,
     this.stateLabel = '',
+    this.whatsappUrl = '',
     this.failureReason,
     this.failureNote,
   });
@@ -71,6 +79,24 @@ class OrderStatusSection extends StatelessWidget {
                   color: isFailed ? ColorM.red : ColorM.primary700,
                   fontWeight: FontWeightM.semiBold,
                 ),
+              ),
+            ),
+          ),
+        ],
+        if (whatsappUrl.trim().isNotEmpty && !orderStateIsFinal(orderState)) ...[
+          14.verticalSpace,
+          CustomInkButton(
+            onTap: () => WhatsAppService.sendOrder(whatsappUrl),
+            borderRadius: 12.r,
+            height: 46,
+            width: double.infinity,
+            backgroundColor: ColorM.greenSecondary,
+            alignment: Alignment.center,
+            child: Text(
+              Translation.send_order_on_whatsapp.tr,
+              style: context.labelLarge.copyWith(
+                color: ColorM.white,
+                fontWeight: FontWeightM.semiBold,
               ),
             ),
           ),

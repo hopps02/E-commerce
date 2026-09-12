@@ -57,6 +57,7 @@ class OrderDetailsBody extends StatelessWidget {
                       orderNumber: state.orderNumber,
                       orderState: state.orderState,
                       stateLabel: state.stateLabel,
+                      whatsappUrl: state.whatsappUrl,
                       failureReason: state.failureReason,
                       failureNote: state.failureNote,
                     ).premiumAppear(index: 0),

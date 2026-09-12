@@ -171,6 +171,8 @@
   "checkout": "الدفع",
   "order_placed_successfully": "تم الطلب بنجاح",
   "order_number": "رقم الطلب:",
+  "send_order_on_whatsapp": "ابعت الطلب على واتساب",
+  "whatsapp_open_failed": "مش قادرين نفتح واتساب. جرّب تاني أو كلّمنا.",
   "view_order": "عرض الطلب",
   "confirm_order": "تأكيد الطلب",
   "order_now": "طلب الآن",

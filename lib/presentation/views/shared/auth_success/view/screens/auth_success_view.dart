@@ -12,10 +12,14 @@ class AuthSuccessArgs {
   final int? orderId;
   final String? orderNumber;
 
+  /// Set on order success: the wa.me link that sends the order to the store.
+  final String? whatsappUrl;
+
   const AuthSuccessArgs({
     required this.successViewType,
     this.orderId,
     this.orderNumber,
+    this.whatsappUrl,
   });
 }
 
@@ -45,6 +49,7 @@ class AuthSuccessView extends StatelessWidget {
                 successViewType: args.successViewType,
                 orderId: args.orderId,
                 orderNumber: args.orderNumber,
+                whatsappUrl: args.whatsappUrl,
               ),
 
               const Spacer(flex: 2),

@@ -163,6 +163,8 @@ enum Translation {
   order_placed_successfully,
   order_number,
   view_order,
+  send_order_on_whatsapp,
+  whatsapp_open_failed,
   confirm_order,
   order_now,
   orders,

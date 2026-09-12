@@ -64,6 +64,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
         successViewType: SuccessViewType.order,
         orderId: order.id,
         orderNumber: order.orderNumber,
+        whatsappUrl: order.whatsappUrl,
       ),
     );
   }

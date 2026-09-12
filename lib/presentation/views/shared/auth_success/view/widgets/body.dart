@@ -8,6 +8,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/app/services/whatsapp_service.dart';
 import 'package:store/presentation/views/user/order_details/view/screens/order_details_view.dart';
 import 'package:store/presentation/common/general_padding.dart';
 import 'package:store/app/enums/enums.dart';
@@ -18,12 +19,14 @@ class Body extends StatelessWidget {
   final SuccessViewType successViewType;
   final int? orderId;
   final String? orderNumber;
+  final String? whatsappUrl;
 
   const Body({
     super.key,
     required this.successViewType,
     this.orderId,
     this.orderNumber,
+    this.whatsappUrl,
   });
 
   @override
@@ -55,6 +58,28 @@ class Body extends StatelessWidget {
             ),
           ),
           31.verticalSpace,
+
+          // Sending the order on WhatsApp is how it reaches the store, so it
+          // leads here — viewing the order is the secondary action.
+          if (successViewType.isOrder && (whatsappUrl ?? '').isNotEmpty) ...[
+            CustomInkButton(
+              onTap: () => WhatsAppService.sendOrder(whatsappUrl!),
+              borderRadius: 12.r,
+              height: 50,
+              backgroundColor: ColorM.white,
+              alignment: Alignment.center,
+              child: Text(
+                Translation.send_order_on_whatsapp.tr,
+                style: context.bodyLarge.copyWith(
+                  fontWeight: FontWeightM.semiBold,
+                  color: ColorM.greenSecondary,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            12.verticalSpace,
+          ],
+
           // Start Shopping Button
           CustomInkButton(
             onTap: () async {

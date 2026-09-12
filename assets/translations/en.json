@@ -171,6 +171,8 @@
   "checkout": "Checkout",
   "order_placed_successfully": "Order placed successfully",
   "order_number": "Order Number:",
+  "send_order_on_whatsapp": "Send the order on WhatsApp",
+  "whatsapp_open_failed": "Could not open WhatsApp. Try again or contact us.",
   "view_order": "View Order",
   "confirm_order": "Confirm Order",
   "order_now": "Order Now",

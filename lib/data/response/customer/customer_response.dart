@@ -95,6 +95,10 @@ abstract class CustomerOrder with _$CustomerOrder {
     /// The exact status in the customer's words. The timeline collapses
     /// several states into one node; this always names the current one.
     @JsonKey(name: 'state_label') String? stateLabel,
+
+    /// A ready wa.me link the customer taps to send this order to the store.
+    /// Null until a WhatsApp number is set in the panel.
+    @JsonKey(name: 'whatsapp_url') String? whatsappUrl,
     @JsonKey(name: 'items_count') int? itemsCount,
     List<CustomerOrderItem>? items,
     Map<String, dynamic>? address,

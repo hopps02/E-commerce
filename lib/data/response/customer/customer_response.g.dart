@@ -75,6 +75,7 @@ _CustomerOrder _$CustomerOrderFromJson(Map<String, dynamic> json) =>
       orderNumber: json['order_number'] as String,
       state: json['state'] as String,
       stateLabel: json['state_label'] as String?,
+      whatsappUrl: json['whatsapp_url'] as String?,
       itemsCount: (json['items_count'] as num?)?.toInt(),
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => CustomerOrderItem.fromJson(e as Map<String, dynamic>))
@@ -100,6 +101,7 @@ Map<String, dynamic> _$CustomerOrderToJson(_CustomerOrder instance) =>
       'order_number': instance.orderNumber,
       'state': instance.state,
       'state_label': instance.stateLabel,
+      'whatsapp_url': instance.whatsappUrl,
       'items_count': instance.itemsCount,
       'items': instance.items,
       'address': instance.address,

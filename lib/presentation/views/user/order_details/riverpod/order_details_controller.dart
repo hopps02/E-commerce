@@ -27,6 +27,7 @@ class OrderDetailsState extends Equatable {
   /// the «تم التوصيل» node for a «تعذّر التوصيل» node and surface the reason.
   final String orderState;
   final String stateLabel;
+  final String whatsappUrl;
   final String? failureReason;
   final String? failureNote;
 
@@ -53,6 +54,7 @@ class OrderDetailsState extends Equatable {
     this.isDelivered = false,
     this.orderState = '',
     this.stateLabel = '',
+    this.whatsappUrl = '',
     this.failureReason,
     this.failureNote,
     this.canRate = false,
@@ -80,6 +82,7 @@ class OrderDetailsState extends Equatable {
       isDelivered: isDelivered,
       orderState: orderState,
       stateLabel: stateLabel,
+      whatsappUrl: whatsappUrl,
       failureReason: failureReason,
       failureNote: failureNote,
       canRate: canRate ?? this.canRate,
@@ -102,6 +105,7 @@ class OrderDetailsState extends Equatable {
     isDelivered,
     orderState,
     stateLabel,
+    whatsappUrl,
     failureReason,
     failureNote,
     canRate,
@@ -223,6 +227,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState>
       isDelivered: order.isDelivered,
       orderState: order.state,
       stateLabel: order.stateLabel ?? '',
+      whatsappUrl: order.whatsappUrl ?? '',
       failureReason: order.failureReason,
       failureNote: order.failureNote,
       canRate: order.canRate,
