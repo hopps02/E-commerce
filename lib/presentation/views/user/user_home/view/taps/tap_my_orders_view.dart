@@ -5,8 +5,12 @@ import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_a
 import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_slider.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_taps_button.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
 
 class TapMyOrdersView extends ConsumerStatefulWidget {
+  static const int navIndex = 2;
+
   final double bottomSafeAreaPadding;
   const TapMyOrdersView({super.key, required this.bottomSafeAreaPadding});
 
@@ -22,6 +26,19 @@ class _TapMyOrdersViewState extends ConsumerState<TapMyOrdersView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    // The tab is kept alive, so re-selecting it would otherwise show whatever
+    // the orders were the first time it opened. Staff move orders along from
+    // the panel; this is when the customer sees that.
+    ref.listen(bottomNavigationController.select((s) => s.selectedIndex), (
+      _,
+      next,
+    ) {
+      if (next == TapMyOrdersView.navIndex) {
+        ref.read(myOrdersTabController.notifier).loadInitial();
+      }
+    });
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/failure_display_extension.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/app/utils/mixins/auto_refresh_mixin.dart';
 import 'package:store/app/utils/snackbar_helper.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/customer/customer_response.dart';
@@ -105,7 +106,13 @@ class OrderDetailsState extends Equatable {
   ];
 }
 
-class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
+class OrderDetailsNotifier extends Notifier<OrderDetailsState>
+    with AutoRefreshMixin<OrderDetailsState> {
+  /// How often an in-flight order re-checks its status with the server. The
+  /// panel is where staff move an order along, so this is the only way the
+  /// customer sees it happen without leaving the screen.
+  static const _pollInterval = Duration(seconds: 15);
+
   /// Bumped on every authoritative write (load/rate) so an overlapping
   /// pull-to-refresh can tell it raced and drop its now-stale result.
   int _writeGen = 0;
@@ -127,6 +134,16 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
         _applyOrder(order);
       },
     );
+  }
+
+  /// Polls while the order can still change, and stops once it cannot — a
+  /// delivered or cancelled order has nowhere left to go.
+  void _syncPolling() {
+    if (orderStateIsFinal(state.orderState)) {
+      stopAutoRefresh();
+      return;
+    }
+    startAutoRefresh(_pollInterval, silentRefresh);
   }
 
   /// Pull-to-refresh: re-fetches the order in place (keeps the content on
@@ -187,6 +204,11 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState> {
   }
 
   void _applyOrder(CustomerOrder order) {
+    _applyOrderState(order);
+    _syncPolling();
+  }
+
+  void _applyOrderState(CustomerOrder order) {
     state = OrderDetailsState(
       reqState: ReqState.success,
       orderId: order.id,

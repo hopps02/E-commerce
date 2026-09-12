@@ -17,6 +17,16 @@ int orderTimelineStep(String state) => switch (state) {
 /// The backend only allows cancelling before preparation starts.
 bool orderIsCancellable(String state) => state == 'placed';
 
+/// Whether the order has reached a state it can never leave. Screens watching
+/// a live status stop polling once this is true.
+bool orderStateIsFinal(String state) => const {
+  'delivered',
+  'failed_delivery',
+  'cancelled_by_customer',
+  'cancelled_by_merchant',
+  'rejected_by_merchant',
+}.contains(state);
+
 /// GET /mobile/profile data.
 @freezed
 abstract class CustomerProfile with _$CustomerProfile {
