@@ -63,7 +63,7 @@
   "edit_address": "Edit address",
   "no_addresses_yet": "No saved addresses yet",
   "no_addresses_saved": "No saved addresses",
-  "no_addresses_saved_hint": "Add an address or choose a different map location.",
+  "no_addresses_saved_hint": "Add the address your order should go to.",
   "address_details_label": "Full address",
   "address_details_hint": "District, street, place description...",
   "address_default_badge": "Default",

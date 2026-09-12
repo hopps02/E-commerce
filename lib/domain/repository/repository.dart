@@ -110,7 +110,7 @@ abstract class Repository {
   );
 
   Future<Either<Failure, CheckoutQuote>> checkoutQuote({
-    required int addressId,
+    int? addressId,
     required List<CartLine> lines,
   });
 

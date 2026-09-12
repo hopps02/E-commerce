@@ -63,7 +63,7 @@
   "edit_address": "تعديل العنوان",
   "no_addresses_yet": "لا توجد عناوين محفوظة بعد",
   "no_addresses_saved": "لا توجد عناوين محفوظة",
-  "no_addresses_saved_hint": "أضف عنوانًا أو اختر موقعًا مختلفًا على الخريطة.",
+  "no_addresses_saved_hint": "أضف العنوان اللي عايز طلبك يوصله.",
   "address_details_label": "العنوان بالتفصيل",
   "address_details_hint": "الحي، الشارع، وصف المكان...",
   "address_default_badge": "الافتراضي",

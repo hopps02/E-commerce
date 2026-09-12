@@ -185,19 +185,16 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
       },
     );
     if (state.reqState.isError) return;
-    if (address == null) {
-      state = state.copyWith(
-        reqState: ReqState.error,
-        errorMessage: Translation.error_address_required.tr,
-      );
-      return;
+
+    // No saved address is not an error: the cart still prices and the checkout
+    // screen asks for one. Only placing the order needs it.
+    if (address != null) {
+      await ref.read(locationController.notifier).setSelectedAddress(address);
     }
-    final resolved = address;
-    await ref.read(locationController.notifier).setSelectedAddress(resolved);
 
     final lines = ref.read(cartController).lines;
     final quote = await DI().checkoutQuoteUseCase.execute(
-      CheckoutQuoteParams(addressId: resolved.id, lines: lines),
+      CheckoutQuoteParams(addressId: address?.id, lines: lines),
     );
     quote.fold(
       _setFailure,
@@ -205,10 +202,10 @@ class CheckoutNotifier extends Notifier<CheckoutState> {
         reqState: ReqState.success,
         errorMessage: '',
         errorCode: '',
-        addressId: resolved.id,
-        addressLine: resolved.displayAddress,
+        addressId: address?.id,
+        addressLine: address?.displayAddress ?? '',
         totals: q.totals,
-        quotedFingerprint: checkoutFingerprint(resolved.id, lines),
+        quotedFingerprint: checkoutFingerprint(address?.id, lines),
         requoting: false,
       ),
     );

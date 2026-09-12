@@ -14,6 +14,8 @@ class DeliveryTo extends StatelessWidget {
   final String address;
   const DeliveryTo({super.key, required this.address});
 
+  bool get _isEmpty => address.trim().isEmpty;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +25,10 @@ class DeliveryTo extends StatelessWidget {
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.circular(12.r),
-          side: GradientBorderSide(color: ColorM.gray250, width: 1.w),
+          side: GradientBorderSide(
+            color: _isEmpty ? ColorM.primary500 : ColorM.gray250,
+            width: 1.w,
+          ),
         ),
       ),
       alignment: .centerStart,
@@ -41,15 +46,18 @@ class DeliveryTo extends StatelessWidget {
               SvgPicture.asset(
                 Assets.svg.borderLocation.path,
                 colorFilter: ColorFilter.mode(
-                  ColorM.greenSecondary,
+                  _isEmpty ? ColorM.primary500 : ColorM.greenSecondary,
                   BlendMode.srcIn,
                 ),
               ),
               11.horizontalSpace,
               Expanded(
                 child: Text(
-                  address,
-                  style: context.labelLarge,
+                  _isEmpty ? Translation.add_address.tr : address,
+                  style: context.labelLarge.copyWith(
+                    color: _isEmpty ? ColorM.primary500 : null,
+                    fontWeight: _isEmpty ? FontWeightM.medium : null,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -60,7 +68,7 @@ class DeliveryTo extends StatelessWidget {
                     ? TextDirection.ltr
                     : TextDirection.rtl,
                 size: 20.r,
-                color: ColorM.gray950,
+                color: _isEmpty ? ColorM.primary500 : ColorM.gray950,
               ),
             ],
           ),

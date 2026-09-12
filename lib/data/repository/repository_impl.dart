@@ -244,11 +244,11 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, CheckoutQuote>> checkoutQuote({
-    required int addressId,
+    int? addressId,
     required List<CartLine> lines,
   }) => fastHandler(
     request: () async => (await _customerApi.checkoutQuote({
-      'address_id': addressId,
+      'address_id': ?addressId,
       'items': _wireLines(lines),
     })).data,
   );

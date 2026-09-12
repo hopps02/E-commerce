@@ -35,14 +35,25 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
     Future.microtask(_ensureAccessAndLoadQuote);
   }
 
-  Future<void> _changeAddress() async {
+  /// Opens the saved-address sheet. Returns true once an address is set —
+  /// either it already was, or the customer just picked one.
+  Future<bool> _changeAddress() async {
     final picked = await AddressPickerBottomSheet.show(context, ref);
-    if (picked == null || !mounted) return;
+    if (picked == null || !mounted) return ref.read(checkoutController).addressId != null;
     await ref.read(checkoutController.notifier).selectAddress(picked);
+    return true;
   }
 
   Future<void> _placeOrder() async {
     if (!await requireLogin(context, ref)) return;
+
+    // Confirming without an address asks for one here rather than refusing:
+    // the order is otherwise ready, and this is the last thing missing.
+    if (ref.read(checkoutController).addressId == null) {
+      if (!await _changeAddress()) return;
+      if (!mounted) return;
+    }
+
     final order = await ref.read(checkoutController.notifier).placeOrder();
     if (order == null || !mounted) return;
 
@@ -82,7 +93,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
             ConfirmOrderAppBar().premiumAppear(index: 0),
 
             GestureDetector(
-              onTap: _changeAddress,
+              onTap: () => _changeAddress(),
               behavior: HitTestBehavior.opaque,
               child: DeliveryTo(address: checkout.addressLine),
             ).premiumAppear(index: 1),

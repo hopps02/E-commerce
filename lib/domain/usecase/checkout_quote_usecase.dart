@@ -5,10 +5,10 @@ import 'package:store/domain/repository/repository.dart';
 import 'package:store/domain/usecase/base.dart';
 
 class CheckoutQuoteParams {
-  final int addressId;
+  final int? addressId;
   final List<CartLine> lines;
 
-  const CheckoutQuoteParams({required this.addressId, required this.lines});
+  const CheckoutQuoteParams({this.addressId, required this.lines});
 }
 
 class CheckoutQuoteUseCase implements Base<CheckoutQuoteParams, CheckoutQuote> {
