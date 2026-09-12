@@ -55,24 +55,6 @@ abstract class ProductCategory with _$ProductCategory {
       (arabic ? nameAr : nameEn) ?? nameAr ?? nameEn ?? '';
 }
 
-/// One option in the address form's city list (GET /mobile/cities).
-@freezed
-abstract class ServiceCity with _$ServiceCity {
-  const ServiceCity._();
-
-  const factory ServiceCity({
-    required int id,
-    @JsonKey(name: 'name_ar') String? nameAr,
-    @JsonKey(name: 'name_en') String? nameEn,
-  }) = _ServiceCity;
-
-  factory ServiceCity.fromJson(Map<String, dynamic> json) =>
-      _$ServiceCityFromJson(json);
-
-  String name(bool arabic) =>
-      (arabic ? nameAr : nameEn) ?? nameAr ?? nameEn ?? '';
-}
-
 /// GET /mobile/addresses row.
 @freezed
 abstract class DeliveryAddress with _$DeliveryAddress {
@@ -89,8 +71,6 @@ abstract class DeliveryAddress with _$DeliveryAddress {
     String? apartment,
     String? landmark,
     @JsonKey(name: 'delivery_instructions') String? deliveryInstructions,
-    @JsonKey(name: 'city_id') int? cityId,
-    @JsonKey(name: 'city_name') String? cityName,
     @JsonKey(name: 'is_default') @Default(false) bool isDefault,
   }) = _DeliveryAddress;
 

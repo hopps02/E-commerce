@@ -5,9 +5,9 @@ import 'package:store/data/response/customer/catalog_response.dart';
 
 /// Which saved address the order goes to.
 ///
-/// There is no coverage map and no GPS: the customer writes an address, picks
-/// its city, and the store delivers there for one flat fee. Nothing here gates
-/// browsing — the catalogue is open to everyone, address or not.
+/// There is no coverage map and no GPS: the customer writes an address and the
+/// store delivers there for one flat fee. Nothing here gates browsing — the
+/// catalogue is open to everyone, address or not.
 class LocationState extends Equatable {
   static const _unchanged = Object();
 
@@ -18,13 +18,7 @@ class LocationState extends Equatable {
   int? get selectedAddressId => selectedAddress?.id;
 
   /// The line under "توصيل إلى" in the home app bar.
-  String? get locationCity {
-    final address = selectedAddress;
-    if (address == null) return null;
-    final city = address.cityName;
-    if (city != null && city.trim().isNotEmpty) return city;
-    return address.displayAddress;
-  }
+  String? get locationCity => selectedAddress?.displayAddress;
 
   LocationState copyWith({Object? selectedAddress = _unchanged}) {
     return LocationState(

@@ -34,9 +34,6 @@ abstract class CustomerApi {
   @GET('/mobile/products/{id}')
   Future<Envelope<BranchProduct>> productDetail(@Path('id') int id);
 
-  @GET('/mobile/cities')
-  Future<Envelope<List<ServiceCity>>> cities();
-
   @GET('/mobile/categories')
   Future<Envelope<List<ProductCategory>>> categories();
 

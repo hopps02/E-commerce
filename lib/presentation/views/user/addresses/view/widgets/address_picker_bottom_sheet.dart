@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
-import 'package:store/app/ui_kit/forms/simple_form.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/presentation/common/fast_state_render.dart';

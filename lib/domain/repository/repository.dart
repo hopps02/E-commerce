@@ -74,8 +74,6 @@ abstract class Repository {
 
   Future<Either<Failure, BranchProduct>> productDetail(int id);
 
-  Future<Either<Failure, List<ServiceCity>>> cities();
-
   Future<Either<Failure, List<ProductCategory>>> categories();
 
   Future<Either<Failure, List<BranchProduct>>> favorites();
@@ -87,7 +85,6 @@ abstract class Repository {
   Future<Either<Failure, List<DeliveryAddress>>> addresses();
 
   Future<Either<Failure, DeliveryAddress>> createAddress({
-    required int cityId,
     required String displayAddress,
     String label,
     String? street,

@@ -5,7 +5,6 @@ import 'package:store/domain/repository/repository.dart';
 import 'package:store/domain/usecase/base.dart';
 
 class CreateAddressParams {
-  final int cityId;
   final String displayAddress;
   final String label;
   final String? street;
@@ -17,7 +16,6 @@ class CreateAddressParams {
   final bool isDefault;
 
   const CreateAddressParams({
-    required this.cityId,
     required this.displayAddress,
     this.label = 'home',
     this.street,
@@ -39,7 +37,6 @@ class CreateAddressUseCase
   @override
   Future<Either<Failure, DeliveryAddress>> execute(CreateAddressParams params) =>
       _repository.createAddress(
-        cityId: params.cityId,
         displayAddress: params.displayAddress,
         label: params.label,
         street: params.street,

@@ -29,7 +29,6 @@ import 'package:store/domain/usecase/delete_account_usecase.dart';
 import 'package:store/domain/usecase/delete_address_usecase.dart';
 import 'package:store/domain/usecase/get_addresses_usecase.dart';
 import 'package:store/domain/usecase/get_categories_usecase.dart';
-import 'package:store/domain/usecase/get_cities_usecase.dart';
 import 'package:store/domain/usecase/get_customer_order_detail_usecase.dart';
 import 'package:store/domain/usecase/get_customer_orders_usecase.dart';
 import 'package:store/domain/usecase/get_favorites_usecase.dart';
@@ -148,7 +147,6 @@ extension DIUseCasesExtension on DI {
   UpdateProfileUseCase        get updateProfileUseCase        => UpdateProfileUseCase(_repo);
   GetProductsUseCase          get getProductsUseCase          => GetProductsUseCase(_repo);
   GetProductDetailUseCase     get getProductDetailUseCase     => GetProductDetailUseCase(_repo);
-  GetCitiesUseCase            get getCitiesUseCase            => GetCitiesUseCase(_repo);
   GetCategoriesUseCase        get getCategoriesUseCase        => GetCategoriesUseCase(_repo);
   GetFavoritesUseCase         get getFavoritesUseCase         => GetFavoritesUseCase(_repo);
   AddFavoriteUseCase          get addFavoriteUseCase          => AddFavoriteUseCase(_repo);

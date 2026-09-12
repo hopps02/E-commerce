@@ -52,19 +52,6 @@ Map<String, dynamic> _$ProductCategoryToJson(_ProductCategory instance) =>
       'image_url': instance.imageUrl,
     };
 
-_ServiceCity _$ServiceCityFromJson(Map<String, dynamic> json) => _ServiceCity(
-  id: (json['id'] as num).toInt(),
-  nameAr: json['name_ar'] as String?,
-  nameEn: json['name_en'] as String?,
-);
-
-Map<String, dynamic> _$ServiceCityToJson(_ServiceCity instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name_ar': instance.nameAr,
-      'name_en': instance.nameEn,
-    };
-
 _DeliveryAddress _$DeliveryAddressFromJson(Map<String, dynamic> json) =>
     _DeliveryAddress(
       id: (json['id'] as num).toInt(),
@@ -77,8 +64,6 @@ _DeliveryAddress _$DeliveryAddressFromJson(Map<String, dynamic> json) =>
       apartment: json['apartment'] as String?,
       landmark: json['landmark'] as String?,
       deliveryInstructions: json['delivery_instructions'] as String?,
-      cityId: (json['city_id'] as num?)?.toInt(),
-      cityName: json['city_name'] as String?,
       isDefault: json['is_default'] as bool? ?? false,
     );
 
@@ -94,8 +79,6 @@ Map<String, dynamic> _$DeliveryAddressToJson(_DeliveryAddress instance) =>
       'apartment': instance.apartment,
       'landmark': instance.landmark,
       'delivery_instructions': instance.deliveryInstructions,
-      'city_id': instance.cityId,
-      'city_name': instance.cityName,
       'is_default': instance.isDefault,
     };
 

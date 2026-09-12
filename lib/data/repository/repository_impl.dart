@@ -150,9 +150,6 @@ class RepositoryImpl implements Repository {
   );
 
   @override
-  Future<Either<Failure, List<ServiceCity>>> cities() =>
-      fastHandler(request: () async => (await _customerApi.cities()).data);
-
   @override
   Future<Either<Failure, List<ProductCategory>>> categories() =>
       fastHandler(request: () async => (await _customerApi.categories()).data);
@@ -183,7 +180,6 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, DeliveryAddress>> createAddress({
-    required int cityId,
     required String displayAddress,
     String label = 'home',
     String? street,
@@ -203,7 +199,6 @@ class RepositoryImpl implements Repository {
 
     return fastHandler(
       request: () async => (await _customerApi.createAddress({
-        'city_id': cityId,
         'display_address': displayAddress.trim(),
         'label': label,
         if (trimmedStreet != null && trimmedStreet.isNotEmpty)

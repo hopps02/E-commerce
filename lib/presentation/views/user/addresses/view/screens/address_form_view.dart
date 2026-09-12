@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +22,7 @@ class AddressFormArgs {
   const AddressFormArgs({this.existing});
 }
 
-enum _AddressField { city, displayAddress, street, building }
+enum _AddressField { displayAddress, street, building }
 
 class AddressFormView extends ConsumerStatefulWidget {
   final AddressFormArgs args;
@@ -44,7 +43,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   final _instructions = TextEditingController();
 
   final _fieldKeys = {
-    _AddressField.city: GlobalKey(),
     _AddressField.displayAddress: GlobalKey(),
     _AddressField.street: GlobalKey(),
     _AddressField.building: GlobalKey(),
@@ -65,7 +63,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
     Future.microtask(() {
       final notifier = ref.read(addressFormController.notifier);
       notifier.initFrom(_existing);
-      notifier.loadCities();
     });
   }
 
@@ -143,7 +140,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
   }
 
   _AddressField? _firstInvalidField(AddressFormState form) {
-    if (!form.hasCity) return _AddressField.city;
     if (_displayAddress.text.trim().isEmpty)
       return _AddressField.displayAddress;
     if (_street.text.trim().isEmpty) return _AddressField.street;
@@ -276,20 +272,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
     );
   }
 
-  Widget _requiredHelper(bool visible, String message) {
-    if (!visible) return const SizedBox.shrink();
-    return Padding(
-      padding: EdgeInsets.only(top: 6.h),
-      child: Text(
-        message,
-        style: context.labelSmall.copyWith(
-          color: ColorM.red,
-          fontWeight: FontWeightM.medium,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final form = ref.watch(addressFormController);
@@ -325,24 +307,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _CityField(
-                        key: _fieldKeys[_AddressField.city],
-                        form: form,
-                        hasError: _hasError(_AddressField.city, form),
-                        onSelect: (cityId) {
-                          _dirty = true;
-                          ref
-                              .read(addressFormController.notifier)
-                              .selectCity(cityId);
-                        },
-                      ),
-                      _requiredHelper(
-                        _hasError(_AddressField.city, form),
-                        Translation.address_city_missing.tr,
-                      ),
-
-                      20.verticalSpace,
-
                       Row(
                         spacing: 10,
                         children: [
@@ -507,96 +471,6 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// The city this address sits in. There is no map: the customer writes the
-/// address and names its city, which is what the store filters and reports on.
-class _CityField extends StatelessWidget {
-  final AddressFormState form;
-  final bool hasError;
-  final ValueChanged<int> onSelect;
-
-  const _CityField({
-    super.key,
-    required this.form,
-    required this.hasError,
-    required this.onSelect,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final arabic = context.locale.languageCode == 'ar';
-    final selected = form.cities
-        .where((city) => city.id == form.cityId)
-        .firstOrNull;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          Translation.address_city_label.tr,
-          style: context.labelMedium.copyWith(
-            color: ColorM.gray700,
-            fontWeight: FontWeightM.medium,
-          ),
-        ),
-        8.verticalSpace,
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 14.w),
-          decoration: ShapeDecoration(
-            shape: SmoothRectangleBorder(
-              smoothness: 1,
-              borderRadius: BorderRadius.circular(12.r),
-              side: BorderSide(
-                color: hasError
-                    ? ColorM.red
-                    : selected != null
-                    ? ColorM.primary500
-                    : ColorM.gray250,
-                width: 1,
-              ),
-            ),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<int>(
-              value: selected?.id,
-              isExpanded: true,
-              borderRadius: BorderRadius.circular(12.r),
-              padding: EdgeInsets.symmetric(vertical: 4.h),
-              icon: form.loadingCities
-                  ? SizedBox(
-                      width: 16.w,
-                      height: 16.w,
-                      child: const CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.keyboard_arrow_down_rounded),
-              hint: Text(
-                Translation.address_city_hint.tr,
-                style: context.labelLarge.copyWith(color: ColorM.gray600),
-              ),
-              items: [
-                for (final city in form.cities)
-                  DropdownMenuItem(
-                    value: city.id,
-                    child: Text(
-                      city.name(arabic),
-                      style: context.labelLarge.copyWith(
-                        color: ColorM.gray950,
-                        fontWeight: FontWeightM.medium,
-                      ),
-                    ),
-                  ),
-              ],
-              onChanged: (value) {
-                if (value != null) onSelect(value);
-              },
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

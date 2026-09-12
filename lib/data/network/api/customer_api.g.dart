@@ -162,42 +162,6 @@ class _CustomerApi implements CustomerApi {
   }
 
   @override
-  Future<Envelope<List<ServiceCity>>> cities() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<Envelope<List<ServiceCity>>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/mobile/cities',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Envelope<List<ServiceCity>> _value;
-    try {
-      _value = Envelope<List<ServiceCity>>.fromJson(
-        _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                  .map<ServiceCity>(
-                    (i) => ServiceCity.fromJson(i as Map<String, dynamic>),
-                  )
-                  .toList()
-            : List.empty(),
-      );
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
   Future<Envelope<List<ProductCategory>>> categories() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
