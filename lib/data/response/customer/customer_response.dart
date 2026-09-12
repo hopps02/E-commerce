@@ -6,9 +6,12 @@ part 'customer_response.g.dart';
 /// Maps a backend order state onto the order card's 3-step timeline
 /// (preparing -> out for delivery -> delivered). A failed delivery maps to the
 /// out-for-delivery step, where the card paints that node red.
+///
+/// Several states share a node, so the timeline alone cannot show every move
+/// staff make — `stateLabel` on the order is what names the exact status.
 int orderTimelineStep(String state) => switch (state) {
   'placed' || 'preparing' || 'ready_for_pickup' => 1,
-  'captain_assigned' || 'received_by_captain' || 'out_for_delivery' => 2,
+  'out_for_delivery' => 2,
   'delivered' => 3,
   'failed_delivery' => 2,
   _ => 1, // cancelled_* / rejected_by_merchant never left preparation
@@ -89,6 +92,9 @@ abstract class CustomerOrder with _$CustomerOrder {
     required int id,
     @JsonKey(name: 'order_number') required String orderNumber,
     required String state,
+    /// The exact status in the customer's words. The timeline collapses
+    /// several states into one node; this always names the current one.
+    @JsonKey(name: 'state_label') String? stateLabel,
     @JsonKey(name: 'items_count') int? itemsCount,
     List<CustomerOrderItem>? items,
     Map<String, dynamic>? address,

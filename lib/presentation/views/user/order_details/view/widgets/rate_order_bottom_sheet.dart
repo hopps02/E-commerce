@@ -14,14 +14,12 @@ import 'package:smooth_corner/smooth_corner.dart';
 /// The ratings + comment the user submitted from [RateOrderBottomSheet].
 class RateOrderResult {
   final double overall;
-  final double deliveryRep;
   final double orderMatch;
   final double deliverySpeed;
   final String comment;
 
   const RateOrderResult({
     required this.overall,
-    required this.deliveryRep,
     required this.orderMatch,
     required this.deliverySpeed,
     required this.comment,
@@ -51,7 +49,6 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
   final TextEditingController _commentController = TextEditingController();
 
   double _overall = 0;
-  double _deliveryRep = 0;
   double _orderMatch = 0;
   double _deliverySpeed = 0;
 
@@ -122,11 +119,6 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                   16.verticalSpace,
                   // Aspect ratings
                   _AspectRow(
-                    label: Translation.rating_delivery_rep.tr,
-                    onChanged: (v) => _deliveryRep = v,
-                  ),
-                  14.verticalSpace,
-                  _AspectRow(
                     label: Translation.rating_order_match.tr,
                     onChanged: (v) => _orderMatch = v,
                   ),
@@ -167,7 +159,6 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
     Navigator.of(context).pop(
       RateOrderResult(
         overall: _overall,
-        deliveryRep: _deliveryRep,
         orderMatch: _orderMatch,
         deliverySpeed: _deliverySpeed,
         comment: _commentController.text.trim(),

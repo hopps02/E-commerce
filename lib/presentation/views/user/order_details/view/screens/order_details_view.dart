@@ -72,7 +72,6 @@ class _OrderDetailsViewState extends ConsumerState<OrderDetailsView> {
         .read(orderDetailsController.notifier)
         .rate(
           overall: result.overall,
-          captain: result.deliveryRep,
           orderAccuracy: result.orderMatch,
           deliverySpeed: result.deliverySpeed,
           comment: result.comment,

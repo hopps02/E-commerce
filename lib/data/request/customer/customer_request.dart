@@ -8,7 +8,6 @@ part 'customer_request.g.dart';
 abstract class RateOrderBody with _$RateOrderBody {
   const factory RateOrderBody({
     @JsonKey(name: 'overall_stars') required int overallStars,
-    @JsonKey(name: 'captain_stars') required int captainStars,
     @JsonKey(name: 'order_accuracy_stars') required int orderAccuracyStars,
     @JsonKey(name: 'delivery_speed_stars') required int deliverySpeedStars,
     String? comment,

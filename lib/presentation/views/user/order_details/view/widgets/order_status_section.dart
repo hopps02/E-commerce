@@ -12,6 +12,10 @@ class OrderStatusSection extends StatelessWidget {
   final int step;
   final String orderNumber;
   final String orderState;
+
+  /// The exact status in the customer's words. Three nodes cannot show seven
+  /// states, so this is what changes on every move staff make.
+  final String stateLabel;
   final String? failureReason;
   final String? failureNote;
   const OrderStatusSection({
@@ -19,6 +23,7 @@ class OrderStatusSection extends StatelessWidget {
     required this.step,
     required this.orderNumber,
     required this.orderState,
+    this.stateLabel = '',
     this.failureReason,
     this.failureNote,
   });
@@ -47,6 +52,29 @@ class OrderStatusSection extends StatelessWidget {
             ),
           ],
         ),
+        if (stateLabel.trim().isNotEmpty) ...[
+          12.verticalSpace,
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              decoration: ShapeDecoration(
+                color: isFailed ? const Color(0xFFFFECEC) : ColorM.primary50,
+                shape: SmoothRectangleBorder(
+                  smoothness: 1,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+              child: Text(
+                stateLabel,
+                style: context.labelLarge.copyWith(
+                  color: isFailed ? ColorM.red : ColorM.primary700,
+                  fontWeight: FontWeightM.semiBold,
+                ),
+              ),
+            ),
+          ),
+        ],
         24.verticalSpace,
         Row(
           children: [

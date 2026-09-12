@@ -9,7 +9,6 @@ part of 'customer_request.dart';
 _RateOrderBody _$RateOrderBodyFromJson(Map<String, dynamic> json) =>
     _RateOrderBody(
       overallStars: (json['overall_stars'] as num).toInt(),
-      captainStars: (json['captain_stars'] as num).toInt(),
       orderAccuracyStars: (json['order_accuracy_stars'] as num).toInt(),
       deliverySpeedStars: (json['delivery_speed_stars'] as num).toInt(),
       comment: json['comment'] as String?,
@@ -18,7 +17,6 @@ _RateOrderBody _$RateOrderBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RateOrderBodyToJson(_RateOrderBody instance) =>
     <String, dynamic>{
       'overall_stars': instance.overallStars,
-      'captain_stars': instance.captainStars,
       'order_accuracy_stars': instance.orderAccuracyStars,
       'delivery_speed_stars': instance.deliverySpeedStars,
       'comment': instance.comment,

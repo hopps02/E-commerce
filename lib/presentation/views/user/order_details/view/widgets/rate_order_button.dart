@@ -25,7 +25,6 @@ class RateOrderButton extends ConsumerWidget {
         .read(orderDetailsController.notifier)
         .rate(
           overall: result.overall,
-          captain: result.deliveryRep,
           orderAccuracy: result.orderMatch,
           deliverySpeed: result.deliverySpeed,
           comment: result.comment,

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RateOrderBody {
 
-@JsonKey(name: 'overall_stars') int get overallStars;@JsonKey(name: 'captain_stars') int get captainStars;@JsonKey(name: 'order_accuracy_stars') int get orderAccuracyStars;@JsonKey(name: 'delivery_speed_stars') int get deliverySpeedStars; String? get comment;
+@JsonKey(name: 'overall_stars') int get overallStars;@JsonKey(name: 'order_accuracy_stars') int get orderAccuracyStars;@JsonKey(name: 'delivery_speed_stars') int get deliverySpeedStars; String? get comment;
 /// Create a copy of RateOrderBody
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RateOrderBodyCopyWith<RateOrderBody> get copyWith => _$RateOrderBodyCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RateOrderBody&&(identical(other.overallStars, overallStars) || other.overallStars == overallStars)&&(identical(other.captainStars, captainStars) || other.captainStars == captainStars)&&(identical(other.orderAccuracyStars, orderAccuracyStars) || other.orderAccuracyStars == orderAccuracyStars)&&(identical(other.deliverySpeedStars, deliverySpeedStars) || other.deliverySpeedStars == deliverySpeedStars)&&(identical(other.comment, comment) || other.comment == comment));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RateOrderBody&&(identical(other.overallStars, overallStars) || other.overallStars == overallStars)&&(identical(other.orderAccuracyStars, orderAccuracyStars) || other.orderAccuracyStars == orderAccuracyStars)&&(identical(other.deliverySpeedStars, deliverySpeedStars) || other.deliverySpeedStars == deliverySpeedStars)&&(identical(other.comment, comment) || other.comment == comment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,overallStars,captainStars,orderAccuracyStars,deliverySpeedStars,comment);
+int get hashCode => Object.hash(runtimeType,overallStars,orderAccuracyStars,deliverySpeedStars,comment);
 
 @override
 String toString() {
-  return 'RateOrderBody(overallStars: $overallStars, captainStars: $captainStars, orderAccuracyStars: $orderAccuracyStars, deliverySpeedStars: $deliverySpeedStars, comment: $comment)';
+  return 'RateOrderBody(overallStars: $overallStars, orderAccuracyStars: $orderAccuracyStars, deliverySpeedStars: $deliverySpeedStars, comment: $comment)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RateOrderBodyCopyWith<$Res>  {
   factory $RateOrderBodyCopyWith(RateOrderBody value, $Res Function(RateOrderBody) _then) = _$RateOrderBodyCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'overall_stars') int overallStars,@JsonKey(name: 'captain_stars') int captainStars,@JsonKey(name: 'order_accuracy_stars') int orderAccuracyStars,@JsonKey(name: 'delivery_speed_stars') int deliverySpeedStars, String? comment
+@JsonKey(name: 'overall_stars') int overallStars,@JsonKey(name: 'order_accuracy_stars') int orderAccuracyStars,@JsonKey(name: 'delivery_speed_stars') int deliverySpeedStars, String? comment
 });
 
 
@@ -65,10 +65,9 @@ class _$RateOrderBodyCopyWithImpl<$Res>
 
 /// Create a copy of RateOrderBody
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? overallStars = null,Object? captainStars = null,Object? orderAccuracyStars = null,Object? deliverySpeedStars = null,Object? comment = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? overallStars = null,Object? orderAccuracyStars = null,Object? deliverySpeedStars = null,Object? comment = freezed,}) {
   return _then(_self.copyWith(
 overallStars: null == overallStars ? _self.overallStars : overallStars // ignore: cast_nullable_to_non_nullable
-as int,captainStars: null == captainStars ? _self.captainStars : captainStars // ignore: cast_nullable_to_non_nullable
 as int,orderAccuracyStars: null == orderAccuracyStars ? _self.orderAccuracyStars : orderAccuracyStars // ignore: cast_nullable_to_non_nullable
 as int,deliverySpeedStars: null == deliverySpeedStars ? _self.deliverySpeedStars : deliverySpeedStars // ignore: cast_nullable_to_non_nullable
 as int,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
@@ -157,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'captain_stars')  int captainStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RateOrderBody() when $default != null:
-return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
+return $default(_that.overallStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
   return orElse();
 
 }
@@ -178,10 +177,10 @@ return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'captain_stars')  int captainStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)  $default,) {final _that = this;
 switch (_that) {
 case _RateOrderBody():
-return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
+return $default(_that.overallStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +197,10 @@ return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'captain_stars')  int captainStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'overall_stars')  int overallStars, @JsonKey(name: 'order_accuracy_stars')  int orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars')  int deliverySpeedStars,  String? comment)?  $default,) {final _that = this;
 switch (_that) {
 case _RateOrderBody() when $default != null:
-return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
+return $default(_that.overallStars,_that.orderAccuracyStars,_that.deliverySpeedStars,_that.comment);case _:
   return null;
 
 }
@@ -213,11 +212,10 @@ return $default(_that.overallStars,_that.captainStars,_that.orderAccuracyStars,_
 @JsonSerializable()
 
 class _RateOrderBody implements RateOrderBody {
-  const _RateOrderBody({@JsonKey(name: 'overall_stars') required this.overallStars, @JsonKey(name: 'captain_stars') required this.captainStars, @JsonKey(name: 'order_accuracy_stars') required this.orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars') required this.deliverySpeedStars, this.comment});
+  const _RateOrderBody({@JsonKey(name: 'overall_stars') required this.overallStars, @JsonKey(name: 'order_accuracy_stars') required this.orderAccuracyStars, @JsonKey(name: 'delivery_speed_stars') required this.deliverySpeedStars, this.comment});
   factory _RateOrderBody.fromJson(Map<String, dynamic> json) => _$RateOrderBodyFromJson(json);
 
 @override@JsonKey(name: 'overall_stars') final  int overallStars;
-@override@JsonKey(name: 'captain_stars') final  int captainStars;
 @override@JsonKey(name: 'order_accuracy_stars') final  int orderAccuracyStars;
 @override@JsonKey(name: 'delivery_speed_stars') final  int deliverySpeedStars;
 @override final  String? comment;
@@ -235,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RateOrderBody&&(identical(other.overallStars, overallStars) || other.overallStars == overallStars)&&(identical(other.captainStars, captainStars) || other.captainStars == captainStars)&&(identical(other.orderAccuracyStars, orderAccuracyStars) || other.orderAccuracyStars == orderAccuracyStars)&&(identical(other.deliverySpeedStars, deliverySpeedStars) || other.deliverySpeedStars == deliverySpeedStars)&&(identical(other.comment, comment) || other.comment == comment));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RateOrderBody&&(identical(other.overallStars, overallStars) || other.overallStars == overallStars)&&(identical(other.orderAccuracyStars, orderAccuracyStars) || other.orderAccuracyStars == orderAccuracyStars)&&(identical(other.deliverySpeedStars, deliverySpeedStars) || other.deliverySpeedStars == deliverySpeedStars)&&(identical(other.comment, comment) || other.comment == comment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,overallStars,captainStars,orderAccuracyStars,deliverySpeedStars,comment);
+int get hashCode => Object.hash(runtimeType,overallStars,orderAccuracyStars,deliverySpeedStars,comment);
 
 @override
 String toString() {
-  return 'RateOrderBody(overallStars: $overallStars, captainStars: $captainStars, orderAccuracyStars: $orderAccuracyStars, deliverySpeedStars: $deliverySpeedStars, comment: $comment)';
+  return 'RateOrderBody(overallStars: $overallStars, orderAccuracyStars: $orderAccuracyStars, deliverySpeedStars: $deliverySpeedStars, comment: $comment)';
 }
 
 
@@ -255,7 +253,7 @@ abstract mixin class _$RateOrderBodyCopyWith<$Res> implements $RateOrderBodyCopy
   factory _$RateOrderBodyCopyWith(_RateOrderBody value, $Res Function(_RateOrderBody) _then) = __$RateOrderBodyCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'overall_stars') int overallStars,@JsonKey(name: 'captain_stars') int captainStars,@JsonKey(name: 'order_accuracy_stars') int orderAccuracyStars,@JsonKey(name: 'delivery_speed_stars') int deliverySpeedStars, String? comment
+@JsonKey(name: 'overall_stars') int overallStars,@JsonKey(name: 'order_accuracy_stars') int orderAccuracyStars,@JsonKey(name: 'delivery_speed_stars') int deliverySpeedStars, String? comment
 });
 
 
@@ -272,10 +270,9 @@ class __$RateOrderBodyCopyWithImpl<$Res>
 
 /// Create a copy of RateOrderBody
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? overallStars = null,Object? captainStars = null,Object? orderAccuracyStars = null,Object? deliverySpeedStars = null,Object? comment = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? overallStars = null,Object? orderAccuracyStars = null,Object? deliverySpeedStars = null,Object? comment = freezed,}) {
   return _then(_RateOrderBody(
 overallStars: null == overallStars ? _self.overallStars : overallStars // ignore: cast_nullable_to_non_nullable
-as int,captainStars: null == captainStars ? _self.captainStars : captainStars // ignore: cast_nullable_to_non_nullable
 as int,orderAccuracyStars: null == orderAccuracyStars ? _self.orderAccuracyStars : orderAccuracyStars // ignore: cast_nullable_to_non_nullable
 as int,deliverySpeedStars: null == deliverySpeedStars ? _self.deliverySpeedStars : deliverySpeedStars // ignore: cast_nullable_to_non_nullable
 as int,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable

@@ -170,7 +170,6 @@ enum Translation {
   rate,
   how_was_your_experience,
   share_your_experience,
-  rating_delivery_rep,
   rating_order_match,
   rating_delivery_speed,
   share_experience_hint,

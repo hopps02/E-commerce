@@ -26,6 +26,7 @@ class OrderDetailsState extends Equatable {
   /// Raw backend state plus the failure detail, kept so the timeline can swap
   /// the «تم التوصيل» node for a «تعذّر التوصيل» node and surface the reason.
   final String orderState;
+  final String stateLabel;
   final String? failureReason;
   final String? failureNote;
 
@@ -51,6 +52,7 @@ class OrderDetailsState extends Equatable {
     this.totals = const CustomerOrderTotals(),
     this.isDelivered = false,
     this.orderState = '',
+    this.stateLabel = '',
     this.failureReason,
     this.failureNote,
     this.canRate = false,
@@ -77,6 +79,7 @@ class OrderDetailsState extends Equatable {
       totals: totals,
       isDelivered: isDelivered,
       orderState: orderState,
+      stateLabel: stateLabel,
       failureReason: failureReason,
       failureNote: failureNote,
       canRate: canRate ?? this.canRate,
@@ -98,6 +101,7 @@ class OrderDetailsState extends Equatable {
     totals,
     isDelivered,
     orderState,
+    stateLabel,
     failureReason,
     failureNote,
     canRate,
@@ -164,7 +168,6 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState>
   /// but ratings travel as integers. Returns true when the rating stuck.
   Future<bool> rate({
     required double overall,
-    required double captain,
     required double orderAccuracy,
     required double deliverySpeed,
     String? comment,
@@ -175,7 +178,6 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState>
         id: state.orderId,
         body: RateOrderBody(
           overallStars: overall.round().clamp(1, 5),
-          captainStars: captain.round().clamp(1, 5),
           orderAccuracyStars: orderAccuracy.round().clamp(1, 5),
           deliverySpeedStars: deliverySpeed.round().clamp(1, 5),
           comment: (comment ?? '').trim().isEmpty ? null : comment!.trim(),
@@ -220,6 +222,7 @@ class OrderDetailsNotifier extends Notifier<OrderDetailsState>
       totals: order.totals ?? const CustomerOrderTotals(),
       isDelivered: order.isDelivered,
       orderState: order.state,
+      stateLabel: order.stateLabel ?? '',
       failureReason: order.failureReason,
       failureNote: order.failureNote,
       canRate: order.canRate,
