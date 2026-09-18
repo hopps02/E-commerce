@@ -15,7 +15,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BranchProduct {
 
- int get id;@JsonKey(name: 'branch_id') int get branchId;@JsonKey(name: 'category_id') int? get categoryId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;@JsonKey(name: 'price_halalas') int get priceHalalas;@JsonKey(name: 'discount_halalas') int get discountHalalas; int get available;@JsonKey(name: 'stock_status') String? get stockStatus;@JsonKey(name: 'is_favorite') bool get isFavorite;
+ int get id;@JsonKey(name: 'branch_id') int get branchId;@JsonKey(name: 'category_id') int? get categoryId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;@JsonKey(name: 'price_halalas') int get priceHalalas;@JsonKey(name: 'discount_halalas') int get discountHalalas; int get available;@JsonKey(name: 'stock_status') String? get stockStatus;@JsonKey(name: 'is_favorite') bool get isFavorite;@JsonKey(name: 'description_ar') String? get descriptionAr;@JsonKey(name: 'description_en') String? get descriptionEn; String? get brand;/// How it is sold: piece, kg, meter... The label arrives ready to print.
+ String get unit;@JsonKey(name: 'unit_label') String? get unitLabel;/// Extra photos. Only the product screen asks for them; a list row is
+/// served with its one card image.
+ List<String> get images;
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +31,16 @@ $BranchProductCopyWith<BranchProduct> get copyWith => _$BranchProductCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.brand, brand) || other.brand == brand)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite);
+int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite,descriptionAr,descriptionEn,brand,unit,unitLabel,const DeepCollectionEquality().hash(images));
 
 @override
 String toString() {
-  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite)';
+  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, brand: $brand, unit: $unit, unitLabel: $unitLabel, images: $images)';
 }
 
 
@@ -48,7 +51,7 @@ abstract mixin class $BranchProductCopyWith<$Res>  {
   factory $BranchProductCopyWith(BranchProduct value, $Res Function(BranchProduct) _then) = _$BranchProductCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite
+ int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite,@JsonKey(name: 'description_ar') String? descriptionAr,@JsonKey(name: 'description_en') String? descriptionEn, String? brand, String unit,@JsonKey(name: 'unit_label') String? unitLabel, List<String> images
 });
 
 
@@ -65,7 +68,7 @@ class _$BranchProductCopyWithImpl<$Res>
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? brand = freezed,Object? unit = null,Object? unitLabel = freezed,Object? images = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchId: null == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
@@ -78,7 +81,13 @@ as int,discountHalalas: null == discountHalalas ? _self.discountHalalas : discou
 as int,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as int,stockStatus: freezed == stockStatus ? _self.stockStatus : stockStatus // ignore: cast_nullable_to_non_nullable
 as String?,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,descriptionAr: freezed == descriptionAr ? _self.descriptionAr : descriptionAr // ignore: cast_nullable_to_non_nullable
+as String?,descriptionEn: freezed == descriptionEn ? _self.descriptionEn : descriptionEn // ignore: cast_nullable_to_non_nullable
+as String?,brand: freezed == brand ? _self.brand : brand // ignore: cast_nullable_to_non_nullable
+as String?,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
+as String,unitLabel: freezed == unitLabel ? _self.unitLabel : unitLabel // ignore: cast_nullable_to_non_nullable
+as String?,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -163,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite, @JsonKey(name: 'description_ar')  String? descriptionAr, @JsonKey(name: 'description_en')  String? descriptionEn,  String? brand,  String unit, @JsonKey(name: 'unit_label')  String? unitLabel,  List<String> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BranchProduct() when $default != null:
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite,_that.descriptionAr,_that.descriptionEn,_that.brand,_that.unit,_that.unitLabel,_that.images);case _:
   return orElse();
 
 }
@@ -184,10 +193,10 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite, @JsonKey(name: 'description_ar')  String? descriptionAr, @JsonKey(name: 'description_en')  String? descriptionEn,  String? brand,  String unit, @JsonKey(name: 'unit_label')  String? unitLabel,  List<String> images)  $default,) {final _that = this;
 switch (_that) {
 case _BranchProduct():
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite,_that.descriptionAr,_that.descriptionEn,_that.brand,_that.unit,_that.unitLabel,_that.images);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +213,10 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_id')  int branchId, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl, @JsonKey(name: 'price_halalas')  int priceHalalas, @JsonKey(name: 'discount_halalas')  int discountHalalas,  int available, @JsonKey(name: 'stock_status')  String? stockStatus, @JsonKey(name: 'is_favorite')  bool isFavorite, @JsonKey(name: 'description_ar')  String? descriptionAr, @JsonKey(name: 'description_en')  String? descriptionEn,  String? brand,  String unit, @JsonKey(name: 'unit_label')  String? unitLabel,  List<String> images)?  $default,) {final _that = this;
 switch (_that) {
 case _BranchProduct() when $default != null:
-return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite);case _:
+return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.priceHalalas,_that.discountHalalas,_that.available,_that.stockStatus,_that.isFavorite,_that.descriptionAr,_that.descriptionEn,_that.brand,_that.unit,_that.unitLabel,_that.images);case _:
   return null;
 
 }
@@ -219,7 +228,7 @@ return $default(_that.id,_that.branchId,_that.categoryId,_that.nameAr,_that.name
 @JsonSerializable()
 
 class _BranchProduct extends BranchProduct {
-  const _BranchProduct({required this.id, @JsonKey(name: 'branch_id') required this.branchId, @JsonKey(name: 'category_id') this.categoryId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, @JsonKey(name: 'price_halalas') this.priceHalalas = 0, @JsonKey(name: 'discount_halalas') this.discountHalalas = 0, this.available = 0, @JsonKey(name: 'stock_status') this.stockStatus, @JsonKey(name: 'is_favorite') this.isFavorite = false}): super._();
+  const _BranchProduct({required this.id, @JsonKey(name: 'branch_id') required this.branchId, @JsonKey(name: 'category_id') this.categoryId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, @JsonKey(name: 'price_halalas') this.priceHalalas = 0, @JsonKey(name: 'discount_halalas') this.discountHalalas = 0, this.available = 0, @JsonKey(name: 'stock_status') this.stockStatus, @JsonKey(name: 'is_favorite') this.isFavorite = false, @JsonKey(name: 'description_ar') this.descriptionAr, @JsonKey(name: 'description_en') this.descriptionEn, this.brand, this.unit = 'piece', @JsonKey(name: 'unit_label') this.unitLabel, final  List<String> images = const <String>[]}): _images = images,super._();
   factory _BranchProduct.fromJson(Map<String, dynamic> json) => _$BranchProductFromJson(json);
 
 @override final  int id;
@@ -233,6 +242,23 @@ class _BranchProduct extends BranchProduct {
 @override@JsonKey() final  int available;
 @override@JsonKey(name: 'stock_status') final  String? stockStatus;
 @override@JsonKey(name: 'is_favorite') final  bool isFavorite;
+@override@JsonKey(name: 'description_ar') final  String? descriptionAr;
+@override@JsonKey(name: 'description_en') final  String? descriptionEn;
+@override final  String? brand;
+/// How it is sold: piece, kg, meter... The label arrives ready to print.
+@override@JsonKey() final  String unit;
+@override@JsonKey(name: 'unit_label') final  String? unitLabel;
+/// Extra photos. Only the product screen asks for them; a list row is
+/// served with its one card image.
+ final  List<String> _images;
+/// Extra photos. Only the product screen asks for them; a list row is
+/// served with its one card image.
+@override@JsonKey() List<String> get images {
+  if (_images is EqualUnmodifiableListView) return _images;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_images);
+}
+
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
@@ -247,16 +273,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.branchId, branchId) || other.branchId == branchId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.priceHalalas, priceHalalas) || other.priceHalalas == priceHalalas)&&(identical(other.discountHalalas, discountHalalas) || other.discountHalalas == discountHalalas)&&(identical(other.available, available) || other.available == available)&&(identical(other.stockStatus, stockStatus) || other.stockStatus == stockStatus)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.brand, brand) || other.brand == brand)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite);
+int get hashCode => Object.hash(runtimeType,id,branchId,categoryId,nameAr,nameEn,imageUrl,priceHalalas,discountHalalas,available,stockStatus,isFavorite,descriptionAr,descriptionEn,brand,unit,unitLabel,const DeepCollectionEquality().hash(_images));
 
 @override
 String toString() {
-  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite)';
+  return 'BranchProduct(id: $id, branchId: $branchId, categoryId: $categoryId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, priceHalalas: $priceHalalas, discountHalalas: $discountHalalas, available: $available, stockStatus: $stockStatus, isFavorite: $isFavorite, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, brand: $brand, unit: $unit, unitLabel: $unitLabel, images: $images)';
 }
 
 
@@ -267,7 +293,7 @@ abstract mixin class _$BranchProductCopyWith<$Res> implements $BranchProductCopy
   factory _$BranchProductCopyWith(_BranchProduct value, $Res Function(_BranchProduct) _then) = __$BranchProductCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite
+ int id,@JsonKey(name: 'branch_id') int branchId,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl,@JsonKey(name: 'price_halalas') int priceHalalas,@JsonKey(name: 'discount_halalas') int discountHalalas, int available,@JsonKey(name: 'stock_status') String? stockStatus,@JsonKey(name: 'is_favorite') bool isFavorite,@JsonKey(name: 'description_ar') String? descriptionAr,@JsonKey(name: 'description_en') String? descriptionEn, String? brand, String unit,@JsonKey(name: 'unit_label') String? unitLabel, List<String> images
 });
 
 
@@ -284,7 +310,7 @@ class __$BranchProductCopyWithImpl<$Res>
 
 /// Create a copy of BranchProduct
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchId = null,Object? categoryId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? priceHalalas = null,Object? discountHalalas = null,Object? available = null,Object? stockStatus = freezed,Object? isFavorite = null,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? brand = freezed,Object? unit = null,Object? unitLabel = freezed,Object? images = null,}) {
   return _then(_BranchProduct(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchId: null == branchId ? _self.branchId : branchId // ignore: cast_nullable_to_non_nullable
@@ -297,7 +323,13 @@ as int,discountHalalas: null == discountHalalas ? _self.discountHalalas : discou
 as int,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as int,stockStatus: freezed == stockStatus ? _self.stockStatus : stockStatus // ignore: cast_nullable_to_non_nullable
 as String?,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,descriptionAr: freezed == descriptionAr ? _self.descriptionAr : descriptionAr // ignore: cast_nullable_to_non_nullable
+as String?,descriptionEn: freezed == descriptionEn ? _self.descriptionEn : descriptionEn // ignore: cast_nullable_to_non_nullable
+as String?,brand: freezed == brand ? _self.brand : brand // ignore: cast_nullable_to_non_nullable
+as String?,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
+as String,unitLabel: freezed == unitLabel ? _self.unitLabel : unitLabel // ignore: cast_nullable_to_non_nullable
+as String?,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

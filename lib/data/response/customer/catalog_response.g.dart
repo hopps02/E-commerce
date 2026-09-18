@@ -19,6 +19,16 @@ _BranchProduct _$BranchProductFromJson(Map<String, dynamic> json) =>
       available: (json['available'] as num?)?.toInt() ?? 0,
       stockStatus: json['stock_status'] as String?,
       isFavorite: json['is_favorite'] as bool? ?? false,
+      descriptionAr: json['description_ar'] as String?,
+      descriptionEn: json['description_en'] as String?,
+      brand: json['brand'] as String?,
+      unit: json['unit'] as String? ?? 'piece',
+      unitLabel: json['unit_label'] as String?,
+      images:
+          (json['images'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const <String>[],
     );
 
 Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
@@ -34,6 +44,12 @@ Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
       'available': instance.available,
       'stock_status': instance.stockStatus,
       'is_favorite': instance.isFavorite,
+      'description_ar': instance.descriptionAr,
+      'description_en': instance.descriptionEn,
+      'brand': instance.brand,
+      'unit': instance.unit,
+      'unit_label': instance.unitLabel,
+      'images': instance.images,
     };
 
 _ProductCategory _$ProductCategoryFromJson(Map<String, dynamic> json) =>

@@ -148,6 +148,17 @@ class _PriceBlock extends StatelessWidget {
                 ),
               ),
             ),
+            if (product.unitName.isNotEmpty) ...[
+              4.horizontalSpace,
+              Text(
+                '/ ' + product.unitName,
+                style: context.labelMedium.copyWith(
+                  color: ColorM.gray500,
+                  fontWeight: FontWeightM.medium,
+                  height: 1,
+                ),
+              ),
+            ],
             if (hasDiscount) ...[
               8.horizontalSpace,
               Text(

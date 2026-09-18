@@ -21,6 +21,17 @@ abstract class BranchProduct with _$BranchProduct {
     @Default(0) int available,
     @JsonKey(name: 'stock_status') String? stockStatus,
     @JsonKey(name: 'is_favorite') @Default(false) bool isFavorite,
+    @JsonKey(name: 'description_ar') String? descriptionAr,
+    @JsonKey(name: 'description_en') String? descriptionEn,
+    String? brand,
+
+    /// How it is sold: piece, kg, meter... The label arrives ready to print.
+    @Default('piece') String unit,
+    @JsonKey(name: 'unit_label') String? unitLabel,
+
+    /// Extra photos. Only the product screen asks for them; a list row is
+    /// served with its one card image.
+    @Default(<String>[]) List<String> images,
   }) = _BranchProduct;
 
   factory BranchProduct.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +45,22 @@ abstract class BranchProduct with _$BranchProduct {
   int get effectivePriceHalalas => priceHalalas - discountHalalas;
 
   bool get inStock => available > 0;
+
+  String description(bool arabic) =>
+      ((arabic ? descriptionAr : descriptionEn) ??
+              descriptionAr ??
+              descriptionEn ??
+              '')
+          .trim();
+
+  /// Everything to swipe through: the main photo first, then the gallery.
+  List<String> get gallery => [
+    if ((imageUrl ?? '').isNotEmpty) imageUrl!,
+    ...images.where((url) => url.isNotEmpty),
+  ];
+
+  /// What the price and the quantity are counted in: "كيلو", "قطعة".
+  String get unitName => (unitLabel ?? '').trim();
 }
 
 /// GET /mobile/categories (top-level rows; children unused in v1).

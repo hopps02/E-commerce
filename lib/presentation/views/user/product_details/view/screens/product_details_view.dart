@@ -9,6 +9,7 @@ import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/product_details/riverpod/product_details_controller.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_details_app_bar.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_description.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_details_bottom_bar.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
@@ -90,7 +91,9 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
 
                             // Product image with favorite + dots
                             ProductImageSlider(
-                              imageUrls: [product.imageUrl ?? ''],
+                              imageUrls: product.gallery.isEmpty
+                                  ? [product.imageUrl ?? '']
+                                  : product.gallery,
                             ),
 
                             14.verticalSpace,
@@ -100,6 +103,13 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                               name: product.name(arabic),
                               isAvailable: product.inStock,
                             ),
+
+                            if (product.description(arabic).isNotEmpty) ...[
+                              20.verticalSpace,
+                              ProductDescription(
+                                description: product.description(arabic),
+                              ),
+                            ],
 
                             SizedBox(height: 24.h),
                           ],
