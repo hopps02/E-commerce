@@ -10,6 +10,11 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/edit_profile/view/widgets/profile_phone_field.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
 
+/// The market is Egypt: an account's phone arrives as +20 followed by the
+/// local number, and the field shows it beside the Egyptian flag.
+const String _countryCode = 'EG';
+const String _dialCode = '+20';
+
 class EditProfileForm extends ConsumerStatefulWidget {
   const EditProfileForm({super.key});
 
@@ -29,7 +34,12 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
     super.initState();
     final profile = ref.read(profileController);
     nameController.text = profile.name;
-    phoneController.text = profile.phone.replaceFirst('+966', '');
+    // The dial code sits in the picker beside the field, so the text carries
+    // only the local part — and the whole number if it ever arrives with
+    // another country's code.
+    phoneController.text = profile.phone.startsWith(_dialCode)
+        ? profile.phone.substring(_dialCode.length)
+        : profile.phone;
   }
 
   @override
@@ -71,8 +81,8 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           ProfilePhoneField(
             phoneNumberController: phoneController,
-            initialCountryCode: 'SA',
-            initialDialCode: '+966',
+            initialCountryCode: _countryCode,
+            initialDialCode: _dialCode,
           ),
 
           48.verticalSpace,

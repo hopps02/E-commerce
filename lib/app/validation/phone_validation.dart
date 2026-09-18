@@ -19,7 +19,7 @@ sealed class PhoneValidation {
 }
 
 /// The number is well-formed. [e164] is the normalized form ready to be sent
-/// to the backend, e.g. `+966512345678`.
+/// to the backend, e.g. `+201288929610`.
 final class ValidPhone extends PhoneValidation {
   final String e164;
   const ValidPhone(this.e164);
@@ -36,7 +36,7 @@ final class InvalidPhone extends PhoneValidation {
 }
 
 /// Validates [number] (the local part, without the dial code) against
-/// [dialCode] (e.g. `+966`) using libphonenumber.
+/// [dialCode] (e.g. `+20`) using libphonenumber.
 ///
 /// Requires `libphonenumber.init()` to have run at startup. The default
 /// [parse] delegates to the real library; tests can pass a fake.

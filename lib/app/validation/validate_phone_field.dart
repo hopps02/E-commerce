@@ -7,7 +7,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 /// Validates a phone field and reacts to the outcome for you:
 /// focuses [focusNode] when the field is empty, and shows the invalid-number
 /// snackbar when it's malformed. Returns the normalized E.164 number
-/// (e.g. `+966512345678`) — ready for the backend — or null when invalid.
+/// (e.g. `+201288929610`) — ready for the backend — or null when invalid.
 ///
 /// This is the UI-facing wrapper around the pure [validatePhoneNumber]; keep
 /// the reactions here so call sites only need the usable number.

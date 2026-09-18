@@ -22,7 +22,7 @@ List<TextInputFormatter> phoneInputFormatters(String countryCode) {
 
 /// Drops leading zeros as the user types: the national significant number
 /// never starts with the trunk `0` when the dial code is shown separately
-/// (Saudi `0512345678` → `512345678`).
+/// (Egyptian `01288929610` → `1288929610`).
 class StripLeadingZerosFormatter extends TextInputFormatter {
   const StripLeadingZerosFormatter();
 
