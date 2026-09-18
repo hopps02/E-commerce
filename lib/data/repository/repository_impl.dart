@@ -3,6 +3,7 @@ import 'package:store/data/request/auth/auth_request.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/auth/auth_response.dart';
 
+import 'package:store/data/response/customer/branding_response.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
@@ -157,6 +158,10 @@ class RepositoryImpl implements Repository {
   @override
   Future<Either<Failure, List<HomeBanner>>> banners() =>
       fastHandler(request: () async => (await _customerApi.banners()).data);
+
+  @override
+  Future<Either<Failure, Branding>> branding() =>
+      fastHandler(request: () async => (await _customerApi.branding()).data);
 
   @override
   Future<Either<Failure, List<BranchProduct>>> favorites() =>

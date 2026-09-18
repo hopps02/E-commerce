@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/view_extensions.dart';
+import 'package:store/presentation/common/riverpod/brand_controller.dart';
 import 'package:store/app/responsive/responsive.dart';
 import 'package:store/app/ui_kit/global_keyboard_dismissal.dart';
 
@@ -32,6 +35,12 @@ class MyAppState extends State<MyApp> {
   void initState() {
     SCAFFOLD_MESSENGER_KEY = GlobalKey<ScaffoldMessengerState>();
     super.initState();
+
+    // The colours on screen are last run's; this fetches today's and
+    // repaints only if the panel changed something.
+    Future.microtask(
+      () => DI.container.read(brandController.notifier).refresh(),
+    );
   }
 
   @override
@@ -50,6 +59,20 @@ class MyAppState extends State<MyApp> {
           return ScreenUtilInit(
             designSize: designSize,
             builder: (context, details) {
+              return Consumer(
+                builder: (context, ref, _) {
+                  ref.watch(brandController);
+                  return _app(context);
+                },
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _app(BuildContext context) {
               return MaterialApp.router(
                 scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
                 debugShowCheckedModeBanner: false,
@@ -84,11 +107,6 @@ class MyAppState extends State<MyApp> {
                   );
                 },
               );
-            },
-          );
-        },
-      ),
-    );
   }
 
   ThemeMode get themeMode => ThemeMode.light;

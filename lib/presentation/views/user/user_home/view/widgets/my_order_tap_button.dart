@@ -23,7 +23,7 @@ class MyOrderTapButton extends StatelessWidget {
       backgroundColor: isSelected ? ColorM.primary600 : ColorM.white,
       side: isSelected
           ? GradientBorderSide.none
-          : const GradientBorderSide(color: ColorM.primary50, width: 1),
+          : GradientBorderSide(color: ColorM.primary50, width: 1),
       borderRadius: 29.r,
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8.h),
       child: Text(

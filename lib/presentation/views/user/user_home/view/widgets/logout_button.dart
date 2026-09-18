@@ -50,7 +50,7 @@ class LogoutButton extends StatelessWidget {
                 Assets.svg.logout.svg(
                   width: 22,
                   height: 22,
-                  colorFilter: const ColorFilter.mode(
+                  colorFilter: ColorFilter.mode(
                     ColorM.red,
                     BlendMode.srcIn,
                   ),

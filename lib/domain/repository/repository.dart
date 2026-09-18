@@ -3,6 +3,7 @@ import 'package:store/data/request/auth/auth_request.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/auth/auth_response.dart';
 
+import 'package:store/data/response/customer/branding_response.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/data/response/customer/support_response.dart';
@@ -77,6 +78,8 @@ abstract class Repository {
   Future<Either<Failure, List<ProductCategory>>> categories();
 
   Future<Either<Failure, List<HomeBanner>>> banners();
+
+  Future<Either<Failure, Branding>> branding();
 
   Future<Either<Failure, List<BranchProduct>>> favorites();
 

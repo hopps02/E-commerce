@@ -57,7 +57,7 @@ class LoginRequiredBottomSheet extends StatelessWidget {
           Container(
             width: 80,
             height: 80,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: ColorM.primary50,
               shape: BoxShape.circle,
             ),
@@ -102,7 +102,7 @@ class LoginRequiredBottomSheet extends StatelessWidget {
           CustomInkButton(
             onTap: () => Navigator.pop(context, false),
             backgroundColor: ColorM.transparent,
-            side: const GradientBorderSide(color: ColorM.primary500, width: 1),
+            side: GradientBorderSide(color: ColorM.primary500, width: 1),
             height: 56,
             borderRadius: SizeM.commonBorderRadius.r,
             alignment: Alignment.center,

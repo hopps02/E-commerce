@@ -45,7 +45,7 @@ class ProfileInfo extends ConsumerWidget {
             child: Container(
               height: 76,
               width: 76,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: ColorM.primary50,
                 shape: BoxShape.circle,
               ),

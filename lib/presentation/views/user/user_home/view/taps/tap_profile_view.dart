@@ -110,7 +110,7 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
   }
 
   Widget _buildLoadingScaffold() {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(child: CircularProgressIndicator(color: ColorM.primary500)),
     );
@@ -142,7 +142,7 @@ class _GuestProfileState extends StatelessWidget {
             child: Container(
               height: 76,
               width: 76,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: ColorM.primary50,
                 shape: BoxShape.circle,
               ),

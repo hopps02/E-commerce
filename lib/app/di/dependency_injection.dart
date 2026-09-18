@@ -29,6 +29,7 @@ import 'package:store/domain/usecase/delete_account_usecase.dart';
 import 'package:store/domain/usecase/delete_address_usecase.dart';
 import 'package:store/domain/usecase/get_addresses_usecase.dart';
 import 'package:store/domain/usecase/get_banners_usecase.dart';
+import 'package:store/domain/usecase/get_branding_usecase.dart';
 import 'package:store/domain/usecase/get_categories_usecase.dart';
 import 'package:store/domain/usecase/get_customer_order_detail_usecase.dart';
 import 'package:store/domain/usecase/get_customer_orders_usecase.dart';
@@ -128,6 +129,7 @@ class DI {
 
 extension DICoreServicesExtension on DI {
   StorageService      get storageService   => DI.container.read(DI._storageService);
+  SharedPrefsService  get prefs           => DI.container.read(DI._sharedPrefsService);
   SessionService      get sessionService   => DI.container.read(DI._sessionService);
   SnackbarHelper      get snackBarHelper   => DI.container.read(DI._snackBarHelper);
   LoadingManager      get loadingService   => DI.container.read(DI._loadingService);
@@ -154,6 +156,7 @@ extension DIUseCasesExtension on DI {
   GetProductDetailUseCase     get getProductDetailUseCase     => GetProductDetailUseCase(_repo);
   GetCategoriesUseCase        get getCategoriesUseCase        => GetCategoriesUseCase(_repo);
   GetBannersUseCase           get getBannersUseCase           => GetBannersUseCase(_repo);
+  GetBrandingUseCase          get getBrandingUseCase          => GetBrandingUseCase(_repo);
   GetFavoritesUseCase         get getFavoritesUseCase         => GetFavoritesUseCase(_repo);
   AddFavoriteUseCase          get addFavoriteUseCase          => AddFavoriteUseCase(_repo);
   RemoveFavoriteUseCase       get removeFavoriteUseCase       => RemoveFavoriteUseCase(_repo);

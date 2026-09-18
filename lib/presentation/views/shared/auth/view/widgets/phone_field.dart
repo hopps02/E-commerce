@@ -55,7 +55,7 @@ class PhoneField extends StatelessWidget {
                         Assets.svg.circleCheck.path,
                         width: 20,
                         height: 20,
-                        colorFilter: const ColorFilter.mode(
+                        colorFilter: ColorFilter.mode(
                           ColorM.primary500,
                           BlendMode.srcIn,
                         ),

@@ -179,7 +179,7 @@ class _AddressEmptyState extends StatelessWidget {
               Assets.svg.borderLocation.path,
               width: 26,
               height: 26,
-              colorFilter: const ColorFilter.mode(
+              colorFilter: ColorFilter.mode(
                 ColorM.primary500,
                 BlendMode.srcIn,
               ),
@@ -247,7 +247,7 @@ class _PickerRow extends StatelessWidget {
               Assets.svg.borderLocation.path,
               width: 18,
               height: 18,
-              colorFilter: const ColorFilter.mode(
+              colorFilter: ColorFilter.mode(
                 ColorM.greenSecondary,
                 BlendMode.srcIn,
               ),

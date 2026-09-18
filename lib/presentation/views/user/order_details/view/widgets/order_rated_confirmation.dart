@@ -37,7 +37,7 @@ class OrderRatedConfirmation extends StatelessWidget {
               width: 40,
               height: 40,
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: ColorM.primary600,
                 shape: BoxShape.circle,
               ),

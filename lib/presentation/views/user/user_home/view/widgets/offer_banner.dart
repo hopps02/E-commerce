@@ -20,7 +20,7 @@ class OfferBanner extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [ColorM.primary550, ColorM.primary900],

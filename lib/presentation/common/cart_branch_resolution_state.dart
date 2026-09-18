@@ -58,7 +58,7 @@ class CartBranchResolutionState extends StatelessWidget {
               width: double.infinity,
               height: 56,
               backgroundColor: ColorM.transparent,
-              side: const GradientBorderSide(
+              side: GradientBorderSide(
                 color: ColorM.primary500,
                 width: 1,
               ),

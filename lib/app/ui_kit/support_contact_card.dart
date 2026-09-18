@@ -43,7 +43,7 @@ class SupportContactCard extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.all(8.dg),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: ColorM.primary50,
                     shape: BoxShape.circle,
                   ),

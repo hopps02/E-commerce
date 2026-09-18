@@ -90,7 +90,7 @@ class NotificationTile extends StatelessWidget {
                           child: Container(
                             width: 8,
                             height: 8,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: ColorM.red,
                               shape: BoxShape.circle,
                             ),
@@ -174,13 +174,13 @@ _TypeStyle _styleFor(String type) {
     );
   }
   if (type.startsWith('cashhandover.')) {
-    return const _TypeStyle(
+    return _TypeStyle(
       color: ColorM.gold,
       icon: Icons.account_balance_wallet_rounded,
     );
   }
   if (type.startsWith('inventory.')) {
-    return const _TypeStyle(
+    return _TypeStyle(
       color: ColorM.orange,
       icon: Icons.inventory_2_rounded,
     );
@@ -198,7 +198,7 @@ _TypeStyle _styleFor(String type) {
     );
   }
   if (type.startsWith('catalog.')) {
-    return const _TypeStyle(
+    return _TypeStyle(
       color: ColorM.greenSecondary,
       icon: Icons.sell_rounded,
     );

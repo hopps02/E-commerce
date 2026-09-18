@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 
 // dart format off
 abstract class ColorM{
-  static const Color primary                = Color(0xFF5130EC);
-  static const Color primary50              = Color(0xFFEEEAFD);
-  static const Color primary100             = Color(0xFFDCD6FB);
-  static const Color primary200             = Color(0xFFBDB0F8);
-  static const Color primary300             = Color(0xFF9E8BF4);
-  static const Color primary400             = Color(0xFF775EF0);
-  static const Color primary500             = Color(0xFF5130EC);
-  static const Color primary550             = Color(0xFF472AD0);
-  static const Color primary600             = Color(0xFF3E24B3);
-  static const Color primary700             = Color(0xFF321E92);
-  static const Color primary800             = Color(0xFF271771);
-  static const Color primary900             = Color(0xFF1C1050);
-  static const Color lightGreen             = Color(0xFFE7F9EE);
-  static const Color lightPrimary           = Color(0xFFF3F0FF);
-  static const Color secondary              = Color(0xFFA45C5C);
-  static const Color orange                 = Color(0xFFE1712A);
-  static const Color gold                   = Color(0xFFFFC120);
-  static const Color darkNavy               = Color(0xFF2B2E48);
+  static Color primary                = Color(0xFF5130EC);
+  static Color primary50              = Color(0xFFEEEAFD);
+  static Color primary100             = Color(0xFFDCD6FB);
+  static Color primary200             = Color(0xFFBDB0F8);
+  static Color primary300             = Color(0xFF9E8BF4);
+  static Color primary400             = Color(0xFF775EF0);
+  static Color primary500             = Color(0xFF5130EC);
+  static Color primary550             = Color(0xFF472AD0);
+  static Color primary600             = Color(0xFF3E24B3);
+  static Color primary700             = Color(0xFF321E92);
+  static Color primary800             = Color(0xFF271771);
+  static Color primary900             = Color(0xFF1C1050);
+  static Color lightGreen             = Color(0xFFE7F9EE);
+  static Color lightPrimary           = Color(0xFFF3F0FF);
+  static Color secondary              = Color(0xFFA45C5C);
+  static Color orange                 = Color(0xFFE1712A);
+  static Color gold                   = Color(0xFFFFC120);
+  static Color darkNavy               = Color(0xFF2B2E48);
   static const Color offWhite               = Color(0xFFFAFAFA);
   static const Color slate                  = Color(0xFFB3BECD);
-  static const Color greenSecondary         = Color(0xFF2A9C64);
-  static const Color greenPrimary           = Color(0xFF00422B);
+  static Color greenSecondary         = Color(0xFF2A9C64);
+  static Color greenPrimary           = Color(0xFF00422B);
 
   static const Color gray50                 = Color(0xFFF4F4F4);
   static const Color gray100                = Color(0xFFF9FAFB);
@@ -42,7 +42,7 @@ abstract class ColorM{
 
   static const Color white                  = Color(0xFFFFFFFF);
   static const Color transparent            = Colors.transparent;
-  static const Color red                    = Color(0xFFEF4444);
+  static Color red                    = Color(0xFFEF4444);
 }
 
 

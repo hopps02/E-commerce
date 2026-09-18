@@ -11,10 +11,14 @@ import 'package:flutter_libphonenumber/flutter_libphonenumber.dart'
     as libphonenumber;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:store/app/app.dart';
+import 'package:store/app/config/brand.dart';
+import 'package:store/app/config/brand_font.dart';
 import 'package:store/app/config/constants.dart';
 import 'package:store/app/config/supported_locales.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/utils/logger/app_logger.dart';
+import 'package:store/data/response/customer/branding_response.dart';
+import 'package:store/presentation/common/riverpod/brand_controller.dart';
 
 /// dart format off
 void main() {
@@ -27,6 +31,11 @@ Future<void> _initApp() async {
   await EasyLocalization.ensureInitialized();
   await libphonenumber.init();
   await DI.init();
+
+  // The identity from the last run, so the first frame is already the
+  // store own colours. The live one arrives a moment later and only
+  // repaints if the panel changed something.
+  await _paintWithTheStoreIdentity();
 
   // System UI
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -46,6 +55,22 @@ Future<void> _initApp() async {
       ),
     ),
   );
+}
+
+/// Reads what was cached and applies it. Nothing is downloaded here: a
+/// font that is not on this device yet is fetched after the first frame,
+/// so a slow network never holds up the splash screen.
+Future<void> _paintWithTheStoreIdentity() async {
+  final cached = DI().prefs.getMap(BrandNotifier.cacheKey);
+  if (cached == null) return;
+
+  final branding = Branding.fromJson(cached);
+  Brand.apply(branding);
+
+  final url = branding.fontUrl ?? '';
+  if (url.isNotEmpty && await BrandFont.loadCached(url)) {
+    Brand.useFont(BrandFont.family);
+  }
 }
 
 void _onError(Object error, StackTrace stack) {

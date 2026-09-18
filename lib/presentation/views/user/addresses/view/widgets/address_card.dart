@@ -69,7 +69,7 @@ class AddressCard extends StatelessWidget {
                     Assets.svg.borderLocation.path,
                     width: 18,
                     height: 18,
-                    colorFilter: const ColorFilter.mode(
+                    colorFilter: ColorFilter.mode(
                       ColorM.primary500,
                       BlendMode.srcIn,
                     ),

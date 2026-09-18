@@ -212,7 +212,7 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                           ),
                           2.horizontalSpace,
-                          const CurrencyMark(size: 9, color: ColorM.primary550),
+                          CurrencyMark(size: 9, color: ColorM.primary550),
                           if (widget.oldPrice != null) ...[
                             8.horizontalSpace,
                             FlexText(

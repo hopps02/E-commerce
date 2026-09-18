@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:store/data/response/customer/branding_response.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/data/request/customer/customer_request.dart';
 import 'package:store/data/response/customer/customer_response.dart';
@@ -36,6 +37,10 @@ abstract class CustomerApi {
 
   @GET('/mobile/categories')
   Future<Envelope<List<ProductCategory>>> categories();
+
+  /// The identity the app paints itself with. No token needed.
+  @GET('/mobile/branding')
+  Future<Envelope<Branding>> branding();
 
   @GET('/mobile/banners')
   Future<Envelope<List<HomeBanner>>> banners();

@@ -69,7 +69,7 @@ class OrderPriceSummary extends StatelessWidget {
                     fontWeight: FontWeightM.bold,
                   ),
                 ),
-                const CurrencyMark(size: 14, color: ColorM.primary700),
+                CurrencyMark(size: 14, color: ColorM.primary700),
               ],
             ),
           ],

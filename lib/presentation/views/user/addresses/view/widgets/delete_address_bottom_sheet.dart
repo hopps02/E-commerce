@@ -71,7 +71,7 @@ class DeleteAddressBottomSheet extends StatelessWidget {
             child: Assets.svg.bin.svg(
               width: 32,
               height: 32,
-              colorFilter: const ColorFilter.mode(ColorM.red, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(ColorM.red, BlendMode.srcIn),
             ),
           ),
 

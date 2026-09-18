@@ -205,7 +205,7 @@ class _CartItemCardState extends State<CartItemCard> {
                             fontWeight: FontWeightM.semiBold,
                           ),
                         ),
-                        const CurrencyMark(size: 13, color: ColorM.primary700),
+                        CurrencyMark(size: 13, color: ColorM.primary700),
                       ],
                     ),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:store/app/config/brand.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
@@ -9,7 +10,7 @@ import 'color_manager.dart';
 
 class ThemeManager {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-    fontFamily: FontsM.ibmPlexSansArabic.name,
+    fontFamily: Brand.fontFamily,
     useMaterial3: true,
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     scaffoldBackgroundColor: ColorM.white,

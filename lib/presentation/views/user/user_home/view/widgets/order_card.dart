@@ -252,7 +252,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       2.horizontalSpace,
-                      const CurrencyMark(size: 13, color: ColorM.primary700),
+                      CurrencyMark(size: 13, color: ColorM.primary700),
                     ],
                   ),
                 ],

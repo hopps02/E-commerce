@@ -106,7 +106,7 @@ class Order extends StatelessWidget {
                           ),
                         ),
                         2.horizontalSpace,
-                        const CurrencyMark(size: 11, color: ColorM.primary700),
+                        CurrencyMark(size: 11, color: ColorM.primary700),
                       ],
                     ),
                   ],
