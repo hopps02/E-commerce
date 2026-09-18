@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:store/app/di/dependency_injection.dart';
@@ -15,11 +17,15 @@ class HomeCatalogState extends Equatable {
   final List<ProductCategory> categories;
   final List<HomeSection> sections;
 
+  /// The ads the panel is running, live ones only, already in order.
+  final List<HomeBanner> banners;
+
   const HomeCatalogState({
     this.reqState = ReqState.loading,
     this.errorMessage = "",
     this.categories = const [],
     this.sections = const [],
+    this.banners = const [],
   });
 
   HomeCatalogState copyWith({
@@ -27,17 +33,33 @@ class HomeCatalogState extends Equatable {
     String? errorMessage,
     List<ProductCategory>? categories,
     List<HomeSection>? sections,
+    List<HomeBanner>? banners,
   }) {
     return HomeCatalogState(
       reqState: reqState ?? this.reqState,
       errorMessage: errorMessage ?? this.errorMessage,
       categories: categories ?? this.categories,
       sections: sections ?? this.sections,
+      banners: banners ?? this.banners,
     );
   }
 
+  /// The wide promos, in the order the panel set.
+  List<HomeBanner> get heroes =>
+      banners.where((banner) => banner.isHero).toList();
+
+  /// The small cards under the search bar.
+  List<HomeBanner> get tiles =>
+      banners.where((banner) => banner.isTile).toList();
+
   @override
-  List<Object?> get props => [reqState, errorMessage, categories, sections];
+  List<Object?> get props => [
+    reqState,
+    errorMessage,
+    categories,
+    sections,
+    banners,
+  ];
 }
 
 /// Feeds the home tab from the real catalog: categories for the grid and the
@@ -51,6 +73,17 @@ class HomeCatalogNotifier extends Notifier<HomeCatalogState> {
 
   Future<void> load() async {
     state = const HomeCatalogState();
+
+    // Ads are decoration: if the call fails the home screen still opens,
+    // just without them.
+    unawaited(
+      DI().getBannersUseCase.execute(null).then(
+        (result) => result.fold(
+          (failure) => null,
+          (banners) => state = state.copyWith(banners: banners),
+        ),
+      ),
+    );
 
     final categoriesResult = await DI().getCategoriesUseCase.execute(null);
     final categories = categoriesResult.fold<List<ProductCategory>?>((

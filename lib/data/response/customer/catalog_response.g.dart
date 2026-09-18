@@ -52,6 +52,59 @@ Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
       'images': instance.images,
     };
 
+_HomeBanner _$HomeBannerFromJson(Map<String, dynamic> json) => _HomeBanner(
+  id: (json['id'] as num).toInt(),
+  placement: json['placement'] as String? ?? 'home_hero',
+  titleAr: json['title_ar'] as String?,
+  titleEn: json['title_en'] as String?,
+  subtitleAr: json['subtitle_ar'] as String?,
+  subtitleEn: json['subtitle_en'] as String?,
+  badgeAr: json['badge_ar'] as String?,
+  badgeEn: json['badge_en'] as String?,
+  ctaAr: json['cta_ar'] as String?,
+  ctaEn: json['cta_en'] as String?,
+  imageUrl: json['image_url'] as String?,
+  target: json['target'] == null
+      ? null
+      : BannerTarget.fromJson(json['target'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$HomeBannerToJson(_HomeBanner instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'placement': instance.placement,
+      'title_ar': instance.titleAr,
+      'title_en': instance.titleEn,
+      'subtitle_ar': instance.subtitleAr,
+      'subtitle_en': instance.subtitleEn,
+      'badge_ar': instance.badgeAr,
+      'badge_en': instance.badgeEn,
+      'cta_ar': instance.ctaAr,
+      'cta_en': instance.ctaEn,
+      'image_url': instance.imageUrl,
+      'target': instance.target,
+    };
+
+_BannerTarget _$BannerTargetFromJson(Map<String, dynamic> json) =>
+    _BannerTarget(
+      type: json['type'] as String? ?? 'none',
+      categoryId: (json['category_id'] as num?)?.toInt(),
+      branchItemId: (json['branch_item_id'] as num?)?.toInt(),
+      products:
+          (json['products'] as List<dynamic>?)
+              ?.map((e) => BranchProduct.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <BranchProduct>[],
+    );
+
+Map<String, dynamic> _$BannerTargetToJson(_BannerTarget instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'category_id': instance.categoryId,
+      'branch_item_id': instance.branchItemId,
+      'products': instance.products,
+    };
+
 _ProductCategory _$ProductCategoryFromJson(Map<String, dynamic> json) =>
     _ProductCategory(
       id: (json['id'] as num).toInt(),

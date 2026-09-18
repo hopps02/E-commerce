@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/app/extensions/view_extensions.dart';
 import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/color_manager.dart';
@@ -14,7 +15,16 @@ class ProductsViewArgs {
   final int? categoryId;
   final String? search;
 
-  ProductsViewArgs({required this.title, this.categoryId, this.search});
+  /// Set when the screen shows a ready list (the products inside an ad)
+  /// instead of a category or a search.
+  final List<BranchProduct>? products;
+
+  ProductsViewArgs({
+    required this.title,
+    this.categoryId,
+    this.search,
+    this.products,
+  });
 }
 
 class ProductsView extends ConsumerStatefulWidget {
@@ -29,11 +39,22 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => ref
-          .read(productsController.notifier)
-          .init(categoryId: widget.args.categoryId, search: widget.args.search),
-    );
+    final picked = widget.args.products;
+
+    Future.microtask(() {
+      final notifier = ref.read(productsController.notifier);
+
+      // An ad hands its products over; everything else asks the server.
+      if (picked != null && picked.isNotEmpty) {
+        notifier.showFixed(picked);
+        return;
+      }
+
+      notifier.init(
+        categoryId: widget.args.categoryId,
+        search: widget.args.search,
+      );
+    });
   }
 
   @override

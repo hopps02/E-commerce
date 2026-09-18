@@ -76,6 +76,8 @@ abstract class Repository {
 
   Future<Either<Failure, List<ProductCategory>>> categories();
 
+  Future<Either<Failure, List<HomeBanner>>> banners();
+
   Future<Either<Failure, List<BranchProduct>>> favorites();
 
   Future<Either<Failure, Unit>> addFavorite(int branchItemId);

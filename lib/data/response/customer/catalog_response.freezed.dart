@@ -338,6 +338,604 @@ as List<String>,
 
 
 /// @nodoc
+mixin _$HomeBanner {
+
+ int get id; String get placement;@JsonKey(name: 'title_ar') String? get titleAr;@JsonKey(name: 'title_en') String? get titleEn;@JsonKey(name: 'subtitle_ar') String? get subtitleAr;@JsonKey(name: 'subtitle_en') String? get subtitleEn;@JsonKey(name: 'badge_ar') String? get badgeAr;@JsonKey(name: 'badge_en') String? get badgeEn;@JsonKey(name: 'cta_ar') String? get ctaAr;@JsonKey(name: 'cta_en') String? get ctaEn;@JsonKey(name: 'image_url') String? get imageUrl; BannerTarget? get target;
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HomeBannerCopyWith<HomeBanner> get copyWith => _$HomeBannerCopyWithImpl<HomeBanner>(this as HomeBanner, _$identity);
+
+  /// Serializes this HomeBanner to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeBanner&&(identical(other.id, id) || other.id == id)&&(identical(other.placement, placement) || other.placement == placement)&&(identical(other.titleAr, titleAr) || other.titleAr == titleAr)&&(identical(other.titleEn, titleEn) || other.titleEn == titleEn)&&(identical(other.subtitleAr, subtitleAr) || other.subtitleAr == subtitleAr)&&(identical(other.subtitleEn, subtitleEn) || other.subtitleEn == subtitleEn)&&(identical(other.badgeAr, badgeAr) || other.badgeAr == badgeAr)&&(identical(other.badgeEn, badgeEn) || other.badgeEn == badgeEn)&&(identical(other.ctaAr, ctaAr) || other.ctaAr == ctaAr)&&(identical(other.ctaEn, ctaEn) || other.ctaEn == ctaEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.target, target) || other.target == target));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,placement,titleAr,titleEn,subtitleAr,subtitleEn,badgeAr,badgeEn,ctaAr,ctaEn,imageUrl,target);
+
+@override
+String toString() {
+  return 'HomeBanner(id: $id, placement: $placement, titleAr: $titleAr, titleEn: $titleEn, subtitleAr: $subtitleAr, subtitleEn: $subtitleEn, badgeAr: $badgeAr, badgeEn: $badgeEn, ctaAr: $ctaAr, ctaEn: $ctaEn, imageUrl: $imageUrl, target: $target)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HomeBannerCopyWith<$Res>  {
+  factory $HomeBannerCopyWith(HomeBanner value, $Res Function(HomeBanner) _then) = _$HomeBannerCopyWithImpl;
+@useResult
+$Res call({
+ int id, String placement,@JsonKey(name: 'title_ar') String? titleAr,@JsonKey(name: 'title_en') String? titleEn,@JsonKey(name: 'subtitle_ar') String? subtitleAr,@JsonKey(name: 'subtitle_en') String? subtitleEn,@JsonKey(name: 'badge_ar') String? badgeAr,@JsonKey(name: 'badge_en') String? badgeEn,@JsonKey(name: 'cta_ar') String? ctaAr,@JsonKey(name: 'cta_en') String? ctaEn,@JsonKey(name: 'image_url') String? imageUrl, BannerTarget? target
+});
+
+
+$BannerTargetCopyWith<$Res>? get target;
+
+}
+/// @nodoc
+class _$HomeBannerCopyWithImpl<$Res>
+    implements $HomeBannerCopyWith<$Res> {
+  _$HomeBannerCopyWithImpl(this._self, this._then);
+
+  final HomeBanner _self;
+  final $Res Function(HomeBanner) _then;
+
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? placement = null,Object? titleAr = freezed,Object? titleEn = freezed,Object? subtitleAr = freezed,Object? subtitleEn = freezed,Object? badgeAr = freezed,Object? badgeEn = freezed,Object? ctaAr = freezed,Object? ctaEn = freezed,Object? imageUrl = freezed,Object? target = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,placement: null == placement ? _self.placement : placement // ignore: cast_nullable_to_non_nullable
+as String,titleAr: freezed == titleAr ? _self.titleAr : titleAr // ignore: cast_nullable_to_non_nullable
+as String?,titleEn: freezed == titleEn ? _self.titleEn : titleEn // ignore: cast_nullable_to_non_nullable
+as String?,subtitleAr: freezed == subtitleAr ? _self.subtitleAr : subtitleAr // ignore: cast_nullable_to_non_nullable
+as String?,subtitleEn: freezed == subtitleEn ? _self.subtitleEn : subtitleEn // ignore: cast_nullable_to_non_nullable
+as String?,badgeAr: freezed == badgeAr ? _self.badgeAr : badgeAr // ignore: cast_nullable_to_non_nullable
+as String?,badgeEn: freezed == badgeEn ? _self.badgeEn : badgeEn // ignore: cast_nullable_to_non_nullable
+as String?,ctaAr: freezed == ctaAr ? _self.ctaAr : ctaAr // ignore: cast_nullable_to_non_nullable
+as String?,ctaEn: freezed == ctaEn ? _self.ctaEn : ctaEn // ignore: cast_nullable_to_non_nullable
+as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,target: freezed == target ? _self.target : target // ignore: cast_nullable_to_non_nullable
+as BannerTarget?,
+  ));
+}
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BannerTargetCopyWith<$Res>? get target {
+    if (_self.target == null) {
+    return null;
+  }
+
+  return $BannerTargetCopyWith<$Res>(_self.target!, (value) {
+    return _then(_self.copyWith(target: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [HomeBanner].
+extension HomeBannerPatterns on HomeBanner {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HomeBanner value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _HomeBanner() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HomeBanner value)  $default,){
+final _that = this;
+switch (_that) {
+case _HomeBanner():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HomeBanner value)?  $default,){
+final _that = this;
+switch (_that) {
+case _HomeBanner() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String placement, @JsonKey(name: 'title_ar')  String? titleAr, @JsonKey(name: 'title_en')  String? titleEn, @JsonKey(name: 'subtitle_ar')  String? subtitleAr, @JsonKey(name: 'subtitle_en')  String? subtitleEn, @JsonKey(name: 'badge_ar')  String? badgeAr, @JsonKey(name: 'badge_en')  String? badgeEn, @JsonKey(name: 'cta_ar')  String? ctaAr, @JsonKey(name: 'cta_en')  String? ctaEn, @JsonKey(name: 'image_url')  String? imageUrl,  BannerTarget? target)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _HomeBanner() when $default != null:
+return $default(_that.id,_that.placement,_that.titleAr,_that.titleEn,_that.subtitleAr,_that.subtitleEn,_that.badgeAr,_that.badgeEn,_that.ctaAr,_that.ctaEn,_that.imageUrl,_that.target);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String placement, @JsonKey(name: 'title_ar')  String? titleAr, @JsonKey(name: 'title_en')  String? titleEn, @JsonKey(name: 'subtitle_ar')  String? subtitleAr, @JsonKey(name: 'subtitle_en')  String? subtitleEn, @JsonKey(name: 'badge_ar')  String? badgeAr, @JsonKey(name: 'badge_en')  String? badgeEn, @JsonKey(name: 'cta_ar')  String? ctaAr, @JsonKey(name: 'cta_en')  String? ctaEn, @JsonKey(name: 'image_url')  String? imageUrl,  BannerTarget? target)  $default,) {final _that = this;
+switch (_that) {
+case _HomeBanner():
+return $default(_that.id,_that.placement,_that.titleAr,_that.titleEn,_that.subtitleAr,_that.subtitleEn,_that.badgeAr,_that.badgeEn,_that.ctaAr,_that.ctaEn,_that.imageUrl,_that.target);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String placement, @JsonKey(name: 'title_ar')  String? titleAr, @JsonKey(name: 'title_en')  String? titleEn, @JsonKey(name: 'subtitle_ar')  String? subtitleAr, @JsonKey(name: 'subtitle_en')  String? subtitleEn, @JsonKey(name: 'badge_ar')  String? badgeAr, @JsonKey(name: 'badge_en')  String? badgeEn, @JsonKey(name: 'cta_ar')  String? ctaAr, @JsonKey(name: 'cta_en')  String? ctaEn, @JsonKey(name: 'image_url')  String? imageUrl,  BannerTarget? target)?  $default,) {final _that = this;
+switch (_that) {
+case _HomeBanner() when $default != null:
+return $default(_that.id,_that.placement,_that.titleAr,_that.titleEn,_that.subtitleAr,_that.subtitleEn,_that.badgeAr,_that.badgeEn,_that.ctaAr,_that.ctaEn,_that.imageUrl,_that.target);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _HomeBanner extends HomeBanner {
+  const _HomeBanner({required this.id, this.placement = 'home_hero', @JsonKey(name: 'title_ar') this.titleAr, @JsonKey(name: 'title_en') this.titleEn, @JsonKey(name: 'subtitle_ar') this.subtitleAr, @JsonKey(name: 'subtitle_en') this.subtitleEn, @JsonKey(name: 'badge_ar') this.badgeAr, @JsonKey(name: 'badge_en') this.badgeEn, @JsonKey(name: 'cta_ar') this.ctaAr, @JsonKey(name: 'cta_en') this.ctaEn, @JsonKey(name: 'image_url') this.imageUrl, this.target}): super._();
+  factory _HomeBanner.fromJson(Map<String, dynamic> json) => _$HomeBannerFromJson(json);
+
+@override final  int id;
+@override@JsonKey() final  String placement;
+@override@JsonKey(name: 'title_ar') final  String? titleAr;
+@override@JsonKey(name: 'title_en') final  String? titleEn;
+@override@JsonKey(name: 'subtitle_ar') final  String? subtitleAr;
+@override@JsonKey(name: 'subtitle_en') final  String? subtitleEn;
+@override@JsonKey(name: 'badge_ar') final  String? badgeAr;
+@override@JsonKey(name: 'badge_en') final  String? badgeEn;
+@override@JsonKey(name: 'cta_ar') final  String? ctaAr;
+@override@JsonKey(name: 'cta_en') final  String? ctaEn;
+@override@JsonKey(name: 'image_url') final  String? imageUrl;
+@override final  BannerTarget? target;
+
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HomeBannerCopyWith<_HomeBanner> get copyWith => __$HomeBannerCopyWithImpl<_HomeBanner>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$HomeBannerToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeBanner&&(identical(other.id, id) || other.id == id)&&(identical(other.placement, placement) || other.placement == placement)&&(identical(other.titleAr, titleAr) || other.titleAr == titleAr)&&(identical(other.titleEn, titleEn) || other.titleEn == titleEn)&&(identical(other.subtitleAr, subtitleAr) || other.subtitleAr == subtitleAr)&&(identical(other.subtitleEn, subtitleEn) || other.subtitleEn == subtitleEn)&&(identical(other.badgeAr, badgeAr) || other.badgeAr == badgeAr)&&(identical(other.badgeEn, badgeEn) || other.badgeEn == badgeEn)&&(identical(other.ctaAr, ctaAr) || other.ctaAr == ctaAr)&&(identical(other.ctaEn, ctaEn) || other.ctaEn == ctaEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.target, target) || other.target == target));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,placement,titleAr,titleEn,subtitleAr,subtitleEn,badgeAr,badgeEn,ctaAr,ctaEn,imageUrl,target);
+
+@override
+String toString() {
+  return 'HomeBanner(id: $id, placement: $placement, titleAr: $titleAr, titleEn: $titleEn, subtitleAr: $subtitleAr, subtitleEn: $subtitleEn, badgeAr: $badgeAr, badgeEn: $badgeEn, ctaAr: $ctaAr, ctaEn: $ctaEn, imageUrl: $imageUrl, target: $target)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HomeBannerCopyWith<$Res> implements $HomeBannerCopyWith<$Res> {
+  factory _$HomeBannerCopyWith(_HomeBanner value, $Res Function(_HomeBanner) _then) = __$HomeBannerCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String placement,@JsonKey(name: 'title_ar') String? titleAr,@JsonKey(name: 'title_en') String? titleEn,@JsonKey(name: 'subtitle_ar') String? subtitleAr,@JsonKey(name: 'subtitle_en') String? subtitleEn,@JsonKey(name: 'badge_ar') String? badgeAr,@JsonKey(name: 'badge_en') String? badgeEn,@JsonKey(name: 'cta_ar') String? ctaAr,@JsonKey(name: 'cta_en') String? ctaEn,@JsonKey(name: 'image_url') String? imageUrl, BannerTarget? target
+});
+
+
+@override $BannerTargetCopyWith<$Res>? get target;
+
+}
+/// @nodoc
+class __$HomeBannerCopyWithImpl<$Res>
+    implements _$HomeBannerCopyWith<$Res> {
+  __$HomeBannerCopyWithImpl(this._self, this._then);
+
+  final _HomeBanner _self;
+  final $Res Function(_HomeBanner) _then;
+
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? placement = null,Object? titleAr = freezed,Object? titleEn = freezed,Object? subtitleAr = freezed,Object? subtitleEn = freezed,Object? badgeAr = freezed,Object? badgeEn = freezed,Object? ctaAr = freezed,Object? ctaEn = freezed,Object? imageUrl = freezed,Object? target = freezed,}) {
+  return _then(_HomeBanner(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,placement: null == placement ? _self.placement : placement // ignore: cast_nullable_to_non_nullable
+as String,titleAr: freezed == titleAr ? _self.titleAr : titleAr // ignore: cast_nullable_to_non_nullable
+as String?,titleEn: freezed == titleEn ? _self.titleEn : titleEn // ignore: cast_nullable_to_non_nullable
+as String?,subtitleAr: freezed == subtitleAr ? _self.subtitleAr : subtitleAr // ignore: cast_nullable_to_non_nullable
+as String?,subtitleEn: freezed == subtitleEn ? _self.subtitleEn : subtitleEn // ignore: cast_nullable_to_non_nullable
+as String?,badgeAr: freezed == badgeAr ? _self.badgeAr : badgeAr // ignore: cast_nullable_to_non_nullable
+as String?,badgeEn: freezed == badgeEn ? _self.badgeEn : badgeEn // ignore: cast_nullable_to_non_nullable
+as String?,ctaAr: freezed == ctaAr ? _self.ctaAr : ctaAr // ignore: cast_nullable_to_non_nullable
+as String?,ctaEn: freezed == ctaEn ? _self.ctaEn : ctaEn // ignore: cast_nullable_to_non_nullable
+as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,target: freezed == target ? _self.target : target // ignore: cast_nullable_to_non_nullable
+as BannerTarget?,
+  ));
+}
+
+/// Create a copy of HomeBanner
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BannerTargetCopyWith<$Res>? get target {
+    if (_self.target == null) {
+    return null;
+  }
+
+  return $BannerTargetCopyWith<$Res>(_self.target!, (value) {
+    return _then(_self.copyWith(target: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$BannerTarget {
+
+ String get type;@JsonKey(name: 'category_id') int? get categoryId;@JsonKey(name: 'branch_item_id') int? get branchItemId; List<BranchProduct> get products;
+/// Create a copy of BannerTarget
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BannerTargetCopyWith<BannerTarget> get copyWith => _$BannerTargetCopyWithImpl<BannerTarget>(this as BannerTarget, _$identity);
+
+  /// Serializes this BannerTarget to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BannerTarget&&(identical(other.type, type) || other.type == type)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&const DeepCollectionEquality().equals(other.products, products));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,type,categoryId,branchItemId,const DeepCollectionEquality().hash(products));
+
+@override
+String toString() {
+  return 'BannerTarget(type: $type, categoryId: $categoryId, branchItemId: $branchItemId, products: $products)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $BannerTargetCopyWith<$Res>  {
+  factory $BannerTargetCopyWith(BannerTarget value, $Res Function(BannerTarget) _then) = _$BannerTargetCopyWithImpl;
+@useResult
+$Res call({
+ String type,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'branch_item_id') int? branchItemId, List<BranchProduct> products
+});
+
+
+
+
+}
+/// @nodoc
+class _$BannerTargetCopyWithImpl<$Res>
+    implements $BannerTargetCopyWith<$Res> {
+  _$BannerTargetCopyWithImpl(this._self, this._then);
+
+  final BannerTarget _self;
+  final $Res Function(BannerTarget) _then;
+
+/// Create a copy of BannerTarget
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? categoryId = freezed,Object? branchItemId = freezed,Object? products = null,}) {
+  return _then(_self.copyWith(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int?,branchItemId: freezed == branchItemId ? _self.branchItemId : branchItemId // ignore: cast_nullable_to_non_nullable
+as int?,products: null == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
+as List<BranchProduct>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [BannerTarget].
+extension BannerTargetPatterns on BannerTarget {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BannerTarget value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _BannerTarget() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BannerTarget value)  $default,){
+final _that = this;
+switch (_that) {
+case _BannerTarget():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BannerTarget value)?  $default,){
+final _that = this;
+switch (_that) {
+case _BannerTarget() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'branch_item_id')  int? branchItemId,  List<BranchProduct> products)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _BannerTarget() when $default != null:
+return $default(_that.type,_that.categoryId,_that.branchItemId,_that.products);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'branch_item_id')  int? branchItemId,  List<BranchProduct> products)  $default,) {final _that = this;
+switch (_that) {
+case _BannerTarget():
+return $default(_that.type,_that.categoryId,_that.branchItemId,_that.products);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type, @JsonKey(name: 'category_id')  int? categoryId, @JsonKey(name: 'branch_item_id')  int? branchItemId,  List<BranchProduct> products)?  $default,) {final _that = this;
+switch (_that) {
+case _BannerTarget() when $default != null:
+return $default(_that.type,_that.categoryId,_that.branchItemId,_that.products);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _BannerTarget extends BannerTarget {
+  const _BannerTarget({this.type = 'none', @JsonKey(name: 'category_id') this.categoryId, @JsonKey(name: 'branch_item_id') this.branchItemId, final  List<BranchProduct> products = const <BranchProduct>[]}): _products = products,super._();
+  factory _BannerTarget.fromJson(Map<String, dynamic> json) => _$BannerTargetFromJson(json);
+
+@override@JsonKey() final  String type;
+@override@JsonKey(name: 'category_id') final  int? categoryId;
+@override@JsonKey(name: 'branch_item_id') final  int? branchItemId;
+ final  List<BranchProduct> _products;
+@override@JsonKey() List<BranchProduct> get products {
+  if (_products is EqualUnmodifiableListView) return _products;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_products);
+}
+
+
+/// Create a copy of BannerTarget
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BannerTargetCopyWith<_BannerTarget> get copyWith => __$BannerTargetCopyWithImpl<_BannerTarget>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$BannerTargetToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BannerTarget&&(identical(other.type, type) || other.type == type)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&const DeepCollectionEquality().equals(other._products, _products));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,type,categoryId,branchItemId,const DeepCollectionEquality().hash(_products));
+
+@override
+String toString() {
+  return 'BannerTarget(type: $type, categoryId: $categoryId, branchItemId: $branchItemId, products: $products)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BannerTargetCopyWith<$Res> implements $BannerTargetCopyWith<$Res> {
+  factory _$BannerTargetCopyWith(_BannerTarget value, $Res Function(_BannerTarget) _then) = __$BannerTargetCopyWithImpl;
+@override @useResult
+$Res call({
+ String type,@JsonKey(name: 'category_id') int? categoryId,@JsonKey(name: 'branch_item_id') int? branchItemId, List<BranchProduct> products
+});
+
+
+
+
+}
+/// @nodoc
+class __$BannerTargetCopyWithImpl<$Res>
+    implements _$BannerTargetCopyWith<$Res> {
+  __$BannerTargetCopyWithImpl(this._self, this._then);
+
+  final _BannerTarget _self;
+  final $Res Function(_BannerTarget) _then;
+
+/// Create a copy of BannerTarget
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? categoryId = freezed,Object? branchItemId = freezed,Object? products = null,}) {
+  return _then(_BannerTarget(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int?,branchItemId: freezed == branchItemId ? _self.branchItemId : branchItemId // ignore: cast_nullable_to_non_nullable
+as int?,products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
+as List<BranchProduct>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$ProductCategory {
 
  int get id;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl;

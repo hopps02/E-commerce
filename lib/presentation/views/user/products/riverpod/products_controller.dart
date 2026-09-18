@@ -66,6 +66,16 @@ class ProductsNotifier extends Notifier<ProductsState> {
     await _loadPage(1);
   }
 
+  /// A hand-picked list — the products inside an ad. There is nothing to
+  /// page through, so the screen renders what it was handed.
+  void showFixed(List<BranchProduct> products) {
+    state = ProductsState(
+      reqState: products.isEmpty ? ReqState.empty : ReqState.success,
+      products: products,
+      hasMore: false,
+    );
+  }
+
   Future<void> refresh() async {
     await _loadPage(1);
     refreshController.refreshCompleted();

@@ -14,6 +14,7 @@ import 'package:store/presentation/views/user/favorites/riverpod/favorites_contr
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/home_catalog_controller.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/categories_section.dart';
+import 'package:store/presentation/views/user/user_home/view/widgets/home_ads.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/new_arrivals_banner.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/offer_banner.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/products_section.dart';
@@ -117,9 +118,17 @@ class Body extends ConsumerWidget {
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
       children: [
         10.verticalSpace,
-        TopCategory().premiumAppear(index: 0, wantKeepAlive: true),
+        // The panel runs these. Until it has any, the built-in ones stay,
+        // so the home screen is never blank.
+        (catalog.tiles.isEmpty
+                ? const TopCategory()
+                : HomeAdTiles(tiles: catalog.tiles))
+            .premiumAppear(index: 0, wantKeepAlive: true),
         18.verticalSpace,
-        const OfferBanner().premiumAppear(index: 1, wantKeepAlive: true),
+        (catalog.heroes.isEmpty
+                ? const OfferBanner()
+                : HomeAdBanner(banner: catalog.heroes.first))
+            .premiumAppear(index: 1, wantKeepAlive: true),
         18.verticalSpace,
         CategoriesSection(
           categories: catalog.categories,
@@ -127,11 +136,14 @@ class Body extends ConsumerWidget {
         for (final (sectionIndex, section) in catalog.sections.indexed) ...[
           18.verticalSpace,
           if (sectionIndex == 1)
-            // The promo banner sits between the two product rows, as designed.
-            NewArrivalsBanner(
-              onShopNowTap: () =>
-                  _openProducts(context, section.category, arabic),
-            ).premiumAppear(index: 3 + sectionIndex, wantKeepAlive: true),
+            // A second promo sits between the two product rows, as designed.
+            (catalog.heroes.length > 1
+                    ? HomeAdBanner(banner: catalog.heroes[1])
+                    : NewArrivalsBanner(
+                        onShopNowTap: () =>
+                            _openProducts(context, section.category, arabic),
+                      ))
+                .premiumAppear(index: 3 + sectionIndex, wantKeepAlive: true),
           if (sectionIndex == 1) 18.verticalSpace,
           ProductsSection(
             title: section.category.name(arabic),

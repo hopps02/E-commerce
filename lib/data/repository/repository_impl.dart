@@ -155,6 +155,10 @@ class RepositoryImpl implements Repository {
       fastHandler(request: () async => (await _customerApi.categories()).data);
 
   @override
+  Future<Either<Failure, List<HomeBanner>>> banners() =>
+      fastHandler(request: () async => (await _customerApi.banners()).data);
+
+  @override
   Future<Either<Failure, List<BranchProduct>>> favorites() =>
       fastHandler(request: () async => (await _customerApi.favorites()).data);
 

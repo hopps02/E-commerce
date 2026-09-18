@@ -63,6 +63,68 @@ abstract class BranchProduct with _$BranchProduct {
   String get unitName => (unitLabel ?? '').trim();
 }
 
+
+/// A home-screen ad (GET /mobile/banners). Everything the app needs to draw
+/// it, plus a target that arrives already resolved: a category, a shelf row,
+/// or the hand-picked products as cards.
+@freezed
+abstract class HomeBanner with _$HomeBanner {
+  const HomeBanner._();
+
+  const factory HomeBanner({
+    required int id,
+    @Default('home_hero') String placement,
+    @JsonKey(name: 'title_ar') String? titleAr,
+    @JsonKey(name: 'title_en') String? titleEn,
+    @JsonKey(name: 'subtitle_ar') String? subtitleAr,
+    @JsonKey(name: 'subtitle_en') String? subtitleEn,
+    @JsonKey(name: 'badge_ar') String? badgeAr,
+    @JsonKey(name: 'badge_en') String? badgeEn,
+    @JsonKey(name: 'cta_ar') String? ctaAr,
+    @JsonKey(name: 'cta_en') String? ctaEn,
+    @JsonKey(name: 'image_url') String? imageUrl,
+    BannerTarget? target,
+  }) = _HomeBanner;
+
+  factory HomeBanner.fromJson(Map<String, dynamic> json) =>
+      _$HomeBannerFromJson(json);
+
+  String title(bool arabic) =>
+      ((arabic ? titleAr : titleEn) ?? titleAr ?? titleEn ?? '').trim();
+
+  String subtitle(bool arabic) =>
+      ((arabic ? subtitleAr : subtitleEn) ?? subtitleAr ?? subtitleEn ?? '')
+          .trim();
+
+  String badge(bool arabic) =>
+      ((arabic ? badgeAr : badgeEn) ?? badgeAr ?? badgeEn ?? '').trim();
+
+  String cta(bool arabic) =>
+      ((arabic ? ctaAr : ctaEn) ?? ctaAr ?? ctaEn ?? '').trim();
+
+  bool get isHero => placement == 'home_hero';
+
+  bool get isTile => placement == 'home_tiles';
+
+  /// Whether a tap leads anywhere at all.
+  bool get opensSomething => (target?.type ?? 'none') != 'none';
+}
+
+/// What tapping an ad opens.
+@freezed
+abstract class BannerTarget with _$BannerTarget {
+  const BannerTarget._();
+
+  const factory BannerTarget({
+    @Default('none') String type,
+    @JsonKey(name: 'category_id') int? categoryId,
+    @JsonKey(name: 'branch_item_id') int? branchItemId,
+    @Default(<BranchProduct>[]) List<BranchProduct> products,
+  }) = _BannerTarget;
+
+  factory BannerTarget.fromJson(Map<String, dynamic> json) =>
+      _$BannerTargetFromJson(json);
+}
 /// GET /mobile/categories (top-level rows; children unused in v1).
 @freezed
 abstract class ProductCategory with _$ProductCategory {

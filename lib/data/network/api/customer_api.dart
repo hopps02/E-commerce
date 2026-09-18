@@ -37,6 +37,9 @@ abstract class CustomerApi {
   @GET('/mobile/categories')
   Future<Envelope<List<ProductCategory>>> categories();
 
+  @GET('/mobile/banners')
+  Future<Envelope<List<HomeBanner>>> banners();
+
   @GET('/mobile/favorites')
   Future<Envelope<List<BranchProduct>>> favorites();
 
