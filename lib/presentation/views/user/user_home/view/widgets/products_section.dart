@@ -9,7 +9,7 @@ class ProductsSection extends StatelessWidget {
   final String? subtitle;
   final VoidCallback? onViewAllTap;
   final void Function(int index)? onProductTap;
-  final void Function(int index, int quantity)? onQuantityChanged;
+  final void Function(int index, double quantity)? onQuantityChanged;
   final void Function(int index)? onFavTap;
   final VoidCallback? onLimitReached;
 
@@ -57,6 +57,8 @@ class ProductsSection extends StatelessWidget {
                       price: products[index]['price'],
                       oldPrice: products[index]['oldPrice'],
                       quantity: products[index]['quantity'],
+                      step: products[index]['step'] ?? 1,
+                      unitLabel: products[index]['unit'] ?? '',
                       maxQuantity: products[index]['available'],
                       isFavorite: products[index]['isFavorite'] == true,
                       onFavTap: onFavTap == null

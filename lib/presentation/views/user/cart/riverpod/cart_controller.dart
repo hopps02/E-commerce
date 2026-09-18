@@ -19,7 +19,8 @@ class CartState extends Equatable {
 
   int? get cartBranchId => lines.isEmpty ? null : lines.first.product?.branchId;
 
-  int get itemsCount => lines.fold(0, (sum, l) => sum + l.quantity);
+  /// Distinct products, not kilos: a line is one item however much it weighs.
+  int get itemsCount => lines.length;
 
   /// Gross products total — discounts are shown on their own row.
   int get subtotalHalalas =>
@@ -28,7 +29,7 @@ class CartState extends Equatable {
   int get discountHalalas =>
       lines.fold(0, (sum, l) => sum + l.lineDiscountHalalas);
 
-  int quantityOf(int branchItemId) => lines
+  double quantityOf(int branchItemId) => lines
       .firstWhere(
         (l) => l.branchItemId == branchItemId,
         orElse: () => const CartLine(branchItemId: 0, quantity: 0),
@@ -59,7 +60,7 @@ class CartNotifier extends Notifier<CartState> {
 
   /// Sets a product's quantity, clamped to its live stock; zero removes the
   /// line. Returns the quantity actually applied.
-  int setQuantity(BranchProduct product, int quantity) {
+  double setQuantity(BranchProduct product, double quantity) {
     if (quantity <= 0) {
       removeLine(product.id);
       return 0;
@@ -93,7 +94,7 @@ class CartNotifier extends Notifier<CartState> {
     return applied;
   }
 
-  void clearAndAdd(BranchProduct product, int quantity) {
+  void clearAndAdd(BranchProduct product, double quantity) {
     clear();
     setQuantity(product, quantity);
   }

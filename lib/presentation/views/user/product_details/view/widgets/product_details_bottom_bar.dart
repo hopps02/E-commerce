@@ -6,6 +6,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/app/utils/money.dart';
+import 'package:store/app/utils/quantity.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
@@ -84,15 +85,15 @@ class ProductDetailsBottomBar extends ConsumerWidget {
     );
   }
 
-  Widget _action(BuildContext context, WidgetRef ref, int cartQuantity) {
+  Widget _action(BuildContext context, WidgetRef ref, double cartQuantity) {
     if (!product.inStock) {
       return const _OutOfStockChip(key: ValueKey('out-of-stock'));
     }
-    if (cartQuantity == 0) {
+    if (cartQuantity <= 0) {
       return _AddToCartButton(
         key: const ValueKey('add-to-cart'),
         onTap: () {
-          addToCartGuarded(context, ref, product, 1);
+          addToCartGuarded(context, ref, product, product.quantityStep);
         },
       );
     }
@@ -102,10 +103,10 @@ class ProductDetailsBottomBar extends ConsumerWidget {
       canIncrease: cartQuantity < product.available,
       onDecrease: () => ref
           .read(cartController.notifier)
-          .setQuantity(product, cartQuantity - 1),
+          .setQuantity(product, Quantity.previous(cartQuantity, product.quantityStep)),
       onIncrease: () => ref
           .read(cartController.notifier)
-          .setQuantity(product, cartQuantity + 1),
+          .setQuantity(product, Quantity.next(cartQuantity, product.quantityStep)),
     );
   }
 }
@@ -286,7 +287,7 @@ class _OutOfStockChip extends StatelessWidget {
 }
 
 class _QuantityStepper extends StatelessWidget {
-  final int quantity;
+  final double quantity;
   final bool canIncrease;
   final VoidCallback onDecrease;
   final VoidCallback onIncrease;
@@ -378,14 +379,14 @@ class _StepperControl extends StatelessWidget {
 }
 
 class _QuantityLabel extends StatelessWidget {
-  final int quantity;
+  final double quantity;
 
   const _QuantityLabel({required this.quantity});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 34,
+      width: 48,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 180),
         switchInCurve: Curves.easeOutCubic,
@@ -395,7 +396,7 @@ class _QuantityLabel extends StatelessWidget {
           child: FadeTransition(opacity: animation, child: child),
         ),
         child: Text(
-          '$quantity',
+          Quantity.format(quantity),
           key: ValueKey(quantity),
           textAlign: TextAlign.center,
           style: context.titleMedium.copyWith(

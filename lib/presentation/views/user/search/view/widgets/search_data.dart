@@ -68,6 +68,8 @@ class SearchData extends ConsumerWidget {
                     ? Money.asRiyals(product.priceHalalas)
                     : null,
                 quantity: cart.quantityOf(product.id),
+                step: product.quantityStep,
+                unitLabel: product.unitName,
                 maxQuantity: product.available,
                 isFavorite: favorites.contains(product.id),
                 onFavTap: () async {

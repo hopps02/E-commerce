@@ -16,7 +16,7 @@ _BranchProduct _$BranchProductFromJson(Map<String, dynamic> json) =>
       imageUrl: json['image_url'] as String?,
       priceHalalas: (json['price_halalas'] as num?)?.toInt() ?? 0,
       discountHalalas: (json['discount_halalas'] as num?)?.toInt() ?? 0,
-      available: (json['available'] as num?)?.toInt() ?? 0,
+      available: (json['available'] as num?)?.toDouble() ?? 0,
       stockStatus: json['stock_status'] as String?,
       isFavorite: json['is_favorite'] as bool? ?? false,
       descriptionAr: json['description_ar'] as String?,
@@ -24,6 +24,7 @@ _BranchProduct _$BranchProductFromJson(Map<String, dynamic> json) =>
       brand: json['brand'] as String?,
       unit: json['unit'] as String? ?? 'piece',
       unitLabel: json['unit_label'] as String?,
+      quantityStep: (json['quantity_step'] as num?)?.toDouble() ?? 1,
       images:
           (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -49,6 +50,7 @@ Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
       'brand': instance.brand,
       'unit': instance.unit,
       'unit_label': instance.unitLabel,
+      'quantity_step': instance.quantityStep,
       'images': instance.images,
     };
 
@@ -153,7 +155,7 @@ Map<String, dynamic> _$DeliveryAddressToJson(_DeliveryAddress instance) =>
 
 _CartLine _$CartLineFromJson(Map<String, dynamic> json) => _CartLine(
   branchItemId: (json['branch_item_id'] as num).toInt(),
-  quantity: (json['quantity'] as num).toInt(),
+  quantity: (json['quantity'] as num).toDouble(),
 );
 
 Map<String, dynamic> _$CartLineToJson(_CartLine instance) => <String, dynamic>{
@@ -164,12 +166,12 @@ Map<String, dynamic> _$CartLineToJson(_CartLine instance) => <String, dynamic>{
 _CartValidationLine _$CartValidationLineFromJson(Map<String, dynamic> json) =>
     _CartValidationLine(
       branchItemId: (json['branch_item_id'] as num).toInt(),
-      quantity: (json['quantity'] as num?)?.toInt() ?? 0,
+      quantity: (json['quantity'] as num?)?.toDouble() ?? 0,
       available: json['available'] as bool? ?? false,
       reason: json['reason'] as String?,
       unitPriceHalalas: (json['unit_price_halalas'] as num?)?.toInt(),
       discountHalalas: (json['discount_halalas'] as num?)?.toInt(),
-      availableQuantity: (json['available_quantity'] as num?)?.toInt(),
+      availableQuantity: (json['available_quantity'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$CartValidationLineToJson(_CartValidationLine instance) =>

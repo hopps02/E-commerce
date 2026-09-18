@@ -290,7 +290,7 @@ as String?,
 /// @nodoc
 mixin _$CustomerOrderItem {
 
- int get id;@JsonKey(name: 'branch_item_id') int? get branchItemId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl; int get quantity;@JsonKey(name: 'unit_price_halalas') int get unitPriceHalalas;@JsonKey(name: 'total_halalas') int get totalHalalas; bool get removed;
+ int get id;@JsonKey(name: 'branch_item_id') int? get branchItemId;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_en') String? get nameEn;@JsonKey(name: 'image_url') String? get imageUrl; double get quantity;@JsonKey(name: 'unit_label') String? get unitLabel;@JsonKey(name: 'unit_price_halalas') int get unitPriceHalalas;@JsonKey(name: 'total_halalas') int get totalHalalas; bool get removed;
 /// Create a copy of CustomerOrderItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,16 +303,16 @@ $CustomerOrderItemCopyWith<CustomerOrderItem> get copyWith => _$CustomerOrderIte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerOrderItem&&(identical(other.id, id) || other.id == id)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPriceHalalas, unitPriceHalalas) || other.unitPriceHalalas == unitPriceHalalas)&&(identical(other.totalHalalas, totalHalalas) || other.totalHalalas == totalHalalas)&&(identical(other.removed, removed) || other.removed == removed));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerOrderItem&&(identical(other.id, id) || other.id == id)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel)&&(identical(other.unitPriceHalalas, unitPriceHalalas) || other.unitPriceHalalas == unitPriceHalalas)&&(identical(other.totalHalalas, totalHalalas) || other.totalHalalas == totalHalalas)&&(identical(other.removed, removed) || other.removed == removed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchItemId,nameAr,nameEn,imageUrl,quantity,unitPriceHalalas,totalHalalas,removed);
+int get hashCode => Object.hash(runtimeType,id,branchItemId,nameAr,nameEn,imageUrl,quantity,unitLabel,unitPriceHalalas,totalHalalas,removed);
 
 @override
 String toString() {
-  return 'CustomerOrderItem(id: $id, branchItemId: $branchItemId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, quantity: $quantity, unitPriceHalalas: $unitPriceHalalas, totalHalalas: $totalHalalas, removed: $removed)';
+  return 'CustomerOrderItem(id: $id, branchItemId: $branchItemId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, quantity: $quantity, unitLabel: $unitLabel, unitPriceHalalas: $unitPriceHalalas, totalHalalas: $totalHalalas, removed: $removed)';
 }
 
 
@@ -323,7 +323,7 @@ abstract mixin class $CustomerOrderItemCopyWith<$Res>  {
   factory $CustomerOrderItemCopyWith(CustomerOrderItem value, $Res Function(CustomerOrderItem) _then) = _$CustomerOrderItemCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_item_id') int? branchItemId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl, int quantity,@JsonKey(name: 'unit_price_halalas') int unitPriceHalalas,@JsonKey(name: 'total_halalas') int totalHalalas, bool removed
+ int id,@JsonKey(name: 'branch_item_id') int? branchItemId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl, double quantity,@JsonKey(name: 'unit_label') String? unitLabel,@JsonKey(name: 'unit_price_halalas') int unitPriceHalalas,@JsonKey(name: 'total_halalas') int totalHalalas, bool removed
 });
 
 
@@ -340,7 +340,7 @@ class _$CustomerOrderItemCopyWithImpl<$Res>
 
 /// Create a copy of CustomerOrderItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchItemId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? quantity = null,Object? unitPriceHalalas = null,Object? totalHalalas = null,Object? removed = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? branchItemId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? quantity = null,Object? unitLabel = freezed,Object? unitPriceHalalas = null,Object? totalHalalas = null,Object? removed = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchItemId: freezed == branchItemId ? _self.branchItemId : branchItemId // ignore: cast_nullable_to_non_nullable
@@ -348,7 +348,8 @@ as int?,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullab
 as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
 as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,unitPriceHalalas: null == unitPriceHalalas ? _self.unitPriceHalalas : unitPriceHalalas // ignore: cast_nullable_to_non_nullable
+as double,unitLabel: freezed == unitLabel ? _self.unitLabel : unitLabel // ignore: cast_nullable_to_non_nullable
+as String?,unitPriceHalalas: null == unitPriceHalalas ? _self.unitPriceHalalas : unitPriceHalalas // ignore: cast_nullable_to_non_nullable
 as int,totalHalalas: null == totalHalalas ? _self.totalHalalas : totalHalalas // ignore: cast_nullable_to_non_nullable
 as int,removed: null == removed ? _self.removed : removed // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -436,10 +437,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  int quantity, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  double quantity, @JsonKey(name: 'unit_label')  String? unitLabel, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomerOrderItem() when $default != null:
-return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
+return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitLabel,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
   return orElse();
 
 }
@@ -457,10 +458,10 @@ return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imag
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  int quantity, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  double quantity, @JsonKey(name: 'unit_label')  String? unitLabel, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)  $default,) {final _that = this;
 switch (_that) {
 case _CustomerOrderItem():
-return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
+return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitLabel,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -477,10 +478,10 @@ return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imag
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  int quantity, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'branch_item_id')  int? branchItemId, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_en')  String? nameEn, @JsonKey(name: 'image_url')  String? imageUrl,  double quantity, @JsonKey(name: 'unit_label')  String? unitLabel, @JsonKey(name: 'unit_price_halalas')  int unitPriceHalalas, @JsonKey(name: 'total_halalas')  int totalHalalas,  bool removed)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomerOrderItem() when $default != null:
-return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
+return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imageUrl,_that.quantity,_that.unitLabel,_that.unitPriceHalalas,_that.totalHalalas,_that.removed);case _:
   return null;
 
 }
@@ -492,7 +493,7 @@ return $default(_that.id,_that.branchItemId,_that.nameAr,_that.nameEn,_that.imag
 @JsonSerializable()
 
 class _CustomerOrderItem extends CustomerOrderItem {
-  const _CustomerOrderItem({required this.id, @JsonKey(name: 'branch_item_id') this.branchItemId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, this.quantity = 1, @JsonKey(name: 'unit_price_halalas') this.unitPriceHalalas = 0, @JsonKey(name: 'total_halalas') this.totalHalalas = 0, this.removed = false}): super._();
+  const _CustomerOrderItem({required this.id, @JsonKey(name: 'branch_item_id') this.branchItemId, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_en') this.nameEn, @JsonKey(name: 'image_url') this.imageUrl, this.quantity = 1, @JsonKey(name: 'unit_label') this.unitLabel, @JsonKey(name: 'unit_price_halalas') this.unitPriceHalalas = 0, @JsonKey(name: 'total_halalas') this.totalHalalas = 0, this.removed = false}): super._();
   factory _CustomerOrderItem.fromJson(Map<String, dynamic> json) => _$CustomerOrderItemFromJson(json);
 
 @override final  int id;
@@ -500,7 +501,8 @@ class _CustomerOrderItem extends CustomerOrderItem {
 @override@JsonKey(name: 'name_ar') final  String? nameAr;
 @override@JsonKey(name: 'name_en') final  String? nameEn;
 @override@JsonKey(name: 'image_url') final  String? imageUrl;
-@override@JsonKey() final  int quantity;
+@override@JsonKey() final  double quantity;
+@override@JsonKey(name: 'unit_label') final  String? unitLabel;
 @override@JsonKey(name: 'unit_price_halalas') final  int unitPriceHalalas;
 @override@JsonKey(name: 'total_halalas') final  int totalHalalas;
 @override@JsonKey() final  bool removed;
@@ -518,16 +520,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerOrderItem&&(identical(other.id, id) || other.id == id)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPriceHalalas, unitPriceHalalas) || other.unitPriceHalalas == unitPriceHalalas)&&(identical(other.totalHalalas, totalHalalas) || other.totalHalalas == totalHalalas)&&(identical(other.removed, removed) || other.removed == removed));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerOrderItem&&(identical(other.id, id) || other.id == id)&&(identical(other.branchItemId, branchItemId) || other.branchItemId == branchItemId)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel)&&(identical(other.unitPriceHalalas, unitPriceHalalas) || other.unitPriceHalalas == unitPriceHalalas)&&(identical(other.totalHalalas, totalHalalas) || other.totalHalalas == totalHalalas)&&(identical(other.removed, removed) || other.removed == removed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,branchItemId,nameAr,nameEn,imageUrl,quantity,unitPriceHalalas,totalHalalas,removed);
+int get hashCode => Object.hash(runtimeType,id,branchItemId,nameAr,nameEn,imageUrl,quantity,unitLabel,unitPriceHalalas,totalHalalas,removed);
 
 @override
 String toString() {
-  return 'CustomerOrderItem(id: $id, branchItemId: $branchItemId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, quantity: $quantity, unitPriceHalalas: $unitPriceHalalas, totalHalalas: $totalHalalas, removed: $removed)';
+  return 'CustomerOrderItem(id: $id, branchItemId: $branchItemId, nameAr: $nameAr, nameEn: $nameEn, imageUrl: $imageUrl, quantity: $quantity, unitLabel: $unitLabel, unitPriceHalalas: $unitPriceHalalas, totalHalalas: $totalHalalas, removed: $removed)';
 }
 
 
@@ -538,7 +540,7 @@ abstract mixin class _$CustomerOrderItemCopyWith<$Res> implements $CustomerOrder
   factory _$CustomerOrderItemCopyWith(_CustomerOrderItem value, $Res Function(_CustomerOrderItem) _then) = __$CustomerOrderItemCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'branch_item_id') int? branchItemId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl, int quantity,@JsonKey(name: 'unit_price_halalas') int unitPriceHalalas,@JsonKey(name: 'total_halalas') int totalHalalas, bool removed
+ int id,@JsonKey(name: 'branch_item_id') int? branchItemId,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_en') String? nameEn,@JsonKey(name: 'image_url') String? imageUrl, double quantity,@JsonKey(name: 'unit_label') String? unitLabel,@JsonKey(name: 'unit_price_halalas') int unitPriceHalalas,@JsonKey(name: 'total_halalas') int totalHalalas, bool removed
 });
 
 
@@ -555,7 +557,7 @@ class __$CustomerOrderItemCopyWithImpl<$Res>
 
 /// Create a copy of CustomerOrderItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchItemId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? quantity = null,Object? unitPriceHalalas = null,Object? totalHalalas = null,Object? removed = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? branchItemId = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? imageUrl = freezed,Object? quantity = null,Object? unitLabel = freezed,Object? unitPriceHalalas = null,Object? totalHalalas = null,Object? removed = null,}) {
   return _then(_CustomerOrderItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,branchItemId: freezed == branchItemId ? _self.branchItemId : branchItemId // ignore: cast_nullable_to_non_nullable
@@ -563,7 +565,8 @@ as int?,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullab
 as String?,nameEn: freezed == nameEn ? _self.nameEn : nameEn // ignore: cast_nullable_to_non_nullable
 as String?,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,unitPriceHalalas: null == unitPriceHalalas ? _self.unitPriceHalalas : unitPriceHalalas // ignore: cast_nullable_to_non_nullable
+as double,unitLabel: freezed == unitLabel ? _self.unitLabel : unitLabel // ignore: cast_nullable_to_non_nullable
+as String?,unitPriceHalalas: null == unitPriceHalalas ? _self.unitPriceHalalas : unitPriceHalalas // ignore: cast_nullable_to_non_nullable
 as int,totalHalalas: null == totalHalalas ? _self.totalHalalas : totalHalalas // ignore: cast_nullable_to_non_nullable
 as int,removed: null == removed ? _self.removed : removed // ignore: cast_nullable_to_non_nullable
 as bool,

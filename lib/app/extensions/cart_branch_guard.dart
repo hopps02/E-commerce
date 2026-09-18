@@ -8,7 +8,7 @@ Future<void> addToCartGuarded(
   BuildContext context,
   WidgetRef ref,
   BranchProduct product,
-  int quantity,
+  double quantity,
 ) async {
   final cart = ref.read(cartController);
   final cartBranchId = cart.cartBranchId;

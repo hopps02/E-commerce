@@ -78,6 +78,8 @@ class CartData extends ConsumerWidget {
               priceHalalas: product?.effectivePriceHalalas ?? 0,
               imageUrl: product?.imageUrl ?? '',
               initialQuantity: line.quantity,
+              step: product?.quantityStep ?? 1,
+              unitLabel: product?.unitName ?? '',
               maxQuantity: product?.available,
               onLimitReached: () =>
                   ref.read(cartController.notifier).notifyStockLimit(),

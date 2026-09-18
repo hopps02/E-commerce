@@ -18,7 +18,9 @@ abstract class BranchProduct with _$BranchProduct {
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'price_halalas') @Default(0) int priceHalalas,
     @JsonKey(name: 'discount_halalas') @Default(0) int discountHalalas,
-    @Default(0) int available,
+    /// What is left on the shelf, in the unit it is sold by: 9.5 kg.
+    @Default(0) double available,
+
     @JsonKey(name: 'stock_status') String? stockStatus,
     @JsonKey(name: 'is_favorite') @Default(false) bool isFavorite,
     @JsonKey(name: 'description_ar') String? descriptionAr,
@@ -28,6 +30,9 @@ abstract class BranchProduct with _$BranchProduct {
     /// How it is sold: piece, kg, meter... The label arrives ready to print.
     @Default('piece') String unit,
     @JsonKey(name: 'unit_label') String? unitLabel,
+
+    /// How much the plus button adds: one piece, a quarter kilo, 50 g.
+    @JsonKey(name: 'quantity_step') @Default(1) double quantityStep,
 
     /// Extra photos. Only the product screen asks for them; a list row is
     /// served with its one card image.
@@ -183,7 +188,7 @@ abstract class CartLine with _$CartLine {
 
   const factory CartLine({
     @JsonKey(name: 'branch_item_id') required int branchItemId,
-    required int quantity,
+    required double quantity,
     @JsonKey(includeFromJson: false, includeToJson: false)
     BranchProduct? product,
   }) = _CartLine;
@@ -191,9 +196,11 @@ abstract class CartLine with _$CartLine {
   factory CartLine.fromJson(Map<String, dynamic> json) =>
       _$CartLineFromJson(json);
 
-  int get lineSubtotalHalalas => (product?.priceHalalas ?? 0) * quantity;
+  int get lineSubtotalHalalas =>
+      ((product?.priceHalalas ?? 0) * quantity).round();
 
-  int get lineDiscountHalalas => (product?.discountHalalas ?? 0) * quantity;
+  int get lineDiscountHalalas =>
+      ((product?.discountHalalas ?? 0) * quantity).round();
 }
 
 /// POST /mobile/cart/validate response line.
@@ -201,12 +208,12 @@ abstract class CartLine with _$CartLine {
 abstract class CartValidationLine with _$CartValidationLine {
   const factory CartValidationLine({
     @JsonKey(name: 'branch_item_id') required int branchItemId,
-    @Default(0) int quantity,
+    @Default(0) double quantity,
     @Default(false) bool available,
     String? reason,
     @JsonKey(name: 'unit_price_halalas') int? unitPriceHalalas,
     @JsonKey(name: 'discount_halalas') int? discountHalalas,
-    @JsonKey(name: 'available_quantity') int? availableQuantity,
+    @JsonKey(name: 'available_quantity') double? availableQuantity,
   }) = _CartValidationLine;
 
   factory CartValidationLine.fromJson(Map<String, dynamic> json) =>

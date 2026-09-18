@@ -5,6 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/customized_smart_refresh.dart';
 import 'package:store/app/utils/money.dart';
+import 'package:store/app/utils/quantity.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
@@ -87,7 +88,8 @@ class OrderDetailsBody extends StatelessWidget {
                           title: item.name(arabic),
                           weight: "",
                           price: Money.amount(item.unitPriceHalalas),
-                          count: "${item.quantity}",
+                          count: Quantity.format(item.quantity) +
+                              (item.unitLabel == null ? "" : " " + item.unitLabel!),
                           image: item.imageUrl ?? "",
                           // The shelf row the line was bought from is exactly
                           // what the product screen loads.
@@ -132,7 +134,8 @@ class OrderDetailsBody extends StatelessWidget {
                               title: item.name(arabic),
                               weight: "",
                               price: Money.amount(item.unitPriceHalalas),
-                              count: "${item.quantity}",
+                              count: Quantity.format(item.quantity) +
+                              (item.unitLabel == null ? "" : " " + item.unitLabel!),
                               image: item.imageUrl ?? "",
                             ),
                           );

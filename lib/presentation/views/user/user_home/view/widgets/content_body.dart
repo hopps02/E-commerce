@@ -177,6 +177,8 @@ class Body extends ConsumerWidget {
                       ? Money.asRiyals(product.priceHalalas)
                       : null,
                   'quantity': cart.quantityOf(product.id),
+                  'step': product.quantityStep,
+                  'unit': product.unitName,
                   'available': product.available,
                   'isFavorite': favorites.contains(product.id),
                 },
@@ -193,8 +195,8 @@ class Body extends ConsumerWidget {
     WidgetRef ref,
     CartNotifier cartNotifier,
     BranchProduct product,
-    int currentQuantity,
-    int quantity,
+    double currentQuantity,
+    double quantity,
   ) {
     if (quantity < currentQuantity) {
       cartNotifier.setQuantity(product, quantity);

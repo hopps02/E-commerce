@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:store/app/utils/quantity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:store/app/ui_kit/currency_mark.dart';
@@ -20,12 +21,18 @@ class ProductCard extends StatefulWidget {
   final double price;
   final double? oldPrice;
   final bool isFavorite;
-  final int? quantity;
+  final double? quantity;
+
+  /// How much one tap adds: a piece, a quarter kilo, 50 g.
+  final double step;
+
+  /// What the number is counted in, printed beside it: "كيلو".
+  final String unitLabel;
 
   /// Live stock ceiling: the counter never climbs past it, so the visible
   /// number always matches what the cart actually holds.
-  final int? maxQuantity;
-  final void Function(int)? onQuantityChanged;
+  final double? maxQuantity;
+  final void Function(double)? onQuantityChanged;
   final VoidCallback? onLimitReached;
   final VoidCallback? onFavTap;
   final VoidCallback? onTap;
@@ -39,6 +46,8 @@ class ProductCard extends StatefulWidget {
     this.oldPrice,
     this.isFavorite = false,
     this.quantity,
+    this.step = 1,
+    this.unitLabel = '',
     this.maxQuantity,
     this.onQuantityChanged,
     this.onLimitReached,
@@ -53,7 +62,7 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   Timer? _debounceTimer;
-  late int _currentQuantity;
+  late double _currentQuantity;
 
   /// The branch has no available units left for this product.
   bool get _isOutOfStock =>
@@ -65,8 +74,9 @@ class _ProductCardState extends State<ProductCard> {
     _currentQuantity = widget.quantity ?? 0;
   }
 
-  void _handleQuantityChange(int change) {
-    final newQuantity = _currentQuantity + change;
+  void _handleQuantityChange(double change) {
+    final step = widget.step <= 0 ? 1.0 : widget.step;
+    final newQuantity = Quantity.snap(_currentQuantity + change * step, step);
     if (newQuantity < 0) return;
 
     final max = widget.maxQuantity;
@@ -253,7 +263,10 @@ class _ProductCardState extends State<ProductCard> {
                               ),
                               FlexText(
                                 child: Text(
-                                  "$_currentQuantity",
+                                  Quantity.format(_currentQuantity) +
+                                      (widget.unitLabel.isEmpty
+                                          ? ""
+                                          : " " + widget.unitLabel),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeightM.medium,

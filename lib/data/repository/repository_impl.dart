@@ -26,7 +26,7 @@ class RepositoryImpl implements Repository {
   );
 
   /// Validate/quote/create all send the same wire lines.
-  static List<Map<String, int>> _wireLines(List<CartLine> lines) => lines
+  static List<Map<String, num>> _wireLines(List<CartLine> lines) => lines
       .map((l) => {'branch_item_id': l.branchItemId, 'quantity': l.quantity})
       .toList();
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:store/app/utils/quantity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:store/app/ui_kit/currency_mark.dart';
@@ -15,12 +16,18 @@ class CartItemCard extends StatefulWidget {
   final String weight;
   final int priceHalalas;
   final String imageUrl;
-  final int initialQuantity;
+  final double initialQuantity;
+
+  /// How much one tap adds or removes.
+  final double step;
+
+  /// Printed beside the number: "كيلو".
+  final String unitLabel;
 
   /// Live stock ceiling: the counter never climbs past it, so the visible
   /// number always matches what the cart actually holds.
-  final int? maxQuantity;
-  final ValueChanged<int> onQuantityChanged;
+  final double? maxQuantity;
+  final ValueChanged<double> onQuantityChanged;
   final VoidCallback? onLimitReached;
   final VoidCallback onDelete;
 
@@ -31,6 +38,8 @@ class CartItemCard extends StatefulWidget {
     required this.priceHalalas,
     required this.imageUrl,
     required this.initialQuantity,
+    this.step = 1,
+    this.unitLabel = '',
     this.maxQuantity,
     required this.onQuantityChanged,
     this.onLimitReached,
@@ -43,7 +52,7 @@ class CartItemCard extends StatefulWidget {
 
 class _CartItemCardState extends State<CartItemCard> {
   Timer? _debounceTimer;
-  late int _quantity;
+  late double _quantity;
 
   @override
   void initState() {
@@ -60,9 +69,10 @@ class _CartItemCardState extends State<CartItemCard> {
     }
   }
 
-  void _handleQuantityChange(int change) {
-    final newQuantity = _quantity + change;
-    if (newQuantity < 1) return;
+  void _handleQuantityChange(double change) {
+    final step = widget.step <= 0 ? 1.0 : widget.step;
+    final newQuantity = Quantity.snap(_quantity + change * step, step);
+    if (newQuantity < step) return;
 
     final max = widget.maxQuantity;
     if (max != null && newQuantity > max) {
@@ -224,7 +234,10 @@ class _CartItemCardState extends State<CartItemCard> {
                             ),
                           ),
                           Text(
-                            "$_quantity",
+                            Quantity.format(_quantity) +
+                                (widget.unitLabel.isEmpty
+                                    ? ""
+                                    : " " + widget.unitLabel),
                             style: context.bodySmall.copyWith(
                               color: ColorM.gray1000,
                               fontWeight: FontWeightM.bold,
