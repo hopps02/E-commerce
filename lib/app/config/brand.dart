@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store/app/config/env.dart';
 import 'package:store/data/response/customer/branding_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
@@ -59,7 +60,8 @@ abstract class Brand {
     ColorM.gold = accent;
 
     SizeM.commonBorderRadius = branding.radius.toDouble();
-    logoUrl = (branding.logoUrl ?? '').isEmpty ? null : branding.logoUrl;
+    final logo = branding.logoUrl ?? '';
+    logoUrl = logo.isEmpty ? null : Env.resolve(logo);
   }
 
   /// The font family goes through here so a font that failed to download

@@ -25,4 +25,14 @@ class Env {
 
     return 'http://10.0.2.2:8000/api/v1';
   }
+
+  /// A file the panel uploaded is answered as a path, not an address,
+  /// when the backend is served from the same host as the app. Either
+  /// way this hands back something that can be fetched.
+  static String resolve(String url) {
+    if (url.isEmpty) return url;
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+
+    return Uri.parse(baseUrl).replace(path: url, query: null).toString();
+  }
 }

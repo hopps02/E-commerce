@@ -57,7 +57,7 @@ abstract class BrandFont {
     if (!download) return null;
 
     final response = await Dio().get<List<int>>(
-      _absolute(url),
+      Env.resolve(url),
       options: Options(responseType: ResponseType.bytes),
     );
     final data = response.data;
@@ -82,13 +82,5 @@ abstract class BrandFont {
     } catch (_) {
       return null;
     }
-  }
-
-  /// The panel can hand back a path rather than a whole address, and that
-  /// path belongs to whoever is serving the store.
-  static String _absolute(String url) {
-    if (url.startsWith('http://') || url.startsWith('https://')) return url;
-
-    return Uri.parse(Env.baseUrl).replace(path: url, query: null).toString();
   }
 }

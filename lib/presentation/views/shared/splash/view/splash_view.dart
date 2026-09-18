@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 
 import 'package:store/app/utils/mixins/after_layout.dart';
 import 'package:store/presentation/res/color_manager.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:store/app/config/constants.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/services/session_service.dart';
-import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/views/shared/auth/view/widgets/logo.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 
 class SplashView extends StatefulWidget {
@@ -36,11 +34,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
           ),
         ),
         alignment: Alignment.center,
-        child: SvgPicture.asset(
-          Assets.svg.appLogo.path,
-          width: 155,
-          colorFilter: ColorFilter.mode(ColorM.primary700, BlendMode.srcIn),
-        ).premiumAppear(),
+        child: const Logo(),
       ),
     );
   }
