@@ -80,10 +80,15 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
             final order = state.orders[index];
             return OrderCard(
               order: order,
-              onTapDetails: () => context.pushNamed(
-                Routes.orderDetails,
-                arguments: OrderDetailsArgs(orderId: order.id),
-              ),
+              onTapDetails: () async {
+                await context.pushNamed(
+                  Routes.orderDetails,
+                  arguments: OrderDetailsArgs(orderId: order.id),
+                );
+                // The details screen polls the live status; coming back with a
+                // stale card underneath is what made the two disagree.
+                await notifier.refreshGroup(widget.myOrdersDataType.group);
+              },
             );
           },
         ),

@@ -10,10 +10,14 @@ class ProductInfoSection extends StatelessWidget {
   final String name;
   final bool isAvailable;
 
+  /// Printed above the name when the product carries one: "Zara".
+  final String brand;
+
   const ProductInfoSection({
     super.key,
     required this.name,
     this.isAvailable = true,
+    this.brand = '',
   });
 
   @override
@@ -24,15 +28,30 @@ class ProductInfoSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Text(
-              name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: context.titleMedium.copyWith(
-                color: ColorM.gray950,
-                fontWeight: FontWeightM.bold,
-                height: 1.35,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (brand.isNotEmpty) ...[
+                  Text(
+                    brand,
+                    style: context.labelMedium.copyWith(
+                      color: ColorM.gray500,
+                      fontWeight: FontWeightM.medium,
+                    ),
+                  ),
+                  4.verticalSpace,
+                ],
+                Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.titleMedium.copyWith(
+                    color: ColorM.gray950,
+                    fontWeight: FontWeightM.bold,
+                    height: 1.35,
+                  ),
+                ),
+              ],
             ),
           ),
           12.horizontalSpace,

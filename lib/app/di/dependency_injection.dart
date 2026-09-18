@@ -50,6 +50,7 @@ import 'package:store/domain/usecase/remove_favorite_usecase.dart';
 import 'package:store/domain/usecase/update_address_usecase.dart';
 import 'package:store/domain/usecase/update_profile_usecase.dart';
 import 'package:store/domain/usecase/validate_cart_usecase.dart';
+import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:store/presentation/views/shared/notifications/riverpod/notifications_controller.dart';
@@ -99,6 +100,9 @@ class DI {
                                                 ref.read(cartController.notifier).clear();
                                                 ref.read(favoritesController.notifier).clear();
                                                 ref.read(notificationsController.notifier).clear();
+                                                // The delivery address belongs to the account that
+                                                // saved it: the next one must not inherit it.
+                                                ref.read(locationController.notifier).clearSelectedAddress();
                                               },
                                             ));
 

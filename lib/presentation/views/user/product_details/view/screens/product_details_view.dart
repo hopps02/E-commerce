@@ -102,6 +102,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                             ProductInfoSection(
                               name: product.name(arabic),
                               isAvailable: product.inStock,
+                              brand: product.brand ?? '',
                             ),
 
                             if (product.description(arabic).isNotEmpty) ...[

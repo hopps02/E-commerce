@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:store/app/di/dependency_injection.dart';
 import 'package:store/app/extensions/failure_display_extension.dart';
 import 'package:store/app/ui_kit/indicators/state_render.dart';
+import 'package:store/app/utils/mixins/auto_refresh_mixin.dart';
 import 'package:store/data/response/customer/customer_response.dart';
 import 'package:store/domain/usecase/get_customer_orders_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -71,7 +72,8 @@ class MyOrdersTabState extends Equatable {
   List<Object?> get props => [selectedIndex, currentData, previousData];
 }
 
-class MyOrdersTabNotifier extends Notifier<MyOrdersTabState> {
+class MyOrdersTabNotifier extends Notifier<MyOrdersTabState>
+    with AutoRefreshMixin<MyOrdersTabState> {
   static const currentGroup = 'current';
   static const previousGroup = 'previous';
 
@@ -100,6 +102,22 @@ class MyOrdersTabNotifier extends Notifier<MyOrdersTabState> {
       curve: Curves.fastOutSlowIn,
     );
   }
+
+  /// Staff move orders along from the panel while the customer is watching the
+  /// list, so the open tab re-reads itself on a timer and the cards follow the
+  /// same status the details screen shows. It stops as soon as the customer
+  /// leaves the tab.
+  void setLive(bool live) {
+    if (!live) {
+      stopAutoRefresh();
+      return;
+    }
+
+    startAutoRefresh(const Duration(seconds: 20), refreshVisibleGroup);
+  }
+
+  Future<void> refreshVisibleGroup() =>
+      _loadFirstPage(state.selectedIndex == 0 ? currentGroup : previousGroup);
 
   Future<void> loadInitial() async {
     await Future.wait([

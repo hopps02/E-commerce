@@ -8,7 +8,9 @@ import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/views/user/confirm_order/view/widgets/order_item.dart';
+import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/order_details/riverpod/order_details_controller.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/order_delivery_address.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/order_price_summary.dart';
@@ -87,6 +89,16 @@ class OrderDetailsBody extends StatelessWidget {
                           price: Money.amount(item.unitPriceHalalas),
                           count: "${item.quantity}",
                           image: item.imageUrl ?? "",
+                          // The shelf row the line was bought from is exactly
+                          // what the product screen loads.
+                          onTap: item.branchItemId == null
+                              ? null
+                              : () => context.pushNamed(
+                                  Routes.productDetails,
+                                  arguments: ProductDetailsViewArgs(
+                                    productId: item.branchItemId!,
+                                  ),
+                                ),
                         ).premiumAppear(index: 3 + index);
                       },
                     ),

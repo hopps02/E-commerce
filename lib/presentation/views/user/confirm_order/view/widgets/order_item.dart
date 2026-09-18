@@ -12,6 +12,10 @@ class Order extends StatelessWidget {
   final String price;
   final String count;
   final String image;
+
+  /// Set where the row leads somewhere: the order screens open the product.
+  final VoidCallback? onTap;
+
   const Order({
     super.key,
     required this.title,
@@ -19,11 +23,12 @@ class Order extends StatelessWidget {
     required this.price,
     required this.count,
     required this.image,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final row = Container(
       width: double.infinity,
       decoration: const BoxDecoration(color: ColorM.white),
       child: Row(
@@ -111,6 +116,14 @@ class Order extends StatelessWidget {
           ),
         ],
       ),
+    );
+
+    if (onTap == null) return row;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.r),
+      child: row,
     );
   }
 }

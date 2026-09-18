@@ -34,9 +34,15 @@ class _TapMyOrdersViewState extends ConsumerState<TapMyOrdersView>
       _,
       next,
     ) {
+      final notifier = ref.read(myOrdersTabController.notifier);
+
       if (next == TapMyOrdersView.navIndex) {
-        ref.read(myOrdersTabController.notifier).loadInitial();
+        notifier.loadInitial();
+        notifier.setLive(true);
+        return;
       }
+
+      notifier.setLive(false);
     });
 
     return Scaffold(
