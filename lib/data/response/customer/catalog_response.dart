@@ -3,6 +3,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'catalog_response.freezed.dart';
 part 'catalog_response.g.dart';
 
+/// The specs, whatever shape they arrive in. PHP writes an empty map as
+/// an empty list, and a number stays a number — but a spec is a line of
+/// text in a table, so anything that is not a map becomes no specs.
+Map<String, String> specsFromJson(dynamic json) {
+  if (json is! Map) return const {};
+
+  return {
+    for (final entry in json.entries)
+      entry.key.toString(): entry.value?.toString() ?? '',
+  };
+}
+
 /// A sellable item on a branch shelf (GET /mobile/products).
 /// Prices are integer halalas; `available` is what's left after reservations.
 @freezed
@@ -35,11 +47,21 @@ abstract class BranchProduct with _$BranchProduct {
     @JsonKey(name: 'quantity_step') @Default(1) double quantityStep,
 
     /// The specs the panel filled in: weight, size, origin, expiry.
-    @Default(<String, String>{}) Map<String, String> attributes,
+    @JsonKey(fromJson: specsFromJson)
+    @Default(<String, String>{})
+    Map<String, String> attributes,
 
     /// Extra photos. Only the product screen asks for them; a list row is
     /// served with its one card image.
     @Default(<String>[]) List<String> images,
+
+    /// Which size or colour this row is, when the product comes in more
+    /// than one.
+    @JsonKey(name: 'variant_label') String? variantLabel,
+
+    /// Every size of this product, each with its own price and count.
+    /// Only the product screen asks for them.
+    @Default(<ProductVariant>[]) List<ProductVariant> variants,
   }) = _BranchProduct;
 
   factory BranchProduct.fromJson(Map<String, dynamic> json) =>
@@ -69,6 +91,58 @@ abstract class BranchProduct with _$BranchProduct {
 
   /// What the price and the quantity are counted in: "كيلو", "قطعة".
   String get unitName => (unitLabel ?? '').trim();
+
+  /// Whether this product is offered in more than one size or colour.
+  bool get hasVariants => variants.length > 1;
+
+  /// The same product seen through one of its sizes. The photos, the name
+  /// and the description belong to the product and stay put; the shelf row
+  /// behind them changes, so the price, what is left, and what the cart
+  /// button adds all follow the size. An id that is not one of them is
+  /// left alone.
+  BranchProduct withVariant(int branchItemId) {
+    for (final variant in variants) {
+      if (variant.id != branchItemId) continue;
+      return copyWith(
+        id: variant.id,
+        variantLabel: variant.name,
+        priceHalalas: variant.priceHalalas,
+        discountHalalas: variant.discountHalalas,
+        available: variant.available,
+        attributes: {...attributes, ...variant.attributes},
+      );
+    }
+    return this;
+  }
+}
+
+/// One size or colour of the same product: its own row on the shelf, so
+/// its own price and its own count.
+@freezed
+abstract class ProductVariant with _$ProductVariant {
+  const ProductVariant._();
+
+  const factory ProductVariant({
+    required int id,
+    String? label,
+
+    /// What it differs in, as the panel wrote it: {"size": "L"}.
+    @JsonKey(fromJson: specsFromJson)
+    @Default(<String, String>{})
+    Map<String, String> attributes,
+    @JsonKey(name: 'price_halalas') @Default(0) int priceHalalas,
+    @JsonKey(name: 'discount_halalas') @Default(0) int discountHalalas,
+    @Default(0) double available,
+  }) = _ProductVariant;
+
+  factory ProductVariant.fromJson(Map<String, dynamic> json) =>
+      _$ProductVariantFromJson(json);
+
+  String get name => (label ?? '').trim();
+
+  bool get inStock => available > 0;
+
+  int get effectivePriceHalalas => priceHalalas - discountHalalas;
 }
 
 

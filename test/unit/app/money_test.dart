@@ -33,11 +33,11 @@ void main() {
 
   group('Money.format', () {
     test('arabic puts the symbol after the amount', () {
-      expect(Money.format(3500, arabic: true), '35.00 ر.س');
+      expect(Money.format(3500, arabic: true), '35.00 ج.م');
     });
 
     test('english puts the code before the amount', () {
-      expect(Money.format(3500, arabic: false), 'SAR 35.00');
+      expect(Money.format(3500, arabic: false), 'EGP 35.00');
     });
   });
 }

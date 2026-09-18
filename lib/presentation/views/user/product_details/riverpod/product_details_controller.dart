@@ -67,6 +67,16 @@ class ProductDetailsNotifier extends Notifier<ProductDetailsState> {
     );
   }
 
+  /// Switching to another size stays on the same screen: everything the
+  /// sizes share is already on it, and the row behind them arrived with
+  /// the product, so nothing is fetched again.
+  void chooseVariant(int branchItemId) {
+    final product = state.product;
+    if (product == null || product.id == branchItemId) return;
+
+    state = state.copyWith(product: product.withVariant(branchItemId));
+  }
+
   void toggleFavorite() {
     state = state.copyWith(isFavorite: !state.isFavorite);
   }

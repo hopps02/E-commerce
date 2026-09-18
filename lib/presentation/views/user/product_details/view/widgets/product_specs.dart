@@ -6,7 +6,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 
 /// The known details a product can carry, in the shopper's language. Anything
 /// the panel invented beyond these keeps its own name.
-const Map<String, String> _labels = {
+const Map<String, String> specLabels = {
   'weight': 'الوزن',
   'dimensions': 'الأبعاد',
   'color': 'اللون',
@@ -56,7 +56,7 @@ class ProductSpecs extends StatelessWidget {
                   SizedBox(
                     width: 110,
                     child: Text(
-                      _labels[row.key] ?? row.key,
+                      specLabels[row.key] ?? row.key,
                       style: context.bodyMedium.copyWith(
                         color: ColorM.gray500,
                       ),

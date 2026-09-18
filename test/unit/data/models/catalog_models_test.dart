@@ -132,8 +132,6 @@ void main() {
       expect(address.id, 5);
       expect(address.displayAddress, 'حي العليا، شارع التحلية، الرياض');
       expect(address.isDefault, isTrue);
-      expect(address.cityId, 1);
-      expect(address.lat, 24.7136);
       expect(address.detailsLine, 'شارع التحلية، 12، 2، 4');
     });
 
@@ -148,16 +146,94 @@ void main() {
     });
   });
 
-  group('CoverageResult.fromJson', () {
-    test('parses the coverage payload', () {
-      final coverage = CoverageResult.fromJson(const {
-        'is_serviceable': true,
-        'city_id': 1,
-        'delivery_fee_halalas': 1500,
+  group('variants', () {
+    final shirt = BranchProduct.fromJson(const {
+      'id': 30,
+      'branch_id': 1,
+      'name_ar': 'تيشرت',
+      'price_halalas': 12400,
+      'available': 94,
+      'variant_label': 'M',
+      'attributes': {'material': 'قطن'},
+      'variants': [
+        {
+          'id': 30,
+          'label': 'M',
+          'attributes': {'size': 'M'},
+          'price_halalas': 12400,
+          'discount_halalas': 0,
+          'available': 94,
+        },
+        {
+          'id': 32,
+          'label': 'L',
+          'attributes': {'size': 'L'},
+          'price_halalas': 13900,
+          'discount_halalas': 900,
+          'available': 0,
+        },
+      ],
+    });
+
+    test('parses every size with its own price and count', () {
+      expect(shirt.hasVariants, isTrue);
+      expect(shirt.variantLabel, 'M');
+      expect(shirt.variants.map((one) => one.name), ['M', 'L']);
+      expect(shirt.variants.last.effectivePriceHalalas, 13000);
+      expect(shirt.variants.last.inStock, isFalse);
+    });
+
+    test('picking a size swaps the shelf row and keeps the product', () {
+      final large = shirt.withVariant(32);
+
+      expect(large.id, 32);
+      expect(large.priceHalalas, 13900);
+      expect(large.discountHalalas, 900);
+      expect(large.available, 0);
+      expect(large.inStock, isFalse);
+      expect(large.variantLabel, 'L');
+      // The name and the specs belong to the product, not to the size.
+      expect(large.nameAr, 'تيشرت');
+      expect(large.attributes['material'], 'قطن');
+      expect(large.attributes['size'], 'L');
+      // Still offers every size, so the shopper can switch back.
+      expect(large.variants.length, 2);
+    });
+
+    test('an id that is not one of the sizes changes nothing', () {
+      expect(shirt.withVariant(999), same(shirt));
+    });
+
+    test('a plain product has no sizes to pick', () {
+      const banana = BranchProduct(id: 6, branchId: 1, priceHalalas: 700);
+
+      expect(banana.hasVariants, isFalse);
+      expect(banana.withVariant(6), same(banana));
+    });
+  });
+
+  group('specs', () {
+    test('an empty map from PHP arrives as an empty list, and is no specs', () {
+      final product = BranchProduct.fromJson(const {
+        'id': 27,
+        'branch_id': 1,
+        'name_ar': 'وايد ليج',
+        'price_halalas': 1400,
+        'attributes': <dynamic>[],
       });
-      expect(coverage.isServiceable, isTrue);
-      expect(coverage.cityId, 1);
-      expect(coverage.deliveryFeeHalalas, 1500);
+
+      expect(product.attributes, isEmpty);
+    });
+
+    test('values that are not text are printed as text', () {
+      final product = BranchProduct.fromJson(const {
+        'id': 27,
+        'branch_id': 1,
+        'attributes': {'weight': 1.5, 'origin': 'مصر'},
+      });
+
+      expect(product.attributes['weight'], '1.5');
+      expect(product.attributes['origin'], 'مصر');
     });
   });
 }

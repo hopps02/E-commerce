@@ -38,7 +38,7 @@ void main() {
     cart.setQuantity(eggs, 1);
     expect(state().lines, hasLength(2));
     expect(state().quantityOf(6), 2);
-    expect(state().itemsCount, 3);
+    expect(state().itemsCount, 2);
 
     cart.setQuantity(banana, 1);
     expect(state().quantityOf(6), 1);

@@ -74,7 +74,8 @@ class CartData extends ConsumerWidget {
             final product = line.product;
             return CartItemCard(
               title: product?.name(arabic) ?? '',
-              weight: '',
+              // The size, when the product comes in more than one.
+              weight: product?.variantLabel ?? '',
               priceHalalas: product?.effectivePriceHalalas ?? 0,
               imageUrl: product?.imageUrl ?? '',
               initialQuantity: line.quantity,

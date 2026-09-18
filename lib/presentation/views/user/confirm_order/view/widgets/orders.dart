@@ -39,7 +39,7 @@ class Orders extends StatelessWidget {
                   final product = line.product;
                   return Order(
                     image: product?.imageUrl ?? '',
-                    weight: '',
+                    weight: product?.variantLabel ?? '',
                     title: product?.name(arabic) ?? '',
                     price: Money.amount(line.lineSubtotalHalalas),
                     count: '${line.quantity}',

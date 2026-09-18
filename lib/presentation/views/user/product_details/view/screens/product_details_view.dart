@@ -14,6 +14,7 @@ import 'package:store/presentation/views/user/product_details/view/widgets/produ
 import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_specs.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_variant_picker.dart';
 
 class ProductDetailsViewArgs {
   final int productId;
@@ -105,6 +106,17 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                               isAvailable: product.inStock,
                               brand: product.brand ?? '',
                             ),
+
+                            if (product.hasVariants) ...[
+                              20.verticalSpace,
+                              ProductVariantPicker(
+                                variants: product.variants,
+                                selectedId: product.id,
+                                onPick: (id) => ref
+                                    .read(productDetailsController.notifier)
+                                    .chooseVariant(id),
+                              ),
+                            ],
 
                             if (product.attributes.isNotEmpty) ...[
                               20.verticalSpace,

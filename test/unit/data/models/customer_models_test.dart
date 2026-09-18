@@ -8,8 +8,6 @@ void main() {
       expect(orderTimelineStep('placed'), 1);
       expect(orderTimelineStep('preparing'), 1);
       expect(orderTimelineStep('ready_for_pickup'), 1);
-      expect(orderTimelineStep('captain_assigned'), 2);
-      expect(orderTimelineStep('received_by_captain'), 2);
       expect(orderTimelineStep('out_for_delivery'), 2);
       expect(orderTimelineStep('delivered'), 3);
     });
@@ -102,10 +100,9 @@ void main() {
   });
 
   group('RateOrderBody', () {
-    test('serializes the four required axes with backend names', () {
+    test('serializes the three required axes with backend names', () {
       const body = RateOrderBody(
         overallStars: 5,
-        captainStars: 4,
         orderAccuracyStars: 5,
         deliverySpeedStars: 3,
         comment: 'ممتاز',
@@ -113,7 +110,6 @@ void main() {
 
       expect(body.toJson(), {
         'overall_stars': 5,
-        'captain_stars': 4,
         'order_accuracy_stars': 5,
         'delivery_speed_stars': 3,
         'comment': 'ممتاز',

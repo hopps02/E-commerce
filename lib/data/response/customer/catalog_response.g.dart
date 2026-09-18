@@ -25,16 +25,20 @@ _BranchProduct _$BranchProductFromJson(Map<String, dynamic> json) =>
       unit: json['unit'] as String? ?? 'piece',
       unitLabel: json['unit_label'] as String?,
       quantityStep: (json['quantity_step'] as num?)?.toDouble() ?? 1,
-      attributes:
-          (json['attributes'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const <String, String>{},
+      attributes: json['attributes'] == null
+          ? const <String, String>{}
+          : specsFromJson(json['attributes']),
       images:
           (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const <String>[],
+      variantLabel: json['variant_label'] as String?,
+      variants:
+          (json['variants'] as List<dynamic>?)
+              ?.map((e) => ProductVariant.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <ProductVariant>[],
     );
 
 Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
@@ -58,6 +62,30 @@ Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
       'quantity_step': instance.quantityStep,
       'attributes': instance.attributes,
       'images': instance.images,
+      'variant_label': instance.variantLabel,
+      'variants': instance.variants,
+    };
+
+_ProductVariant _$ProductVariantFromJson(Map<String, dynamic> json) =>
+    _ProductVariant(
+      id: (json['id'] as num).toInt(),
+      label: json['label'] as String?,
+      attributes: json['attributes'] == null
+          ? const <String, String>{}
+          : specsFromJson(json['attributes']),
+      priceHalalas: (json['price_halalas'] as num?)?.toInt() ?? 0,
+      discountHalalas: (json['discount_halalas'] as num?)?.toInt() ?? 0,
+      available: (json['available'] as num?)?.toDouble() ?? 0,
+    );
+
+Map<String, dynamic> _$ProductVariantToJson(_ProductVariant instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'label': instance.label,
+      'attributes': instance.attributes,
+      'price_halalas': instance.priceHalalas,
+      'discount_halalas': instance.discountHalalas,
+      'available': instance.available,
     };
 
 _HomeBanner _$HomeBannerFromJson(Map<String, dynamic> json) => _HomeBanner(
