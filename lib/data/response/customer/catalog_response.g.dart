@@ -25,6 +25,11 @@ _BranchProduct _$BranchProductFromJson(Map<String, dynamic> json) =>
       unit: json['unit'] as String? ?? 'piece',
       unitLabel: json['unit_label'] as String?,
       quantityStep: (json['quantity_step'] as num?)?.toDouble() ?? 1,
+      attributes:
+          (json['attributes'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const <String, String>{},
       images:
           (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -51,6 +56,7 @@ Map<String, dynamic> _$BranchProductToJson(_BranchProduct instance) =>
       'unit': instance.unit,
       'unit_label': instance.unitLabel,
       'quantity_step': instance.quantityStep,
+      'attributes': instance.attributes,
       'images': instance.images,
     };
 

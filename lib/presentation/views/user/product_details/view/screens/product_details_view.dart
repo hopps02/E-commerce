@@ -13,6 +13,7 @@ import 'package:store/presentation/views/user/product_details/view/widgets/produ
 import 'package:store/presentation/views/user/product_details/view/widgets/product_details_bottom_bar.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/product_specs.dart';
 
 class ProductDetailsViewArgs {
   final int productId;
@@ -104,6 +105,11 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                               isAvailable: product.inStock,
                               brand: product.brand ?? '',
                             ),
+
+                            if (product.attributes.isNotEmpty) ...[
+                              20.verticalSpace,
+                              ProductSpecs(attributes: product.attributes),
+                            ],
 
                             if (product.description(arabic).isNotEmpty) ...[
                               20.verticalSpace,

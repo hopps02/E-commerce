@@ -34,6 +34,9 @@ abstract class BranchProduct with _$BranchProduct {
     /// How much the plus button adds: one piece, a quarter kilo, 50 g.
     @JsonKey(name: 'quantity_step') @Default(1) double quantityStep,
 
+    /// The specs the panel filled in: weight, size, origin, expiry.
+    @Default(<String, String>{}) Map<String, String> attributes,
+
     /// Extra photos. Only the product screen asks for them; a list row is
     /// served with its one card image.
     @Default(<String>[]) List<String> images,
