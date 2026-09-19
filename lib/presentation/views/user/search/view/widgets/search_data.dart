@@ -14,6 +14,7 @@ import 'package:store/presentation/views/user/favorites/riverpod/favorites_contr
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:store/presentation/views/user/search/riverpod/search_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SearchData extends ConsumerWidget {
   const SearchData({super.key});
@@ -48,7 +49,7 @@ class SearchData extends ConsumerWidget {
           child: GridView.builder(
             padding: EdgeInsets.symmetric(
               horizontal: SizeM.pagePadding,
-              vertical: 16,
+              vertical: SpaceM.s4,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

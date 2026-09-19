@@ -7,6 +7,7 @@ import 'package:store/presentation/views/user/user_home/view/widgets/my_orders_t
 import 'package:store/app/extensions/widget_extensions.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class TapMyOrdersView extends ConsumerStatefulWidget {
   static const int navIndex = 2;
@@ -50,9 +51,9 @@ class _TapMyOrdersViewState extends ConsumerState<TapMyOrdersView>
       body: Column(
         children: [
           MyOrdersAppBar().premiumAppear(index: 0),
-          34.verticalSpace,
+          SpaceM.s8.verticalSpace,
           MyOrdersTapsButton().premiumAppear(index: 1),
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
           MyOrdersSlider(bottomSafeAreaPadding: widget.bottomSafeAreaPadding),
         ],
       ),

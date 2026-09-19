@@ -6,6 +6,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class NewArrivalsBanner extends StatelessWidget {
   final VoidCallback? onShopNowTap;
@@ -52,7 +53,7 @@ class NewArrivalsBanner extends StatelessWidget {
                       height: 1.4,
                     ),
                   ),
-                  6.verticalSpace,
+                  SpaceM.s2.verticalSpace,
                   // Main headline
                   Text(
                     Translation.fresh_100_percent.tr,
@@ -75,7 +76,7 @@ class NewArrivalsBanner extends StatelessWidget {
                         borderRadius: 23.r,
                         // width: 127,
                         height: 36,
-                        padding: EdgeInsets.symmetric(horizontal: 23.w),
+                        padding: EdgeInsets.symmetric(horizontal: SpaceM.s6.w),
                         alignment: Alignment.center,
                         child: Text(
                           Translation.start_shopping_now.tr,

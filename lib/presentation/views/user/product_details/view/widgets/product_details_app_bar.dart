@@ -12,6 +12,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductDetailsAppBar extends StatelessWidget {
   const ProductDetailsAppBar({super.key});
@@ -20,7 +21,7 @@ class ProductDetailsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.symmetric(vertical: 17.h),
+      padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
       child: DefaultAppBar(
         title: Translation.product_details.tr,
         titleAlignment: .center,
@@ -68,7 +69,7 @@ class _CartIconButton extends ConsumerWidget {
               child: Container(
                 key: ValueKey(cartCount),
                 constraints: BoxConstraints(minWidth: 18, minHeight: 18.w),
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorM.primary500,

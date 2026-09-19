@@ -6,6 +6,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
@@ -118,7 +119,7 @@ class DefaultAppBar extends StatelessWidget {
                   ),
                 )
               else
-                SizedBox(width: 40.w), // placeholder to keep title centered
+                SizedBox(width: SpaceM.s10.w), // placeholder to keep title centered
             ],
           ),
 
@@ -126,7 +127,7 @@ class DefaultAppBar extends StatelessWidget {
           if (titleW != null)
             Padding(
               // Keep the title text from running under the buttons
-              padding: EdgeInsets.symmetric(horizontal: 48.w),
+              padding: EdgeInsets.symmetric(horizontal: SpaceM.s12.w),
               child: titleW,
             ),
         ],

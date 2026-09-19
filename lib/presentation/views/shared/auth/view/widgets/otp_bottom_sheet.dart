@@ -22,6 +22,7 @@ import 'package:store/presentation/views/shared/auth_success/view/screens/auth_s
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     as gradient_border;
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OtpBottomSheet extends ConsumerStatefulWidget {
   final String mobileNumber;
@@ -106,19 +107,19 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
         children: [
           OtpBottomSheetTitle(widget: widget),
 
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
 
           Otp(onOtp: onOtp),
 
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
 
           Container(width: double.infinity, height: 1, color: ColorM.gray300),
 
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
 
           ResendOtp(seconds: state.seconds, canResend: state.canResend),
 
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
 
           VerifyOtpButton(onTap: onVerifyOtp),
         ],

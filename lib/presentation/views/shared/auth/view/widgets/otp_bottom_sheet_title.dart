@@ -5,6 +5,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/otp_bottom_sheet.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OtpBottomSheetTitle extends StatelessWidget {
   const OtpBottomSheetTitle({super.key, required this.widget});
@@ -14,7 +15,7 @@ class OtpBottomSheetTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 8,
+      spacing: SpaceM.s2,
       crossAxisAlignment: .start,
       children: [
         Text(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// A label sitting above a form field, both stretched start-aligned so the
 /// label lands on the start side (right in RTL).
@@ -25,7 +26,7 @@ class LabeledField extends StatelessWidget {
             height: 22 / 14,
           ),
         ),
-        6.verticalSpace,
+        SpaceM.s2.verticalSpace,
         child,
       ],
     );

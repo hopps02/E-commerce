@@ -6,6 +6,7 @@ import 'package:store/app/ui_kit/forms/otp_field.dart';
 import 'package:store/data/response/auth/auth_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class Otp extends StatelessWidget {
   final Function(String) onOtp;
@@ -19,7 +20,7 @@ class Otp extends StatelessWidget {
         length: otpCodeLength,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 5,
+        spacing: SpaceM.s1,
         mainAxisSize: MainAxisSize.max,
         // 6 fields (backend code length) need a slimmer field to fit the row.
         fieldWidth: 48,

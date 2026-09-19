@@ -7,6 +7,7 @@ import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CartSummaryBottomBar extends StatelessWidget {
   final int subtotalHalalas;
@@ -62,7 +63,7 @@ class CartSummaryBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(16, 12, 16, 16.h),
+            padding: EdgeInsets.fromLTRB(SpaceM.s4, SpaceM.s3, SpaceM.s4, SpaceM.s4.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -74,7 +75,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                     fontWeight: FontWeightM.medium,
                   ),
                 ),
-                10.verticalSpace,
+                SpaceM.s3.verticalSpace,
 
                 // Summary Items — product/discount rows track local edits live;
                 // the shipping row is server-priced (spinner while re-quoting).
@@ -82,24 +83,24 @@ class CartSummaryBottomBar extends StatelessWidget {
                   title: Translation.total_products.tr,
                   halalas: subtotalHalalas,
                 ),
-                6.verticalSpace,
+                SpaceM.s2.verticalSpace,
                 _SummaryRow(
                   title: Translation.shipping_cost.tr,
                   halalas: deliveryFeeHalalas,
                   loading: requoting,
                 ),
-                6.verticalSpace,
+                SpaceM.s2.verticalSpace,
                 _SummaryRow(
                   title: Translation.discount.tr,
                   halalas: discountHalalas,
                 ),
 
-                10.verticalSpace,
+                SpaceM.s3.verticalSpace,
 
                 // Divider
                 Divider(color: const Color(0xFFDFDFDF), height: 1.h),
 
-                10.verticalSpace,
+                SpaceM.s3.verticalSpace,
 
                 // Total Amount — backend-authoritative; "updating" while stale.
                 Row(
@@ -121,7 +122,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                   ],
                 ),
 
-                20.verticalSpace,
+                SpaceM.s5.verticalSpace,
 
                 // Checkout Button — disabled while re-quoting so the customer
                 // can never confirm against an "updating" total.
@@ -132,7 +133,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                   height: 56,
                   backgroundColor: ColorM.primary,
                   borderRadius: 16.r,
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                   alignment: Alignment.center,
                   child: Text(
                     onCheckout != null
@@ -186,7 +187,7 @@ class GuestCheckoutBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(16, 12, 16, 16.h),
+            padding: EdgeInsets.fromLTRB(SpaceM.s4, SpaceM.s3, SpaceM.s4, SpaceM.s4.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -197,29 +198,29 @@ class GuestCheckoutBottomBar extends StatelessWidget {
                     fontWeight: FontWeightM.medium,
                   ),
                 ),
-                10.verticalSpace,
+                SpaceM.s3.verticalSpace,
                 _SummaryRow(
                   title: Translation.total_products.tr,
                   halalas: subtotalHalalas,
                 ),
-                6.verticalSpace,
+                SpaceM.s2.verticalSpace,
                 _SummaryRow(
                   title: Translation.discount.tr,
                   halalas: discountHalalas,
                 ),
-                12.verticalSpace,
+                SpaceM.s3.verticalSpace,
                 Text(
                   Translation.login_required_subtitle.tr,
                   style: context.bodyMedium.copyWith(color: ColorM.gray600),
                 ),
-                20.verticalSpace,
+                SpaceM.s5.verticalSpace,
                 CustomInkButton(
                   onTap: onCheckout,
                   width: double.infinity,
                   height: 56,
                   backgroundColor: ColorM.primary,
                   borderRadius: 16.r,
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                   alignment: Alignment.center,
                   child: Text(
                     Translation.order_now.tr,
@@ -297,7 +298,7 @@ class _PriceWidget extends StatelessWidget {
     }
     return Row(
       mainAxisSize: MainAxisSize.min,
-      spacing: 3,
+      spacing: SpaceM.s1,
       children: [
         Text(
           Money.amount(halalas),

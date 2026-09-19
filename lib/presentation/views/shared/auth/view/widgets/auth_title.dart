@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class AuthTitle extends StatelessWidget {
   const AuthTitle({super.key});
@@ -17,7 +18,7 @@ class AuthTitle extends StatelessWidget {
           Translation.login.tr,
           style: context.titleLarge.copyWith(fontWeight: FontWeightM.semiBold),
         ),
-        6.verticalSpace,
+        SpaceM.s2.verticalSpace,
         Text(
           Translation.enter_mobile_to_continue.tr,
           style: context.bodyMedium.copyWith(

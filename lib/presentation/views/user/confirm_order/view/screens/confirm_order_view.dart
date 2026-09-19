@@ -17,6 +17,7 @@ import 'package:store/presentation/views/user/confirm_order/view/widgets/confirm
 import 'package:store/presentation/views/user/confirm_order/view/widgets/delivery_to.dart';
 import 'package:store/presentation/views/user/confirm_order/view/widgets/orders.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ConfirmOrderView extends ConsumerStatefulWidget {
   const ConfirmOrderView({super.key});
@@ -99,7 +100,7 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
               child: DeliveryTo(address: checkout.addressLine),
             ).premiumAppear(index: 1),
 
-            18.verticalSpace,
+            SpaceM.s5.verticalSpace,
 
             if (checkout.requiresCartBranchResolution)
               Expanded(

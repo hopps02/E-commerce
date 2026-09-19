@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SupportContactCard extends StatelessWidget {
   final String title;
@@ -21,7 +22,7 @@ class SupportContactCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(24.w),
+        padding: EdgeInsets.all(SpaceM.s6.w),
         decoration: BoxDecoration(
           color: ColorM.gray50,
           borderRadius: BorderRadius.circular(24.r),
@@ -42,7 +43,7 @@ class SupportContactCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(8.dg),
+                  padding: EdgeInsets.all(SpaceM.s2.dg),
                   decoration: BoxDecoration(
                     color: ColorM.primary50,
                     shape: BoxShape.circle,
@@ -55,7 +56,7 @@ class SupportContactCard extends StatelessWidget {
                 ),
               ],
             ),
-            16.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Text(
               description,
               style: context.bodyMedium.copyWith(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SearchEmptyState extends StatelessWidget {
   const SearchEmptyState({super.key});
@@ -14,7 +15,7 @@ class SearchEmptyState extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.search_off_rounded, size: 64, color: ColorM.gray300),
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
           Text(
             Translation.search_hint.tr,
             style: TextStyle(

@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SwitchBranchBottomSheet extends StatelessWidget {
   const SwitchBranchBottomSheet({super.key});
@@ -53,7 +54,7 @@ class SwitchBranchBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(100.r),
             ),
           ),
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
           Container(
             width: 80,
             height: 80,
@@ -68,7 +69,7 @@ class SwitchBranchBottomSheet extends StatelessWidget {
               color: ColorM.primary600,
             ),
           ),
-          24.verticalSpace,
+          SpaceM.s6.verticalSpace,
           Text(
             Translation.new_cart_title.tr,
             textAlign: TextAlign.center,
@@ -77,13 +78,13 @@ class SwitchBranchBottomSheet extends StatelessWidget {
               color: ColorM.gray900,
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Text(
             Translation.new_cart_subtitle.tr,
             textAlign: TextAlign.center,
             style: context.bodyMedium.copyWith(color: ColorM.gray500),
           ),
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
           CustomInkButton(
             onTap: () => Navigator.pop(context, true),
             backgroundColor: ColorM.primary500,
@@ -98,7 +99,7 @@ class SwitchBranchBottomSheet extends StatelessWidget {
               ),
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           CustomInkButton(
             onTap: () => Navigator.pop(context, false),
             backgroundColor: ColorM.transparent,

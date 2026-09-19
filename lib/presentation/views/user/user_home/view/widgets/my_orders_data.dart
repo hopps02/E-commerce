@@ -11,6 +11,7 @@ import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_c
 import 'package:store/presentation/views/user/user_home/view/widgets/order_card.dart';
 
 import '../../../../../res/router/app_router.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 enum MyOrdersDataType {
   current,
@@ -71,11 +72,11 @@ class _MyOrdersDataState extends ConsumerState<MyOrdersData>
           padding: EdgeInsets.only(
             left: SizeM.pagePadding,
             right: SizeM.pagePadding,
-            top: 8,
+            top: SpaceM.s2,
             bottom: SizeM.pagePadding,
           ),
           itemCount: state.orders.length,
-          separatorBuilder: (context, index) => 16.verticalSpace,
+          separatorBuilder: (context, index) => SpaceM.s4.verticalSpace,
           itemBuilder: (context, index) {
             final order = state.orders[index];
             return OrderCard(

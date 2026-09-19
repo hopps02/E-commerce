@@ -9,6 +9,7 @@ import 'package:store/app/ui_kit/overlays/zesty_snack.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 // error message
 enum ErrorMessage {
@@ -60,8 +61,8 @@ class SnackbarHelper {
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 12.w,
+                        horizontal: SpaceM.s3,
+                        vertical: SpaceM.s3.w,
                       ),
                       width: double.infinity,
                       decoration: ShapeDecoration(

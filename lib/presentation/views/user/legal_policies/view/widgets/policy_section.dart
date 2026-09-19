@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class PolicySection extends StatelessWidget {
   final String title;
@@ -31,7 +32,7 @@ class PolicySection extends StatelessWidget {
             color: ColorM.gray900,
           ),
         ),
-        16.verticalSpace,
+        SpaceM.s4.verticalSpace,
         Text(
           description,
           style: context.bodyLarge.copyWith(

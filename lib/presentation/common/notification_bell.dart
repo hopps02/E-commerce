@@ -12,6 +12,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/notifications/riverpod/notifications_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class NotificationBell extends ConsumerStatefulWidget {
   final bool dark;
@@ -80,7 +81,7 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
               end: -5,
               child: Container(
                 constraints: BoxConstraints(minWidth: 17, minHeight: 17.w),
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorM.red,

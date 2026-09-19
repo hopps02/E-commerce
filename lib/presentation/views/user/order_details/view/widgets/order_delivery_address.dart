@@ -7,6 +7,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OrderDeliveryAddress extends StatelessWidget {
   final String address;
@@ -15,7 +16,7 @@ class OrderDeliveryAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s4.h),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,
@@ -33,7 +34,7 @@ class OrderDeliveryAddress extends StatelessWidget {
               color: ColorM.gray950,
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Row(
             children: [
               SvgPicture.asset(
@@ -43,7 +44,7 @@ class OrderDeliveryAddress extends StatelessWidget {
                   BlendMode.srcIn,
                 ),
               ),
-              8.horizontalSpace,
+              SpaceM.s2.horizontalSpace,
               Text(
                 address,
                 style: context.bodyMedium.copyWith(color: ColorM.gray950),

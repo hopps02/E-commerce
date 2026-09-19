@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/confirm_order/view/widgets/order_item.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class Orders extends StatelessWidget {
   final List<CartLine> lines;
@@ -22,7 +23,7 @@ class Orders extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
         child: Column(
-          spacing: 10,
+          spacing: SpaceM.s3,
           crossAxisAlignment: .start,
           children: [
             Text(
@@ -32,8 +33,8 @@ class Orders extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemCount: lines.length,
-                separatorBuilder: (context, index) => 16.verticalSpace,
-                padding: EdgeInsets.only(bottom: 20.h),
+                separatorBuilder: (context, index) => SpaceM.s4.verticalSpace,
+                padding: EdgeInsets.only(bottom: SpaceM.s5.h),
                 itemBuilder: (context, index) {
                   final line = lines[index];
                   final product = line.product;

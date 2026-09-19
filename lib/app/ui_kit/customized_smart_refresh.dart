@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CustomizedSmartRefresh extends StatelessWidget {
   final Widget child;
@@ -106,7 +107,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
         failedText: Translation.failed_loading.tr,
         idleText: Translation.load_more.tr,
         canLoadingText: Translation.load_more.tr,
-        spacing: 12,
+        spacing: SpaceM.s3,
         height: 50 + (classicFooterPadding?.vertical ?? 0),
         loadingIcon: SizedBox(
           width: 15,

@@ -10,6 +10,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/order_card.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OrderStatusSection extends StatelessWidget {
   final int step;
@@ -61,11 +62,11 @@ class OrderStatusSection extends StatelessWidget {
           ],
         ),
         if (stateLabel.trim().isNotEmpty) ...[
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Align(
             alignment: AlignmentDirectional.centerStart,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(horizontal: SpaceM.s3.w, vertical: SpaceM.s2.h),
               decoration: ShapeDecoration(
                 color: isFailed ? const Color(0xFFFFECEC) : ColorM.primary50,
                 shape: SmoothRectangleBorder(
@@ -84,7 +85,7 @@ class OrderStatusSection extends StatelessWidget {
           ),
         ],
         if (whatsappUrl.trim().isNotEmpty && !orderStateIsFinal(orderState)) ...[
-          14.verticalSpace,
+          SpaceM.s4.verticalSpace,
           CustomInkButton(
             onTap: () => WhatsAppService.sendOrder(whatsappUrl),
             borderRadius: 12.r,
@@ -101,7 +102,7 @@ class OrderStatusSection extends StatelessWidget {
             ),
           ),
         ],
-        24.verticalSpace,
+        SpaceM.s6.verticalSpace,
         Row(
           children: [
             Expanded(
@@ -140,10 +141,10 @@ class OrderStatusSection extends StatelessWidget {
           ],
         ),
         if (isFailed && reasonLabel != null) ...[
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s3, vertical: SpaceM.s3.h),
             decoration: ShapeDecoration(
               color: ColorM.red.withValues(alpha: 0.08),
               shape: SmoothRectangleBorder(
@@ -155,7 +156,7 @@ class OrderStatusSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(Icons.error_outline_rounded, size: 18, color: ColorM.red),
-                8.horizontalSpace,
+                SpaceM.s2.horizontalSpace,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +168,7 @@ class OrderStatusSection extends StatelessWidget {
                           fontWeight: FontWeightM.semiBold,
                         ),
                       ),
-                      2.verticalSpace,
+                      SpaceM.s1.verticalSpace,
                       Text(
                         reasonLabel,
                         style: context.bodyMedium.copyWith(
@@ -181,7 +182,7 @@ class OrderStatusSection extends StatelessWidget {
             ),
           ),
         ],
-        24.verticalSpace,
+        SpaceM.s6.verticalSpace,
         Container(height: 1, color: ColorM.gray150),
       ],
     );

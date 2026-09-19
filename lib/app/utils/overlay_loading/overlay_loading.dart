@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 enum LoadingType { spinner, dots, pulse, custom, widget }
 
@@ -364,7 +365,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                 final delay = index * 0.2;
                 final animationValue = (dotsAnimation.value + delay) % 1.0;
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                  margin: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                   width: 12,
                   height: 12,
                   decoration: BoxDecoration(
@@ -440,11 +441,11 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
 
                     // Custom message
                     if (widget.showMessage && widget.customMessage != null) ...[
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                          horizontal: SpaceM.s4,
+                          vertical: SpaceM.s2,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),
@@ -464,11 +465,11 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
 
                     // Default loading message
                     if (widget.showMessage && widget.customMessage == null) ...[
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                          horizontal: SpaceM.s4,
+                          vertical: SpaceM.s2,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),

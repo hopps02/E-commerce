@@ -18,6 +18,7 @@ import 'package:store/presentation/views/user/order_details/view/widgets/order_p
 import 'package:store/presentation/views/user/order_details/view/widgets/order_rated_confirmation.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/order_status_section.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/rate_order_button.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OrderDetailsBody extends StatelessWidget {
   final OrderDetailsState state;
@@ -51,7 +52,7 @@ class OrderDetailsBody extends StatelessWidget {
               controller: refreshController,
               onRefresh: onRefresh,
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24.h),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s6.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -64,24 +65,24 @@ class OrderDetailsBody extends StatelessWidget {
                       failureReason: state.failureReason,
                       failureNote: state.failureNote,
                     ).premiumAppear(index: 0),
-                    24.verticalSpace,
+                    SpaceM.s6.verticalSpace,
                     OrderDeliveryAddress(
                       address: state.address,
                     ).premiumAppear(index: 1),
-                    24.verticalSpace,
+                    SpaceM.s6.verticalSpace,
                     Text(
                       Translation.orders.tr,
                       style: context.bodyLarge.copyWith(
                         fontWeight: FontWeightM.bold,
                       ),
                     ).premiumAppear(index: 2),
-                    16.verticalSpace,
+                    SpaceM.s4.verticalSpace,
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       itemCount: state.items.length,
-                      separatorBuilder: (context, index) => 16.verticalSpace,
+                      separatorBuilder: (context, index) => SpaceM.s4.verticalSpace,
                       itemBuilder: (context, index) {
                         final item = state.items[index];
                         return Order(
@@ -105,27 +106,27 @@ class OrderDetailsBody extends StatelessWidget {
                       },
                     ),
                     if (state.removedItems.isNotEmpty) ...[
-                      24.verticalSpace,
+                      SpaceM.s6.verticalSpace,
                       Text(
                         Translation.unavailable_items.tr,
                         style: context.bodyLarge.copyWith(
                           fontWeight: FontWeightM.bold,
                         ),
                       ),
-                      4.verticalSpace,
+                      SpaceM.s1.verticalSpace,
                       Text(
                         Translation.unavailable_items_note.tr,
                         style: context.labelMedium.copyWith(
                           color: ColorM.gray500,
                         ),
                       ),
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
                       ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         itemCount: state.removedItems.length,
-                        separatorBuilder: (context, index) => 16.verticalSpace,
+                        separatorBuilder: (context, index) => SpaceM.s4.verticalSpace,
                         itemBuilder: (context, index) {
                           final item = state.removedItems[index];
                           return Opacity(
@@ -142,7 +143,7 @@ class OrderDetailsBody extends StatelessWidget {
                         },
                       ),
                     ],
-                    32.verticalSpace,
+                    SpaceM.s8.verticalSpace,
                     OrderPriceSummary(
                       subtotalHalalas: state.totals.subtotalHalalas,
                       shippingHalalas: state.totals.deliveryFeeHalalas,

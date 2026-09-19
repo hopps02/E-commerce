@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:lottie/lottie.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 enum ErrorType { noInternet, noResults, noNotification, notFound, noEsim, none }
 
@@ -62,7 +63,7 @@ class MyErrorWidget extends StatelessWidget {
             height: svgSize ?? 270,
             width: svgSize ?? 270,
           ),
-          14.verticalSpace,
+          SpaceM.s4.verticalSpace,
         ] else
           Lottie.asset(
             Assets.lottieAnimations.error.path,
@@ -81,7 +82,7 @@ class MyErrorWidget extends StatelessWidget {
           ),
         ),
         if (subtitleMessage != null) ...[
-          15.verticalSpace,
+          SpaceM.s4.verticalSpace,
           Text(
             subtitleMessage!,
             textAlign: TextAlign.center,
@@ -91,7 +92,7 @@ class MyErrorWidget extends StatelessWidget {
           ),
         ],
         if (onRetry != null) ...[
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
           RetryButton(onRetry: onRetry, retryText: retryText),
         ],
       ],
@@ -111,7 +112,7 @@ class RetryButton extends StatelessWidget {
       onTap: onRetry,
       backgroundColor: ColorM.primary,
       borderRadius: 10.r,
-      padding: EdgeInsets.symmetric(horizontal: 46, vertical: 11.5.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s12, vertical: SpaceM.s3.w),
       smoothness: 1,
       boxShadow: [
         BoxShadow(

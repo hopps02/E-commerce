@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:store/app/extensions/extensions.dart';
 import 'package:nice_text_form/nice_text_form.dart';
 import '../../utils/mixins/after_layout.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SecurityController {
   late Function() _refresher;
@@ -246,8 +247,8 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
             if (widget.prefixWidget != null) ...[
               widget.prefixWidget!,
               kIsWeb || !Platform.isWindows
-                  ? 6.horizontalSpace
-                  : const SizedBox(width: 5),
+                  ? SpaceM.s2.horizontalSpace
+                  : const SizedBox(width: SpaceM.s1),
             ],
             if (selectedCountryCode != null && widget.showCountryCode) ...[
               Text(
@@ -255,14 +256,14 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                 style: widget.hintStyle?.copyWith(height: 1),
               ),
               kIsWeb || !Platform.isWindows
-                  ? 7.horizontalSpace
-                  : const SizedBox(width: 4),
+                  ? SpaceM.s2.horizontalSpace
+                  : const SizedBox(width: SpaceM.s1),
             ],
             _buildInput(),
             if (widget.sufixWidget != null) ...[
               kIsWeb || !Platform.isWindows
-                  ? const SizedBox(width: 5)
-                  : 6.horizontalSpace,
+                  ? const SizedBox(width: SpaceM.s1)
+                  : SpaceM.s2.horizontalSpace,
               widget.sufixWidget!(
                 widget.obscureText ?? widget.controller?.isSecure ?? false,
               ),
@@ -293,8 +294,8 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
             _buildCountrySearchField(context, textController),
       ),
       kIsWeb || !Platform.isWindows
-          ? 3.horizontalSpace
-          : const SizedBox(width: 3),
+          ? SpaceM.s1.horizontalSpace
+          : const SizedBox(width: SpaceM.s1),
       Icon(
         Icons.keyboard_arrow_down_rounded,
         size: 30,
@@ -312,7 +313,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
       color: Colors.transparent,
       child: NiceTextForm(
         height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
         boxDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
           color: Colors.black.withOpacity(.03),
@@ -403,9 +404,9 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
 
   Widget _buildError() {
     return Padding(
-      padding: EdgeInsetsDirectional.only(top: 6, start: 20.w),
+      padding: EdgeInsetsDirectional.only(top: SpaceM.s2, start: SpaceM.s5.w),
       child: Row(
-        spacing: 5,
+        spacing: SpaceM.s1,
         children: [Text(errorMessage!, style: widget.validatorStyle)],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final Widget icon;
@@ -24,7 +25,7 @@ class ProfileMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16.h),
+      margin: EdgeInsets.only(bottom: SpaceM.s4.h),
       decoration: BoxDecoration(
         color: ColorM.white,
         borderRadius: BorderRadius.circular(20.r),
@@ -41,11 +42,11 @@ class ProfileMenuItem extends StatelessWidget {
         onTap: onTap,
         borderRadius: 20.r,
         backgroundColor: Colors.transparent,
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: SpaceM.s4, horizontal: SpaceM.s4.w),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(12.dg),
+              padding: EdgeInsets.all(SpaceM.s3.dg),
               decoration: BoxDecoration(
                 color: isDestructive
                     ? ColorM.red.withOpacity(0.08)
@@ -54,7 +55,7 @@ class ProfileMenuItem extends StatelessWidget {
               ),
               child: icon,
             ),
-            16.horizontalSpace,
+            SpaceM.s4.horizontalSpace,
             Expanded(
               child: Text(
                 title,

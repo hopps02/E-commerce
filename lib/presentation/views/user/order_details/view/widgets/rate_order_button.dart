@@ -11,6 +11,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/order_details/riverpod/order_details_controller.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/rate_order_bottom_sheet.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Bottom CTA on the order details screen that opens the rating sheet and
 /// submits the four-axis rating to the backend.
@@ -35,9 +36,9 @@ class RateOrderButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        16,
-        16,
-        16,
+        SpaceM.s4,
+        SpaceM.s4,
+        SpaceM.s4,
         context.bottomSafeAreaPadding + 16,
       ),
       child: CustomInkButton(
@@ -62,7 +63,7 @@ class RateOrderButton extends ConsumerWidget {
                 height: 1.2,
               ),
             ),
-            8.horizontalSpace,
+            SpaceM.s2.horizontalSpace,
             SvgPicture.asset(
               Assets.svg.star.path,
               width: 18,

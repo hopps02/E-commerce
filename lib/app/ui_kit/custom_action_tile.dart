@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CustomActionTile extends StatefulWidget {
   final String title;
@@ -44,7 +45,7 @@ class _CustomActionTileState extends State<CustomActionTile> {
     return CustomInkButton(
       onTap: _handleTap,
       backgroundColor: Colors.transparent,
-      padding: widget.padding ?? EdgeInsets.symmetric(vertical: 16.h),
+      padding: widget.padding ?? EdgeInsets.symmetric(vertical: SpaceM.s4.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,13 +78,13 @@ class _CustomActionTileState extends State<CustomActionTile> {
             curve: Curves.fastOutSlowIn,
             child: _isExpanded && widget.expandedContent != null
                 ? Padding(
-                    padding: EdgeInsets.only(top: 16.h),
+                    padding: EdgeInsets.only(top: SpaceM.s4.h),
                     child: widget.expandedContent!,
                   )
                 : const SizedBox.shrink(),
           ),
           if (widget.showDivider) ...[
-            16.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Container(height: 1, width: double.infinity, color: ColorM.gray150),
           ],
         ],

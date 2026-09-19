@@ -14,6 +14,7 @@ import 'package:store/presentation/common/general_padding.dart';
 import 'package:store/app/enums/enums.dart';
 
 import '../../../../../../app/ui_kit/shapes/gradient_border_side.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class Body extends StatelessWidget {
   final SuccessViewType successViewType;
@@ -32,7 +33,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralPadding(
-      padding: EdgeInsets.symmetric(horizontal: 40.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s10.w),
       child: Column(
         children: [
           Text(
@@ -46,7 +47,7 @@ class Body extends StatelessWidget {
               fontSize: successViewType.isAuth ? 24.sp : 28,
             ),
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Text(
             successViewType.isAuth
                 ? Translation.account_created_success.tr
@@ -57,7 +58,7 @@ class Body extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-          31.verticalSpace,
+          SpaceM.s8.verticalSpace,
 
           // Sending the order on WhatsApp is how it reaches the store, so it
           // leads here — viewing the order is the secondary action.
@@ -77,7 +78,7 @@ class Body extends StatelessWidget {
                 ),
               ),
             ),
-            12.verticalSpace,
+            SpaceM.s3.verticalSpace,
           ],
 
           // Start Shopping Button

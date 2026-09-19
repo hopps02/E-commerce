@@ -13,6 +13,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:store/presentation/views/user/cart/view/widgets/cart_item_card.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CartData extends ConsumerWidget {
   const CartData({super.key});
@@ -61,12 +62,12 @@ class CartData extends ConsumerWidget {
         child: ListView.separated(
           padding: EdgeInsets.symmetric(
             horizontal: SizeM.pagePadding,
-            vertical: 16,
+            vertical: SpaceM.s4,
           ),
           physics: const BouncingScrollPhysics(),
           itemCount: cart.lines.length,
           separatorBuilder: (context, index) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             child: Divider(color: ColorM.gray200, height: 1),
           ),
           itemBuilder: (context, index) {

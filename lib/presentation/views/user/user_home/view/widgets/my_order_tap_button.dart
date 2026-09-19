@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class MyOrderTapButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -25,7 +26,7 @@ class MyOrderTapButton extends StatelessWidget {
           ? GradientBorderSide.none
           : GradientBorderSide(color: ColorM.primary50, width: 1),
       borderRadius: 29.r,
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s6, vertical: SpaceM.s2.h),
       child: Text(
         title,
         style: context.labelMedium.copyWith(

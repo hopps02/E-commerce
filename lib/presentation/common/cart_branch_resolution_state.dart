@@ -9,6 +9,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Shown on the cart and confirm-order screens when checkout fails because the
 /// cart's branch no longer matches the store serving the delivery address
@@ -35,7 +36,7 @@ class CartBranchResolutionState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             MyErrorWidget(titleMessage: message),
-            28.verticalSpace,
+            SpaceM.s7.verticalSpace,
             CustomInkButton(
               onTap: onClearCart,
               width: double.infinity,
@@ -52,7 +53,7 @@ class CartBranchResolutionState extends StatelessWidget {
                 ),
               ),
             ),
-            12.verticalSpace,
+            SpaceM.s3.verticalSpace,
             CustomInkButton(
               onTap: onDismiss,
               width: double.infinity,

@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// One saved address, in the app's card language (smooth corners, gray250
 /// hairline, primary50 icon plate) with default badge and edit/delete.
@@ -41,7 +42,7 @@ class AddressCard extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(14.w),
+        padding: EdgeInsets.all(SpaceM.s4.w),
         decoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
@@ -75,7 +76,7 @@ class AddressCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                9.horizontalSpace,
+                SpaceM.s2.horizontalSpace,
                 Expanded(
                   child: Text(
                     _labelName(context),
@@ -87,7 +88,7 @@ class AddressCard extends StatelessWidget {
                 ),
                 if (address.isDefault)
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: SpaceM.s3, vertical: SpaceM.s1),
                     decoration: ShapeDecoration(
                       color: ColorM.primary50,
                       shape: SmoothRectangleBorder(
@@ -105,7 +106,7 @@ class AddressCard extends StatelessWidget {
                   ),
               ],
             ),
-            10.verticalSpace,
+            SpaceM.s3.verticalSpace,
             Text(
               address.displayAddress,
               style: context.labelLarge.copyWith(color: ColorM.gray950),
@@ -113,7 +114,7 @@ class AddressCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             if (address.detailsLine.isNotEmpty) ...[
-              4.verticalSpace,
+              SpaceM.s1.verticalSpace,
               Text(
                 address.detailsLine,
                 style: context.labelMedium.copyWith(color: ColorM.gray600),
@@ -121,16 +122,16 @@ class AddressCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ],
-            10.verticalSpace,
+            SpaceM.s3.verticalSpace,
             Container(height: 1, color: ColorM.gray250),
-            10.verticalSpace,
+            SpaceM.s3.verticalSpace,
             Row(
               children: [
                 if (!address.isDefault)
                   CustomInkButton(
                     onTap: onSetDefault,
                     backgroundColor: ColorM.transparent,
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
+                    padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s2.h),
                     borderRadius: 10.r,
                     child: Text(
                       Translation.address_set_default.tr,
@@ -146,7 +147,7 @@ class AddressCard extends StatelessWidget {
                   color: ColorM.gray700,
                   onTap: onEdit,
                 ),
-                8.horizontalSpace,
+                SpaceM.s2.horizontalSpace,
                 _ActionIcon(
                   asset: Assets.svg.bin.path,
                   color: ColorM.red,

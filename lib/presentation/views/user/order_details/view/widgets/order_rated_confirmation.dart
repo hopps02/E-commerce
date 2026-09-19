@@ -7,6 +7,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Replaces the rate CTA the moment a rating is accepted, so the customer sees
 /// their feedback was received along with the stars they gave.
@@ -19,13 +20,13 @@ class OrderRatedConfirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        16,
-        16,
-        16,
+        SpaceM.s4,
+        SpaceM.s4,
+        SpaceM.s4,
         context.bottomSafeAreaPadding + 16,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s4.h),
         decoration: BoxDecoration(
           color: ColorM.lightGreen,
           borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
@@ -43,7 +44,7 @@ class OrderRatedConfirmation extends StatelessWidget {
               ),
               child: Icon(Icons.check_rounded, color: ColorM.white, size: 22),
             ),
-            12.horizontalSpace,
+            SpaceM.s3.horizontalSpace,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,7 @@ class OrderRatedConfirmation extends StatelessWidget {
                       height: 1.2,
                     ),
                   ),
-                  4.verticalSpace,
+                  SpaceM.s1.verticalSpace,
                   Text(
                     Translation.rating_thanks.tr,
                     style: context.labelMedium.copyWith(
@@ -64,7 +65,7 @@ class OrderRatedConfirmation extends StatelessWidget {
                       height: 1.2,
                     ),
                   ),
-                  8.verticalSpace,
+                  SpaceM.s2.verticalSpace,
                   _Stars(filled: overall),
                 ],
               ),
@@ -90,7 +91,8 @@ class _Stars extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(5, (i) {
         return Padding(
-          padding: EdgeInsets.only(right: i == 4 ? 0.0 : 4.w),
+          // The last star has nothing to its right.
+          padding: EdgeInsets.only(right: i == 4 ? 0.0 : SpaceM.s1.w),
           child: SvgPicture.asset(
             Assets.svg.star.path,
             width: 16,

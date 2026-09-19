@@ -11,6 +11,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OrderCard extends StatelessWidget {
   final CustomerOrder order;
@@ -30,7 +31,7 @@ class OrderCard extends StatelessWidget {
     final step = order.timelineStep;
     return Container(
       width: 343,
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(SpaceM.s4.w),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,
@@ -63,11 +64,11 @@ class OrderCard extends StatelessWidget {
               ),
             ],
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Container(height: 1, color: ColorM.gray250),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6.h),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s2.h),
             decoration: ShapeDecoration(
               color: ColorM.primary50.withValues(alpha: 0.4),
               shape: SmoothRectangleBorder(
@@ -76,7 +77,7 @@ class OrderCard extends StatelessWidget {
               ),
             ),
             child: Row(
-              spacing: 12,
+              spacing: SpaceM.s3,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
@@ -179,7 +180,7 @@ class OrderCard extends StatelessWidget {
               ],
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Row(
             children: [
               Expanded(
@@ -215,9 +216,9 @@ class OrderCard extends StatelessWidget {
               ),
             ],
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Container(height: 1, color: ColorM.gray250),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -225,7 +226,7 @@ class OrderCard extends StatelessWidget {
                 backgroundColor: ColorM.primary600,
                 borderRadius: 10.r,
                 smoothness: 1,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
                 onTap: onTapDetails,
                 child: Text(
                   Translation.view_details.tr,
@@ -251,7 +252,7 @@ class OrderCard extends StatelessWidget {
                           fontWeight: FontWeightM.semiBold,
                         ),
                       ),
-                      2.horizontalSpace,
+                      SpaceM.s1.horizontalSpace,
                       CurrencyMark(size: 13, color: ColorM.primary700),
                     ],
                   ),
@@ -341,7 +342,7 @@ class TimeLineStep extends StatelessWidget {
                 ),
             ],
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Text(
             title,
             style: context.labelSmall.copyWith(

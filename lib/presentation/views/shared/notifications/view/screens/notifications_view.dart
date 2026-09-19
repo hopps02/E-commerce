@@ -17,6 +17,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/notifications/riverpod/notifications_controller.dart';
 import 'package:store/presentation/views/shared/notifications/view/widgets/notification_tile.dart';
 import 'package:store/presentation/views/shared/notifications/view/widgets/notifications_empty_state.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class NotificationsView extends ConsumerStatefulWidget {
   const NotificationsView({super.key});
@@ -46,7 +47,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: Translation.notifications.tr,
@@ -92,11 +93,11 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                     padding:
                         EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                         EdgeInsets.only(
-                          top: 16,
+                          top: SpaceM.s4,
                           bottom: context.bottomPadding + SizeM.pagePadding,
                         ),
                     itemCount: state.notifications.length,
-                    separatorBuilder: (_, _) => 12.verticalSpace,
+                    separatorBuilder: (_, _) => SpaceM.s3.verticalSpace,
                     itemBuilder: (context, index) {
                       final notification = state.notifications[index];
                       return NotificationTile(

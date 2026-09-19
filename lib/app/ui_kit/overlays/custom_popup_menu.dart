@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CustomPopupMenu<T> extends StatelessWidget {
   final Widget child;
@@ -37,7 +38,7 @@ class CustomPopupMenu<T> extends StatelessWidget {
       onSelected: onSelected,
       borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
       constraints: constraints ?? const BoxConstraints(),
-      padding: padding ?? EdgeInsets.symmetric(vertical: 6, horizontal: 8.w),
+      padding: padding ?? EdgeInsets.symmetric(vertical: SpaceM.s2, horizontal: SpaceM.s2.w),
       menuPadding: menuPadding ?? EdgeInsets.zero,
       icon: child,
       clipBehavior: Clip.hardEdge,
@@ -75,7 +76,7 @@ class CustomPopupMenuItem<T> {
       onTap: onTap,
       child: Row(
         children: [
-          if (leading != null) ...[leading, 8.horizontalSpace],
+          if (leading != null) ...[leading, SpaceM.s2.horizontalSpace],
           Builder(
             builder: (context) {
               return Expanded(
@@ -94,7 +95,7 @@ class CustomPopupMenuItem<T> {
               );
             },
           ),
-          if (trailing != null) ...[8.horizontalSpace, trailing],
+          if (trailing != null) ...[SpaceM.s2.horizontalSpace, trailing],
         ],
       ),
     );

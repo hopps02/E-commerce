@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SelectableWrap extends StatefulWidget {
   const SelectableWrap({
@@ -32,8 +33,8 @@ class _SelectableWrapState extends State<SelectableWrap> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 10,
-      runSpacing: 10,
+      spacing: SpaceM.s3,
+      runSpacing: SpaceM.s3,
       children: List.generate(
         widget.count,
         (index) => GestureDetector(
@@ -49,7 +50,7 @@ class _SelectableWrapState extends State<SelectableWrap> {
             });
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10.w),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s2, horizontal: SpaceM.s3.w),
             decoration: BoxDecoration(
               color: selected == index ? Colors.purple : Colors.transparent,
               borderRadius: BorderRadius.circular(12.r),

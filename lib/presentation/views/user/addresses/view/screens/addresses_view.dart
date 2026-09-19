@@ -19,6 +19,7 @@ import 'package:store/presentation/views/user/addresses/view/screens/address_for
 import 'package:store/presentation/views/user/addresses/view/widgets/address_card.dart';
 import 'package:store/presentation/views/user/addresses/view/widgets/delete_address_bottom_sheet.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class AddressesView extends ConsumerStatefulWidget {
   const AddressesView({super.key});
@@ -71,7 +72,7 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: Translation.addresses.tr,
@@ -89,11 +90,11 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(
                     horizontal: SizeM.pagePadding,
-                    vertical: 16,
+                    vertical: SpaceM.s4,
                   ),
                   physics: const BouncingScrollPhysics(),
                   itemCount: state.addresses.length,
-                  separatorBuilder: (_, _) => 12.verticalSpace,
+                  separatorBuilder: (_, _) => SpaceM.s3.verticalSpace,
                   itemBuilder: (context, index) {
                     final address = state.addresses[index];
                     return AddressCard(
@@ -120,7 +121,7 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(
             SizeM.pagePadding,
-            12,
+            SpaceM.s3,
             SizeM.pagePadding,
             context.bottomSafeAreaPadding + 12,
           ),

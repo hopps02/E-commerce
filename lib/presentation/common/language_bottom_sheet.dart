@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// App language picker bottom sheet, shared across roles (cashier, captain, …).
 class LanguageBottomSheet extends StatefulWidget {
@@ -38,7 +39,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     return Container(
       width: double.infinity,
       padding:
-          EdgeInsets.all(24.w) +
+          EdgeInsets.all(SpaceM.s6.w) +
           EdgeInsets.only(bottom: context.bottomSafeAreaPadding),
       decoration: ShapeDecoration(
         color: ColorM.white,
@@ -61,9 +62,9 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
               borderRadius: BorderRadius.circular(100.r),
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s3.h),
             child: Text(
               Translation.language.tr,
               style: context.titleMedium.copyWith(
@@ -73,7 +74,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
               ),
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           _LanguageRow(
             label: Translation.arabic.tr,
             isSelected:
@@ -81,7 +82,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
                 SupportedLocales.AR.locale.languageCode,
             onTap: () => setState(() => _selected = SupportedLocales.AR.locale),
           ),
-          4.verticalSpace,
+          SpaceM.s1.verticalSpace,
           _LanguageRow(
             label: Translation.english.tr,
             isSelected:
@@ -89,9 +90,9 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
                 SupportedLocales.EN.locale.languageCode,
             onTap: () => setState(() => _selected = SupportedLocales.EN.locale),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Container(height: 1, color: ColorM.gray200),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           CustomInkButton(
             onTap: _onConfirm,
             height: 48,
@@ -144,7 +145,7 @@ class _LanguageRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8.r),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h),
+        padding: EdgeInsets.symmetric(vertical: SpaceM.s3.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

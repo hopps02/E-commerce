@@ -20,6 +20,7 @@ import 'package:store/presentation/views/user/user_home/view/widgets/offer_banne
 import 'package:store/presentation/views/user/user_home/view/widgets/products_section.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/top_category.dart';
 import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ContentBody extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
@@ -117,24 +118,24 @@ class Body extends ConsumerWidget {
     return ListView(
       padding: EdgeInsets.only(bottom: bottomSafeAreaPadding),
       children: [
-        10.verticalSpace,
+        SpaceM.s3.verticalSpace,
         // The panel runs these. Until it has any, the built-in ones stay,
         // so the home screen is never blank.
         (catalog.tiles.isEmpty
                 ? const TopCategory()
                 : HomeAdTiles(tiles: catalog.tiles))
             .premiumAppear(index: 0, wantKeepAlive: true),
-        18.verticalSpace,
+        SpaceM.section.verticalSpace,
         (catalog.heroes.isEmpty
                 ? const OfferBanner()
                 : HomeAdBanner(banner: catalog.heroes.first))
             .premiumAppear(index: 1, wantKeepAlive: true),
-        18.verticalSpace,
+        SpaceM.section.verticalSpace,
         CategoriesSection(
           categories: catalog.categories,
         ).premiumAppear(index: 2, wantKeepAlive: true),
         for (final (sectionIndex, section) in catalog.sections.indexed) ...[
-          18.verticalSpace,
+          SpaceM.section.verticalSpace,
           if (sectionIndex == 1)
             // A second promo sits between the two product rows, as designed.
             (catalog.heroes.length > 1
@@ -144,7 +145,7 @@ class Body extends ConsumerWidget {
                             _openProducts(context, section.category, arabic),
                       ))
                 .premiumAppear(index: 3 + sectionIndex, wantKeepAlive: true),
-          if (sectionIndex == 1) 18.verticalSpace,
+          if (sectionIndex == 1) SpaceM.section.verticalSpace,
           ProductsSection(
             title: section.category.name(arabic),
             subtitle: Translation.quick_choices.tr,
@@ -185,7 +186,7 @@ class Body extends ConsumerWidget {
             ],
           ).premiumAppear(index: 4 + sectionIndex, wantKeepAlive: true),
         ],
-        18.verticalSpace,
+        SpaceM.section.verticalSpace,
       ],
     );
   }

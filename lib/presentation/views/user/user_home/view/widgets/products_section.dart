@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/section_header.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductsSection extends StatelessWidget {
   final String title;
@@ -42,14 +43,14 @@ class ProductsSection extends StatelessWidget {
                   onViewAllTap: onViewAllTap,
                 ),
               ),
-              16.verticalSpace,
+              SpaceM.heading.verticalSpace,
               SizedBox(
                 height: 200,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding),
                   itemCount: products.length,
-                  separatorBuilder: (context, index) => 12.horizontalSpace,
+                  separatorBuilder: (context, index) => SpaceM.row.horizontalSpace,
                   itemBuilder: (context, index) {
                     return ProductCard(
                       title: products[index]['name'],

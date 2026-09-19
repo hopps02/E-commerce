@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/edit_profile/view/widgets/profile_phone_field.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The market is Egypt: an account's phone arrives as +20 followed by the
 /// local number, and the field shows it beside the Egyptian flag.
@@ -60,24 +61,24 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(SpaceM.s4.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          24.verticalSpace,
+          SpaceM.s6.verticalSpace,
 
           Text(
             Translation.name.tr,
             style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           SimpleForm(
             hintText: Translation.name.tr,
             keyboardType: TextInputType.name,
             controller: nameController,
           ),
 
-          24.verticalSpace,
+          SpaceM.s6.verticalSpace,
 
           ProfilePhoneField(
             phoneNumberController: phoneController,
@@ -85,13 +86,13 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
             initialDialCode: _dialCode,
           ),
 
-          48.verticalSpace,
+          SpaceM.s12.verticalSpace,
 
           CustomInkButton(
             onTap: _save,
             borderRadius: 20.r,
             backgroundColor: ColorM.primary500,
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             child: Center(
               child: Text(
                 Translation.save.tr,

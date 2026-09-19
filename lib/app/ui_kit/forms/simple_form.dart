@@ -9,6 +9,7 @@ import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 
 import 'custom_form_field.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SimpleForm extends StatelessWidget {
   final TextEditingController controller;
@@ -137,7 +138,7 @@ class SimpleForm extends StatelessWidget {
               ),
             )
           : null,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       isPhoneForm: false,
       obscureText: obscureText,
       focusNode: focusNode,

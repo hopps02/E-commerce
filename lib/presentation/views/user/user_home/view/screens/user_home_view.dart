@@ -6,13 +6,13 @@ import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/app/responsive/responsive.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
-import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/bottom_navigation.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/bottom_navigation_bar.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/gradient_background.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/page_slider.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class UserHomeView extends ConsumerStatefulWidget {
   const UserHomeView({super.key});
@@ -61,8 +61,10 @@ class _UserHomeViewState extends ConsumerState<UserHomeView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    // What the floating bar covers: the gap it floats in, its own height,
+    // and one more gutter so nothing ends against it.
     final double bottomSafeAreaPadding =
-        context.bottomSafeAreaPadding + 8.h + 78.h + SizeM.pagePadding.h;
+        context.bottomSafeAreaPadding + SpaceM.s2.h + 78.h + SpaceM.page.h;
 
     initializeBottomNavItems();
 

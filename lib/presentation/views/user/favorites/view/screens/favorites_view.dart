@@ -16,6 +16,7 @@ import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart
 import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/product_card.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class FavoritesView extends ConsumerStatefulWidget {
   const FavoritesView({super.key});
@@ -48,7 +49,7 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: Translation.favorites.tr,
@@ -66,7 +67,7 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
                   padding:
                       EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                       EdgeInsets.only(
-                        top: 16,
+                        top: SpaceM.s4,
                         bottom: context.bottomPadding + SizeM.pagePadding,
                       ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

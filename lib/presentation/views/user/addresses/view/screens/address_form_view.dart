@@ -16,6 +16,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/addresses/riverpod/address_form_controller.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class AddressFormArgs {
   final DeliveryAddress? existing;
@@ -159,9 +160,9 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
       barrierColor: ColorM.gray950.withOpacity(0.45),
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(horizontal: 32.w),
+        insetPadding: EdgeInsets.symmetric(horizontal: SpaceM.s8.w),
         child: Container(
-          padding: EdgeInsets.fromLTRB(22, 26, 22, 22.h),
+          padding: EdgeInsets.fromLTRB(SpaceM.s6, SpaceM.s7, SpaceM.s6, SpaceM.s6.h),
           decoration: ShapeDecoration(
             color: ColorM.white,
             shape: SmoothRectangleBorder(
@@ -189,7 +190,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   size: 30,
                 ),
               ),
-              18.verticalSpace,
+              SpaceM.s5.verticalSpace,
               Text(
                 Translation.discard_address_changes_title.tr,
                 textAlign: TextAlign.center,
@@ -198,13 +199,13 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   color: ColorM.gray950,
                 ),
               ),
-              8.verticalSpace,
+              SpaceM.s2.verticalSpace,
               Text(
                 Translation.discard_address_changes_message.tr,
                 textAlign: TextAlign.center,
                 style: context.bodyMedium.copyWith(color: ColorM.gray600),
               ),
-              24.verticalSpace,
+              SpaceM.s6.verticalSpace,
               Row(
                 children: [
                   Expanded(
@@ -223,7 +224,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                       ),
                     ),
                   ),
-                  12.horizontalSpace,
+                  SpaceM.s3.horizontalSpace,
                   Expanded(
                     child: CustomInkButton(
                       onTap: () => Navigator.pop(context, true),
@@ -259,7 +260,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
           style: context.bodyMedium.copyWith(fontWeight: FontWeightM.medium),
         ),
         if (required) ...[
-          3.horizontalSpace,
+          SpaceM.s1.horizontalSpace,
           Text(
             '*',
             style: context.bodyMedium.copyWith(
@@ -288,7 +289,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
               SizedBox(height: context.topSafeAreaPadding),
               DefaultAppBar(
                 padding: EdgeInsets.symmetric(
-                  vertical: 16,
+                  vertical: SpaceM.s4,
                   horizontal: SizeM.pagePadding,
                 ),
                 title: _existing == null
@@ -302,13 +303,13 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
               Expanded(
                 child: SingleChildScrollView(
                   controller: _scrollController,
-                  padding: EdgeInsets.all(16.w),
+                  padding: EdgeInsets.all(SpaceM.s4.w),
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        spacing: 10,
+                        spacing: SpaceM.s3,
                         children: [
                           for (final (labelValue, name) in [
                             ('home', Translation.label_home.tr),
@@ -324,8 +325,8 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                               },
                               borderRadius: 12.r,
                               padding: EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 8,
+                                horizontal: SpaceM.s4,
+                                vertical: SpaceM.s2,
                               ),
                               backgroundColor: form.label == labelValue
                                   ? ColorM.primary50
@@ -349,7 +350,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         ],
                       ),
 
-                      20.verticalSpace,
+                      SpaceM.s5.verticalSpace,
 
                       _AddressTextField(
                         key: _fieldKeys[_AddressField.displayAddress],
@@ -365,7 +366,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         errorText: Translation.required_field.tr,
                       ),
 
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
 
                       _AddressTextField(
                         key: _fieldKeys[_AddressField.street],
@@ -380,7 +381,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         errorText: Translation.required_field.tr,
                       ),
 
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
 
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,7 +400,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                               errorText: Translation.required_field.tr,
                             ),
                           ),
-                          10.horizontalSpace,
+                          SpaceM.s3.horizontalSpace,
                           Expanded(
                             child: _AddressTextField(
                               label: _fieldLabel(Translation.floor_label.tr),
@@ -408,7 +409,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                               keyboardType: TextInputType.text,
                             ),
                           ),
-                          10.horizontalSpace,
+                          SpaceM.s3.horizontalSpace,
                           Expanded(
                             child: _AddressTextField(
                               label: _fieldLabel(Translation.apartment.tr),
@@ -420,7 +421,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         ],
                       ),
 
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
 
                       _AddressTextField(
                         label: _fieldLabel(Translation.landmark.tr),
@@ -429,7 +430,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         keyboardType: TextInputType.text,
                       ),
 
-                      16.verticalSpace,
+                      SpaceM.s4.verticalSpace,
 
                       _AddressTextField(
                         label: _fieldLabel(
@@ -441,7 +442,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         maxLines: 2,
                       ),
 
-                      32.verticalSpace,
+                      SpaceM.s8.verticalSpace,
 
                       CustomInkButton(
                         onTap: _save,
@@ -449,7 +450,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                         backgroundColor: canSave
                             ? ColorM.primary500
                             : ColorM.gray300,
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
                         child: Center(
                           child: Text(
                             Translation.save.tr,
@@ -501,7 +502,7 @@ class _AddressTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         label,
-        8.verticalSpace,
+        SpaceM.s2.verticalSpace,
         SimpleForm(
           hintText: hintText,
           keyboardType: keyboardType,
@@ -512,7 +513,7 @@ class _AddressTextField extends StatelessWidget {
         ),
         if (hasError && errorText != null)
           Padding(
-            padding: EdgeInsets.only(top: 6.h),
+            padding: EdgeInsets.only(top: SpaceM.s2.h),
             child: Text(
               errorText!,
               style: context.labelSmall.copyWith(

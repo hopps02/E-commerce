@@ -10,6 +10,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     as gradient_border;
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Same confirm-sheet language as account deletion: handle, icon plate,
 /// question, destructive + back actions.
@@ -58,7 +59,7 @@ class DeleteAddressBottomSheet extends StatelessWidget {
             ),
           ),
 
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
 
           Container(
             width: 80,
@@ -75,7 +76,7 @@ class DeleteAddressBottomSheet extends StatelessWidget {
             ),
           ),
 
-          24.verticalSpace,
+          SpaceM.s6.verticalSpace,
 
           Text(
             Translation.address_delete_confirm.tr,
@@ -87,7 +88,7 @@ class DeleteAddressBottomSheet extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
 
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
 
           Row(
             children: [
@@ -107,7 +108,7 @@ class DeleteAddressBottomSheet extends StatelessWidget {
                   ),
                 ),
               ),
-              16.horizontalSpace,
+              SpaceM.s4.horizontalSpace,
               Expanded(
                 child: CustomInkButton(
                   onTap: () => Navigator.pop(context, false),

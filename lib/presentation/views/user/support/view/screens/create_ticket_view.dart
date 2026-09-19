@@ -16,6 +16,7 @@ import 'package:store/presentation/views/shared/support/view/widgets/labeled_fie
 import 'package:store/presentation/views/user/support/riverpod/create_ticket_controller.dart';
 import 'package:store/presentation/views/user/support/riverpod/tickets_controller.dart';
 import 'package:store/presentation/views/user/support/view/widgets/linked_order_picker.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CreateTicketView extends ConsumerStatefulWidget {
   const CreateTicketView({super.key});
@@ -83,7 +84,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: Translation.new_ticket.tr,
@@ -93,7 +94,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
               child: ListView(
                 padding:
                     EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-                    EdgeInsets.only(top: 20, bottom: 24.h),
+                    EdgeInsets.only(top: SpaceM.s5, bottom: SpaceM.s6.h),
                 children: [
                   LabeledField(
                     label: Translation.ticket_subject.tr,
@@ -110,7 +111,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       onFieldSubmitted: (_) => _descriptionFocus.requestFocus(),
                     ),
                   ),
-                  18.verticalSpace,
+                  SpaceM.s5.verticalSpace,
                   LabeledField(
                     label: Translation.ticket_message.tr,
                     child: SimpleForm(
@@ -125,13 +126,13 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       borderColor: ColorM.gray100,
                       alignment: AlignmentDirectional.topStart,
                       padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
+                        horizontal: SpaceM.s4,
+                        vertical: SpaceM.s3,
                       ),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  18.verticalSpace,
+                  SpaceM.s5.verticalSpace,
                   LabeledField(
                     label: Translation.link_order_optional.tr,
                     child: InkWell(
@@ -139,7 +140,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       onTap: _pickOrder,
                       child: Container(
                         height: 52,
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                         decoration: BoxDecoration(
                           color: ColorM.gray100,
                           borderRadius: BorderRadius.circular(17.r),
@@ -151,7 +152,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                               size: 20,
                               color: ColorM.gray500,
                             ),
-                            10.horizontalSpace,
+                            SpaceM.s3.horizontalSpace,
                             Expanded(
                               child: Text(
                                 state.hasLinkedOrder
@@ -179,9 +180,9 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
             Padding(
               padding: EdgeInsets.fromLTRB(
                 SizeM.pagePadding,
-                8,
+                SpaceM.s2,
                 SizeM.pagePadding,
-                12.h + context.bottomSafeAreaPadding,
+                SpaceM.s3.h + context.bottomSafeAreaPadding,
               ),
               child: CustomInkButton(
                 onTap: _submit,

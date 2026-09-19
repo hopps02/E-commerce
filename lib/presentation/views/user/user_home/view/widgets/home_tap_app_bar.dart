@@ -19,6 +19,7 @@ import 'package:store/presentation/common/riverpod/location_controller.dart';
 import 'package:store/presentation/views/user/addresses/view/widgets/address_picker_bottom_sheet.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});
@@ -72,7 +73,7 @@ class TopAppBarContent extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(Translation.deliver_to.tr, style: context.labelLarge),
-                  8.verticalSpace,
+                  SpaceM.s2.verticalSpace,
                   CustomInkButton(
                     onTap: () async {
                       final picked = await AddressPickerBottomSheet.show(
@@ -90,12 +91,12 @@ class TopAppBarContent extends ConsumerWidget {
                           .read(checkoutController.notifier)
                           .selectAddress(picked);
                     },
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                    padding: EdgeInsets.symmetric(vertical: SpaceM.s2, horizontal: SpaceM.s1),
                     borderRadius: 8.r,
                     backgroundColor: ColorM.gray100,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      spacing: 4,
+                      spacing: SpaceM.s1,
                       children: [
                         SvgPicture.asset(
                           Assets.svg.location.path,
@@ -130,7 +131,7 @@ class TopAppBarContent extends ConsumerWidget {
                 textDirection: TextDirection.ltr,
                 children: [
                   const NotificationBell(),
-                  10.horizontalSpace,
+                  SpaceM.s3.horizontalSpace,
                   SvgPicture.asset(
                     Assets.svg.logo.path,
                     width: 20,
@@ -156,18 +157,18 @@ class BottomAppBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding, vertical: 3),
+      padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding, vertical: SpaceM.s1),
       child: CustomInkButton(
         onTap: () {
           context.pushNamed(Routes.search);
         },
         height: 45,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
         backgroundColor: ColorM.white,
         borderRadius: 14.r,
         side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
         child: Row(
-          spacing: 8,
+          spacing: SpaceM.s2,
           children: [
             SvgPicture.asset(
               Assets.svg.search.path,

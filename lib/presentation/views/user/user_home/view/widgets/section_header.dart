@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -44,7 +45,7 @@ class SectionHeader extends StatelessWidget {
           ],
         ),
         if (subtitle != null) ...[
-          6.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Text(
             subtitle!,
             softWrap: true,

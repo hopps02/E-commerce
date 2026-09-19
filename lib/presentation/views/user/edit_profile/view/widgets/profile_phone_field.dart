@@ -8,6 +8,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:nice_text_form/nice_text_form.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProfilePhoneField extends StatelessWidget {
   final TextEditingController phoneNumberController;
@@ -25,7 +26,7 @@ class ProfilePhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 8,
+      spacing: SpaceM.s2,
       children: [
         Text(
           Translation.mobile_number.tr,
@@ -40,7 +41,7 @@ class ProfilePhoneField extends StatelessWidget {
           prefixWidget: IgnorePointer(
             ignoring: true,
             child: Row(
-              spacing: 5,
+              spacing: SpaceM.s1,
               mainAxisSize: MainAxisSize.min,
               children: [
                 FastCountryCodeButton(
@@ -54,7 +55,7 @@ class ProfilePhoneField extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    7.horizontalSpace,
+                    SpaceM.s2.horizontalSpace,
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,15 +77,15 @@ class ProfilePhoneField extends StatelessWidget {
                         ),
                       ],
                     ),
-                    3.horizontalSpace,
+                    SpaceM.s1.horizontalSpace,
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(width: 1, height: 22, color: ColorM.gray300),
-                        10.verticalSpace,
+                        SpaceM.s3.verticalSpace,
                       ],
                     ),
-                    3.horizontalSpace,
+                    SpaceM.s1.horizontalSpace,
                   ],
                 ),
               ],

@@ -6,6 +6,7 @@ import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OrderPriceSummary extends StatelessWidget {
   final int subtotalHalalas;
@@ -33,21 +34,21 @@ class OrderPriceSummary extends StatelessWidget {
             fontWeight: FontWeightM.bold,
           ),
         ),
-        16.verticalSpace,
+        SpaceM.s4.verticalSpace,
         _SummaryRow(
           title: Translation.total_products.tr,
           halalas: subtotalHalalas,
         ),
-        12.verticalSpace,
+        SpaceM.s3.verticalSpace,
         _SummaryRow(
           title: Translation.shipping_cost.tr,
           halalas: shippingHalalas,
         ),
-        12.verticalSpace,
+        SpaceM.s3.verticalSpace,
         _SummaryRow(title: Translation.discount.tr, halalas: discountHalalas),
-        24.verticalSpace,
+        SpaceM.s6.verticalSpace,
         Container(height: 1, color: ColorM.gray200),
-        24.verticalSpace,
+        SpaceM.s6.verticalSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -60,7 +61,7 @@ class OrderPriceSummary extends StatelessWidget {
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
-              spacing: 3,
+              spacing: SpaceM.s1,
               children: [
                 Text(
                   Money.amount(totalHalalas),
@@ -93,7 +94,7 @@ class _SummaryRow extends StatelessWidget {
         Text(title, style: context.bodyMedium.copyWith(color: ColorM.gray600)),
         Row(
           mainAxisSize: MainAxisSize.min,
-          spacing: 3,
+          spacing: SpaceM.s1,
           children: [
             Text(
               Money.amount(halalas),

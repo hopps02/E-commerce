@@ -11,6 +11,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Opens whatever the panel pointed the ad at. The target arrives resolved, so
 /// there is nothing to look up here.
@@ -93,10 +94,10 @@ class HomeAdBanner extends StatelessWidget {
 
             Padding(
               padding: EdgeInsetsDirectional.only(
-                start: 16,
-                end: 72,
-                top: 18,
-                bottom: 18,
+                start: SpaceM.s4,
+                end: SpaceM.s16,
+                top: SpaceM.s5,
+                bottom: SpaceM.s5,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +105,7 @@ class HomeAdBanner extends StatelessWidget {
                 children: [
                   if (badge.isNotEmpty) ...[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4.h),
+                      padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s1.h),
                       decoration: BoxDecoration(
                         color: ColorM.white.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(40.r),
@@ -117,7 +118,7 @@ class HomeAdBanner extends StatelessWidget {
                         ),
                       ),
                     ),
-                    10.verticalSpace,
+                    SpaceM.s3.verticalSpace,
                   ],
                   if (title.isNotEmpty)
                     Text(
@@ -131,7 +132,7 @@ class HomeAdBanner extends StatelessWidget {
                       ),
                     ),
                   if (subtitle.isNotEmpty) ...[
-                    6.verticalSpace,
+                    SpaceM.s2.verticalSpace,
                     Text(
                       subtitle,
                       maxLines: 2,
@@ -142,9 +143,9 @@ class HomeAdBanner extends StatelessWidget {
                     ),
                   ],
                   if (cta.isNotEmpty) ...[
-                    14.verticalSpace,
+                    SpaceM.s4.verticalSpace,
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8.h),
+                      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
                       decoration: BoxDecoration(
                         color: ColorM.white,
                         borderRadius: BorderRadius.circular(40.r),
@@ -184,7 +185,7 @@ class HomeAdTiles extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
         itemCount: tiles.length,
-        separatorBuilder: (context, index) => 8.horizontalSpace,
+        separatorBuilder: (context, index) => SpaceM.s2.horizontalSpace,
         itemBuilder: (context, index) {
           final tile = tiles[index];
           final image = tile.imageUrl ?? '';
@@ -211,7 +212,7 @@ class HomeAdTiles extends StatelessWidget {
                     ),
                   ),
                 Padding(
-                  padding: EdgeInsets.all(8.r),
+                  padding: EdgeInsets.all(SpaceM.s2.r),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -224,7 +225,7 @@ class HomeAdTiles extends StatelessWidget {
                           color: ColorM.gray950,
                         ),
                       ),
-                      2.verticalSpace,
+                      SpaceM.s1.verticalSpace,
                       Text(
                         tile.subtitle(arabic),
                         maxLines: 1,

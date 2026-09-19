@@ -5,6 +5,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class Order extends StatelessWidget {
   final String title;
@@ -42,11 +43,11 @@ class Order extends StatelessWidget {
               border: Border.all(color: ColorM.gray150, width: 1.w),
               borderRadius: BorderRadius.circular(12.r),
             ),
-            padding: EdgeInsets.all(8.w),
+            padding: EdgeInsets.all(SpaceM.s2.w),
             child: CustomCachedImage(imageUrl: image, fit: BoxFit.contain),
           ),
 
-          12.horizontalSpace,
+          SpaceM.s3.horizontalSpace,
 
           // Product Info
           Expanded(
@@ -63,7 +64,7 @@ class Order extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                14.verticalSpace,
+                SpaceM.s4.verticalSpace,
                 Row(
                   children: [
                     // Weight (sizes live inside product names, so this chip
@@ -71,8 +72,8 @@ class Order extends StatelessWidget {
                     if (weight.isNotEmpty)
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
+                          horizontal: SpaceM.s2,
+                          vertical: SpaceM.s1,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(color: ColorM.gray200, width: 1),
@@ -97,7 +98,7 @@ class Order extends StatelessWidget {
                             fontWeight: FontWeightM.medium,
                           ),
                         ),
-                        8.horizontalSpace,
+                        SpaceM.s2.horizontalSpace,
                         Text(
                           price,
                           style: context.bodyLarge.copyWith(
@@ -105,7 +106,7 @@ class Order extends StatelessWidget {
                             fontWeight: FontWeightM.semiBold,
                           ),
                         ),
-                        2.horizontalSpace,
+                        SpaceM.s1.horizontalSpace,
                         CurrencyMark(size: 11, color: ColorM.primary700),
                       ],
                     ),

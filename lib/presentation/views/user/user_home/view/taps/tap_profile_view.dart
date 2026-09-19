@@ -16,6 +16,7 @@ import 'package:store/presentation/views/user/user_home/view/widgets/logout_butt
 import 'package:store/presentation/views/user/user_home/view/widgets/profile_info.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/profile_settings.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class TapProfileView extends ConsumerStatefulWidget {
   final double bottomSafeAreaPadding;
@@ -63,11 +64,11 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
               child: Column(
                 children: [
                   SizedBox(height: context.topSafeAreaPadding),
-                  28.verticalSpace,
+                  SpaceM.s7.verticalSpace,
                   ProfileInfo().premiumAppear(index: 0),
-                  24.verticalSpace,
+                  SpaceM.s6.verticalSpace,
                   ProfileSettings().premiumAppear(index: 1),
-                  16.verticalSpace,
+                  SpaceM.s4.verticalSpace,
                   LogoutButton().premiumAppear(index: 2),
                   SizedBox(height: widget.bottomSafeAreaPadding),
                 ],
@@ -88,7 +89,7 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
             child: Column(
               children: [
                 SizedBox(height: context.topSafeAreaPadding),
-                28.verticalSpace,
+                SpaceM.s7.verticalSpace,
                 Text(
                   Translation.profile.tr,
                   style: context.titleLarge.copyWith(
@@ -96,9 +97,9 @@ class _TapProfileViewState extends ConsumerState<TapProfileView>
                     color: ColorM.gray900,
                   ),
                 ).premiumAppear(index: 0),
-                28.verticalSpace,
+                SpaceM.s7.verticalSpace,
                 _GuestProfileState().premiumAppear(index: 1),
-                28.verticalSpace,
+                SpaceM.s7.verticalSpace,
                 const ProfileSettings(guestMode: true).premiumAppear(index: 2),
                 SizedBox(height: widget.bottomSafeAreaPadding),
               ],
@@ -154,7 +155,7 @@ class _GuestProfileState extends StatelessWidget {
               ),
             ),
           ),
-          20.verticalSpace,
+          SpaceM.s5.verticalSpace,
           Text(
             Translation.guest_profile_title.tr,
             textAlign: TextAlign.center,
@@ -163,16 +164,16 @@ class _GuestProfileState extends StatelessWidget {
               color: ColorM.gray900,
             ),
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s5.w),
             child: Text(
               Translation.guest_profile_subtitle.tr,
               textAlign: TextAlign.center,
               style: context.bodyMedium.copyWith(color: ColorM.gray500),
             ),
           ),
-          24.verticalSpace,
+          SpaceM.s6.verticalSpace,
           CustomInkButton(
             onTap: () => context.goNamed(Routes.auth),
             backgroundColor: ColorM.primary500,

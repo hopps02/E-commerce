@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
@@ -29,7 +30,7 @@ class CategoryCard extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(SpaceM.s2.r),
             child: Column(
               crossAxisAlignment: .start,
               children: [
@@ -45,7 +46,7 @@ class CategoryCard extends StatelessWidget {
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.ellipsis,
                 ),
-                4.verticalSpace,
+                SpaceM.s1.verticalSpace,
                 Text(
                   subtitle,
                   style: context.labelSmall.copyWith(

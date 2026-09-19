@@ -15,6 +15,7 @@ import 'package:store/presentation/views/user/product_details/view/widgets/produ
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_specs.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_variant_picker.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductDetailsViewArgs {
   final int productId;
@@ -89,7 +90,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            16.verticalSpace,
+                            SpaceM.s4.verticalSpace,
 
                             // Product image with favorite + dots
                             ProductImageSlider(
@@ -98,7 +99,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                                   : product.gallery,
                             ),
 
-                            14.verticalSpace,
+                            SpaceM.s4.verticalSpace,
 
                             // Product name + availability
                             ProductInfoSection(
@@ -108,7 +109,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                             ),
 
                             if (product.hasVariants) ...[
-                              20.verticalSpace,
+                              SpaceM.section.verticalSpace,
                               ProductVariantPicker(
                                 variants: product.variants,
                                 selectedId: product.id,
@@ -119,18 +120,18 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                             ],
 
                             if (product.attributes.isNotEmpty) ...[
-                              20.verticalSpace,
+                              SpaceM.section.verticalSpace,
                               ProductSpecs(attributes: product.attributes),
                             ],
 
                             if (product.description(arabic).isNotEmpty) ...[
-                              20.verticalSpace,
+                              SpaceM.section.verticalSpace,
                               ProductDescription(
                                 description: product.description(arabic),
                               ),
                             ],
 
-                            SizedBox(height: 24.h),
+                            SizedBox(height: SpaceM.section.h),
                           ],
                         ),
                       ),

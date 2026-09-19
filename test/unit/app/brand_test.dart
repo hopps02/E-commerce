@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:ui' show Color;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:store/app/config/brand.dart';
 import 'package:store/data/response/customer/branding_response.dart';

@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// "عن المنتج" description section from Figma
 class ProductDescription extends StatelessWidget {
@@ -14,7 +15,7 @@ class ProductDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +26,7 @@ class ProductDescription extends StatelessWidget {
               fontWeight: FontWeightM.medium,
             ),
           ),
-          11.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Text(
             description,
             style: context.bodyMedium.copyWith(

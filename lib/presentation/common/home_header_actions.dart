@@ -14,6 +14,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The glass action buttons (support / language / log out) shown under the
 /// welcome text on the cashier and captain home headers.
@@ -43,7 +44,7 @@ class HomeHeaderActions extends StatelessWidget {
             onTap: () => context.pushNamed(Routes.support),
           ),
         ),
-        8.horizontalSpace,
+        SpaceM.s2.horizontalSpace,
         Expanded(
           flex: 2,
           child: _GlassButton(
@@ -52,7 +53,7 @@ class HomeHeaderActions extends StatelessWidget {
             onTap: () => LanguageBottomSheet.show(context),
           ),
         ),
-        8.horizontalSpace,
+        SpaceM.s2.horizontalSpace,
         Expanded(
           flex: 3,
           child: _GlassButton(
@@ -85,7 +86,7 @@ class _GlassButton extends StatelessWidget {
       borderRadius: 14.r,
       backgroundColor: ColorM.white.withValues(alpha: 0.12),
       glassBlur: 10,
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
       keepBorderCrisp: true,
       tap: const ButtonAnimationSettings(
         ButtonAnimation.scaleTap,
@@ -103,7 +104,7 @@ class _GlassButton extends StatelessWidget {
             height: 18,
             colorFilter: const ColorFilter.mode(ColorM.white, BlendMode.srcIn),
           ),
-          5.horizontalSpace,
+          SpaceM.s1.horizontalSpace,
           FlexText(
             child: Text(
               title,

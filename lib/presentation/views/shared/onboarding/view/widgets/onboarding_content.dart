@@ -11,6 +11,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class OnboardingContent extends StatelessWidget {
   final String title;
@@ -41,14 +42,14 @@ class OnboardingContent extends StatelessWidget {
               desktop: BoxConstraints(maxWidth: 450.w),
               largeDesktop: BoxConstraints(maxWidth: 450.w),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s3.w),
             child: Column(
               mainAxisAlignment: .end,
               crossAxisAlignment: .start,
               children: [
                 DisplayedText(title: title, description: description),
 
-                SizedBox(height: 32.h),
+                SizedBox(height: SpaceM.s8.h),
 
                 Buttons(onNext: onNext, onLogin: onLogin),
 
@@ -77,7 +78,7 @@ class DisplayedText extends StatelessWidget {
     return Column(
       mainAxisSize: .min,
       crossAxisAlignment: .start,
-      spacing: 8,
+      spacing: SpaceM.s2,
       children: [
         Text(
           title,
@@ -111,7 +112,7 @@ class Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 15,
+      spacing: SpaceM.s4,
       children: [
         Expanded(
           child: CustomInkButton(
@@ -122,7 +123,7 @@ class Buttons extends StatelessWidget {
             alignment: Alignment.center,
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              spacing: 4,
+              spacing: SpaceM.s1,
               children: [
                 Text(
                   Translation.next.tr,

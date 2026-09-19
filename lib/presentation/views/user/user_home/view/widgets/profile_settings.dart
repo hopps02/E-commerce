@@ -10,6 +10,7 @@ import 'package:store/presentation/views/user/user_home/riverpod/profile_control
 import 'package:store/presentation/views/user/user_home/view/widgets/delete_account_bottom_sheet.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/profile_menu_item.dart';
 import 'package:store/presentation/res/router/app_router.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProfileSettings extends ConsumerWidget {
   final bool guestMode;
@@ -28,7 +29,7 @@ class ProfileSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       child: Column(
         children: [
           if (!guestMode) ...[

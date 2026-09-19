@@ -10,6 +10,7 @@ import 'package:store/app/utils/money.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CartItemCard extends StatefulWidget {
   final String title;
@@ -112,14 +113,14 @@ class _CartItemCardState extends State<CartItemCard> {
               border: Border.all(color: ColorM.gray200, width: 1.w),
               borderRadius: BorderRadius.circular(12.r),
             ),
-            padding: EdgeInsets.all(8.w),
+            padding: EdgeInsets.all(SpaceM.s2.w),
             child: CustomCachedImage(
               imageUrl: widget.imageUrl,
               fit: BoxFit.contain,
             ),
           ),
 
-          12.horizontalSpace,
+          SpaceM.s3.horizontalSpace,
 
           // Middle & Left Side in RTL (End): Info, Delete, Price, Counter
           Expanded(
@@ -147,11 +148,11 @@ class _CartItemCardState extends State<CartItemCard> {
                           // Weight badge (only when a size is provided —
                           // sizes normally live inside the product name)
                           if (widget.weight.isNotEmpty) ...[
-                            6.verticalSpace,
+                            SpaceM.s2.verticalSpace,
                             Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
+                                horizontal: SpaceM.s2,
+                                vertical: SpaceM.s1,
                               ),
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -178,8 +179,8 @@ class _CartItemCardState extends State<CartItemCard> {
                       onTap: widget.onDelete,
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(
-                          start: 8,
-                          bottom: 8,
+                          start: SpaceM.s2,
+                          bottom: SpaceM.s2,
                         ),
                         child: SvgPicture.asset(Assets.svg.bin.path, width: 20),
                       ),
@@ -187,7 +188,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   ],
                 ),
 
-                12.verticalSpace,
+                SpaceM.s3.verticalSpace,
 
                 // Bottom Row: Price & Counter
                 Row(
@@ -196,7 +197,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     // Price (Right Side in RTL)
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      spacing: 3,
+                      spacing: SpaceM.s1,
                       children: [
                         Text(
                           Money.amount(widget.priceHalalas),
@@ -212,7 +213,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     // Counter (Left Side in RTL)
                     Container(
                       width: 71,
-                      padding: EdgeInsets.all(2.w),
+                      padding: EdgeInsets.all(SpaceM.s1.w),
                       decoration: BoxDecoration(
                         color: ColorM.primary50,
                         border: Border.all(color: ColorM.primary50, width: 0.5),

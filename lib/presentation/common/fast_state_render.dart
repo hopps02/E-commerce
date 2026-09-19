@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:lottie/lottie.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class FastStateRender extends StatelessWidget {
   final ReqState reqState;
@@ -73,7 +74,7 @@ class FastStateRender extends StatelessWidget {
         alignment: alignment,
         child: GeneralPadding(
           child: Column(
-            spacing: 10,
+            spacing: SpaceM.s3,
             mainAxisSize: .min,
             mainAxisAlignment: .center,
             crossAxisAlignment: .center,
@@ -100,7 +101,7 @@ class FastStateRender extends StatelessWidget {
               ),
 
               if (onRetry != null) ...[
-                10.verticalSpace,
+                SpaceM.s3.verticalSpace,
                 RetryButton(onRetry: onRetry),
               ],
             ],

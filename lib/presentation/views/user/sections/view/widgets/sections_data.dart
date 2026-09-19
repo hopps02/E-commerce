@@ -11,6 +11,7 @@ import 'package:store/presentation/views/user/products/view/screens/products_vie
 import 'package:store/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
 import 'package:store/presentation/views/user/sections/riverpod/sections_controller.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SectionsData extends ConsumerWidget {
   const SectionsData({super.key});
@@ -30,12 +31,12 @@ class SectionsData extends ConsumerWidget {
           padding:
               EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
               EdgeInsets.only(
-                top: 16,
+                top: SpaceM.s4,
                 bottom: context.bottomPadding + SizeM.pagePadding,
               ),
           child: Wrap(
-            spacing: 15,
-            runSpacing: 16,
+            spacing: SpaceM.s4,
+            runSpacing: SpaceM.s4,
             alignment: WrapAlignment.start,
             children: [
               for (final category in sectionsState.categories)

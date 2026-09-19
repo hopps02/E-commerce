@@ -10,6 +10,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The ratings + comment the user submitted from [RateOrderBottomSheet].
 class RateOrderResult {
@@ -78,7 +79,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s3.h),
             child: Container(
               width: 80,
               height: 5,
@@ -90,14 +91,14 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
           ),
           Flexible(
             child: SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 14.h),
+              padding: EdgeInsets.fromLTRB(SpaceM.s4, 0, SpaceM.s4, SpaceM.s4.h),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _Header(onClose: () => Navigator.of(context).pop()),
-                  12.verticalSpace,
+                  SpaceM.s3.verticalSpace,
                   Container(height: 1, color: ColorM.gray200),
-                  20.verticalSpace,
+                  SpaceM.s5.verticalSpace,
                   // Overall rating
                   Text(
                     Translation.share_your_experience.tr,
@@ -108,26 +109,26 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                       height: 26 / 18,
                     ),
                   ),
-                  12.verticalSpace,
+                  SpaceM.s3.verticalSpace,
                   _Stars(
                     size: 38,
-                    spacing: 8,
+                    spacing: SpaceM.s2,
                     onChanged: (v) => setState(() => _overall = v),
                   ),
-                  16.verticalSpace,
+                  SpaceM.s4.verticalSpace,
                   Container(height: 1, color: ColorM.gray200),
-                  16.verticalSpace,
+                  SpaceM.s4.verticalSpace,
                   // Aspect ratings
                   _AspectRow(
                     label: Translation.rating_order_match.tr,
                     onChanged: (v) => _orderMatch = v,
                   ),
-                  14.verticalSpace,
+                  SpaceM.s4.verticalSpace,
                   _AspectRow(
                     label: Translation.rating_delivery_speed.tr,
                     onChanged: (v) => _deliverySpeed = v,
                   ),
-                  16.verticalSpace,
+                  SpaceM.s4.verticalSpace,
                   // Comment
                   SimpleForm(
                     controller: _commentController,
@@ -140,7 +141,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                     backgroundColor: ColorM.gray100,
                     borderColor: ColorM.gray200,
                     borderRadius: 12.r,
-                    padding: EdgeInsets.all(12.w),
+                    padding: EdgeInsets.all(SpaceM.s3.w),
                     textInputAction: TextInputAction.newline,
                   ),
                 ],
@@ -191,7 +192,7 @@ class _Header extends StatelessWidget {
           onTap: onClose,
           backgroundColor: ColorM.offWhite,
           customBorderRadius: BorderRadius.circular(999999),
-          padding: EdgeInsets.all(10.5.w),
+          padding: EdgeInsets.all(SpaceM.s3.w),
           alignment: Alignment.center,
           tap: const ButtonAnimationSettings(
             ButtonAnimation.scaleTap,
@@ -224,7 +225,7 @@ class _AspectRow extends StatelessWidget {
             ),
           ),
         ),
-        _Stars(size: 18, spacing: 4, onChanged: onChanged),
+        _Stars(size: 18, spacing: SpaceM.s1, onChanged: onChanged),
       ],
     );
   }
@@ -269,9 +270,9 @@ class _SendButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
-        16,
-        16,
-        16,
+        SpaceM.s4,
+        SpaceM.s4,
+        SpaceM.s4,
         context.bottomSafeAreaPadding + 16,
       ),
       decoration: const BoxDecoration(

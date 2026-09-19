@@ -15,6 +15,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/support/riverpod/ticket_detail_controller.dart';
 import 'package:store/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class TicketDetailArgs {
   final int id;
@@ -76,7 +77,7 @@ class _TicketDetailViewState extends ConsumerState<TicketDetailView> {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: widget.args.number.isEmpty
@@ -120,7 +121,7 @@ class _Thread extends StatelessWidget {
     return ListView(
       padding:
           EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
-          EdgeInsets.only(top: 16, bottom: 16.h),
+          EdgeInsets.only(top: SpaceM.s4, bottom: SpaceM.s4.h),
       children: [
         Row(
           children: [
@@ -133,21 +134,21 @@ class _Thread extends StatelessWidget {
                 ),
               ),
             ),
-            8.horizontalSpace,
+            SpaceM.s2.horizontalSpace,
             TicketStatusChip(status: ticket.status),
           ],
         ),
         if (ticket.merchantName(arabic).isNotEmpty) ...[
-          6.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Text(
             ticket.merchantName(arabic),
             style: context.bodyMedium.copyWith(color: ColorM.gray500),
           ),
         ],
-        16.verticalSpace,
+        SpaceM.s4.verticalSpace,
         for (final message in messages)
           Padding(
-            padding: EdgeInsets.only(bottom: 10.h),
+            padding: EdgeInsets.only(bottom: SpaceM.s3.h),
             child: _MessageBubble(message: message),
           ),
       ],
@@ -174,7 +175,7 @@ class _MessageBubble extends StatelessWidget {
           : AlignmentDirectional.centerStart,
       child: Container(
         constraints: BoxConstraints(maxWidth: 0.78.sw),
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s3.h),
         decoration: BoxDecoration(
           color: isOpener
               ? ColorM.primary.withValues(alpha: 0.10)
@@ -194,7 +195,7 @@ class _MessageBubble extends StatelessWidget {
               style: context.bodyMedium.copyWith(color: ColorM.gray900),
             ),
             if (time.isNotEmpty) ...[
-              4.verticalSpace,
+              SpaceM.s1.verticalSpace,
               Text(
                 time,
                 style: context.labelSmall.copyWith(color: ColorM.gray500),
@@ -228,9 +229,9 @@ class _ReplyBar extends StatelessWidget {
         color: ColorM.gray100,
         padding: EdgeInsets.fromLTRB(
           SizeM.pagePadding,
-          14,
+          SpaceM.s4,
           SizeM.pagePadding,
-          14.h + context.bottomSafeAreaPadding,
+          SpaceM.s4.h + context.bottomSafeAreaPadding,
         ),
         child: Text(
           Translation.ticket_closed_cannot_reply.tr,
@@ -253,9 +254,9 @@ class _ReplyBar extends StatelessWidget {
       ),
       padding: EdgeInsets.fromLTRB(
         SizeM.pagePadding,
-        10,
+        SpaceM.s3,
         SizeM.pagePadding,
-        10.h + context.bottomSafeAreaPadding,
+        SpaceM.s3.h + context.bottomSafeAreaPadding,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -270,11 +271,11 @@ class _ReplyBar extends StatelessWidget {
               backgroundColor: ColorM.gray100,
               borderColor: ColorM.gray100,
               alignment: AlignmentDirectional.topStart,
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
+              padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s3.h),
               textAlign: TextAlign.start,
             ),
           ),
-          10.horizontalSpace,
+          SpaceM.s3.horizontalSpace,
           CustomInkButton(
             onTap: onSend,
             isLoading: sending,

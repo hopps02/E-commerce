@@ -8,6 +8,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Weight/size selector chips — "حجم العبوة" section from Figma.
 ///
@@ -33,7 +34,7 @@ class _ProductWeightSelectorState extends State<ProductWeightSelector> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,9 +45,9 @@ class _ProductWeightSelectorState extends State<ProductWeightSelector> {
               fontWeight: FontWeightM.medium,
             ),
           ),
-          11.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Row(
-            spacing: 10,
+            spacing: SpaceM.s3,
             mainAxisAlignment: MainAxisAlignment.start,
             children: List.generate(weights.length, (index) {
               final isSelected = selectedIndex == index;
@@ -79,7 +80,7 @@ class _WeightChip extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       borderRadius: 12.r,
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s2.h),
       backgroundColor: ColorM.transparent,
       side: GradientBorderSide(
         color: isSelected ? ColorM.primary : ColorM.gray200,
@@ -87,7 +88,7 @@ class _WeightChip extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        spacing: 4,
+        spacing: SpaceM.s1,
         children: [
           SizedBox(
             width: 14,

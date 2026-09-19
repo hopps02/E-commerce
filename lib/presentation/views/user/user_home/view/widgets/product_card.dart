@@ -14,6 +14,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductCard extends StatefulWidget {
   final String title;
@@ -150,7 +151,7 @@ class _ProductCardState extends State<ProductCard> {
                 // Product Image
                 Positioned.fill(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+                    padding: EdgeInsets.symmetric(horizontal: SpaceM.s10, vertical: SpaceM.s10),
                     child: CustomCachedImage(
                       imageUrl: widget.imageUrl,
                       fit: BoxFit.contain,
@@ -182,7 +183,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ],
             ),
-            8.verticalSpace,
+            SpaceM.s2.verticalSpace,
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
@@ -211,10 +212,10 @@ class _ProductCardState extends State<ProductCard> {
                               ),
                             ),
                           ),
-                          2.horizontalSpace,
+                          SpaceM.s1.horizontalSpace,
                           CurrencyMark(size: 9, color: ColorM.primary550),
                           if (widget.oldPrice != null) ...[
-                            8.horizontalSpace,
+                            SpaceM.s2.horizontalSpace,
                             FlexText(
                               child: Text(
                                 "${widget.oldPrice}",
@@ -225,7 +226,7 @@ class _ProductCardState extends State<ProductCard> {
                                 ),
                               ),
                             ),
-                            4.horizontalSpace,
+                            SpaceM.s1.horizontalSpace,
                             const CurrencyMark(size: 8, color: ColorM.gray500),
                           ],
                         ],
@@ -242,7 +243,7 @@ class _ProductCardState extends State<ProductCard> {
                           key: const ValueKey("counter"),
                           width: 58,
                           height: 22,
-                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF3F0FF),
                             borderRadius: BorderRadius.circular(5.r),
@@ -289,7 +290,7 @@ class _ProductCardState extends State<ProductCard> {
                           key: const ValueKey("out_of_stock"),
                           height: 24,
                           constraints: BoxConstraints(maxWidth: 80.w),
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          padding: EdgeInsets.symmetric(horizontal: SpaceM.s2.w),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: ColorM.gray50,

@@ -9,6 +9,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -27,7 +28,7 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -35,7 +36,7 @@ class LogoutButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.r),
           child: Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             decoration: BoxDecoration(
               color: ColorM.red.withOpacity(0.05),
               borderRadius: BorderRadius.circular(20.r),
@@ -55,7 +56,7 @@ class LogoutButton extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
-                12.horizontalSpace,
+                SpaceM.s3.horizontalSpace,
                 Text(
                   Translation.log_out.tr,
                   style: context.titleMedium.copyWith(

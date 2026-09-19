@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/my_orders_tab_controller.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/my_order_tap_button.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class MyOrdersTapsButton extends ConsumerWidget {
   const MyOrdersTapsButton({super.key});
@@ -20,7 +21,7 @@ class MyOrdersTapsButton extends ConsumerWidget {
           isSelected: state.selectedIndex == 0,
           onTap: () => notifier.onTabChange(0),
         ),
-        8.horizontalSpace,
+        SpaceM.s2.horizontalSpace,
         MyOrderTapButton(
           title: Translation.previous_orders.tr,
           isSelected: state.selectedIndex == 1,

@@ -10,6 +10,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/category_grid_item.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/section_header.dart';
 import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 const int _categoryRowsPerPage = 3;
 const int _categoryColumnsPerPage = 4;
@@ -40,7 +41,7 @@ class CategoriesSection extends StatelessWidget {
             },
           ),
         ),
-        16.verticalSpace,
+        SpaceM.heading.verticalSpace,
         _CategoriesCarousel(categories: categories, arabic: arabic),
       ],
     );
@@ -148,7 +149,7 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
           ),
         ),
         if (pageCount > 1) ...[
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           _CategoryCarouselDots(
             pageCount: pageCount,
             currentPage: _currentPage,
@@ -257,7 +258,7 @@ class _CategoryCarouselDots extends StatelessWidget {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
-          margin: EdgeInsets.symmetric(horizontal: 3.w),
+          margin: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
           width: isActive ? 20.w : 6,
           height: 6,
           decoration: BoxDecoration(

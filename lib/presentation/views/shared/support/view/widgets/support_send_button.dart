@@ -10,6 +10,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/support/riverpod/support_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SupportSendButton extends ConsumerWidget {
   const SupportSendButton({super.key});
@@ -19,7 +20,7 @@ class SupportSendButton extends ConsumerWidget {
     final submitting = ref.watch(supportController).submitting;
     return GeneralPadding(
       child: Padding(
-        padding: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.only(bottom: SpaceM.s4.h),
         child: CustomInkButton(
           onTap: () => _onSend(context, ref),
           isLoading: submitting,

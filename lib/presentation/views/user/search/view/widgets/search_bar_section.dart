@@ -6,6 +6,7 @@ import 'package:store/app/ui_kit/default_app_bar.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SearchBarSection extends StatelessWidget {
   final TextEditingController controller;
@@ -24,10 +25,10 @@ class SearchBarSection extends StatelessWidget {
     return Container(
       color: Colors.white,
       // height: 72,
-      padding: EdgeInsets.symmetric(vertical: 17.h),
+      padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
       child: DefaultAppBar(
         actionButtons: [
-          16.horizontalSpace,
+          SpaceM.s4.horizontalSpace,
           Expanded(
             child: SimpleForm(
               height: 38,

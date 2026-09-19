@@ -5,6 +5,7 @@ import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductInfoSection extends StatelessWidget {
   final String name;
@@ -23,7 +24,7 @@ class ProductInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -39,7 +40,7 @@ class ProductInfoSection extends StatelessWidget {
                       fontWeight: FontWeightM.medium,
                     ),
                   ),
-                  4.verticalSpace,
+                  SpaceM.s1.verticalSpace,
                 ],
                 Text(
                   name,
@@ -54,7 +55,7 @@ class ProductInfoSection extends StatelessWidget {
               ],
             ),
           ),
-          12.horizontalSpace,
+          SpaceM.s3.horizontalSpace,
           _AvailabilityBadge(isAvailable: isAvailable),
         ],
       ),
@@ -75,10 +76,10 @@ class _AvailabilityBadge extends StatelessWidget {
 
     return Container(
       padding: EdgeInsetsDirectional.only(
-        start: 10,
-        end: 12,
-        top: 7,
-        bottom: 7,
+        start: SpaceM.s3,
+        end: SpaceM.s3,
+        top: SpaceM.s2,
+        bottom: SpaceM.s2,
       ),
       decoration: ShapeDecoration(
         color: backgroundColor,
@@ -93,7 +94,7 @@ class _AvailabilityBadge extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        spacing: 6,
+        spacing: SpaceM.s2,
         children: [
           Container(
             width: 6,

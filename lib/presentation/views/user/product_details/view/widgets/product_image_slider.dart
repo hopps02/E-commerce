@@ -9,6 +9,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/views/user/product_details/riverpod/product_details_controller.dart';
 import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductImageSlider extends ConsumerStatefulWidget {
   final List<String> imageUrls;
@@ -107,7 +108,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                   final isActive = index == _currentPage;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
-                    margin: EdgeInsets.symmetric(horizontal: 3.w),
+                    margin: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(
@@ -129,7 +130,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                 children: List.generate(3, (index) {
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
-                    margin: EdgeInsets.symmetric(horizontal: 3.w),
+                    margin: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(

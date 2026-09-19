@@ -12,6 +12,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
@@ -27,13 +28,13 @@ class LanguageView extends StatelessWidget {
           maxWidth: 500,
           child: Column(
             children: [
-              16.verticalSpace,
+              SpaceM.s4.verticalSpace,
               DefaultAppBar(
                 title: Translation.languages.tr,
               ).premiumAppear(index: 0),
-              32.verticalSpace,
+              SpaceM.s8.verticalSpace,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                 child: Column(
                   children: [
                     _LanguageItem(
@@ -49,7 +50,7 @@ class LanguageView extends StatelessWidget {
                         ),
                       ),
                     ).premiumAppear(index: 1),
-                    16.verticalSpace,
+                    SpaceM.s4.verticalSpace,
                     _LanguageItem(
                       title: Translation.arabic.tr,
                       locale: SupportedLocales.AR.locale,
@@ -97,7 +98,7 @@ class _LanguageItem extends StatelessWidget {
           await context.setLocale(locale);
         }
       },
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s4.h),
       backgroundColor: Colors.transparent,
       borderRadius: 16.r,
       side: gradient_border.GradientBorderSide(
@@ -107,14 +108,14 @@ class _LanguageItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(8.dg),
+            padding: EdgeInsets.all(SpaceM.s2.dg),
             decoration: const BoxDecoration(
               color: ColorM.gray50,
               shape: BoxShape.circle,
             ),
             child: icon,
           ),
-          16.horizontalSpace,
+          SpaceM.s4.horizontalSpace,
           Expanded(
             child: Text(
               title,

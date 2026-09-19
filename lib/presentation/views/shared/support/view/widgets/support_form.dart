@@ -6,6 +6,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/support/riverpod/support_controller.dart';
 import 'package:store/presentation/views/shared/support/view/widgets/labeled_field.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SupportForm extends ConsumerWidget {
   const SupportForm({super.key});
@@ -31,7 +32,7 @@ class SupportForm extends ConsumerWidget {
             onFieldSubmitted: (_) => notifier.messageFocusNode.requestFocus(),
           ),
         ),
-        18.verticalSpace,
+        SpaceM.s5.verticalSpace,
         LabeledField(
           label: Translation.ticket_message.tr,
           child: SimpleForm(
@@ -45,7 +46,7 @@ class SupportForm extends ConsumerWidget {
             backgroundColor: ColorM.gray100,
             borderColor: ColorM.gray100,
             alignment: AlignmentDirectional.topStart,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s3.h),
             textAlign: TextAlign.start,
           ),
         ),

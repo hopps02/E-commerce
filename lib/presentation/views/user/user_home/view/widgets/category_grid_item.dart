@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CategoryGridItem extends StatelessWidget {
   final String title;
@@ -28,7 +29,7 @@ class CategoryGridItem extends StatelessWidget {
             height: 70,
             errorBackgroundColor: ColorM.gray50,
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           SizedBox(
             width: 70,
             child: Text(

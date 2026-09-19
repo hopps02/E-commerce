@@ -10,6 +10,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Shared sliver app bar for the cashier and captain home screens.
 ///
@@ -107,7 +108,7 @@ class _TopSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: context.topSafeAreaPadding),
-                      22.verticalSpace,
+                      SpaceM.s6.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -129,7 +130,7 @@ class _TopSection extends StatelessWidget {
                           ?headerTrailing,
                         ],
                       ),
-                      21.verticalSpace,
+                      SpaceM.s5.verticalSpace,
                       headerActions,
                     ],
                   ),
@@ -177,8 +178,8 @@ class _BottomSection extends StatelessWidget {
     return GeneralPadding(
       child: Column(
         children: tabsAboveSearch
-            ? [16.verticalSpace, tabsBar, 16.verticalSpace, search]
-            : [search, 14.verticalSpace, tabsBar],
+            ? [SpaceM.s4.verticalSpace, tabsBar, SpaceM.s4.verticalSpace, search]
+            : [search, SpaceM.s4.verticalSpace, tabsBar],
       ),
     );
   }

@@ -14,6 +14,7 @@ import 'package:store/presentation/views/user/favorites/riverpod/favorites_contr
 import 'package:store/presentation/views/user/user_home/view/widgets/product_card.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/products/riverpod/products_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProductsData extends ConsumerWidget {
   const ProductsData({super.key});
@@ -50,7 +51,7 @@ class ProductsData extends ConsumerWidget {
             padding:
                 EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                 EdgeInsets.only(
-                  top: 16,
+                  top: SpaceM.s4,
                   bottom: context.bottomPadding + SizeM.pagePadding,
                 ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

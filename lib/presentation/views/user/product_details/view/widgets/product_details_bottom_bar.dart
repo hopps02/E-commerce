@@ -12,6 +12,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The product page's sticky bar: the price (with any discount) on one side and,
 /// on the other, an action that MORPHS between "add to cart" and a live quantity
@@ -46,17 +47,17 @@ class ProductDetailsBottomBar extends ConsumerWidget {
           Container(height: 1, color: ColorM.gray150),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
-              16,
-              14,
-              16,
-              14.h + context.bottomSafeAreaPadding,
+              SpaceM.s4,
+              SpaceM.s4,
+              SpaceM.s4,
+              SpaceM.s4.h + context.bottomSafeAreaPadding,
             ),
             child: Row(
               children: [
                 Expanded(
                   child: _PriceBlock(product: product, arabic: arabic),
                 ),
-                12.horizontalSpace,
+                SpaceM.s3.horizontalSpace,
                 AnimatedSize(
                   duration: const Duration(milliseconds: 240),
                   curve: Curves.easeOutCubic,
@@ -130,7 +131,7 @@ class _PriceBlock extends StatelessWidget {
       children: [
         if (hasDiscount && percent > 0) ...[
           _SaveBadge(percent: percent),
-          6.verticalSpace,
+          SpaceM.s2.verticalSpace,
         ],
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -150,7 +151,7 @@ class _PriceBlock extends StatelessWidget {
               ),
             ),
             if (product.unitName.isNotEmpty) ...[
-              4.horizontalSpace,
+              SpaceM.s1.horizontalSpace,
               Text(
                 '/ ' + product.unitName,
                 style: context.labelMedium.copyWith(
@@ -161,7 +162,7 @@ class _PriceBlock extends StatelessWidget {
               ),
             ],
             if (hasDiscount) ...[
-              8.horizontalSpace,
+              SpaceM.s2.horizontalSpace,
               Text(
                 Money.format(product.priceHalalas, arabic: arabic),
                 maxLines: 1,
@@ -190,7 +191,7 @@ class _SaveBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3.h),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s1.h),
       decoration: ShapeDecoration(
         color: ColorM.primary50,
         shape: SmoothRectangleBorder(
@@ -224,7 +225,7 @@ class _AddToCartButton extends StatelessWidget {
       borderRadius: 15.r,
       smoothness: 0.8,
       backgroundColor: ColorM.primary500,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s5.w),
       side: GradientBorderSide(color: ColorM.primary600, width: 1.w),
       boxShadow: [
         BoxShadow(
@@ -242,7 +243,7 @@ class _AddToCartButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.add_shopping_cart_rounded, color: ColorM.white, size: 19),
-          8.horizontalSpace,
+          SpaceM.s2.horizontalSpace,
           Text(
             Translation.add_to_cart.tr,
             style: context.bodyLarge.copyWith(
@@ -265,7 +266,7 @@ class _OutOfStockChip extends StatelessWidget {
     return Container(
       height: 48,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s5.w),
       decoration: ShapeDecoration(
         color: ColorM.gray150,
         shape: SmoothRectangleBorder(
@@ -322,7 +323,7 @@ class _QuantityStepper extends StatelessWidget {
     return Container(
       width: 132,
       height: 48,
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
       decoration: ShapeDecoration(
         color: ColorM.gray100,
         shape: SmoothRectangleBorder(

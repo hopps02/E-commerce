@@ -10,6 +10,7 @@ import 'package:store/app/extensions/widget_extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class NavigationItem {
   final String title;
@@ -70,7 +71,7 @@ class _CustomBottomNavigationBarState
                 ),
               ),
 
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+              padding: EdgeInsets.symmetric(horizontal: SpaceM.s3, vertical: SpaceM.s4),
 
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,9 +122,11 @@ class Button extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastEaseInToSlowEaseOut,
+        // The same height whichever tab is on: only the width and the
+        // colour change. A taller unselected pill used to push past the bar.
         padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 37 : 15,
-          vertical: isSelected ? 10 : 15,
+          horizontal: isSelected ? SpaceM.s10 : SpaceM.s4,
+          vertical: SpaceM.s3,
         ),
         decoration: BoxDecoration(
           color: ColorM.white,
@@ -153,7 +156,7 @@ class Button extends StatelessWidget {
                         minWidth: 16,
                         minHeight: 16,
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      padding: EdgeInsets.symmetric(horizontal: SpaceM.s1),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: ColorM.primary500,

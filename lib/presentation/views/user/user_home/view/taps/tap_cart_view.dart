@@ -13,6 +13,7 @@ import 'package:store/presentation/views/user/cart/view/widgets/cart_data.dart';
 import 'package:store/presentation/views/user/cart/view/widgets/cart_summary_bottom_bar.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The cart as a first-class tab — keeps the app's bottom navigation visible
 /// (unlike the pushed [CartView] reached from product details). Re-prices the
@@ -66,7 +67,7 @@ class _TapCartViewState extends ConsumerState<TapCartView>
         children: [
           SizedBox(height: context.topSafeAreaPadding),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+            padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             child: Text(
               Translation.cart.tr,
               style: context.titleMedium.copyWith(fontWeight: FontWeightM.bold),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class CustomDropDownButton extends StatefulWidget {
   final int itemsCount;
@@ -44,7 +45,7 @@ class _CustomDropDownButtonState<T> extends State<CustomDropDownButton> {
           width: 1,
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: SpaceM.s5.w),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           value: selectedValue,

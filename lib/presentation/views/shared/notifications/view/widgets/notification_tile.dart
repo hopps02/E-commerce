@@ -8,6 +8,7 @@ import 'package:store/data/response/notification_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class NotificationTile extends StatelessWidget {
   final MobileNotification notification;
@@ -31,7 +32,7 @@ class NotificationTile extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
         curve: Curves.easeOut,
-        padding: EdgeInsets.all(14.w),
+        padding: EdgeInsets.all(SpaceM.s4.w),
         decoration: BoxDecoration(
           color: unread
               ? ColorM.primary50.withValues(alpha: .45)
@@ -46,7 +47,7 @@ class NotificationTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _TypeIcon(style: style),
-            12.horizontalSpace,
+            SpaceM.s3.horizontalSpace,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,9 +67,9 @@ class NotificationTile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      8.horizontalSpace,
+                      SpaceM.s2.horizontalSpace,
                       Padding(
-                        padding: EdgeInsets.only(top: 2.h),
+                        padding: EdgeInsets.only(top: SpaceM.s1.h),
                         child: Text(
                           timeAgo(
                             notification.createdAt.toLocal(),
@@ -84,9 +85,9 @@ class NotificationTile extends StatelessWidget {
                         ),
                       ),
                       if (unread) ...[
-                        6.horizontalSpace,
+                        SpaceM.s2.horizontalSpace,
                         Padding(
-                          padding: EdgeInsets.only(top: 5.h),
+                          padding: EdgeInsets.only(top: SpaceM.s1.h),
                           child: Container(
                             width: 8,
                             height: 8,
@@ -99,7 +100,7 @@ class NotificationTile extends StatelessWidget {
                       ],
                     ],
                   ),
-                  5.verticalSpace,
+                  SpaceM.s1.verticalSpace,
                   Text(
                     notification.localizedBody,
                     maxLines: 2,

@@ -10,6 +10,7 @@ import 'package:store/presentation/common/fast_state_render.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The order a customer optionally links to a ticket. id == null means "no order
 /// / general ticket".
@@ -89,7 +90,7 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            12.verticalSpace,
+            SpaceM.s3.verticalSpace,
             Container(
               width: 44,
               height: 4,
@@ -98,7 +99,7 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
                 borderRadius: BorderRadius.circular(4.r),
               ),
             ),
-            14.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Text(
               Translation.select_order.tr,
               style: context.titleSmall.copyWith(
@@ -106,7 +107,7 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
                 fontWeight: FontWeightM.semiBold,
               ),
             ),
-            14.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Flexible(
               child: FastStateRender(
                 reqState: _reqState,
@@ -114,7 +115,7 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
                 onRetry: _load,
                 child: ListView.separated(
                   shrinkWrap: true,
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16.h),
+                  padding: EdgeInsets.fromLTRB(SpaceM.s4, 0, SpaceM.s4, SpaceM.s4.h),
                   itemCount: _orders.length + 1,
                   separatorBuilder: (_, _) =>
                       Divider(height: 1, color: ColorM.gray150),
@@ -155,7 +156,7 @@ class _OrderTile extends StatelessWidget {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     return ListTile(
       onTap: onTap,
-      contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
+      contentPadding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
       title: Text(
         title,
         style: context.bodyLarge.copyWith(color: ColorM.gray900),

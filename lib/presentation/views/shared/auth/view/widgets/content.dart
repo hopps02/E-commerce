@@ -6,6 +6,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/auth_title.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/phone_field.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/sent_otp_button.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class Content extends StatelessWidget {
   final TextEditingController phoneNumberController;
@@ -27,7 +28,7 @@ class Content extends StatelessWidget {
         desktop: BoxConstraints(maxWidth: 350.w),
         largeDesktop: BoxConstraints(maxWidth: 350.w),
       ),
-      padding: EdgeInsets.all(12.r),
+      padding: EdgeInsets.all(SpaceM.s3.r),
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorM.lightPrimary,
@@ -35,7 +36,7 @@ class Content extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: .min,
-        spacing: 10,
+        spacing: SpaceM.s3,
         children: [
           AuthTitle().premiumAppear(index: 1),
           PhoneField(

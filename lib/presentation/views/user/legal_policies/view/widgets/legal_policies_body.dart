@@ -9,6 +9,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/legal_policies/riverpod/legal_policies_controller.dart';
 import 'package:store/presentation/views/user/legal_policies/view/widgets/policy_section.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class LegalPoliciesBody extends ConsumerStatefulWidget {
   const LegalPoliciesBody({super.key});
@@ -40,10 +41,10 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
       trackWidth: 4,
       position: context.isLTR ? .right : .left,
       margin: EdgeInsets.only(
-        right: 8,
-        left: context.isLTR ? 0 : 8,
-        top: 16,
-        bottom: 16,
+        right: SpaceM.s2,
+        left: context.isLTR ? 0 : SpaceM.s2,
+        top: SpaceM.s4,
+        bottom: SpaceM.s4,
       ),
       child: ListView(
         controller: scrollController,
@@ -62,7 +63,7 @@ class _LegalPoliciesBodyState extends ConsumerState<LegalPoliciesBody> {
                   : Translation.legal_content_empty.tr,
               isPlaceholder: !sections[i].hasBody,
             ).premiumAppear(index: 2 + i),
-            if (i != sections.length - 1) 32.verticalSpace,
+            if (i != sections.length - 1) SpaceM.s8.verticalSpace,
           ],
         ],
       ),

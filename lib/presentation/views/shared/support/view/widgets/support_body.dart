@@ -7,6 +7,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/support/view/widgets/support_form.dart';
 import 'package:store/presentation/views/shared/support/view/widgets/support_icon.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class SupportBody extends StatelessWidget {
   const SupportBody({super.key});
@@ -14,11 +15,11 @@ class SupportBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 40, bottom: context.bottomViewInsets + 24),
+      padding: EdgeInsets.only(top: SpaceM.s10, bottom: context.bottomViewInsets + 24),
       child: Column(
         children: [
           const SupportIcon().premiumAppear(index: 1),
-          18.verticalSpace,
+          SpaceM.s5.verticalSpace,
           Text(
             Translation.request_support.tr,
             style: context.bodyLarge.copyWith(
@@ -28,7 +29,7 @@ class SupportBody extends StatelessWidget {
               fontSize: 18,
             ),
           ).premiumAppear(index: 2),
-          40.verticalSpace,
+          SpaceM.s10.verticalSpace,
           const GeneralPadding(child: SupportForm()).premiumAppear(index: 3),
         ],
       ),

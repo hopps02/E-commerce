@@ -15,6 +15,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/support/riverpod/tickets_controller.dart';
 import 'package:store/presentation/views/user/support/view/screens/ticket_detail_view.dart';
 import 'package:store/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// The customer's support tickets (My Tickets). Replaces the old static FAQ as
 /// the destination of profile "Help & Support".
@@ -50,7 +51,7 @@ class TicketsView extends ConsumerWidget {
             SizedBox(height: context.topSafeAreaPadding),
             DefaultAppBar(
               padding: EdgeInsets.symmetric(
-                vertical: 16,
+                vertical: SpaceM.s4,
                 horizontal: SizeM.pagePadding,
               ),
               title: Translation.my_tickets.tr,
@@ -75,11 +76,11 @@ class TicketsView extends ConsumerWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w) +
                         EdgeInsets.only(
-                          top: 16,
+                          top: SpaceM.s4,
                           bottom: context.bottomPadding + 80,
                         ),
                     itemCount: state.tickets.length,
-                    separatorBuilder: (_, _) => 12.verticalSpace,
+                    separatorBuilder: (_, _) => SpaceM.s3.verticalSpace,
                     itemBuilder: (context, index) =>
                         _TicketCard(ticket: state.tickets[index]),
                   ),
@@ -112,7 +113,7 @@ class _TicketCard extends StatelessWidget {
         arguments: TicketDetailArgs(id: ticket.id, number: ticket.ticketNumber),
       ),
       child: Container(
-        padding: EdgeInsets.all(14.w),
+        padding: EdgeInsets.all(SpaceM.s4.w),
         decoration: BoxDecoration(
           color: ColorM.white,
           borderRadius: BorderRadius.circular(16.r),
@@ -134,18 +135,18 @@ class _TicketCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                8.horizontalSpace,
+                SpaceM.s2.horizontalSpace,
                 TicketStatusChip(status: ticket.status),
               ],
             ),
-            8.verticalSpace,
+            SpaceM.s2.verticalSpace,
             Text(
               ticket.previewText,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: context.bodyMedium.copyWith(color: ColorM.gray600),
             ),
-            10.verticalSpace,
+            SpaceM.s3.verticalSpace,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -174,7 +175,7 @@ class _NoTickets extends StatelessWidget {
     return Align(
       alignment: const Alignment(0, -0.15),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.w),
+        padding: EdgeInsets.symmetric(horizontal: SpaceM.s8.w),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -183,7 +184,7 @@ class _NoTickets extends StatelessWidget {
               size: 64,
               color: ColorM.gray300,
             ),
-            16.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Text(
               Translation.no_tickets_yet.tr,
               textAlign: TextAlign.center,
@@ -192,7 +193,7 @@ class _NoTickets extends StatelessWidget {
                 fontWeight: FontWeightM.medium,
               ),
             ),
-            8.verticalSpace,
+            SpaceM.s2.verticalSpace,
             Text(
               Translation.no_tickets_hint.tr,
               textAlign: TextAlign.center,

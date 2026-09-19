@@ -7,6 +7,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class ProfileInfo extends ConsumerWidget {
   const ProfileInfo({super.key});
@@ -25,7 +26,7 @@ class ProfileInfo extends ConsumerWidget {
               color: ColorM.gray900,
             ),
           ),
-          32.verticalSpace,
+          SpaceM.s8.verticalSpace,
           Container(
             height: 86,
             width: 86,
@@ -59,7 +60,7 @@ class ProfileInfo extends ConsumerWidget {
               ),
             ),
           ),
-          20.verticalSpace,
+          SpaceM.s5.verticalSpace,
           Text(
             profile.name,
             maxLines: 2,
@@ -69,9 +70,9 @@ class ProfileInfo extends ConsumerWidget {
               color: ColorM.gray900,
             ),
           ),
-          6.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6.h),
+            padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
             decoration: BoxDecoration(
               color: ColorM.gray50,
               borderRadius: BorderRadius.circular(20.r),

@@ -17,6 +17,7 @@ import 'package:store/app/extensions/guest_gate.dart';
 import 'package:store/presentation/views/user/addresses/riverpod/addresses_controller.dart';
 import 'package:store/presentation/views/user/addresses/view/screens/address_form_view.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 /// Saved-address switcher. Picking one returns it to the caller for a fresh
 /// quote or active home delivery location.
@@ -95,12 +96,12 @@ class _AddressPickerBottomSheetState
               borderRadius: BorderRadius.circular(100.r),
             ),
           ),
-          20.verticalSpace,
+          SpaceM.s5.verticalSpace,
           Text(
             Translation.deliver_to.tr,
             style: context.bodyLarge.copyWith(fontWeight: FontWeightM.bold),
           ),
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
           Flexible(
             child: state.reqState == ReqState.empty
                 ? _AddressEmptyState(onAddAddress: _addNew)
@@ -113,7 +114,7 @@ class _AddressPickerBottomSheetState
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       itemCount: state.addresses.length,
-                      separatorBuilder: (_, _) => 10.verticalSpace,
+                      separatorBuilder: (_, _) => SpaceM.s3.verticalSpace,
                       itemBuilder: (context, index) {
                         final address = state.addresses[index];
                         return _PickerRow(
@@ -125,7 +126,7 @@ class _AddressPickerBottomSheetState
                   ),
           ),
           if (state.reqState != ReqState.empty) ...[
-            16.verticalSpace,
+            SpaceM.s4.verticalSpace,
             Row(
               children: [
                 Expanded(
@@ -185,7 +186,7 @@ class _AddressEmptyState extends StatelessWidget {
               ),
             ),
           ),
-          12.verticalSpace,
+          SpaceM.s3.verticalSpace,
           Text(
             Translation.no_addresses_saved.tr,
             style: context.bodyLarge.copyWith(
@@ -193,13 +194,13 @@ class _AddressEmptyState extends StatelessWidget {
               fontWeight: FontWeightM.bold,
             ),
           ),
-          8.verticalSpace,
+          SpaceM.s2.verticalSpace,
           Text(
             Translation.no_addresses_saved_hint.tr,
             textAlign: TextAlign.center,
             style: context.labelMedium.copyWith(color: ColorM.gray600),
           ),
-          16.verticalSpace,
+          SpaceM.s4.verticalSpace,
           CustomInkButton(
             onTap: onAddAddress,
             height: 46,
@@ -233,7 +234,7 @@ class _PickerRow extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: EdgeInsets.all(12.w),
+        padding: EdgeInsets.all(SpaceM.s3.w),
         decoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
@@ -252,7 +253,7 @@ class _PickerRow extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            10.horizontalSpace,
+            SpaceM.s3.horizontalSpace,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +265,7 @@ class _PickerRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (address.detailsLine.isNotEmpty) ...[
-                    3.verticalSpace,
+                    SpaceM.s1.verticalSpace,
                     Text(
                       address.detailsLine,
                       style: context.labelMedium.copyWith(
@@ -278,9 +279,9 @@ class _PickerRow extends StatelessWidget {
               ),
             ),
             if (address.isDefault) ...[
-              8.horizontalSpace,
+              SpaceM.s2.horizontalSpace,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3.h),
+                padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s1.h),
                 decoration: ShapeDecoration(
                   color: ColorM.primary50,
                   shape: SmoothRectangleBorder(

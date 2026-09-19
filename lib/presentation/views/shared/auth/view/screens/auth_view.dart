@@ -13,6 +13,7 @@ import 'package:store/presentation/views/shared/auth/riverpod/sign_up_controller
 import 'package:store/presentation/views/shared/auth/view/widgets/content.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/logo.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/otp_bottom_sheet.dart';
+import 'package:store/presentation/res/spacing_manager.dart';
 
 class AuthView extends ConsumerStatefulWidget {
   const AuthView({super.key});
@@ -73,11 +74,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
               child: GeneralPadding(
                 child: ResponsiveConstrained(
                   maxWidth: 450,
+                  // Centred rather than pushed down by two big numbers: the
+                  // block sits in the middle of whatever screen it is on.
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      119.verticalSpace,
                       const Logo(),
-                      76.verticalSpace,
+                      SpaceM.s16.verticalSpace,
                       Content(
                         phoneNumberController: phoneNumberController,
                         phoneNumberFocusNode: phoneNumberFocusNode,
@@ -93,9 +97,9 @@ class _AuthViewState extends ConsumerState<AuthView> {
             child: Align(
               alignment: AlignmentDirectional.topStart,
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(SpaceM.s5),
                 child: CustomInkButton(
-                  padding: EdgeInsetsDirectional.all(10),
+                  padding: EdgeInsetsDirectional.all(SpaceM.s3),
                   backgroundColor: Colors.black.withValues(alpha: .1),
                   borderRadius: 9999,
                   onTap: _returnToBrowsing,
