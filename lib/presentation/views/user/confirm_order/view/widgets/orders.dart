@@ -43,7 +43,11 @@ class Orders extends StatelessWidget {
                     weight: product?.variantLabel ?? '',
                     title: product?.name(arabic) ?? '',
                     price: Money.amount(line.lineSubtotalHalalas),
-                    count: '${line.quantity}',
+                    // Two pieces read "2", half a kilo reads "0.5".
+                    count: Quantity.format(line.quantity) +
+                        ((product?.unitName ?? '').isEmpty
+                            ? ''
+                            : ' ' + product!.unitName),
                   );
                 },
               ).premiumAppear(),

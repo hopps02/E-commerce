@@ -130,9 +130,12 @@ class _ConfirmOrderViewState extends ConsumerState<ConfirmOrderView> {
               maxWidth: 450,
               heightFactor: 1,
               child: CartSummaryBottomBar(
-                subtotalHalalas: cart.subtotalHalalas,
+                // Every number here is the one the store quoted, so they
+                // add up to the total the customer is about to pay.
+                subtotalHalalas: checkout.totals.subtotalHalalas,
                 deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
-                discountHalalas: cart.discountHalalas,
+                discountHalalas: checkout.totals.discountHalalas,
+                vatHalalas: checkout.totals.vatHalalas,
                 totalHalalas: checkout.totals.totalHalalas,
                 requoting: checkout.requoting,
                 onConfirm: _placeOrder,

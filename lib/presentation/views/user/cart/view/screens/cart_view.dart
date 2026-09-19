@@ -80,6 +80,7 @@ class _CartViewState extends ConsumerState<CartView> {
                 subtotalHalalas: cart.subtotalHalalas,
                 deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
                 discountHalalas: cart.discountHalalas,
+                vatHalalas: checkout.totals.vatHalalas,
                 totalHalalas: checkout.totals.totalHalalas,
                 requoting: checkout.requoting,
                 onCheckout: () async {

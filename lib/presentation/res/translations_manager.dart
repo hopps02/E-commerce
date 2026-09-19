@@ -151,6 +151,7 @@ enum Translation {
   price_summary,
   total_products,
   shipping_cost,
+  vat,
   discount,
   total_amount,
   seconds,

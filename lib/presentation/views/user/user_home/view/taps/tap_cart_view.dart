@@ -90,6 +90,7 @@ class _TapCartViewState extends ConsumerState<TapCartView>
               subtotalHalalas: cart.subtotalHalalas,
               deliveryFeeHalalas: checkout.totals.deliveryFeeHalalas,
               discountHalalas: cart.discountHalalas,
+              vatHalalas: checkout.totals.vatHalalas,
               totalHalalas: checkout.totals.totalHalalas,
               requoting: checkout.requoting,
               bottomPadding: widget.bottomSafeAreaPadding,

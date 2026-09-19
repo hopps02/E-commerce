@@ -15,6 +15,12 @@ class CartSummaryBottomBar extends StatelessWidget {
   final int deliveryFeeHalalas;
   final int discountHalalas;
 
+  /// What the store adds on top. Zero until the backend has quoted it,
+  /// and hidden then: a row of zero tax is noise, a missing row when the
+  /// total includes tax is a customer doing arithmetic that does not add
+  /// up.
+  final int vatHalalas;
+
   /// Backend-authoritative grand total (totals.total_halalas). Never re-derived
   /// on the client, so the customer always approves the server's number.
   final int totalHalalas;
@@ -39,6 +45,7 @@ class CartSummaryBottomBar extends StatelessWidget {
     required this.subtotalHalalas,
     required this.deliveryFeeHalalas,
     required this.discountHalalas,
+    this.vatHalalas = 0,
     required this.totalHalalas,
     this.requoting = false,
     this.onCheckout,
@@ -64,7 +71,12 @@ class CartSummaryBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(SpaceM.s4, SpaceM.s3, SpaceM.s4, SpaceM.s4.h),
+            padding: EdgeInsets.fromLTRB(
+              SpaceM.s4,
+              SpaceM.s3,
+              SpaceM.s4,
+              SpaceM.s4.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -95,6 +107,14 @@ class CartSummaryBottomBar extends StatelessWidget {
                   title: Translation.discount.tr,
                   halalas: discountHalalas,
                 ),
+                if (vatHalalas > 0) ...[
+                  SpaceM.s2.verticalSpace,
+                  _SummaryRow(
+                    title: Translation.vat.tr,
+                    halalas: vatHalalas,
+                    loading: requoting,
+                  ),
+                ],
 
                 SpaceM.s3.verticalSpace,
 
@@ -160,6 +180,12 @@ class CartSummaryBottomBar extends StatelessWidget {
 class GuestCheckoutBottomBar extends StatelessWidget {
   final int subtotalHalalas;
   final int discountHalalas;
+
+  /// What the store adds on top. Zero until the backend has quoted it,
+  /// and hidden then: a row of zero tax is noise, a missing row when the
+  /// total includes tax is a customer doing arithmetic that does not add
+  /// up.
+  final int vatHalalas;
   final VoidCallback onCheckout;
   final double? bottomPadding;
 
@@ -167,6 +193,7 @@ class GuestCheckoutBottomBar extends StatelessWidget {
     super.key,
     required this.subtotalHalalas,
     required this.discountHalalas,
+    this.vatHalalas = 0,
     required this.onCheckout,
     this.bottomPadding,
   });
@@ -188,7 +215,12 @@ class GuestCheckoutBottomBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(SpaceM.s4, SpaceM.s3, SpaceM.s4, SpaceM.s4.h),
+            padding: EdgeInsets.fromLTRB(
+              SpaceM.s4,
+              SpaceM.s3,
+              SpaceM.s4,
+              SpaceM.s4.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
