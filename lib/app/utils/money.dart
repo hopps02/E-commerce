@@ -20,6 +20,4 @@ class Money {
       ? '${amount(halalas)} $_arSymbol'
       : '$_enSymbol ${amount(halalas)}';
 
-  /// For built widgets that render a riyal double — display only, never math.
-  static double asRiyals(int halalas) => halalas / 100;
 }

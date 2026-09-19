@@ -83,9 +83,9 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
                       fitForGridList: true,
                       title: product.name(arabic),
                       imageUrl: product.imageUrl ?? '',
-                      price: Money.asRiyals(product.effectivePriceHalalas),
+                      price: Money.amount(product.effectivePriceHalalas),
                       oldPrice: product.hasDiscount
-                          ? Money.asRiyals(product.priceHalalas)
+                          ? Money.amount(product.priceHalalas)
                           : null,
                       quantity: cart.quantityOf(product.id),
                       step: product.quantityStep,

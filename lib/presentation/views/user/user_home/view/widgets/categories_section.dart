@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
@@ -113,9 +115,16 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
         _categoryTileImageSize.w +
         _categoryTileLabelGap.h +
         _categoryTileLabelHeight.h;
+    // As tall as the rows there actually are. A store with three
+    // categories used to reserve room for twelve, and the screen carried
+    // the empty rows all the way down.
+    final fullestPage = math.min(widget.categories.length, _categoryItemsPerPage);
+    final rowsPerPage = math.max(
+      1,
+      math.min(_categoryRowsPerPage, (fullestPage / _categoryColumnsPerPage).ceil()),
+    );
     final pageHeight =
-        (tileHeight * _categoryRowsPerPage) +
-        (_categoryRowGap.h * (_categoryRowsPerPage - 1));
+        (tileHeight * rowsPerPage) + (_categoryRowGap.h * (rowsPerPage - 1));
 
     return Column(
       children: [
@@ -144,6 +153,7 @@ class _CategoriesCarouselState extends State<_CategoriesCarousel> {
                   categories: pageCategories,
                   arabic: widget.arabic,
                   tileHeight: tileHeight,
+                  rows: rowsPerPage,
                 ),
               );
             },
@@ -166,17 +176,22 @@ class _CategoryCarouselPage extends StatelessWidget {
   final bool arabic;
   final double tileHeight;
 
+  /// How many rows this carousel is tall — the same on every page, so the
+  /// height does not jump as pages turn.
+  final int rows;
+
   const _CategoryCarouselPage({
     required this.categories,
     required this.arabic,
     required this.tileHeight,
+    required this.rows,
   });
 
   @override
   Widget build(BuildContext context) {
-    final rows = <Widget>[];
-    for (var rowIndex = 0; rowIndex < _categoryRowsPerPage; rowIndex++) {
-      rows.add(
+    final built = <Widget>[];
+    for (var rowIndex = 0; rowIndex < rows; rowIndex++) {
+      built.add(
         Expanded(
           child: _CategoryCarouselRow(
             categories: categories,
@@ -187,12 +202,12 @@ class _CategoryCarouselPage extends StatelessWidget {
         ),
       );
 
-      if (rowIndex < _categoryRowsPerPage - 1) {
-        rows.add(_categoryRowGap.verticalSpace);
+      if (rowIndex < rows - 1) {
+        built.add(_categoryRowGap.verticalSpace);
       }
     }
 
-    return Column(children: rows);
+    return Column(children: built);
   }
 }
 

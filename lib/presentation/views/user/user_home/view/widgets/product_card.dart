@@ -20,8 +20,10 @@ import 'package:store/presentation/res/radius_manager.dart';
 class ProductCard extends StatefulWidget {
   final String title;
   final String imageUrl;
-  final double price;
-  final double? oldPrice;
+  /// Already formatted: "124.00". The card prints money, it does not do
+  /// arithmetic on it.
+  final String price;
+  final String? oldPrice;
   final bool isFavorite;
   final double? quantity;
 
@@ -206,7 +208,7 @@ class _ProductCardState extends State<ProductCard> {
                         children: [
                           FlexText(
                             child: Text(
-                              "${widget.price}",
+                              widget.price,
                               style: context.labelMedium.copyWith(
                                 color: ColorM.primary550,
                                 fontWeight: FontWeightM.semiBold,
@@ -219,7 +221,7 @@ class _ProductCardState extends State<ProductCard> {
                             SpaceM.s2.horizontalSpace,
                             FlexText(
                               child: Text(
-                                "${widget.oldPrice}",
+                                widget.oldPrice!,
                                 style: context.labelSmall.copyWith(
                                   color: ColorM.gray500,
                                   decoration: .lineThrough,
