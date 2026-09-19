@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CustomDropDownButton extends StatefulWidget {
   final int itemsCount;
@@ -39,7 +40,7 @@ class _CustomDropDownButtonState<T> extends State<CustomDropDownButton> {
       height: 56,
       decoration: BoxDecoration(
         color: const Color(0xFFF7FCFF),
-        borderRadius: BorderRadius.circular(14.r),
+        borderRadius: BorderRadius.circular(RadiusM.md.r),
         border: Border.all(
           color: Colors.black.withValues(alpha: .03),
           width: 1,
@@ -55,7 +56,7 @@ class _CustomDropDownButtonState<T> extends State<CustomDropDownButton> {
             widget.hintText ?? "Select",
             style: context.labelMedium.copyWith(color: const Color(0xFF4A5E6D)),
           ),
-          borderRadius: BorderRadius.circular(14.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down_rounded, size: 17.w),
           dropdownColor: Colors.white,

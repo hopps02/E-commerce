@@ -7,6 +7,7 @@ import 'package:store/presentation/views/shared/auth/view/widgets/auth_title.dar
 import 'package:store/presentation/views/shared/auth/view/widgets/phone_field.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/sent_otp_button.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class Content extends StatelessWidget {
   final TextEditingController phoneNumberController;
@@ -32,7 +33,7 @@ class Content extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorM.lightPrimary,
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(RadiusM.lg.r),
       ),
       child: Column(
         mainAxisSize: .min,

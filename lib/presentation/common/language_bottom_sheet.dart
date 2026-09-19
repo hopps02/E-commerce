@@ -10,6 +10,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// App language picker bottom sheet, shared across roles (cashier, captain, …).
 class LanguageBottomSheet extends StatefulWidget {
@@ -46,8 +47,8 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(36.r),
-            topRight: Radius.circular(36.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),
@@ -59,7 +60,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
             height: 8,
             decoration: BoxDecoration(
               color: const Color(0xFFEEEEEE),
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(RadiusM.pill.r),
             ),
           ),
           SpaceM.s3.verticalSpace,
@@ -143,7 +144,7 @@ class _LanguageRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(8.r),
+      borderRadius: BorderRadius.circular(RadiusM.xs.r),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: SpaceM.s3.h),
         child: Row(

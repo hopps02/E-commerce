@@ -13,6 +13,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProductDetailsAppBar extends StatelessWidget {
   const ProductDetailsAppBar({super.key});
@@ -48,7 +49,7 @@ class _CartIconButton extends ConsumerWidget {
           height: 38,
           smoothness: 0,
           backgroundColor: ColorM.white,
-          borderRadius: 12.r,
+          borderRadius: RadiusM.sm.r,
           alignment: Alignment.center,
           side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
           child: SvgPicture.asset(
@@ -73,7 +74,7 @@ class _CartIconButton extends ConsumerWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorM.primary500,
-                  borderRadius: BorderRadius.circular(9999),
+                  borderRadius: BorderRadius.circular(RadiusM.pill),
                   border: Border.all(color: ColorM.white, width: 1.5.w),
                 ),
                 child: Text(

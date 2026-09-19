@@ -10,6 +10,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SwitchBranchBottomSheet extends StatelessWidget {
   const SwitchBranchBottomSheet({super.key});
@@ -38,8 +39,8 @@ class SwitchBranchBottomSheet extends StatelessWidget {
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),
@@ -51,7 +52,7 @@ class SwitchBranchBottomSheet extends StatelessWidget {
             height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(RadiusM.pill.r),
             ),
           ),
           SpaceM.s8.verticalSpace,

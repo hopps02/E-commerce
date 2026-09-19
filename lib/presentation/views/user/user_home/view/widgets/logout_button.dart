@@ -10,6 +10,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -33,13 +34,13 @@ class LogoutButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () => _logout(context),
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(RadiusM.lg.r),
           child: Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             decoration: BoxDecoration(
               color: ColorM.red.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(RadiusM.lg.r),
               border: Border.all(
                 color: ColorM.red.withOpacity(0.3),
                 width: 1.5,

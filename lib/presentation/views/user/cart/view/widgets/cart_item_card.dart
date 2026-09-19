@@ -11,6 +11,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CartItemCard extends StatefulWidget {
   final String title;
@@ -111,7 +112,7 @@ class _CartItemCardState extends State<CartItemCard> {
             height: 80,
             decoration: BoxDecoration(
               border: Border.all(color: ColorM.gray200, width: 1.w),
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(RadiusM.sm.r),
             ),
             padding: EdgeInsets.all(SpaceM.s2.w),
             child: CustomCachedImage(
@@ -159,7 +160,7 @@ class _CartItemCardState extends State<CartItemCard> {
                                   color: ColorM.gray200,
                                   width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(8.r),
+                                borderRadius: BorderRadius.circular(RadiusM.xs.r),
                               ),
                               child: Text(
                                 widget.weight,
@@ -217,7 +218,7 @@ class _CartItemCardState extends State<CartItemCard> {
                       decoration: BoxDecoration(
                         color: ColorM.primary50,
                         border: Border.all(color: ColorM.primary50, width: 0.5),
-                        borderRadius: BorderRadius.circular(8.r),
+                        borderRadius: BorderRadius.circular(RadiusM.xs.r),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

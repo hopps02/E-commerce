@@ -8,6 +8,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProfileInfo extends ConsumerWidget {
   const ProfileInfo({super.key});
@@ -75,7 +76,7 @@ class ProfileInfo extends ConsumerWidget {
             padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
             decoration: BoxDecoration(
               color: ColorM.gray50,
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(RadiusM.lg.r),
             ),
             child: Text(
               profile.phone,

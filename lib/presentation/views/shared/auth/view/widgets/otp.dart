@@ -7,6 +7,7 @@ import 'package:store/data/response/auth/auth_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class Otp extends StatelessWidget {
   final Function(String) onOtp;
@@ -28,7 +29,7 @@ class Otp extends StatelessWidget {
         unselectedFieldDecoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(RadiusM.sm.r),
             side: GradientBorderSide(color: ColorM.gray200, width: 1.w),
           ),
           color: ColorM.white,
@@ -36,7 +37,7 @@ class Otp extends StatelessWidget {
         selectedFieldDecoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(RadiusM.sm.r),
             side: GradientBorderSide(
               gradient: LinearGradient(
                 colors: [ColorM.primary, ColorM.greenPrimary],

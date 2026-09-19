@@ -10,6 +10,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 // error message
 enum ErrorMessage {
@@ -68,7 +69,7 @@ class SnackbarHelper {
                       decoration: ShapeDecoration(
                         color: ColorM.white,
                         shape: SmoothRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
+                          borderRadius: BorderRadius.circular(RadiusM.sm.r),
                           smoothness: 1,
                           side: GradientBorderSide(
                             color: ColorM.primary,

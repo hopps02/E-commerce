@@ -10,6 +10,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/views/user/product_details/riverpod/product_details_controller.dart';
 import 'package:store/presentation/views/user/favorites/riverpod/favorites_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProductImageSlider extends ConsumerStatefulWidget {
   final List<String> imageUrls;
@@ -49,7 +50,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                 width: 200,
                 height: 200,
                 fit: BoxFit.contain,
-                borderRadius: BorderRadius.circular(16.r),
+                borderRadius: BorderRadius.circular(RadiusM.md.r),
               );
             },
           ),
@@ -78,7 +79,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                         },
                   width: 32,
                   height: 32,
-                  borderRadius: 99999,
+                  borderRadius: RadiusM.pill,
                   backgroundColor: ColorM.gray100,
                   alignment: Alignment.center,
                   child: SvgPicture.asset(
@@ -113,7 +114,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                     height: 6,
                     decoration: BoxDecoration(
                       color: isActive ? ColorM.gray600 : ColorM.gray300,
-                      borderRadius: BorderRadius.circular(99),
+                      borderRadius: BorderRadius.circular(RadiusM.pill),
                     ),
                   );
                 }),
@@ -135,7 +136,7 @@ class _ProductImageSliderState extends ConsumerState<ProductImageSlider> {
                     height: 6,
                     decoration: BoxDecoration(
                       color: index == 1 ? ColorM.gray600 : ColorM.gray300,
-                      borderRadius: BorderRadius.circular(99),
+                      borderRadius: BorderRadius.circular(RadiusM.pill),
                     ),
                   );
                 }),

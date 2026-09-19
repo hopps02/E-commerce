@@ -17,6 +17,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/addresses/riverpod/address_form_controller.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class AddressFormArgs {
   final DeliveryAddress? existing;
@@ -167,7 +168,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
             color: ColorM.white,
             shape: SmoothRectangleBorder(
               smoothness: 1,
-              borderRadius: BorderRadius.circular(26.r),
+              borderRadius: BorderRadius.circular(RadiusM.lg.r),
             ),
           ),
           child: Column(
@@ -181,7 +182,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                   color: const Color(0xFFFFF3E8),
                   shape: SmoothRectangleBorder(
                     smoothness: 1,
-                    borderRadius: BorderRadius.circular(20.r),
+                    borderRadius: BorderRadius.circular(RadiusM.lg.r),
                   ),
                 ),
                 child: Icon(
@@ -212,7 +213,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                     child: CustomInkButton(
                       onTap: () => Navigator.pop(context, false),
                       height: 50,
-                      borderRadius: 16.r,
+                      borderRadius: RadiusM.md.r,
                       backgroundColor: ColorM.gray100,
                       alignment: Alignment.center,
                       child: Text(
@@ -229,7 +230,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                     child: CustomInkButton(
                       onTap: () => Navigator.pop(context, true),
                       height: 50,
-                      borderRadius: 16.r,
+                      borderRadius: RadiusM.md.r,
                       backgroundColor: ColorM.red,
                       alignment: Alignment.center,
                       child: Text(
@@ -323,7 +324,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
                                     .read(addressFormController.notifier)
                                     .selectLabel(labelValue);
                               },
-                              borderRadius: 12.r,
+                              borderRadius: RadiusM.sm.r,
                               padding: EdgeInsets.symmetric(
                                 horizontal: SpaceM.s4,
                                 vertical: SpaceM.s2,
@@ -446,7 +447,7 @@ class _AddressFormViewState extends ConsumerState<AddressFormView> {
 
                       CustomInkButton(
                         onTap: _save,
-                        borderRadius: 20.r,
+                        borderRadius: RadiusM.lg.r,
                         backgroundColor: canSave
                             ? ColorM.primary500
                             : ColorM.gray300,

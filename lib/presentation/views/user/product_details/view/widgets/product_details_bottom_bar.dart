@@ -13,6 +13,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The product page's sticky bar: the price (with any discount) on one side and,
 /// on the other, an action that MORPHS between "add to cart" and a live quantity
@@ -196,7 +197,7 @@ class _SaveBadge extends StatelessWidget {
         color: ColorM.primary50,
         shape: SmoothRectangleBorder(
           smoothness: 1,
-          borderRadius: BorderRadius.circular(8.r),
+          borderRadius: BorderRadius.circular(RadiusM.xs.r),
         ),
       ),
       child: Text(
@@ -222,7 +223,7 @@ class _AddToCartButton extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       height: 48,
-      borderRadius: 15.r,
+      borderRadius: RadiusM.md.r,
       smoothness: 0.8,
       backgroundColor: ColorM.primary500,
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s5.w),
@@ -271,7 +272,7 @@ class _OutOfStockChip extends StatelessWidget {
         color: ColorM.gray150,
         shape: SmoothRectangleBorder(
           smoothness: 0.8,
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           side: GradientBorderSide(color: ColorM.gray250, width: 1.w),
         ),
       ),
@@ -328,7 +329,7 @@ class _QuantityStepper extends StatelessWidget {
         color: ColorM.gray100,
         shape: SmoothRectangleBorder(
           smoothness: 0.8,
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           side: GradientBorderSide(color: ColorM.gray250, width: 1.w),
         ),
       ),
@@ -358,7 +359,7 @@ class _StepperControl extends StatelessWidget {
       enabled: enabled,
       width: 36,
       height: 36,
-      borderRadius: 11.r,
+      borderRadius: RadiusM.sm.r,
       smoothness: 0.8,
       backgroundColor: enabled ? ColorM.white : ColorM.gray150,
       side: GradientBorderSide(

@@ -9,6 +9,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// Weight/size selector chips — "حجم العبوة" section from Figma.
 ///
@@ -79,7 +80,7 @@ class _WeightChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: onTap,
-      borderRadius: 12.r,
+      borderRadius: RadiusM.sm.r,
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s2.h),
       backgroundColor: ColorM.transparent,
       side: GradientBorderSide(
@@ -104,7 +105,7 @@ class _WeightChip extends StatelessWidget {
                 : Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: ColorM.gray300, width: 1.w),
-                      borderRadius: BorderRadius.circular(99),
+                      borderRadius: BorderRadius.circular(RadiusM.pill),
                     ),
                   ),
           ),

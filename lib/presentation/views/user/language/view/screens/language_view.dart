@@ -13,6 +13,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
@@ -100,7 +101,7 @@ class _LanguageItem extends StatelessWidget {
       },
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s4.h),
       backgroundColor: Colors.transparent,
-      borderRadius: 16.r,
+      borderRadius: RadiusM.md.r,
       side: gradient_border.GradientBorderSide(
         color: isSelected ? ColorM.primary : ColorM.gray200,
         width: 1,

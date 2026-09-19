@@ -23,6 +23,7 @@ import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     as gradient_border;
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OtpBottomSheet extends ConsumerStatefulWidget {
   final String mobileNumber;
@@ -96,8 +97,8 @@ class _OtpBottomSheetState extends ConsumerState<OtpBottomSheet>
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OfferBanner extends StatelessWidget {
   const OfferBanner({super.key});
@@ -20,7 +21,7 @@ class OfferBanner extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(RadiusM.sm.r),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -55,7 +56,7 @@ class OfferBanner extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s1.h),
                   decoration: BoxDecoration(
                     color: const Color(0xFFC7FE7E),
-                    borderRadius: BorderRadius.circular(40.r),
+                    borderRadius: BorderRadius.circular(RadiusM.xl.r),
                   ),
                   child: Text(
                     "عروض الخريف",
@@ -86,7 +87,7 @@ class OfferBanner extends StatelessWidget {
                   width: 110,
                   height: 28,
                   backgroundColor: ColorM.white,
-                  borderRadius: 9999,
+                  borderRadius: RadiusM.pill,
                   alignment: .center,
                   child: Text(
                     Translation.shop_now.tr,

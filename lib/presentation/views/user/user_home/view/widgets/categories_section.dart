@@ -11,6 +11,7 @@ import 'package:store/presentation/views/user/user_home/view/widgets/category_gr
 import 'package:store/presentation/views/user/user_home/view/widgets/section_header.dart';
 import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 const int _categoryRowsPerPage = 3;
 const int _categoryColumnsPerPage = 4;
@@ -263,7 +264,7 @@ class _CategoryCarouselDots extends StatelessWidget {
           height: 6,
           decoration: BoxDecoration(
             color: isActive ? ColorM.primary : ColorM.gray300,
-            borderRadius: BorderRadius.circular(99),
+            borderRadius: BorderRadius.circular(RadiusM.pill),
           ),
         );
       }),

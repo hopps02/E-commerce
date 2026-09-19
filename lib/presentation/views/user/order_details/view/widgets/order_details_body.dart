@@ -19,6 +19,7 @@ import 'package:store/presentation/views/user/order_details/view/widgets/order_r
 import 'package:store/presentation/views/user/order_details/view/widgets/order_status_section.dart';
 import 'package:store/presentation/views/user/order_details/view/widgets/rate_order_button.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OrderDetailsBody extends StatelessWidget {
   final OrderDetailsState state;
@@ -41,8 +42,8 @@ class OrderDetailsBody extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorM.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.r),
-          topRight: Radius.circular(24.r),
+          topLeft: Radius.circular(RadiusM.lg.r),
+          topRight: Radius.circular(RadiusM.lg.r),
         ),
       ),
       child: Column(

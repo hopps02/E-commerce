@@ -7,6 +7,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/support/riverpod/support_controller.dart';
 import 'package:store/presentation/views/shared/support/view/widgets/labeled_field.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SupportForm extends ConsumerWidget {
   const SupportForm({super.key});
@@ -25,7 +26,7 @@ class SupportForm extends ConsumerWidget {
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             height: 52,
-            borderRadius: 17.r,
+            borderRadius: RadiusM.md.r,
             backgroundColor: ColorM.gray100,
             borderColor: ColorM.gray100,
             textAlign: TextAlign.start,
@@ -42,7 +43,7 @@ class SupportForm extends ConsumerWidget {
             keyboardType: TextInputType.multiline,
             height: 120,
             maxLines: 5,
-            borderRadius: 15.r,
+            borderRadius: RadiusM.md.r,
             backgroundColor: ColorM.gray100,
             borderColor: ColorM.gray100,
             alignment: AlignmentDirectional.topStart,

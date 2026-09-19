@@ -15,6 +15,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/logout_bottom_sheet.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The glass action buttons (support / language / log out) shown under the
 /// welcome text on the cashier and captain home headers.
@@ -83,7 +84,7 @@ class _GlassButton extends StatelessWidget {
     return CustomInkButton(
       onTap: onTap,
       height: 33,
-      borderRadius: 14.r,
+      borderRadius: RadiusM.md.r,
       backgroundColor: ColorM.white.withValues(alpha: 0.12),
       glassBlur: 10,
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),

@@ -20,6 +20,7 @@ import 'package:store/presentation/views/user/addresses/view/widgets/address_pic
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/cart/riverpod/checkout_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class HomeTapAppBar extends StatelessWidget {
   const HomeTapAppBar({super.key});
@@ -92,7 +93,7 @@ class TopAppBarContent extends ConsumerWidget {
                           .selectAddress(picked);
                     },
                     padding: EdgeInsets.symmetric(vertical: SpaceM.s2, horizontal: SpaceM.s1),
-                    borderRadius: 8.r,
+                    borderRadius: RadiusM.xs.r,
                     backgroundColor: ColorM.gray100,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -165,7 +166,7 @@ class BottomAppBarContent extends StatelessWidget {
         height: 45,
         padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
         backgroundColor: ColorM.white,
-        borderRadius: 14.r,
+        borderRadius: RadiusM.md.r,
         side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
         child: Row(
           spacing: SpaceM.s2,

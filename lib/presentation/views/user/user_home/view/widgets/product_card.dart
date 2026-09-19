@@ -15,6 +15,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProductCard extends StatefulWidget {
   final String title;
@@ -167,7 +168,7 @@ class _ProductCardState extends State<ProductCard> {
                     width: 32,
                     height: 32,
                     backgroundColor: ColorM.white,
-                    borderRadius: 99999,
+                    borderRadius: RadiusM.pill,
                     child: Center(
                       child: widget.isFavorite
                           ? Assets.svg.fillHeart.svg(
@@ -246,7 +247,7 @@ class _ProductCardState extends State<ProductCard> {
                           padding: EdgeInsets.symmetric(horizontal: SpaceM.s1.w),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF3F0FF),
-                            borderRadius: BorderRadius.circular(5.r),
+                            borderRadius: BorderRadius.circular(RadiusM.xs.r),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -294,7 +295,7 @@ class _ProductCardState extends State<ProductCard> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: ColorM.gray50,
-                            borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(RadiusM.xs.r),
                           ),
                           child: FlexText(
                             child: Text(
@@ -317,7 +318,7 @@ class _ProductCardState extends State<ProductCard> {
                             height: 28,
                             decoration: BoxDecoration(
                               color: const Color(0xFFF3F0FF),
-                              borderRadius: BorderRadius.circular(8.r),
+                              borderRadius: BorderRadius.circular(RadiusM.xs.r),
                             ),
                             child: Center(
                               child: Assets.svg.bagPlus.svg(

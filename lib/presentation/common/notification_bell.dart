@@ -13,6 +13,7 @@ import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/shared/notifications/riverpod/notifications_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class NotificationBell extends ConsumerStatefulWidget {
   final bool dark;
@@ -60,7 +61,7 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
             },
             width: 38,
             height: 38,
-            borderRadius: 12.r,
+            borderRadius: RadiusM.sm.r,
             backgroundColor: widget.dark
                 ? ColorM.white.withValues(alpha: .14)
                 : ColorM.gray100,
@@ -85,7 +86,7 @@ class _NotificationBellState extends ConsumerState<NotificationBell> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorM.red,
-                  borderRadius: BorderRadius.circular(999.r),
+                  borderRadius: BorderRadius.circular(RadiusM.pill.r),
                   border: Border.all(color: ColorM.white, width: 1.4.w),
                 ),
                 child: Text(

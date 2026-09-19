@@ -6,6 +6,7 @@ import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class Order extends StatelessWidget {
   final String title;
@@ -41,7 +42,7 @@ class Order extends StatelessWidget {
             height: 80,
             decoration: BoxDecoration(
               border: Border.all(color: ColorM.gray150, width: 1.w),
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(RadiusM.sm.r),
             ),
             padding: EdgeInsets.all(SpaceM.s2.w),
             child: CustomCachedImage(imageUrl: image, fit: BoxFit.contain),
@@ -77,7 +78,7 @@ class Order extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(color: ColorM.gray200, width: 1),
-                          borderRadius: BorderRadius.circular(8.r),
+                          borderRadius: BorderRadius.circular(RadiusM.xs.r),
                         ),
                         child: Text(
                           weight,
@@ -123,7 +124,7 @@ class Order extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(RadiusM.sm.r),
       child: row,
     );
   }

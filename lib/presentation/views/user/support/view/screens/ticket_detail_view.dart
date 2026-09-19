@@ -16,6 +16,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/support/riverpod/ticket_detail_controller.dart';
 import 'package:store/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class TicketDetailArgs {
   final int id;
@@ -181,8 +182,8 @@ class _MessageBubble extends StatelessWidget {
               ? ColorM.primary.withValues(alpha: 0.10)
               : ColorM.gray100,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(14.r),
-            topRight: Radius.circular(14.r),
+            topLeft: Radius.circular(RadiusM.md.r),
+            topRight: Radius.circular(RadiusM.md.r),
             bottomLeft: Radius.circular(isOpener ? 14.r : 4.r),
             bottomRight: Radius.circular(isOpener ? 4.r : 14.r),
           ),
@@ -267,7 +268,7 @@ class _ReplyBar extends StatelessWidget {
               hintText: Translation.write_a_reply.tr,
               keyboardType: TextInputType.multiline,
               maxLines: 4,
-              borderRadius: 15.r,
+              borderRadius: RadiusM.md.r,
               backgroundColor: ColorM.gray100,
               borderColor: ColorM.gray100,
               alignment: AlignmentDirectional.topStart,
@@ -282,7 +283,7 @@ class _ReplyBar extends StatelessWidget {
             width: 52,
             height: 52,
             backgroundColor: ColorM.primary,
-            borderRadius: 15.r,
+            borderRadius: RadiusM.md.r,
             alignment: Alignment.center,
             child: Icon(Icons.send_rounded, color: ColorM.white, size: 22.w),
           ),

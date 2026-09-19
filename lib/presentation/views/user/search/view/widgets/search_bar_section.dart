@@ -7,6 +7,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SearchBarSection extends StatelessWidget {
   final TextEditingController controller;
@@ -33,7 +34,7 @@ class SearchBarSection extends StatelessWidget {
             child: SimpleForm(
               height: 38,
               fontSize: 14,
-              borderRadius: 12.r,
+              borderRadius: RadiusM.sm.r,
               smoothness: 0,
               enableActiveBorder: true,
               borderColor: ColorM.gray300,

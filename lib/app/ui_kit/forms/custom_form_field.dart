@@ -14,6 +14,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:nice_text_form/nice_text_form.dart';
 import '../../utils/mixins/after_layout.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SecurityController {
   late Function() _refresher;
@@ -285,7 +286,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
         height: 25,
         dialogWidth: .9 * 1.sw,
         dialogHeight: .8 * 1.sh,
-        borderRadius: BorderRadius.circular(7.r),
+        borderRadius: BorderRadius.circular(RadiusM.xs.r),
         onSelectionChange: (countryCode) {
           setState(() => selectedCountryCode = countryCode.dialCode);
           widget.countryCode?.call(countryCode);
@@ -315,7 +316,7 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
         height: 50,
         padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
         boxDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(RadiusM.sm.r),
           color: Colors.black.withOpacity(.03),
         ),
         hintText: "search",

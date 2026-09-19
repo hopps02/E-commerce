@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 enum LoadingType { spinner, dots, pulse, custom, widget }
 
@@ -449,7 +450,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),
-                          borderRadius: BorderRadius.circular(8.r),
+                          borderRadius: BorderRadius.circular(RadiusM.xs.r),
                         ),
                         child: Text(
                           widget.customMessage!,
@@ -473,7 +474,7 @@ class _EnhancedLoadingOverlayState extends State<EnhancedLoadingOverlay>
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.9),
-                          borderRadius: BorderRadius.circular(8.r),
+                          borderRadius: BorderRadius.circular(RadiusM.xs.r),
                         ),
                         child: Text(
                           Translation.loading.tr,

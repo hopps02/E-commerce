@@ -6,6 +6,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_specs.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The sizes or colours the product comes in. Picking one swaps the price,
 /// what is left on the shelf, and what the cart button adds — nothing else
@@ -82,13 +83,13 @@ class _VariantChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: soldOut ? null : onTap,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(RadiusM.sm),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w, vertical: SpaceM.s2.h),
         decoration: BoxDecoration(
           color: selected ? ColorM.lightPrimary : ColorM.white,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(RadiusM.sm),
           border: Border.all(
             color: selected ? ColorM.primary : ColorM.gray200,
             width: selected ? 1.4 : 1,

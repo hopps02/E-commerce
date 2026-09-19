@@ -11,6 +11,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The ratings + comment the user submitted from [RateOrderBottomSheet].
 class RateOrderResult {
@@ -69,8 +70,8 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),
@@ -85,7 +86,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
               height: 5,
               decoration: BoxDecoration(
                 color: ColorM.slate,
-                borderRadius: BorderRadius.circular(100.r),
+                borderRadius: BorderRadius.circular(RadiusM.pill.r),
               ),
             ),
           ),
@@ -140,7 +141,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
                     textAlign: TextAlign.start,
                     backgroundColor: ColorM.gray100,
                     borderColor: ColorM.gray200,
-                    borderRadius: 12.r,
+                    borderRadius: RadiusM.sm.r,
                     padding: EdgeInsets.all(SpaceM.s3.w),
                     textInputAction: TextInputAction.newline,
                   ),
@@ -191,7 +192,7 @@ class _Header extends StatelessWidget {
         CustomInkButton(
           onTap: onClose,
           backgroundColor: ColorM.offWhite,
-          customBorderRadius: BorderRadius.circular(999999),
+          customBorderRadius: BorderRadius.circular(RadiusM.pill),
           padding: EdgeInsets.all(SpaceM.s3.w),
           alignment: Alignment.center,
           tap: const ButtonAnimationSettings(

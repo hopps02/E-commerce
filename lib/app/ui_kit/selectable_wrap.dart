@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SelectableWrap extends StatefulWidget {
   const SelectableWrap({
@@ -53,7 +54,7 @@ class _SelectableWrapState extends State<SelectableWrap> {
             padding: EdgeInsets.symmetric(vertical: SpaceM.s2, horizontal: SpaceM.s3.w),
             decoration: BoxDecoration(
               color: selected == index ? Colors.purple : Colors.transparent,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(RadiusM.sm.r),
               border: Border.all(
                 color: selected == index
                     ? Colors.purple

@@ -8,6 +8,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OrderDeliveryAddress extends StatelessWidget {
   final String address;
@@ -20,7 +21,7 @@ class OrderDeliveryAddress extends StatelessWidget {
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(RadiusM.sm.r),
           side: GradientBorderSide(color: ColorM.gray200, width: 1.w),
         ),
       ),

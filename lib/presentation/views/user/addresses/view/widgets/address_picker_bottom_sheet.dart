@@ -18,6 +18,7 @@ import 'package:store/presentation/views/user/addresses/riverpod/addresses_contr
 import 'package:store/presentation/views/user/addresses/view/screens/address_form_view.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// Saved-address switcher. Picking one returns it to the caller for a fresh
 /// quote or active home delivery location.
@@ -80,8 +81,8 @@ class _AddressPickerBottomSheetState
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),
@@ -93,7 +94,7 @@ class _AddressPickerBottomSheetState
             height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(RadiusM.pill.r),
             ),
           ),
           SpaceM.s5.verticalSpace,
@@ -134,7 +135,7 @@ class _AddressPickerBottomSheetState
                     onTap: _addNew,
                     height: 50,
                     backgroundColor: ColorM.primary50,
-                    borderRadius: 14.r,
+                    borderRadius: RadiusM.md.r,
                     alignment: Alignment.center,
                     child: Text(
                       Translation.add_address.tr,
@@ -173,7 +174,7 @@ class _AddressEmptyState extends StatelessWidget {
               color: ColorM.primary50,
               shape: SmoothRectangleBorder(
                 smoothness: 1,
-                borderRadius: BorderRadius.circular(18.r),
+                borderRadius: BorderRadius.circular(RadiusM.md.r),
               ),
             ),
             child: SvgPicture.asset(
@@ -206,7 +207,7 @@ class _AddressEmptyState extends StatelessWidget {
             height: 46,
             width: double.infinity,
             backgroundColor: ColorM.primary500,
-            borderRadius: 14.r,
+            borderRadius: RadiusM.md.r,
             alignment: Alignment.center,
             child: Text(
               Translation.add_address.tr,
@@ -238,7 +239,7 @@ class _PickerRow extends StatelessWidget {
         decoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(RadiusM.sm.r),
             side: BorderSide(color: ColorM.gray250, width: 1.w),
           ),
         ),
@@ -286,7 +287,7 @@ class _PickerRow extends StatelessWidget {
                   color: ColorM.primary50,
                   shape: SmoothRectangleBorder(
                     smoothness: 1,
-                    borderRadius: BorderRadius.circular(99.r),
+                    borderRadius: BorderRadius.circular(RadiusM.pill.r),
                   ),
                 ),
                 child: Text(

@@ -11,6 +11,7 @@ import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart'
     as gradient_border;
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class DeleteAccountBottomSheet extends StatelessWidget {
   const DeleteAccountBottomSheet({super.key});
@@ -39,8 +40,8 @@ class DeleteAccountBottomSheet extends StatelessWidget {
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
+            topLeft: Radius.circular(RadiusM.xl.r),
+            topRight: Radius.circular(RadiusM.xl.r),
           ),
         ),
       ),
@@ -53,7 +54,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
             height: 4,
             decoration: BoxDecoration(
               color: ColorM.gray300,
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(RadiusM.pill.r),
             ),
           ),
 
@@ -95,7 +96,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                   onTap: () => Navigator.pop(context, true),
                   backgroundColor: ColorM.red,
                   height: 54,
-                  borderRadius: 16.r,
+                  borderRadius: RadiusM.md.r,
                   alignment: Alignment.center,
                   child: Text(
                     Translation.delete.tr,
@@ -116,7 +117,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                     width: 1,
                   ),
                   height: 54,
-                  borderRadius: 16.r,
+                  borderRadius: RadiusM.md.r,
                   alignment: Alignment.center,
                   child: Text(
                     Translation.back.tr,

@@ -16,6 +16,7 @@ import 'package:store/presentation/views/user/support/riverpod/tickets_controlle
 import 'package:store/presentation/views/user/support/view/screens/ticket_detail_view.dart';
 import 'package:store/presentation/views/user/support/view/widgets/ticket_status_chip.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The customer's support tickets (My Tickets). Replaces the old static FAQ as
 /// the destination of profile "Help & Support".
@@ -107,7 +108,7 @@ class _TicketCard extends StatelessWidget {
         : '${created.day}/${created.month}/${created.year}';
 
     return InkWell(
-      borderRadius: BorderRadius.circular(16.r),
+      borderRadius: BorderRadius.circular(RadiusM.md.r),
       onTap: () => context.pushNamed(
         Routes.ticketDetail,
         arguments: TicketDetailArgs(id: ticket.id, number: ticket.ticketNumber),
@@ -116,7 +117,7 @@ class _TicketCard extends StatelessWidget {
         padding: EdgeInsets.all(SpaceM.s4.w),
         decoration: BoxDecoration(
           color: ColorM.white,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           border: Border.all(color: ColorM.gray150),
         ),
         child: Column(

@@ -10,6 +10,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 enum ErrorType { noInternet, noResults, noNotification, notFound, noEsim, none }
 
@@ -111,7 +112,7 @@ class RetryButton extends StatelessWidget {
     return CustomInkButton(
       onTap: onRetry,
       backgroundColor: ColorM.primary,
-      borderRadius: 10.r,
+      borderRadius: RadiusM.sm.r,
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s12, vertical: SpaceM.s3.w),
       smoothness: 1,
       boxShadow: [

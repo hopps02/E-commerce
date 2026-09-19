@@ -5,6 +5,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// A small pill showing a ticket's status (open / in progress / resolved /
 /// closed), colour-coded.
@@ -33,7 +34,7 @@ class TicketStatusChip extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: SpaceM.s3, vertical: SpaceM.s1.h),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(RadiusM.lg.r),
       ),
       child: Text(
         label.tr,

@@ -7,6 +7,7 @@ import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
@@ -54,7 +55,7 @@ class DefaultAppBar extends StatelessWidget {
       height: 38,
       smoothness: 0,
       backgroundColor: backgroundColor,
-      borderRadius: 12.r,
+      borderRadius: RadiusM.sm.r,
       alignment: Alignment.center,
       side: GradientBorderSide(color: ColorM.gray300, width: 1.w),
       child: Icon(

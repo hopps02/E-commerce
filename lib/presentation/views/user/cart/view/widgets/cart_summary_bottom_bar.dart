@@ -8,6 +8,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CartSummaryBottomBar extends StatelessWidget {
   final int subtotalHalalas;
@@ -132,7 +133,7 @@ class CartSummaryBottomBar extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   backgroundColor: ColorM.primary,
-                  borderRadius: 16.r,
+                  borderRadius: RadiusM.md.r,
                   padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                   alignment: Alignment.center,
                   child: Text(
@@ -219,7 +220,7 @@ class GuestCheckoutBottomBar extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   backgroundColor: ColorM.primary,
-                  borderRadius: 16.r,
+                  borderRadius: RadiusM.md.r,
                   padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                   alignment: Alignment.center,
                   child: Text(

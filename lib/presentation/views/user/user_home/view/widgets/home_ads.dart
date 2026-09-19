@@ -12,6 +12,7 @@ import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:store/presentation/views/user/products/view/screens/products_view.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// Opens whatever the panel pointed the ad at. The target arrives resolved, so
 /// there is nothing to look up here.
@@ -68,7 +69,7 @@ class HomeAdBanner extends StatelessWidget {
         onTap: banner.opensSomething
             ? () => openBannerTarget(context, banner, arabic)
             : null,
-        borderRadius: 16.r,
+        borderRadius: RadiusM.md.r,
         backgroundColor: ColorM.primary550,
         height: 200,
         width: double.infinity,
@@ -108,7 +109,7 @@ class HomeAdBanner extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s1.h),
                       decoration: BoxDecoration(
                         color: ColorM.white.withValues(alpha: 0.18),
-                        borderRadius: BorderRadius.circular(40.r),
+                        borderRadius: BorderRadius.circular(RadiusM.xl.r),
                       ),
                       child: Text(
                         badge,
@@ -148,7 +149,7 @@ class HomeAdBanner extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
                       decoration: BoxDecoration(
                         color: ColorM.white,
-                        borderRadius: BorderRadius.circular(40.r),
+                        borderRadius: BorderRadius.circular(RadiusM.xl.r),
                       ),
                       child: Text(
                         cta,
@@ -197,7 +198,7 @@ class HomeAdTiles extends StatelessWidget {
             width: 109,
             height: 112,
             backgroundColor: ColorM.lightGreen,
-            borderRadius: 12.r,
+            borderRadius: RadiusM.sm.r,
             child: Stack(
               children: [
                 if (image.isNotEmpty)

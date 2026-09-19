@@ -11,6 +11,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/user_home/view/widgets/order_card.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OrderStatusSection extends StatelessWidget {
   final int step;
@@ -71,7 +72,7 @@ class OrderStatusSection extends StatelessWidget {
                 color: isFailed ? const Color(0xFFFFECEC) : ColorM.primary50,
                 shape: SmoothRectangleBorder(
                   smoothness: 1,
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(RadiusM.pill),
                 ),
               ),
               child: Text(
@@ -88,7 +89,7 @@ class OrderStatusSection extends StatelessWidget {
           SpaceM.s4.verticalSpace,
           CustomInkButton(
             onTap: () => WhatsAppService.sendOrder(whatsappUrl),
-            borderRadius: 12.r,
+            borderRadius: RadiusM.sm.r,
             height: 46,
             width: double.infinity,
             backgroundColor: ColorM.greenSecondary,
@@ -149,7 +150,7 @@ class OrderStatusSection extends StatelessWidget {
               color: ColorM.red.withValues(alpha: 0.08),
               shape: SmoothRectangleBorder(
                 smoothness: 1,
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(RadiusM.sm.r),
               ),
             ),
             child: Row(

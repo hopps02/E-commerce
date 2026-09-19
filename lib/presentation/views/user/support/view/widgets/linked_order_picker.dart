@@ -11,6 +11,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The order a customer optionally links to a ticket. id == null means "no order
 /// / general ticket".
@@ -25,7 +26,7 @@ class LinkedOrderPicker {
       backgroundColor: ColorM.white,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(RadiusM.lg.r)),
       ),
       builder: (_) => const _LinkedOrderPickerBody(),
     );
@@ -96,7 +97,7 @@ class _LinkedOrderPickerBodyState extends State<_LinkedOrderPickerBody> {
               height: 4,
               decoration: BoxDecoration(
                 color: ColorM.gray200,
-                borderRadius: BorderRadius.circular(4.r),
+                borderRadius: BorderRadius.circular(RadiusM.xs.r),
               ),
             ),
             SpaceM.s4.verticalSpace,

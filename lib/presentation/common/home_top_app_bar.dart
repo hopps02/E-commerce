@@ -11,6 +11,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// Shared sliver app bar for the cashier and captain home screens.
 ///
@@ -84,8 +85,8 @@ class _TopSection extends StatelessWidget {
         child: ClipRRect(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(24.r),
-            bottomRight: Radius.circular(24.r),
+            bottomLeft: Radius.circular(RadiusM.lg.r),
+            bottomRight: Radius.circular(RadiusM.lg.r),
           ),
           child: Stack(
             children: [
@@ -93,8 +94,8 @@ class _TopSection extends StatelessWidget {
                 smoothness: 1,
                 color: ColorM.primary800,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(24.r),
-                  bottomRight: Radius.circular(24.r),
+                  bottomLeft: Radius.circular(RadiusM.lg.r),
+                  bottomRight: Radius.circular(RadiusM.lg.r),
                 ),
               ),
               Align(
@@ -161,7 +162,7 @@ class _BottomSection extends StatelessWidget {
     final search = SimpleForm(
       height: 44,
       fontSize: 14,
-      borderRadius: 99999,
+      borderRadius: RadiusM.pill,
       removeBorders: false,
       borderColor: ColorM.gray300,
       hintText: Translation.search_hint.tr,

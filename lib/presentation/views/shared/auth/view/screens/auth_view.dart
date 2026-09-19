@@ -14,6 +14,7 @@ import 'package:store/presentation/views/shared/auth/view/widgets/content.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/logo.dart';
 import 'package:store/presentation/views/shared/auth/view/widgets/otp_bottom_sheet.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class AuthView extends ConsumerStatefulWidget {
   const AuthView({super.key});
@@ -101,7 +102,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 child: CustomInkButton(
                   padding: EdgeInsetsDirectional.all(SpaceM.s3),
                   backgroundColor: Colors.black.withValues(alpha: .1),
-                  borderRadius: 9999,
+                  borderRadius: RadiusM.pill,
                   onTap: _returnToBrowsing,
                   child: Icon(
                     Icons.close_rounded,

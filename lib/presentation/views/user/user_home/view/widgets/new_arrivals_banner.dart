@@ -7,6 +7,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class NewArrivalsBanner extends StatelessWidget {
   final VoidCallback? onShopNowTap;
@@ -73,7 +74,7 @@ class NewArrivalsBanner extends StatelessWidget {
                       CustomInkButton(
                         onTap: onShopNowTap,
                         backgroundColor: ColorM.white,
-                        borderRadius: 23.r,
+                        borderRadius: RadiusM.lg.r,
                         // width: 127,
                         height: 36,
                         padding: EdgeInsets.symmetric(horizontal: SpaceM.s6.w),

@@ -20,6 +20,7 @@ import 'package:store/presentation/views/user/addresses/view/widgets/address_car
 import 'package:store/presentation/views/user/addresses/view/widgets/delete_address_bottom_sheet.dart';
 import 'package:store/app/extensions/widget_extensions.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class AddressesView extends ConsumerStatefulWidget {
   const AddressesView({super.key});
@@ -130,7 +131,7 @@ class _AddressesViewState extends ConsumerState<AddressesView> {
             height: 56,
             width: double.infinity,
             backgroundColor: ColorM.primary,
-            borderRadius: 16.r,
+            borderRadius: RadiusM.md.r,
             alignment: Alignment.center,
             child: Text(
               Translation.add_address.tr,

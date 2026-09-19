@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class SupportContactCard extends StatelessWidget {
   final String title;
@@ -25,7 +26,7 @@ class SupportContactCard extends StatelessWidget {
         padding: EdgeInsets.all(SpaceM.s6.w),
         decoration: BoxDecoration(
           color: ColorM.gray50,
-          borderRadius: BorderRadius.circular(24.r),
+          borderRadius: BorderRadius.circular(RadiusM.lg.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

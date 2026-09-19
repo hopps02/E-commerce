@@ -15,6 +15,7 @@ import 'package:store/app/enums/enums.dart';
 
 import '../../../../../../app/ui_kit/shapes/gradient_border_side.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class Body extends StatelessWidget {
   final SuccessViewType successViewType;
@@ -65,7 +66,7 @@ class Body extends StatelessWidget {
           if (successViewType.isOrder && (whatsappUrl ?? '').isNotEmpty) ...[
             CustomInkButton(
               onTap: () => WhatsAppService.sendOrder(whatsappUrl!),
-              borderRadius: 12.r,
+              borderRadius: RadiusM.sm.r,
               height: 50,
               backgroundColor: ColorM.white,
               alignment: Alignment.center,
@@ -101,7 +102,7 @@ class Body extends StatelessWidget {
                 context.goNamed(role?.homeRoute ?? Routes.auth);
               }
             },
-            borderRadius: 12.r,
+            borderRadius: RadiusM.sm.r,
             height: 50,
             backgroundColor: successViewType.isAuth
                 ? ColorM.primary

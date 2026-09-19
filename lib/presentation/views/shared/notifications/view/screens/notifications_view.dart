@@ -18,6 +18,7 @@ import 'package:store/presentation/views/shared/notifications/riverpod/notificat
 import 'package:store/presentation/views/shared/notifications/view/widgets/notification_tile.dart';
 import 'package:store/presentation/views/shared/notifications/view/widgets/notifications_empty_state.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class NotificationsView extends ConsumerStatefulWidget {
   const NotificationsView({super.key});
@@ -59,7 +60,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                           onTap: notifier.markAllRead,
                           width: 38,
                           height: 38,
-                          borderRadius: 12.r,
+                          borderRadius: RadiusM.sm.r,
                           backgroundColor: ColorM.primary50,
                           child: Icon(
                             Icons.done_all_rounded,

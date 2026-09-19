@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CustomCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -70,8 +71,8 @@ class CustomCachedImage extends StatelessWidget {
     return SmoothClipRRect(
       smoothness: 1,
       borderRadius: isCircle
-          ? BorderRadius.circular(999999)
-          : (borderRadius ?? BorderRadius.circular(5.r)),
+          ? BorderRadius.circular(RadiusM.pill)
+          : (borderRadius ?? BorderRadius.circular(RadiusM.xs.r)),
       side: side,
       child: imageWidget,
     );

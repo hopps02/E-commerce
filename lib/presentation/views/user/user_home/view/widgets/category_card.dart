@@ -4,6 +4,7 @@ import 'package:store/app/extensions/extensions.dart';
 import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
@@ -26,7 +27,7 @@ class CategoryCard extends StatelessWidget {
       width: 109,
       height: 112,
       backgroundColor: ColorM.lightGreen,
-      borderRadius: 12.r,
+      borderRadius: RadiusM.sm.r,
       child: Stack(
         children: [
           Padding(

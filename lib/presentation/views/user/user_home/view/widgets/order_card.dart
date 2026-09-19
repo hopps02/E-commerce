@@ -12,6 +12,7 @@ import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/app/ui_kit/custom_cached_image.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OrderCard extends StatelessWidget {
   final CustomerOrder order;
@@ -35,7 +36,7 @@ class OrderCard extends StatelessWidget {
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           side: BorderSide(color: ColorM.gray250, width: 1.w),
         ),
       ),
@@ -73,7 +74,7 @@ class OrderCard extends StatelessWidget {
               color: ColorM.primary50.withValues(alpha: 0.4),
               shape: SmoothRectangleBorder(
                 smoothness: 1,
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(RadiusM.sm.r),
               ),
             ),
             child: Row(
@@ -116,7 +117,7 @@ class OrderCard extends StatelessWidget {
                             angle: -19 * (3.14159 / 180),
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
+                                borderRadius: BorderRadius.circular(RadiusM.xs.r),
                                 boxShadow: [
                                   BoxShadow(
                                     color: ColorM.gray1000.withValues(
@@ -132,7 +133,7 @@ class OrderCard extends StatelessWidget {
                                 imageUrl: _imageUrl(1),
                                 width: 38,
                                 height: 42,
-                                borderRadius: BorderRadius.circular(6.r),
+                                borderRadius: BorderRadius.circular(RadiusM.xs.r),
                               ),
                             ),
                           ),
@@ -145,7 +146,7 @@ class OrderCard extends StatelessWidget {
                             angle: 15 * (3.14159 / 180),
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
+                                borderRadius: BorderRadius.circular(RadiusM.xs.r),
                                 boxShadow: [
                                   BoxShadow(
                                     color: ColorM.gray1000.withValues(
@@ -161,7 +162,7 @@ class OrderCard extends StatelessWidget {
                                 imageUrl: _imageUrl(2),
                                 width: 38,
                                 height: 42,
-                                borderRadius: BorderRadius.circular(6.r),
+                                borderRadius: BorderRadius.circular(RadiusM.xs.r),
                               ),
                             ),
                           ),
@@ -171,7 +172,7 @@ class OrderCard extends StatelessWidget {
                           imageUrl: _imageUrl(0),
                           width: 38,
                           height: 42,
-                          borderRadius: BorderRadius.circular(6.r),
+                          borderRadius: BorderRadius.circular(RadiusM.xs.r),
                         ),
                       ),
                     ],
@@ -224,7 +225,7 @@ class OrderCard extends StatelessWidget {
             children: [
               CustomInkButton(
                 backgroundColor: ColorM.primary600,
-                borderRadius: 10.r,
+                borderRadius: RadiusM.sm.r,
                 smoothness: 1,
                 padding: EdgeInsets.symmetric(horizontal: SpaceM.s4, vertical: SpaceM.s2.h),
                 onTap: onTapDetails,

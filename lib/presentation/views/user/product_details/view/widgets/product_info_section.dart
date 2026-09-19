@@ -6,6 +6,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProductInfoSection extends StatelessWidget {
   final String name;
@@ -85,7 +86,7 @@ class _AvailabilityBadge extends StatelessWidget {
         color: backgroundColor,
         shape: SmoothRectangleBorder(
           smoothness: 0.8,
-          borderRadius: BorderRadius.circular(99.r),
+          borderRadius: BorderRadius.circular(RadiusM.pill.r),
           side: GradientBorderSide(
             color: accentColor.withValues(alpha: 0.18),
             width: 1,
@@ -101,7 +102,7 @@ class _AvailabilityBadge extends StatelessWidget {
             height: 6,
             decoration: BoxDecoration(
               color: accentColor,
-              borderRadius: BorderRadius.circular(99),
+              borderRadius: BorderRadius.circular(RadiusM.pill),
             ),
           ),
           Text(

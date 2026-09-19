@@ -10,6 +10,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class DeliveryTo extends StatelessWidget {
   final String address;
@@ -25,7 +26,7 @@ class DeliveryTo extends StatelessWidget {
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           smoothness: 1,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(RadiusM.sm.r),
           side: GradientBorderSide(
             color: _isEmpty ? ColorM.primary500 : ColorM.gray250,
             width: 1.w,

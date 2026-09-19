@@ -5,6 +5,7 @@ import 'package:store/app/ui_kit/buttons/custom_ink_button.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final Widget icon;
@@ -28,7 +29,7 @@ class ProfileMenuItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: SpaceM.s4.h),
       decoration: BoxDecoration(
         color: ColorM.white,
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(RadiusM.lg.r),
         boxShadow: [
           BoxShadow(
             color: ColorM.gray200.withOpacity(0.4),
@@ -40,7 +41,7 @@ class ProfileMenuItem extends StatelessWidget {
       ),
       child: CustomInkButton(
         onTap: onTap,
-        borderRadius: 20.r,
+        borderRadius: RadiusM.lg.r,
         backgroundColor: Colors.transparent,
         padding: EdgeInsets.symmetric(vertical: SpaceM.s4, horizontal: SpaceM.s4.w),
         child: Row(

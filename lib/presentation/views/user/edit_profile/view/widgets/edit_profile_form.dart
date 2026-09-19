@@ -10,6 +10,7 @@ import 'package:store/presentation/res/translations_manager.dart';
 import 'package:store/presentation/views/user/edit_profile/view/widgets/profile_phone_field.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/profile_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// The market is Egypt: an account's phone arrives as +20 followed by the
 /// local number, and the field shows it beside the Egyptian flag.
@@ -90,7 +91,7 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           CustomInkButton(
             onTap: _save,
-            borderRadius: 20.r,
+            borderRadius: RadiusM.lg.r,
             backgroundColor: ColorM.primary500,
             padding: EdgeInsets.symmetric(vertical: SpaceM.s4.h),
             child: Center(

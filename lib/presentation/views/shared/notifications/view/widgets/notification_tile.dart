@@ -9,6 +9,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class NotificationTile extends StatelessWidget {
   final MobileNotification notification;
@@ -27,7 +28,7 @@ class NotificationTile extends StatelessWidget {
     final unread = !notification.read;
 
     return InkWell(
-      borderRadius: BorderRadius.circular(14.r),
+      borderRadius: BorderRadius.circular(RadiusM.md.r),
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
@@ -37,7 +38,7 @@ class NotificationTile extends StatelessWidget {
           color: unread
               ? ColorM.primary50.withValues(alpha: .45)
               : ColorM.white,
-          borderRadius: BorderRadius.circular(14.r),
+          borderRadius: BorderRadius.circular(RadiusM.md.r),
           border: Border.all(
             color: unread ? ColorM.primary100 : ColorM.gray150,
             width: 1,
@@ -142,7 +143,7 @@ class _TypeIcon extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: style.color.withValues(alpha: .12),
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(RadiusM.sm.r),
       ),
       child: icon,
     );

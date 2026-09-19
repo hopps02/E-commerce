@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store/app/ui_kit/shapes/gradient_border_side.dart' as s;
 import 'package:store/app/extensions/theme_extensions.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class OtpField extends StatefulWidget {
   final int length;
@@ -34,11 +35,13 @@ class OtpField extends StatefulWidget {
     this.fieldWidth = 40,
     this.fieldHeight = 40,
     this.unselectedFieldDecoration = const BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
+      // A placeholder default; every caller passes its own decoration,
+      borderRadius: BorderRadius.all(Radius.circular(12)),
       color: Colors.black,
     ),
     this.selectedFieldDecoration = const BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
+      // A placeholder default; every caller passes its own decoration,
+      borderRadius: BorderRadius.all(Radius.circular(12)),
       color: Colors.blue,
     ),
     this.onComplete,
@@ -231,7 +234,7 @@ class _OtpFieldState extends State<OtpField> {
         Offset.zero & overlay.size,
       ),
       shape: s.SmoothRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(11.r)),
+        borderRadius: BorderRadius.all(Radius.circular(RadiusM.sm.r)),
         smoothness: 1,
       ),
       items: [

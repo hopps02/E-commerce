@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:store/app/config/brand.dart';
 import 'package:store/data/response/customer/branding_response.dart';
 import 'package:store/presentation/res/color_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 import 'package:store/presentation/res/sizes_manager.dart';
 
 void main() {
@@ -66,6 +67,28 @@ void main() {
 
       Brand.apply(const Branding(logoUrl: 'https://shop.test/logo.png'));
       expect(Brand.logoUrl, 'https://shop.test/logo.png');
+    });
+  });
+
+  group('the corners follow the store', () {
+    test('one slider moves every step of the radius scale', () {
+      Brand.apply(const Branding(radius: 24));
+
+      expect(RadiusM.md, 24);
+      expect(RadiusM.sm, 20);
+      expect(RadiusM.xs, 16);
+      expect(RadiusM.lg, 32);
+      expect(RadiusM.xl, 40);
+      // A pill is a pill whatever the store asks for.
+      expect(RadiusM.pill, 9999);
+    });
+
+    test('square corners stay square all the way down', () {
+      Brand.apply(const Branding(radius: 0));
+
+      expect(RadiusM.md, 0);
+      expect(RadiusM.sm, 0);
+      expect(RadiusM.xs, 0);
     });
   });
 }

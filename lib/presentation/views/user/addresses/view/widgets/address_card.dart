@@ -10,6 +10,7 @@ import 'package:store/presentation/res/gen/assets.gen.dart';
 import 'package:store/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 /// One saved address, in the app's card language (smooth corners, gray250
 /// hairline, primary50 icon plate) with default badge and edit/delete.
@@ -46,7 +47,7 @@ class AddressCard extends StatelessWidget {
         decoration: ShapeDecoration(
           shape: SmoothRectangleBorder(
             smoothness: 1,
-            borderRadius: BorderRadius.circular(15.r),
+            borderRadius: BorderRadius.circular(RadiusM.md.r),
             side: BorderSide(color: ColorM.gray250, width: 1.w),
           ),
         ),
@@ -63,7 +64,7 @@ class AddressCard extends StatelessWidget {
                     color: ColorM.primary50,
                     shape: SmoothRectangleBorder(
                       smoothness: 1,
-                      borderRadius: BorderRadius.circular(11.r),
+                      borderRadius: BorderRadius.circular(RadiusM.sm.r),
                     ),
                   ),
                   child: SvgPicture.asset(
@@ -93,7 +94,7 @@ class AddressCard extends StatelessWidget {
                       color: ColorM.primary50,
                       shape: SmoothRectangleBorder(
                         smoothness: 1,
-                        borderRadius: BorderRadius.circular(99.r),
+                        borderRadius: BorderRadius.circular(RadiusM.pill.r),
                       ),
                     ),
                     child: Text(
@@ -132,7 +133,7 @@ class AddressCard extends StatelessWidget {
                     onTap: onSetDefault,
                     backgroundColor: ColorM.transparent,
                     padding: EdgeInsets.symmetric(horizontal: SpaceM.s2, vertical: SpaceM.s2.h),
-                    borderRadius: 10.r,
+                    borderRadius: RadiusM.sm.r,
                     child: Text(
                       Translation.address_set_default.tr,
                       style: context.labelLarge.copyWith(
@@ -176,7 +177,7 @@ class _ActionIcon extends StatelessWidget {
       width: 32,
       height: 32,
       backgroundColor: ColorM.gray100,
-      borderRadius: 10.r,
+      borderRadius: RadiusM.sm.r,
       alignment: Alignment.center,
       child: SvgPicture.asset(
         asset,

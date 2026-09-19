@@ -11,6 +11,7 @@ import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/cart/riverpod/cart_controller.dart';
 import 'package:store/presentation/views/user/user_home/riverpod/bottom_navigation_controller.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class NavigationItem {
   final String title;
@@ -46,7 +47,7 @@ class _CustomBottomNavigationBarState
     return Padding(
       padding: EdgeInsets.only(bottom: context.bottomSafeAreaPadding + 8),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(9999),
+        borderRadius: BorderRadius.circular(RadiusM.pill),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 13, sigmaY: 13),
           child: RepaintBoundary(
@@ -54,7 +55,7 @@ class _CustomBottomNavigationBarState
               width: 343,
               height: 78,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9999),
+                borderRadius: BorderRadius.circular(RadiusM.pill),
                 border: Border.all(
                   color: ColorM.white.withValues(alpha: 1),
                   width: 1,
@@ -160,7 +161,7 @@ class Button extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: ColorM.primary500,
-                        borderRadius: BorderRadius.circular(9999),
+                        borderRadius: BorderRadius.circular(RadiusM.pill),
                         border: Border.all(color: ColorM.white, width: 1.5),
                       ),
                       child: Text(

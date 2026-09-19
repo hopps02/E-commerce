@@ -17,6 +17,7 @@ import 'package:store/presentation/views/user/support/riverpod/create_ticket_con
 import 'package:store/presentation/views/user/support/riverpod/tickets_controller.dart';
 import 'package:store/presentation/views/user/support/view/widgets/linked_order_picker.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
+import 'package:store/presentation/res/radius_manager.dart';
 
 class CreateTicketView extends ConsumerStatefulWidget {
   const CreateTicketView({super.key});
@@ -104,7 +105,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       height: 52,
-                      borderRadius: 17.r,
+                      borderRadius: RadiusM.md.r,
                       backgroundColor: ColorM.gray100,
                       borderColor: ColorM.gray100,
                       textAlign: TextAlign.start,
@@ -121,7 +122,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                       keyboardType: TextInputType.multiline,
                       height: 140,
                       maxLines: 6,
-                      borderRadius: 15.r,
+                      borderRadius: RadiusM.md.r,
                       backgroundColor: ColorM.gray100,
                       borderColor: ColorM.gray100,
                       alignment: AlignmentDirectional.topStart,
@@ -136,14 +137,14 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                   LabeledField(
                     label: Translation.link_order_optional.tr,
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(17.r),
+                      borderRadius: BorderRadius.circular(RadiusM.md.r),
                       onTap: _pickOrder,
                       child: Container(
                         height: 52,
                         padding: EdgeInsets.symmetric(horizontal: SpaceM.s4.w),
                         decoration: BoxDecoration(
                           color: ColorM.gray100,
-                          borderRadius: BorderRadius.circular(17.r),
+                          borderRadius: BorderRadius.circular(RadiusM.md.r),
                         ),
                         child: Row(
                           children: [
@@ -190,7 +191,7 @@ class _CreateTicketViewState extends ConsumerState<CreateTicketView> {
                 width: double.infinity,
                 height: 56,
                 backgroundColor: ColorM.primary,
-                borderRadius: 16.r,
+                borderRadius: RadiusM.md.r,
                 alignment: Alignment.center,
                 child: Text(
                   Translation.send.tr,
