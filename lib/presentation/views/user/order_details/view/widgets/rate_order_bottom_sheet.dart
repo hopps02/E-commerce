@@ -157,7 +157,7 @@ class _RateOrderBottomSheetState extends State<RateOrderBottomSheet> {
 
   void _onSend() {
     FocusScope.of(context).unfocus();
-    // TODO: forward the result to the controller / API.
+    // The sheet only collects; the screen that opened it sends.
     Navigator.of(context).pop(
       RateOrderResult(
         overall: _overall,

@@ -92,6 +92,14 @@ class Body extends ConsumerWidget {
     );
   }
 
+  /// The whole catalogue, for the ad that is not pointed at anything.
+  void _openAllProducts(BuildContext context) {
+    context.pushNamed(
+      Routes.products,
+      arguments: ProductsViewArgs(title: Translation.best_offers.tr),
+    );
+  }
+
   void _openDetails(BuildContext context, BranchProduct product) {
     context.pushNamed(
       Routes.productDetails,
@@ -127,7 +135,7 @@ class Body extends ConsumerWidget {
             .premiumAppear(index: 0, wantKeepAlive: true),
         SpaceM.section.verticalSpace,
         (catalog.heroes.isEmpty
-                ? const OfferBanner()
+                ? OfferBanner(onShopNowTap: () => _openAllProducts(context))
                 : HomeAdBanner(banner: catalog.heroes.first))
             .premiumAppear(index: 1, wantKeepAlive: true),
         SpaceM.section.verticalSpace,

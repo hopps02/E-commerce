@@ -11,7 +11,11 @@ import 'package:store/presentation/res/spacing_manager.dart';
 import 'package:store/presentation/res/radius_manager.dart';
 
 class OfferBanner extends StatelessWidget {
-  const OfferBanner({super.key});
+  /// Where "shop now" leads. The panel's own ads carry their target;
+  /// this one is the app's fallback, so the screen hands it one.
+  final VoidCallback onShopNowTap;
+
+  const OfferBanner({super.key, required this.onShopNowTap});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,7 @@ class OfferBanner extends StatelessWidget {
                 const Spacer(),
                 // Button
                 CustomInkButton(
-                  onTap: () {},
+                  onTap: onShopNowTap,
                   width: 110,
                   height: 28,
                   backgroundColor: ColorM.white,
