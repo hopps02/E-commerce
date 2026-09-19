@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:store/app/extensions/view_extensions.dart';
 import 'package:store/app/responsive/responsive.dart';
 import 'package:store/data/response/customer/catalog_response.dart';
+import 'package:store/app/extensions/extensions.dart';
 import 'package:store/presentation/common/fast_state_render.dart';
+import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/views/user/product_details/riverpod/product_details_controller.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_details_app_bar.dart';
@@ -14,6 +15,7 @@ import 'package:store/presentation/views/user/product_details/view/widgets/produ
 import 'package:store/presentation/views/user/product_details/view/widgets/product_image_slider.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_info_section.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_specs.dart';
+import 'package:store/presentation/views/user/product_details/view/widgets/similar_products.dart';
 import 'package:store/presentation/views/user/product_details/view/widgets/product_variant_picker.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
 
@@ -43,6 +45,24 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
           .read(productDetailsController.notifier)
           .load(widget.args.productId, initial: widget.args.initial),
     );
+  }
+
+  /// One controller serves every product screen, so the one that pushed a
+  /// product reloads itself when that product is popped — otherwise it
+  /// would come back showing the other one.
+  Future<void> _openProduct(BranchProduct product) async {
+    await context.pushNamed(
+      Routes.productDetails,
+      arguments: ProductDetailsViewArgs(
+        productId: product.id,
+        initial: product,
+      ),
+    );
+    if (!mounted) return;
+
+    await ref
+        .read(productDetailsController.notifier)
+        .load(widget.args.productId, initial: widget.args.initial);
   }
 
   @override
@@ -128,6 +148,14 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                               SpaceM.section.verticalSpace,
                               ProductDescription(
                                 description: product.description(arabic),
+                              ),
+                            ],
+
+                            if (state.similar.isNotEmpty) ...[
+                              SpaceM.section.verticalSpace,
+                              SimilarProducts(
+                                products: state.similar,
+                                onOpen: _openProduct,
                               ),
                             ],
 

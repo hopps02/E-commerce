@@ -126,6 +126,7 @@ enum Translation {
   fresh_100_percent,
   snacks_and_packaged,
   quick_choices,
+  similar_products,
   change_delivery_address,
   home,
 
