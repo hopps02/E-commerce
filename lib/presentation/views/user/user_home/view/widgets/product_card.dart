@@ -10,9 +10,7 @@ import 'package:store/app/ui_kit/flex_text.dart';
 import 'package:store/presentation/res/color_manager.dart';
 import 'package:store/presentation/res/fonts_manager.dart';
 import 'package:store/presentation/res/gen/assets.gen.dart';
-import 'package:store/presentation/res/router/app_router.dart';
 import 'package:store/presentation/res/translations_manager.dart';
-import 'package:store/presentation/views/user/product_details/view/screens/product_details_view.dart';
 import 'package:nice_text_form/common/custom_ink_button.dart';
 import 'package:store/presentation/res/spacing_manager.dart';
 import 'package:store/presentation/res/radius_manager.dart';
@@ -122,14 +120,7 @@ class _ProductCardState extends State<ProductCard> {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return InkWell(
-      onTap:
-          widget.onTap ??
-          () {
-            context.pushNamed(
-              Routes.productDetails,
-              arguments: const ProductDetailsViewArgs(productId: 0),
-            );
-          },
+      onTap: widget.onTap,
       hoverColor: ColorM.transparent,
       splashColor: ColorM.transparent,
       highlightColor: ColorM.transparent,
@@ -154,7 +145,9 @@ class _ProductCardState extends State<ProductCard> {
                 // Product Image
                 Positioned.fill(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SpaceM.s10, vertical: SpaceM.s10),
+                    // Enough to let the photo float, not so much that it
+                    // ends up a stamp in the middle of an empty card.
+                    padding: EdgeInsets.all(SpaceM.s6),
                     child: CustomCachedImage(
                       imageUrl: widget.imageUrl,
                       fit: BoxFit.contain,
