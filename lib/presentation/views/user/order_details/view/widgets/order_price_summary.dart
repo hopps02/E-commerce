@@ -12,15 +12,21 @@ class OrderPriceSummary extends StatelessWidget {
   final int subtotalHalalas;
   final int shippingHalalas;
   final int discountHalalas;
+  final int vatHalalas;
+
+  /// What the order was actually charged. It is not recomputed here:
+  /// the receipt is the store's, and adding the rows up again is how a
+  /// screen ends up disagreeing with it.
+  final int totalHalalas;
 
   const OrderPriceSummary({
     super.key,
     required this.subtotalHalalas,
     required this.shippingHalalas,
     required this.discountHalalas,
+    required this.vatHalalas,
+    required this.totalHalalas,
   });
-
-  int get totalHalalas => (subtotalHalalas + shippingHalalas) - discountHalalas;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +52,12 @@ class OrderPriceSummary extends StatelessWidget {
         ),
         SpaceM.s3.verticalSpace,
         _SummaryRow(title: Translation.discount.tr, halalas: discountHalalas),
+        // Only when the store charged it: a zero row is noise, a missing
+        // one leaves the customer adding up to the wrong total.
+        if (vatHalalas > 0) ...[
+          SpaceM.s2.verticalSpace,
+          _SummaryRow(title: Translation.vat.tr, halalas: vatHalalas),
+        ],
         SpaceM.s6.verticalSpace,
         Container(height: 1, color: ColorM.gray200),
         SpaceM.s6.verticalSpace,

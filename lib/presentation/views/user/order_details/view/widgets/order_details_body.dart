@@ -149,6 +149,8 @@ class OrderDetailsBody extends StatelessWidget {
                       subtotalHalalas: state.totals.subtotalHalalas,
                       shippingHalalas: state.totals.deliveryFeeHalalas,
                       discountHalalas: state.totals.discountHalalas,
+                      vatHalalas: state.totals.vatHalalas,
+                      totalHalalas: state.totals.totalHalalas,
                     ).premiumAppear(index: 6),
                   ],
                 ),
